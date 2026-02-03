@@ -628,13 +628,25 @@
 
 ---
 
-**US-20.2.2: Set Company Underwriting Rules**
-> As an **Administrator**, I want to set company-specific underwriting rules, so that different dealers have customized criteria.
+**US-20.2.2: Assign Underwriting Config Type to Company**
+> As an **Administrator**, I want to assign an underwriting config type to a company, so that their applications are evaluated using the appropriate underwriting criteria.
 
 **Acceptance Criteria:**
-- Given a company needs custom rules
-- When I configure their underwriting settings
-- Then their applications use the custom criteria
+- Given a company is enrolled
+- When I select an underwriting config type from available options
+- Then the config type is saved to the company record
+- And applications from that company use the associated underwriting rules
+
+---
+
+**US-20.2.3: View Available Underwriting Config Types**
+> As an **Administrator**, I want to view the list of available underwriting config types, so that I can select the appropriate one for a company.
+
+**Acceptance Criteria:**
+- Given I am configuring a company's underwriting settings
+- When I view the config type options
+- Then I see a list of available config types (e.g., "buyDownDeeper", "BostonMaxApproval")
+- And each option includes a description of its purpose
 
 ---
 

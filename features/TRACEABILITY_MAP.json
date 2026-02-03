@@ -2389,11 +2389,21 @@
   },
   {
     "usId": "US-20.2.2",
-    "title": "Set Company Underwriting Rules",
+    "title": "Assign Underwriting Config Type to Company",
     "domain": "Configuration & Administration",
     "featureFile": "features/domain-20-configuration-admin/underwriting-configuration.feature",
     "tags": [
       "@US-20-2-2",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-20.2.3",
+    "title": "View Available Underwriting Config Types",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/underwriting-configuration.feature",
+    "tags": [
+      "@US-20-2-3",
       "@domain-20"
     ]
   },
