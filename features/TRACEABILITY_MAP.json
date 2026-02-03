@@ -1,0 +1,2518 @@
+[
+  {
+    "usId": "US-1.1.1",
+    "title": "Invite Dealer to Apply",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-application.feature",
+    "tags": [
+      "@US-1-1-1",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.1.2",
+    "title": "Save Application Progress",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-application.feature",
+    "tags": [
+      "@US-1-1-2",
+      "@domain-01",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-1.1.3",
+    "title": "Submit Merchant Application",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-application.feature",
+    "tags": [
+      "@US-1-1-3",
+      "@domain-01",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-1.2.1",
+    "title": "Generate NDA for Signing",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-agreement-nda.feature",
+    "tags": [
+      "@US-1-2-1",
+      "@domain-01",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-1.2.2",
+    "title": "Sign Merchant Agreement",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-agreement-nda.feature",
+    "tags": [
+      "@US-1-2-2",
+      "@domain-01",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-1.2.3",
+    "title": "Verify Document Signatures",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-agreement-nda.feature",
+    "tags": [
+      "@US-1-2-3",
+      "@domain-01",
+      "@signature",
+      "@document",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-1.3.1",
+    "title": "Complete Merchant Underwriting Review",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-underwriting.feature",
+    "tags": [
+      "@US-1-3-1",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.3.2",
+    "title": "Request Additional Onboarding Documents",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-underwriting.feature",
+    "tags": [
+      "@US-1-3-2",
+      "@domain-01",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-1.3.3",
+    "title": "Upload Onboarding Documents",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/merchant-underwriting.feature",
+    "tags": [
+      "@US-1-3-3",
+      "@domain-01",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-1.4.1",
+    "title": "Enroll Dealer in Premier Program",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-1",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.4.2",
+    "title": "Initiate Momnt Partner Enrollment",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-2",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.4.3",
+    "title": "Set Up Bank Account for Momnt",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-3",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.4.4",
+    "title": "Verify Momnt Micro-Deposits",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-4",
+      "@domain-01",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-1.4.5",
+    "title": "Complete Momnt Training",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-5",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.4.6",
+    "title": "Enroll Dealer in Microf Program",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-6",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.4.7",
+    "title": "Enroll Dealer in Breeze Program",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-7",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.4.8",
+    "title": "Enroll Dealer in Thrive Program",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-8",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.4.9",
+    "title": "Refresh Partner Enrollment Status",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/partner-enrollment.feature",
+    "tags": [
+      "@US-1-4-9",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.5.1",
+    "title": "Complete Merchant Onboarding",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/onboarding-completion.feature",
+    "tags": [
+      "@US-1-5-1",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.5.2",
+    "title": "Decline Merchant Application",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/onboarding-completion.feature",
+    "tags": [
+      "@US-1-5-2",
+      "@domain-01",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-1.5.3",
+    "title": "Resend Onboarding Invitation",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/onboarding-completion.feature",
+    "tags": [
+      "@US-1-5-3",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-1.5.4",
+    "title": "Configure Dealer Reimbursement Rates",
+    "domain": "Dealer/Contractor Onboarding",
+    "featureFile": "features/domain-01-dealer-onboarding/onboarding-completion.feature",
+    "tags": [
+      "@US-1-5-4",
+      "@domain-01"
+    ]
+  },
+  {
+    "usId": "US-2.1.1",
+    "title": "Register Dealer User Account",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/user-registration-authentication.feature",
+    "tags": [
+      "@US-2-1-1",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-2.1.2",
+    "title": "Authenticate via OTP",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/user-registration-authentication.feature",
+    "tags": [
+      "@US-2-1-2",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-2.1.3",
+    "title": "Register Homeowner Account",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/user-registration-authentication.feature",
+    "tags": [
+      "@US-2-1-3",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-2.2.1",
+    "title": "Assign Role to User",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/role-permission-management.feature",
+    "tags": [
+      "@US-2-2-1",
+      "@domain-02",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-2.2.2",
+    "title": "Configure Role Permissions",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/role-permission-management.feature",
+    "tags": [
+      "@US-2-2-2",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-2.2.3",
+    "title": "Manage Partner Access for User",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/role-permission-management.feature",
+    "tags": [
+      "@US-2-2-3",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-2.3.1",
+    "title": "Update User Profile",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/profile-management.feature",
+    "tags": [
+      "@US-2-3-1",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-2.3.2",
+    "title": "Impersonate User for Support",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/profile-management.feature",
+    "tags": [
+      "@US-2-3-2",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-2.3.3",
+    "title": "Deactivate User Account",
+    "domain": "User & Profile Management",
+    "featureFile": "features/domain-02-user-management/profile-management.feature",
+    "tags": [
+      "@US-2-3-3",
+      "@domain-02"
+    ]
+  },
+  {
+    "usId": "US-3.1.1",
+    "title": "Send Prequalification Invitation",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-invitation.feature",
+    "tags": [
+      "@US-3-1-1",
+      "@domain-03"
+    ]
+  },
+  {
+    "usId": "US-3.1.2",
+    "title": "Access Prequalification via Link",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-invitation.feature",
+    "tags": [
+      "@US-3-1-2",
+      "@domain-03"
+    ]
+  },
+  {
+    "usId": "US-3.2.1",
+    "title": "Provide Consent for Credit Check",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-application.feature",
+    "tags": [
+      "@US-3-2-1",
+      "@domain-03",
+      "@credit"
+    ]
+  },
+  {
+    "usId": "US-3.2.2",
+    "title": "Submit Prequalification Information",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-application.feature",
+    "tags": [
+      "@US-3-2-2",
+      "@domain-03"
+    ]
+  },
+  {
+    "usId": "US-3.2.3",
+    "title": "Add Co-Applicant to Prequalification",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-application.feature",
+    "tags": [
+      "@US-3-2-3",
+      "@domain-03"
+    ]
+  },
+  {
+    "usId": "US-3.3.1",
+    "title": "Receive Prequalification Decision",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-decision.feature",
+    "tags": [
+      "@US-3-3-1",
+      "@domain-03"
+    ]
+  },
+  {
+    "usId": "US-3.3.2",
+    "title": "View Available Financing Products",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-decision.feature",
+    "tags": [
+      "@US-3-3-2",
+      "@domain-03"
+    ]
+  },
+  {
+    "usId": "US-3.3.3",
+    "title": "Generate Adverse Action Notice",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-decision.feature",
+    "tags": [
+      "@US-3-3-3",
+      "@domain-03"
+    ]
+  },
+  {
+    "usId": "US-3.3.4",
+    "title": "Convert Prequalification to Application",
+    "domain": "Homeowner Prequalification",
+    "featureFile": "features/domain-03-prequalification/prequalification-decision.feature",
+    "tags": [
+      "@US-3-3-4",
+      "@domain-03",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.1.1",
+    "title": "Create Premier Application",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/application-creation.feature",
+    "tags": [
+      "@US-4-1-1",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.1.2",
+    "title": "Send Application Invitation to Homeowner",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/application-creation.feature",
+    "tags": [
+      "@US-4-1-2",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.1.3",
+    "title": "Submit Application for Underwriting",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/application-creation.feature",
+    "tags": [
+      "@US-4-1-3",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.2.1",
+    "title": "Receive Automatic Approval",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/underwriting-decisions.feature",
+    "tags": [
+      "@US-4-2-1",
+      "@domain-04",
+      "@approval"
+    ]
+  },
+  {
+    "usId": "US-4.2.2",
+    "title": "Receive Approval for Less",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/underwriting-decisions.feature",
+    "tags": [
+      "@US-4-2-2",
+      "@domain-04",
+      "@approval"
+    ]
+  },
+  {
+    "usId": "US-4.2.3",
+    "title": "Route Application for Manual Review",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/underwriting-decisions.feature",
+    "tags": [
+      "@US-4-2-3",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.2.4",
+    "title": "Complete Manual Underwriting Review",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/underwriting-decisions.feature",
+    "tags": [
+      "@US-4-2-4",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.2.5",
+    "title": "Handle Credit Freeze Detection",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/underwriting-decisions.feature",
+    "tags": [
+      "@US-4-2-5",
+      "@domain-04",
+      "@credit"
+    ]
+  },
+  {
+    "usId": "US-4.2.6",
+    "title": "Decline Application",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/underwriting-decisions.feature",
+    "tags": [
+      "@US-4-2-6",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.3.1",
+    "title": "Select Premier Offer",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/offer-selection.feature",
+    "tags": [
+      "@US-4-3-1",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.3.2",
+    "title": "View Partner Financing Offers",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/offer-selection.feature",
+    "tags": [
+      "@US-4-3-2",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.4.1",
+    "title": "Add Work Order Details",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/work-order-quote.feature",
+    "tags": [
+      "@US-4-4-1",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.4.2",
+    "title": "Modify Quote",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/work-order-quote.feature",
+    "tags": [
+      "@US-4-4-2",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.4.3",
+    "title": "Update Tax Rate",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/work-order-quote.feature",
+    "tags": [
+      "@US-4-4-3",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.5.1",
+    "title": "Request Lease Document Signing",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/document-signing.feature",
+    "tags": [
+      "@US-4-5-1",
+      "@domain-04",
+      "@signature",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-4.5.2",
+    "title": "Sign Lease Agreement Electronically",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/document-signing.feature",
+    "tags": [
+      "@US-4-5-2",
+      "@domain-04",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-4.5.3",
+    "title": "Verify Document Signatures",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/document-signing.feature",
+    "tags": [
+      "@US-4-5-3",
+      "@domain-04",
+      "@signature",
+      "@document",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-4.6.1",
+    "title": "Make First Month Payment",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/first-payment.feature",
+    "tags": [
+      "@US-4-6-1",
+      "@domain-04",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-4.6.2",
+    "title": "View Payment Confirmation",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/first-payment.feature",
+    "tags": [
+      "@US-4-6-2",
+      "@domain-04",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-4.7.1",
+    "title": "Initiate Deed Verification",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/verification-requirements.feature",
+    "tags": [
+      "@US-4-7-1",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.7.2",
+    "title": "Update Deed Verification Status",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/verification-requirements.feature",
+    "tags": [
+      "@US-4-7-2",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.7.3",
+    "title": "Initiate Income Verification",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/verification-requirements.feature",
+    "tags": [
+      "@US-4-7-3",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.7.4",
+    "title": "Update Income Verification Status",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/verification-requirements.feature",
+    "tags": [
+      "@US-4-7-4",
+      "@domain-04"
+    ]
+  },
+  {
+    "usId": "US-4.8.1",
+    "title": "Withdraw Application",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/application-management.feature",
+    "tags": [
+      "@US-4-8-1",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.8.2",
+    "title": "Request Application Cancellation",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/application-management.feature",
+    "tags": [
+      "@US-4-8-2",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-4.8.3",
+    "title": "Cancel Application",
+    "domain": "Premier Program Origination",
+    "featureFile": "features/domain-04-premier-origination/application-management.feature",
+    "tags": [
+      "@US-4-8-3",
+      "@domain-04",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-5.1.1",
+    "title": "Initiate Momnt Loan Application",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/momnt-loan-flow.feature",
+    "tags": [
+      "@US-5-1-1",
+      "@domain-05",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-5.1.2",
+    "title": "Approve Momnt Hard Credit Pull",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/momnt-loan-flow.feature",
+    "tags": [
+      "@US-5-1-2",
+      "@domain-05",
+      "@credit"
+    ]
+  },
+  {
+    "usId": "US-5.1.3",
+    "title": "Receive Momnt Loan Decision",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/momnt-loan-flow.feature",
+    "tags": [
+      "@US-5-1-3",
+      "@domain-05"
+    ]
+  },
+  {
+    "usId": "US-5.1.4",
+    "title": "Submit Momnt Final Application",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/momnt-loan-flow.feature",
+    "tags": [
+      "@US-5-1-4",
+      "@domain-05",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-5.1.5",
+    "title": "Accept Momnt Loan Offer",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/momnt-loan-flow.feature",
+    "tags": [
+      "@US-5-1-5",
+      "@domain-05"
+    ]
+  },
+  {
+    "usId": "US-5.1.6",
+    "title": "Cancel Momnt Application",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/momnt-loan-flow.feature",
+    "tags": [
+      "@US-5-1-6",
+      "@domain-05",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-5.2.1",
+    "title": "Initiate Thrive Loan Application",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/thrive-loan-flow.feature",
+    "tags": [
+      "@US-5-2-1",
+      "@domain-05",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-5.2.2",
+    "title": "Submit Thrive Final Application",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/thrive-loan-flow.feature",
+    "tags": [
+      "@US-5-2-2",
+      "@domain-05",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-5.2.3",
+    "title": "Receive Thrive Loan Decision",
+    "domain": "Loan Partner Origination",
+    "featureFile": "features/domain-05-loan-partner-origination/thrive-loan-flow.feature",
+    "tags": [
+      "@US-5-2-3",
+      "@domain-05"
+    ]
+  },
+  {
+    "usId": "US-6.1.1",
+    "title": "Initiate Microf Application",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/microf-lto-flow.feature",
+    "tags": [
+      "@US-6-1-1",
+      "@domain-06",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-6.1.2",
+    "title": "Accept Microf Lease Offer",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/microf-lto-flow.feature",
+    "tags": [
+      "@US-6-1-2",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-6.1.3",
+    "title": "Submit Income Proof for Microf",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/microf-lto-flow.feature",
+    "tags": [
+      "@US-6-1-3",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-6.1.4",
+    "title": "Verify Microf Income Proof Status",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/microf-lto-flow.feature",
+    "tags": [
+      "@US-6-1-4",
+      "@domain-06",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-6.1.5",
+    "title": "Complete Microf Work Order",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/microf-lto-flow.feature",
+    "tags": [
+      "@US-6-1-5",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-6.1.6",
+    "title": "Refresh Microf Application Status",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/microf-lto-flow.feature",
+    "tags": [
+      "@US-6-1-6",
+      "@domain-06",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-6.2.1",
+    "title": "Create Breeze Application",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-1",
+      "@domain-06",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-6.2.2",
+    "title": "Initiate Breeze Checkout",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-2",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-6.2.3",
+    "title": "Calculate Breeze Lease Terms",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-3",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-6.2.4",
+    "title": "Process Breeze Down Payment",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-4",
+      "@domain-06",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-6.2.5",
+    "title": "Sign Breeze Contract",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-5",
+      "@domain-06",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-6.2.6",
+    "title": "Request Breeze Funding",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-6",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-6.2.7",
+    "title": "Cancel Breeze Funding Request",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-7",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-6.2.8",
+    "title": "Cancel Breeze Lease",
+    "domain": "LTO Partner Origination",
+    "featureFile": "features/domain-06-lto-partner-origination/breeze-lto-flow.feature",
+    "tags": [
+      "@US-6-2-8",
+      "@domain-06"
+    ]
+  },
+  {
+    "usId": "US-7.1.1",
+    "title": "Generate Payment Quote",
+    "domain": "Pricing & Quotes",
+    "featureFile": "features/domain-07-pricing-quotes/quote-generation.feature",
+    "tags": [
+      "@US-7-1-1",
+      "@domain-07",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-7.1.2",
+    "title": "Calculate Premier Program Payments",
+    "domain": "Pricing & Quotes",
+    "featureFile": "features/domain-07-pricing-quotes/quote-generation.feature",
+    "tags": [
+      "@US-7-1-2",
+      "@domain-07",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-7.1.3",
+    "title": "Generate Quote with Bundles",
+    "domain": "Pricing & Quotes",
+    "featureFile": "features/domain-07-pricing-quotes/quote-generation.feature",
+    "tags": [
+      "@US-7-1-3",
+      "@domain-07"
+    ]
+  },
+  {
+    "usId": "US-7.2.1",
+    "title": "Configure Pricing Models",
+    "domain": "Pricing & Quotes",
+    "featureFile": "features/domain-07-pricing-quotes/pricing-configuration.feature",
+    "tags": [
+      "@US-7-2-1",
+      "@domain-07"
+    ]
+  },
+  {
+    "usId": "US-7.2.2",
+    "title": "View Pricing Metrics",
+    "domain": "Pricing & Quotes",
+    "featureFile": "features/domain-07-pricing-quotes/pricing-configuration.feature",
+    "tags": [
+      "@US-7-2-2",
+      "@domain-07"
+    ]
+  },
+  {
+    "usId": "US-7.3.1",
+    "title": "Retrieve Tax Rate by Location",
+    "domain": "Pricing & Quotes",
+    "featureFile": "features/domain-07-pricing-quotes/tax-management.feature",
+    "tags": [
+      "@US-7-3-1",
+      "@domain-07"
+    ]
+  },
+  {
+    "usId": "US-7.3.2",
+    "title": "Handle Missing Tax Rate",
+    "domain": "Pricing & Quotes",
+    "featureFile": "features/domain-07-pricing-quotes/tax-management.feature",
+    "tags": [
+      "@US-7-3-2",
+      "@domain-07"
+    ]
+  },
+  {
+    "usId": "US-8.1.1",
+    "title": "Perform Soft Credit Pull",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/credit-bureau-integration.feature",
+    "tags": [
+      "@US-8-1-1",
+      "@domain-08",
+      "@credit"
+    ]
+  },
+  {
+    "usId": "US-8.1.2",
+    "title": "Perform Hard Credit Pull",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/credit-bureau-integration.feature",
+    "tags": [
+      "@US-8-1-2",
+      "@domain-08",
+      "@credit"
+    ]
+  },
+  {
+    "usId": "US-8.1.3",
+    "title": "Store Credit Report",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/credit-bureau-integration.feature",
+    "tags": [
+      "@US-8-1-3",
+      "@domain-08",
+      "@credit",
+      "@report"
+    ]
+  },
+  {
+    "usId": "US-8.1.4",
+    "title": "Detect Credit Freeze",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/credit-bureau-integration.feature",
+    "tags": [
+      "@US-8-1-4",
+      "@domain-08",
+      "@credit"
+    ]
+  },
+  {
+    "usId": "US-8.2.1",
+    "title": "Evaluate Application Against Underwriting Rules",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/automated-underwriting.feature",
+    "tags": [
+      "@US-8-2-1",
+      "@domain-08",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-8.2.2",
+    "title": "Apply Company-Specific Underwriting Rules",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/automated-underwriting.feature",
+    "tags": [
+      "@US-8-2-2",
+      "@domain-08"
+    ]
+  },
+  {
+    "usId": "US-8.2.3",
+    "title": "Calculate Debt-to-Income Ratio",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/automated-underwriting.feature",
+    "tags": [
+      "@US-8-2-3",
+      "@domain-08"
+    ]
+  },
+  {
+    "usId": "US-8.2.4",
+    "title": "Determine Maximum Approval Amount",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/automated-underwriting.feature",
+    "tags": [
+      "@US-8-2-4",
+      "@domain-08",
+      "@approval"
+    ]
+  },
+  {
+    "usId": "US-8.2.5",
+    "title": "Apply Decision Hierarchy",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/automated-underwriting.feature",
+    "tags": [
+      "@US-8-2-5",
+      "@domain-08"
+    ]
+  },
+  {
+    "usId": "US-8.3.1",
+    "title": "Queue Application for Manual Review",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/manual-underwriting.feature",
+    "tags": [
+      "@US-8-3-1",
+      "@domain-08",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-8.3.2",
+    "title": "Review Manual Underwriting Case",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/manual-underwriting.feature",
+    "tags": [
+      "@US-8-3-2",
+      "@domain-08"
+    ]
+  },
+  {
+    "usId": "US-8.3.3",
+    "title": "Record Manual Underwriting Decision",
+    "domain": "Credit & Underwriting",
+    "featureFile": "features/domain-08-credit-underwriting/manual-underwriting.feature",
+    "tags": [
+      "@US-8-3-3",
+      "@domain-08"
+    ]
+  },
+  {
+    "usId": "US-9.1.1",
+    "title": "Request Income Verification",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/income-verification.feature",
+    "tags": [
+      "@US-9-1-1",
+      "@domain-09"
+    ]
+  },
+  {
+    "usId": "US-9.1.2",
+    "title": "Submit Income Documentation",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/income-verification.feature",
+    "tags": [
+      "@US-9-1-2",
+      "@domain-09",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-9.1.3",
+    "title": "Review Income Documentation",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/income-verification.feature",
+    "tags": [
+      "@US-9-1-3",
+      "@domain-09",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-9.1.4",
+    "title": "Update Income Verification Status",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/income-verification.feature",
+    "tags": [
+      "@US-9-1-4",
+      "@domain-09"
+    ]
+  },
+  {
+    "usId": "US-9.2.1",
+    "title": "Request Deed Verification",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/propertydeed-verification.feature",
+    "tags": [
+      "@US-9-2-1",
+      "@domain-09"
+    ]
+  },
+  {
+    "usId": "US-9.2.2",
+    "title": "Verify Property Ownership",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/propertydeed-verification.feature",
+    "tags": [
+      "@US-9-2-2",
+      "@domain-09",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-9.2.3",
+    "title": "Handle Deed Verification Failure",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/propertydeed-verification.feature",
+    "tags": [
+      "@US-9-2-3",
+      "@domain-09"
+    ]
+  },
+  {
+    "usId": "US-9.2.4",
+    "title": "Check Active Property Listings",
+    "domain": "Income & Property Verification",
+    "featureFile": "features/domain-09-verification/propertydeed-verification.feature",
+    "tags": [
+      "@US-9-2-4",
+      "@domain-09"
+    ]
+  },
+  {
+    "usId": "US-10.1.1",
+    "title": "Generate Lease Agreement",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/document-generation.feature",
+    "tags": [
+      "@US-10-1-1",
+      "@domain-10"
+    ]
+  },
+  {
+    "usId": "US-10.1.2",
+    "title": "Generate Merchant Agreement",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/document-generation.feature",
+    "tags": [
+      "@US-10-1-2",
+      "@domain-10"
+    ]
+  },
+  {
+    "usId": "US-10.1.3",
+    "title": "Generate Adverse Action Letter",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/document-generation.feature",
+    "tags": [
+      "@US-10-1-3",
+      "@domain-10"
+    ]
+  },
+  {
+    "usId": "US-10.1.4",
+    "title": "Generate Buyout Letter",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/document-generation.feature",
+    "tags": [
+      "@US-10-1-4",
+      "@domain-10"
+    ]
+  },
+  {
+    "usId": "US-10.2.1",
+    "title": "Send Document for E-Signature",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/electronic-signatures.feature",
+    "tags": [
+      "@US-10-2-1",
+      "@domain-10",
+      "@signature",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-10.2.2",
+    "title": "Sign Document Electronically",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/electronic-signatures.feature",
+    "tags": [
+      "@US-10-2-2",
+      "@domain-10",
+      "@signature",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-10.2.3",
+    "title": "Track Signature Status",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/electronic-signatures.feature",
+    "tags": [
+      "@US-10-2-3",
+      "@domain-10",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-10.2.4",
+    "title": "Verify All Signatures Complete",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/electronic-signatures.feature",
+    "tags": [
+      "@US-10-2-4",
+      "@domain-10",
+      "@signature",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-10.2.5",
+    "title": "Resend Document Signing Request",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/electronic-signatures.feature",
+    "tags": [
+      "@US-10-2-5",
+      "@domain-10",
+      "@signature",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-10.3.1",
+    "title": "Store Signed Documents",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/document-storage-retrieval.feature",
+    "tags": [
+      "@US-10-3-1",
+      "@domain-10",
+      "@signature",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-10.3.2",
+    "title": "Download Document",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/document-storage-retrieval.feature",
+    "tags": [
+      "@US-10-3-2",
+      "@domain-10",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-10.3.3",
+    "title": "Upload Supporting Documents",
+    "domain": "Document Management & E-Signatures",
+    "featureFile": "features/domain-10-document-management/document-storage-retrieval.feature",
+    "tags": [
+      "@US-10-3-3",
+      "@domain-10",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-11.1.1",
+    "title": "Create Billing Account",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-account-setup.feature",
+    "tags": [
+      "@US-11-1-1",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.1.2",
+    "title": "Set Up Payment Method",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-account-setup.feature",
+    "tags": [
+      "@US-11-1-2",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.1.3",
+    "title": "Enable Autopay",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-account-setup.feature",
+    "tags": [
+      "@US-11-1-3",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.1.4",
+    "title": "Disable Autopay",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-account-setup.feature",
+    "tags": [
+      "@US-11-1-4",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.2.1",
+    "title": "Generate Monthly Invoice",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-cycle-management.feature",
+    "tags": [
+      "@US-11-2-1",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.2.2",
+    "title": "View Billing History",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-cycle-management.feature",
+    "tags": [
+      "@US-11-2-2",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.2.3",
+    "title": "Calculate Balance Due",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-cycle-management.feature",
+    "tags": [
+      "@US-11-2-3",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.2.4",
+    "title": "View Current Period Summary",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-cycle-management.feature",
+    "tags": [
+      "@US-11-2-4",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.3.1",
+    "title": "Make One-Time Payment",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-processing.feature",
+    "tags": [
+      "@US-11-3-1",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.3.2",
+    "title": "Process Autopay Payment",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-processing.feature",
+    "tags": [
+      "@US-11-3-2",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.3.3",
+    "title": "Generate Payment Receipt",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-processing.feature",
+    "tags": [
+      "@US-11-3-3",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.3.4",
+    "title": "Process Payment Refund",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-processing.feature",
+    "tags": [
+      "@US-11-3-4",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.3.5",
+    "title": "Handle Payment Failure",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-processing.feature",
+    "tags": [
+      "@US-11-3-5",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.3.6",
+    "title": "Process Payment Reversal",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-processing.feature",
+    "tags": [
+      "@US-11-3-6",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.4.1",
+    "title": "Assess Late Fee",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/fees-delinquency.feature",
+    "tags": [
+      "@US-11-4-1",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.4.2",
+    "title": "Calculate Days Past Due",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/fees-delinquency.feature",
+    "tags": [
+      "@US-11-4-2",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.4.3",
+    "title": "Initiate Dunning Communications",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/fees-delinquency.feature",
+    "tags": [
+      "@US-11-4-3",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.4.4",
+    "title": "Assess Statement Fee",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/fees-delinquency.feature",
+    "tags": [
+      "@US-11-4-4",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.4.5",
+    "title": "Apply Credit to Account",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/fees-delinquency.feature",
+    "tags": [
+      "@US-11-4-5",
+      "@domain-11",
+      "@credit"
+    ]
+  },
+  {
+    "usId": "US-11.5.1",
+    "title": "Schedule Future Payment",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-scheduling.feature",
+    "tags": [
+      "@US-11-5-1",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.5.2",
+    "title": "Cancel Scheduled Payment",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/payment-scheduling.feature",
+    "tags": [
+      "@US-11-5-2",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-11.6.1",
+    "title": "Identify Billing Reconciliation Exceptions",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-reconciliation.feature",
+    "tags": [
+      "@US-11-6-1",
+      "@domain-11"
+    ]
+  },
+  {
+    "usId": "US-11.6.2",
+    "title": "Export Payment Data",
+    "domain": "Billing & Payments",
+    "featureFile": "features/domain-11-billing-payments/billing-reconciliation.feature",
+    "tags": [
+      "@US-11-6-2",
+      "@domain-11",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-12.1.1",
+    "title": "Request Maintenance Service",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/maintenance-requests.feature",
+    "tags": [
+      "@US-12-1-1",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-12.1.2",
+    "title": "Schedule Maintenance Appointment",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/maintenance-requests.feature",
+    "tags": [
+      "@US-12-1-2",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-12.1.3",
+    "title": "Complete Maintenance Service",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/maintenance-requests.feature",
+    "tags": [
+      "@US-12-1-3",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-12.2.1",
+    "title": "Send Scheduled Maintenance Reminder",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/maintenance-reminders.feature",
+    "tags": [
+      "@US-12-2-1",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-12.2.2",
+    "title": "Configure Maintenance Schedule",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/maintenance-reminders.feature",
+    "tags": [
+      "@US-12-2-2",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-12.3.1",
+    "title": "Process Maintenance Invoice",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/maintenance-funding.feature",
+    "tags": [
+      "@US-12-3-1",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-12.3.2",
+    "title": "Track Maintenance Costs",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/maintenance-funding.feature",
+    "tags": [
+      "@US-12-3-2",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-12.4.1",
+    "title": "Enroll in Worry-Free Rewards",
+    "domain": "Maintenance & Servicing",
+    "featureFile": "features/domain-12-maintenance-servicing/worry-free-rewards.feature",
+    "tags": [
+      "@US-12-4-1",
+      "@domain-12"
+    ]
+  },
+  {
+    "usId": "US-13.1.1",
+    "title": "Look Up Equipment by Model",
+    "domain": "Equipment Management",
+    "featureFile": "features/domain-13-equipment-management/equipment-identification.feature",
+    "tags": [
+      "@US-13-1-1",
+      "@domain-13"
+    ]
+  },
+  {
+    "usId": "US-13.1.2",
+    "title": "Identify Equipment via AI",
+    "domain": "Equipment Management",
+    "featureFile": "features/domain-13-equipment-management/equipment-identification.feature",
+    "tags": [
+      "@US-13-1-2",
+      "@domain-13"
+    ]
+  },
+  {
+    "usId": "US-13.1.3",
+    "title": "Capture Equipment Serial Number",
+    "domain": "Equipment Management",
+    "featureFile": "features/domain-13-equipment-management/equipment-identification.feature",
+    "tags": [
+      "@US-13-1-3",
+      "@domain-13"
+    ]
+  },
+  {
+    "usId": "US-13.2.1",
+    "title": "Manage Equipment Catalog",
+    "domain": "Equipment Management",
+    "featureFile": "features/domain-13-equipment-management/equipment-catalog.feature",
+    "tags": [
+      "@US-13-2-1",
+      "@domain-13"
+    ]
+  },
+  {
+    "usId": "US-13.3.1",
+    "title": "Verify Equipment Invoice",
+    "domain": "Equipment Management",
+    "featureFile": "features/domain-13-equipment-management/invoice-verification.feature",
+    "tags": [
+      "@US-13-3-1",
+      "@domain-13",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-14.1.1",
+    "title": "Authorize Installation",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/installation-authorization.feature",
+    "tags": [
+      "@US-14-1-1",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.1.2",
+    "title": "Record Installation Completion",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/installation-authorization.feature",
+    "tags": [
+      "@US-14-1-2",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.2.1",
+    "title": "Submit Funding Paperwork",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/funding-documentation.feature",
+    "tags": [
+      "@US-14-2-1",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.2.2",
+    "title": "Request Additional Paperwork",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/funding-documentation.feature",
+    "tags": [
+      "@US-14-2-2",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.2.3",
+    "title": "Verify Funding Documentation",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/funding-documentation.feature",
+    "tags": [
+      "@US-14-2-3",
+      "@domain-14",
+      "@document",
+      "@validation"
+    ]
+  },
+  {
+    "usId": "US-14.3.1",
+    "title": "Initiate Contractor Payment",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/contractor-payment.feature",
+    "tags": [
+      "@US-14-3-1",
+      "@domain-14",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-14.3.2",
+    "title": "Process Contractor Payment",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/contractor-payment.feature",
+    "tags": [
+      "@US-14-3-2",
+      "@domain-14",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-14.3.3",
+    "title": "View Funding Status",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/contractor-payment.feature",
+    "tags": [
+      "@US-14-3-3",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.4.1",
+    "title": "Request Momnt Funding",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/partner-funding.feature",
+    "tags": [
+      "@US-14-4-1",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.4.2",
+    "title": "Request Momnt Refund",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/partner-funding.feature",
+    "tags": [
+      "@US-14-4-2",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.4.3",
+    "title": "Request Breeze Funding",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/partner-funding.feature",
+    "tags": [
+      "@US-14-4-3",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-14.4.4",
+    "title": "Complete Microf Work Order",
+    "domain": "Installation & Funding",
+    "featureFile": "features/domain-14-installation-funding/partner-funding.feature",
+    "tags": [
+      "@US-14-4-4",
+      "@domain-14"
+    ]
+  },
+  {
+    "usId": "US-15.1.1",
+    "title": "Send Application Status Email",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/email-notifications.feature",
+    "tags": [
+      "@US-15-1-1",
+      "@domain-15",
+      "@email",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-15.1.2",
+    "title": "Send Document Signing Request Email",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/email-notifications.feature",
+    "tags": [
+      "@US-15-1-2",
+      "@domain-15",
+      "@email",
+      "@signature",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-15.1.3",
+    "title": "Send Payment Reminder Email",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/email-notifications.feature",
+    "tags": [
+      "@US-15-1-3",
+      "@domain-15",
+      "@email",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-15.1.4",
+    "title": "Send Welcome Email",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/email-notifications.feature",
+    "tags": [
+      "@US-15-1-4",
+      "@domain-15",
+      "@email"
+    ]
+  },
+  {
+    "usId": "US-15.1.5",
+    "title": "Send Adverse Action Letter",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/email-notifications.feature",
+    "tags": [
+      "@US-15-1-5",
+      "@domain-15"
+    ]
+  },
+  {
+    "usId": "US-15.2.1",
+    "title": "Send OTP via SMS",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/sms-notifications.feature",
+    "tags": [
+      "@US-15-2-1",
+      "@domain-15",
+      "@sms"
+    ]
+  },
+  {
+    "usId": "US-15.2.2",
+    "title": "Send Application Invitation via SMS",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/sms-notifications.feature",
+    "tags": [
+      "@US-15-2-2",
+      "@domain-15",
+      "@sms",
+      "@application"
+    ]
+  },
+  {
+    "usId": "US-15.2.3",
+    "title": "Send Payment Confirmation via SMS",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/sms-notifications.feature",
+    "tags": [
+      "@US-15-2-3",
+      "@domain-15",
+      "@sms",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-15.3.1",
+    "title": "Display In-App Notifications",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/in-portal-notifications.feature",
+    "tags": [
+      "@US-15-3-1",
+      "@domain-15",
+      "@email"
+    ]
+  },
+  {
+    "usId": "US-15.3.2",
+    "title": "Mark Notification as Read",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/in-portal-notifications.feature",
+    "tags": [
+      "@US-15-3-2",
+      "@domain-15",
+      "@email"
+    ]
+  },
+  {
+    "usId": "US-15.4.1",
+    "title": "Receive Real-Time Status Updates",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/real-time-updates.feature",
+    "tags": [
+      "@US-15-4-1",
+      "@domain-15"
+    ]
+  },
+  {
+    "usId": "US-15.5.1",
+    "title": "Configure Notification Preferences",
+    "domain": "Notifications & Communications",
+    "featureFile": "features/domain-15-notifications-communications/notification-preferences.feature",
+    "tags": [
+      "@US-15-5-1",
+      "@domain-15",
+      "@email"
+    ]
+  },
+  {
+    "usId": "US-16.1.1",
+    "title": "Search for Customer Account",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/account-lookup.feature",
+    "tags": [
+      "@US-16-1-1",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-16.1.2",
+    "title": "View Account Summary",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/account-lookup.feature",
+    "tags": [
+      "@US-16-1-2",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-16.2.1",
+    "title": "Create Service Task",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/task-management.feature",
+    "tags": [
+      "@US-16-2-1",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-16.2.2",
+    "title": "Assign Task to Team Member",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/task-management.feature",
+    "tags": [
+      "@US-16-2-2",
+      "@domain-16",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-16.2.3",
+    "title": "Complete Service Task",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/task-management.feature",
+    "tags": [
+      "@US-16-2-3",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-16.3.1",
+    "title": "Add Note to Account",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/notes-comments.feature",
+    "tags": [
+      "@US-16-3-1",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-16.3.2",
+    "title": "View Account Notes",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/notes-comments.feature",
+    "tags": [
+      "@US-16-3-2",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-16.4.1",
+    "title": "Access Account Documents",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/document-access.feature",
+    "tags": [
+      "@US-16-4-1",
+      "@domain-16",
+      "@document"
+    ]
+  },
+  {
+    "usId": "US-16.5.1",
+    "title": "Submit Support Request",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/support-requests.feature",
+    "tags": [
+      "@US-16-5-1",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-16.5.2",
+    "title": "View Support Request Status",
+    "domain": "Customer Service & Support",
+    "featureFile": "features/domain-16-customer-service/support-requests.feature",
+    "tags": [
+      "@US-16-5-2",
+      "@domain-16"
+    ]
+  },
+  {
+    "usId": "US-17.1.1",
+    "title": "Create Promotion",
+    "domain": "Promotions & Incentives",
+    "featureFile": "features/domain-17-promotions-incentives/promotion-management.feature",
+    "tags": [
+      "@US-17-1-1",
+      "@domain-17"
+    ]
+  },
+  {
+    "usId": "US-17.1.2",
+    "title": "Configure Promotion Eligibility",
+    "domain": "Promotions & Incentives",
+    "featureFile": "features/domain-17-promotions-incentives/promotion-management.feature",
+    "tags": [
+      "@US-17-1-2",
+      "@domain-17"
+    ]
+  },
+  {
+    "usId": "US-17.1.3",
+    "title": "Apply Promotion to Account",
+    "domain": "Promotions & Incentives",
+    "featureFile": "features/domain-17-promotions-incentives/promotion-management.feature",
+    "tags": [
+      "@US-17-1-3",
+      "@domain-17"
+    ]
+  },
+  {
+    "usId": "US-17.1.4",
+    "title": "Validate Promotion",
+    "domain": "Promotions & Incentives",
+    "featureFile": "features/domain-17-promotions-incentives/promotion-management.feature",
+    "tags": [
+      "@US-17-1-4",
+      "@domain-17"
+    ]
+  },
+  {
+    "usId": "US-17.1.5",
+    "title": "View Active Promotions",
+    "domain": "Promotions & Incentives",
+    "featureFile": "features/domain-17-promotions-incentives/promotion-management.feature",
+    "tags": [
+      "@US-17-1-5",
+      "@domain-17"
+    ]
+  },
+  {
+    "usId": "US-17.2.1",
+    "title": "Assign Promotion to Company",
+    "domain": "Promotions & Incentives",
+    "featureFile": "features/domain-17-promotions-incentives/company-specific-promotions.feature",
+    "tags": [
+      "@US-17-2-1",
+      "@domain-17",
+      "@signature"
+    ]
+  },
+  {
+    "usId": "US-18.1.1",
+    "title": "Create Training Course",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/course-management.feature",
+    "tags": [
+      "@US-18-1-1",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-18.1.2",
+    "title": "Organize Course into Lessons",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/course-management.feature",
+    "tags": [
+      "@US-18-1-2",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-18.1.3",
+    "title": "Add Resources to Course",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/course-management.feature",
+    "tags": [
+      "@US-18-1-3",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-18.2.1",
+    "title": "Enroll in Training Course",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/training-enrollment.feature",
+    "tags": [
+      "@US-18-2-1",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-18.2.2",
+    "title": "Complete Training Lesson",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/training-enrollment.feature",
+    "tags": [
+      "@US-18-2-2",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-18.2.3",
+    "title": "View Training Progress",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/training-enrollment.feature",
+    "tags": [
+      "@US-18-2-3",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-18.3.1",
+    "title": "Track Dealer Training Completion",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/training-compliance.feature",
+    "tags": [
+      "@US-18-3-1",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-18.3.2",
+    "title": "Require Training for Partner Access",
+    "domain": "Learning Management",
+    "featureFile": "features/domain-18-learning-management/training-compliance.feature",
+    "tags": [
+      "@US-18-3-2",
+      "@domain-18"
+    ]
+  },
+  {
+    "usId": "US-19.1.1",
+    "title": "View Account Status History",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/account-status-management.feature",
+    "tags": [
+      "@US-19-1-1",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.1.2",
+    "title": "Transition Account Status",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/account-status-management.feature",
+    "tags": [
+      "@US-19-1-2",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.2.1",
+    "title": "Request Lease Buyout",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/buyout-process.feature",
+    "tags": [
+      "@US-19-2-1",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.2.2",
+    "title": "Generate Buyout Quote",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/buyout-process.feature",
+    "tags": [
+      "@US-19-2-2",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.2.3",
+    "title": "Process Buyout Payment",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/buyout-process.feature",
+    "tags": [
+      "@US-19-2-3",
+      "@domain-19",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-19.2.4",
+    "title": "Complete Buyout Process",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/buyout-process.feature",
+    "tags": [
+      "@US-19-2-4",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.2.5",
+    "title": "Cancel Buyout Request",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/buyout-process.feature",
+    "tags": [
+      "@US-19-2-5",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.3.1",
+    "title": "Request Account Cancellation",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/account-termination.feature",
+    "tags": [
+      "@US-19-3-1",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.3.2",
+    "title": "Process Account Termination",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/account-termination.feature",
+    "tags": [
+      "@US-19-3-2",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.3.3",
+    "title": "Terminate for Non-Payment",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/account-termination.feature",
+    "tags": [
+      "@US-19-3-3",
+      "@domain-19",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-19.4.1",
+    "title": "Archive Completed Account",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/account-archiving.feature",
+    "tags": [
+      "@US-19-4-1",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-19.4.2",
+    "title": "Retrieve Archived Account",
+    "domain": "Account Lifecycle Management",
+    "featureFile": "features/domain-19-account-lifecycle/account-archiving.feature",
+    "tags": [
+      "@US-19-4-2",
+      "@domain-19"
+    ]
+  },
+  {
+    "usId": "US-20.1.1",
+    "title": "Enable Partner for Company",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/partner-configuration.feature",
+    "tags": [
+      "@US-20-1-1",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-20.1.2",
+    "title": "Disable Partner for Company",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/partner-configuration.feature",
+    "tags": [
+      "@US-20-1-2",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-20.1.3",
+    "title": "Configure Global Partner Access",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/partner-configuration.feature",
+    "tags": [
+      "@US-20-1-3",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-20.2.1",
+    "title": "Configure Underwriting Criteria",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/underwriting-configuration.feature",
+    "tags": [
+      "@US-20-2-1",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-20.2.2",
+    "title": "Set Company Underwriting Rules",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/underwriting-configuration.feature",
+    "tags": [
+      "@US-20-2-2",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-20.3.1",
+    "title": "Configure System Parameters",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/system-configuration.feature",
+    "tags": [
+      "@US-20-3-1",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-20.3.2",
+    "title": "Manage Feature Flags",
+    "domain": "Configuration & Administration",
+    "featureFile": "features/domain-20-configuration-admin/system-configuration.feature",
+    "tags": [
+      "@US-20-3-2",
+      "@domain-20"
+    ]
+  },
+  {
+    "usId": "US-21.1.1",
+    "title": "Generate Application Pipeline Report",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/operational-reports.feature",
+    "tags": [
+      "@US-21-1-1",
+      "@domain-21",
+      "@application",
+      "@report"
+    ]
+  },
+  {
+    "usId": "US-21.1.2",
+    "title": "Generate Funding Report",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/operational-reports.feature",
+    "tags": [
+      "@US-21-1-2",
+      "@domain-21",
+      "@report"
+    ]
+  },
+  {
+    "usId": "US-21.1.3",
+    "title": "Generate Delinquency Report",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/operational-reports.feature",
+    "tags": [
+      "@US-21-1-3",
+      "@domain-21",
+      "@report"
+    ]
+  },
+  {
+    "usId": "US-21.2.1",
+    "title": "Generate Partner Validation Report",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/partner-validation.feature",
+    "tags": [
+      "@US-21-2-1",
+      "@domain-21",
+      "@validation",
+      "@report"
+    ]
+  },
+  {
+    "usId": "US-21.2.2",
+    "title": "Validate Partner Status",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/partner-validation.feature",
+    "tags": [
+      "@US-21-2-2",
+      "@domain-21"
+    ]
+  },
+  {
+    "usId": "US-21.3.1",
+    "title": "Export Account Data to Data Warehouse",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/data-export.feature",
+    "tags": [
+      "@US-21-3-1",
+      "@domain-21"
+    ]
+  },
+  {
+    "usId": "US-21.3.2",
+    "title": "Export Payment Data",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/data-export.feature",
+    "tags": [
+      "@US-21-3-2",
+      "@domain-21",
+      "@payment"
+    ]
+  },
+  {
+    "usId": "US-21.4.1",
+    "title": "View Dealer Performance Dashboard",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/dealer-reporting.feature",
+    "tags": [
+      "@US-21-4-1",
+      "@domain-21"
+    ]
+  },
+  {
+    "usId": "US-21.4.2",
+    "title": "View Application Status Summary",
+    "domain": "Reporting & Analytics",
+    "featureFile": "features/domain-21-reporting-analytics/dealer-reporting.feature",
+    "tags": [
+      "@US-21-4-2",
+      "@domain-21",
+      "@application"
+    ]
+  }
+]
