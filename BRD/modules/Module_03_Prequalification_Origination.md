@@ -1,13 +1,134 @@
-# Comfort Connect POS Platform - BRD Part 2
-## Application Origination User Stories
+# Module 3: Prequalification & Origination
+## Application Lifecycle for All Financing Products
+
+**Version:** 1.0  
+**Date:** February 12, 2026  
+**Stories:** 52
 
 ---
 
-## Domain 4: Application Origination - Premier Program
+## Overview
 
-### 4.1 Application Creation
+Core business module managing the complete application lifecycle from prequalification through offer acceptance. Supports all financing products: Premier Program (in-house), Loan Partners (Momnt, Thrive), and LTO Partners (Microf, Breeze).
 
-**US-4.1.1: Create Premier Application**
+**Key Capabilities:**
+- Prequalification invitations and soft credit checks
+- Multi-product eligibility display
+- Premier Program full application lifecycle
+- Automated and manual underwriting decisions
+- Offer selection and comparison
+- Work order and equipment configuration
+- Partner loan flows (Momnt, Thrive)
+- Partner LTO flows (Microf, Breeze)
+- First payment collection
+
+---
+
+## 3.1 Prequalification Invitation
+
+**US-3.1.1: Send Prequalification Invitation**
+> As a **Dealer**, I want to send a prequalification invitation to a prospective customer, so that they can check their financing eligibility.
+
+**Acceptance Criteria:**
+- Given I have a customer's name, email, and/or phone number
+- When I send a prequalification invitation
+- Then the customer receives a link via email and/or SMS
+- And the invitation is tracked in my pipeline
+
+---
+
+**US-3.1.2: Access Prequalification via Link**
+> As a **Homeowner**, I want to access the prequalification form via the link I received, so that I can check my financing eligibility.
+
+**Acceptance Criteria:**
+- Given I received a prequalification invitation
+- When I click the link
+- Then I am taken to a secure prequalification form
+- And I see the dealer's branding
+
+---
+
+## 3.2 Prequalification Application
+
+**US-3.2.1: Provide Consent for Credit Check**
+> As a **Homeowner**, I want to provide consent for a soft credit check, so that my financing eligibility can be determined without impacting my credit score.
+
+**Acceptance Criteria:**
+- Given I am completing a prequalification
+- When I review and accept the credit check disclosure
+- Then my consent is recorded with a timestamp
+
+---
+
+**US-3.2.2: Submit Prequalification Information**
+> As a **Homeowner**, I want to submit my personal and financial information, so that my financing eligibility can be evaluated.
+
+**Acceptance Criteria:**
+- Given I have consented to a credit check
+- When I provide my information (name, DOB, SSN, address, income)
+- Then my prequalification is submitted for evaluation
+
+---
+
+**US-3.2.3: Add Co-Applicant to Prequalification**
+> As a **Homeowner**, I want to add a co-applicant to my prequalification, so that our combined financial profile can be evaluated.
+
+**Acceptance Criteria:**
+- Given I am completing a prequalification
+- When I choose to add a co-applicant and provide their information
+- Then both applicants' information is submitted together
+
+---
+
+## 3.3 Prequalification Decision
+
+**US-3.3.1: Receive Prequalification Decision**
+> As a **Homeowner**, I want to receive my prequalification decision immediately, so that I know what financing options are available to me.
+
+**Acceptance Criteria:**
+- Given I have submitted my prequalification
+- When the evaluation is complete
+- Then I see my decision (Approved, Declined, or Review Required)
+- And if approved, I see my estimated approval amount
+
+---
+
+**US-3.3.2: View Available Financing Products**
+> As a **Homeowner**, I want to see which financing products I qualify for, so that I can understand my options.
+
+**Acceptance Criteria:**
+- Given I am prequalified
+- When I view my results
+- Then I see all available products (Premier, Loan, LTO) I qualify for
+- And I see the maximum amount available for each
+
+---
+
+**US-3.3.3: Generate Adverse Action Notice**
+> As a **System**, I want to generate and deliver adverse action notices when required, so that declined applicants receive legally required disclosures.
+
+**Acceptance Criteria:**
+- Given an applicant has been declined
+- When the decision is rendered
+- Then an adverse action letter is generated with reasons and rights information
+- And the letter is delivered via email and/or mail
+
+---
+
+**US-3.3.4: Convert Prequalification to Application**
+> As a **Dealer**, I want to convert a prequalified customer to a full application, so that I can proceed with their financing.
+
+**Acceptance Criteria:**
+- Given a customer has been prequalified
+- When I initiate a full application
+- Then the prequalification information auto-populates
+- And I can add equipment and project details
+
+---
+
+## 3.4 Premier Program - Application Creation
+
+**US-3.4.1: Create Premier Application**
 > As a **Dealer**, I want to create a new Premier Program application for a homeowner, so that I can offer them Comfort Connect's all-inclusive home comfort solution.
 
 **Acceptance Criteria:**
@@ -18,7 +139,7 @@
 
 ---
 
-**US-4.1.2: Send Application Invitation to Homeowner**
+**US-3.4.2: Send Application Invitation to Homeowner**
 > As a **Dealer**, I want to send an application invitation to the homeowner, so that they can complete their portion of the application.
 
 **Acceptance Criteria:**
@@ -29,7 +150,7 @@
 
 ---
 
-**US-4.1.3: Submit Application for Underwriting**
+**US-3.4.3: Submit Application for Underwriting**
 > As a **Homeowner**, I want to submit my application, so that Comfort Connect can evaluate my eligibility for the Premier Program.
 
 **Acceptance Criteria:**
@@ -40,9 +161,9 @@
 
 ---
 
-### 4.2 Underwriting Decisions
+## 3.5 Premier Program - Underwriting Decisions
 
-**US-4.2.1: Receive Automatic Approval**
+**US-3.5.1: Receive Automatic Approval**
 > As a **Homeowner**, I want to receive automatic approval when I qualify, so that I can proceed immediately with my home comfort purchase.
 
 **Acceptance Criteria:**
@@ -54,7 +175,7 @@
 
 ---
 
-**US-4.2.2: Receive Approval for Less**
+**US-3.5.2: Receive Approval for Less**
 > As a **Homeowner**, I want to be informed when I am approved for less than requested, so that I can adjust my equipment selection.
 
 **Acceptance Criteria:**
@@ -66,7 +187,7 @@
 
 ---
 
-**US-4.2.3: Route Application for Manual Review**
+**US-3.5.3: Route Application for Manual Review**
 > As a **System**, I want to route applications that don't meet automatic approval criteria to manual review, so that borderline cases get human evaluation.
 
 **Acceptance Criteria:**
@@ -78,7 +199,7 @@
 
 ---
 
-**US-4.2.4: Complete Manual Underwriting Review**
+**US-3.5.4: Complete Manual Underwriting Review**
 > As an **Underwriter**, I want to review applications requiring manual underwriting, so that I can make informed decisions.
 
 **Acceptance Criteria:**
@@ -89,7 +210,7 @@
 
 ---
 
-**US-4.2.5: Handle Credit Freeze Detection**
+**US-3.5.5: Handle Credit Freeze Detection**
 > As a **System**, I want to detect when an applicant has a credit freeze, so that they can be informed to lift it.
 
 **Acceptance Criteria:**
@@ -100,7 +221,7 @@
 
 ---
 
-**US-4.2.6: Decline Application**
+**US-3.5.6: Decline Application**
 > As a **System**, I want to decline applications that don't meet approval criteria, so that applicants receive adverse action notices.
 
 **Acceptance Criteria:**
@@ -111,9 +232,9 @@
 
 ---
 
-### 4.3 Offer Selection
+## 3.6 Premier Program - Offer Selection
 
-**US-4.3.1: Select Premier Offer**
+**US-3.6.1: Select Premier Offer**
 > As a **Homeowner**, I want to select my preferred Premier Program offer, so that I can proceed with enrollment.
 
 **Acceptance Criteria:**
@@ -124,7 +245,7 @@
 
 ---
 
-**US-4.3.2: View Partner Financing Offers**
+**US-3.6.2: View Partner Financing Offers**
 > As a **Homeowner**, I want to view alternative financing offers from partner lenders, so that I can choose the best option.
 
 **Acceptance Criteria:**
@@ -134,9 +255,9 @@
 
 ---
 
-### 4.4 Work Order & Quote
+## 3.7 Premier Program - Work Order & Quote
 
-**US-4.4.1: Add Work Order Details**
+**US-3.7.1: Add Work Order Details**
 > As a **Dealer**, I want to add work order details including equipment and installation information, so that the lease agreement reflects the actual project.
 
 **Acceptance Criteria:**
@@ -147,7 +268,7 @@
 
 ---
 
-**US-4.4.2: Modify Quote**
+**US-3.7.2: Modify Quote**
 > As a **Dealer**, I want to modify the quote if equipment or pricing changes, so that the agreement reflects the actual project.
 
 **Acceptance Criteria:**
@@ -158,7 +279,7 @@
 
 ---
 
-**US-4.4.3: Update Tax Rate**
+**US-3.7.3: Update Tax Rate**
 > As a **System**, I want to apply the correct tax rate based on installation location, so that billing amounts are accurate.
 
 **Acceptance Criteria:**
@@ -168,9 +289,9 @@
 
 ---
 
-### 4.5 Document Signing
+## 3.8 Premier Program - Document Signing
 
-**US-4.5.1: Request Lease Document Signing**
+**US-3.8.1: Request Lease Document Signing**
 > As a **Dealer**, I want to send the lease agreement to the homeowner for signing, so that we can formalize the Premier enrollment.
 
 **Acceptance Criteria:**
@@ -182,7 +303,7 @@
 
 ---
 
-**US-4.5.2: Sign Lease Agreement Electronically**
+**US-3.8.2: Sign Lease Agreement Electronically**
 > As a **Homeowner**, I want to review and sign my lease agreement electronically, so that I can complete enrollment conveniently.
 
 **Acceptance Criteria:**
@@ -193,7 +314,7 @@
 
 ---
 
-**US-4.5.3: Verify Document Signatures**
+**US-3.8.3: Verify Document Signatures**
 > As a **System**, I want to verify that all required signatures have been obtained, so that the enrollment can proceed.
 
 **Acceptance Criteria:**
@@ -203,9 +324,9 @@
 
 ---
 
-### 4.6 First Payment
+## 3.9 Premier Program - First Payment
 
-**US-4.6.1: Make First Month Payment**
+**US-3.9.1: Make First Month Payment**
 > As a **Homeowner**, I want to make my first month's payment, so that my Premier enrollment is activated.
 
 **Acceptance Criteria:**
@@ -217,7 +338,7 @@
 
 ---
 
-**US-4.6.2: View Payment Confirmation**
+**US-3.9.2: View Payment Confirmation**
 > As a **Dealer**, I want to see confirmation that the homeowner's first payment was received, so that I can proceed with installation.
 
 **Acceptance Criteria:**
@@ -227,9 +348,9 @@
 
 ---
 
-### 4.7 Verification Requirements
+## 3.10 Premier Program - Verification Requirements
 
-**US-4.7.1: Initiate Deed Verification**
+**US-3.10.1: Initiate Deed Verification**
 > As a **System**, I want to verify property ownership before installation authorization, so that lease agreements are properly secured.
 
 **Acceptance Criteria:**
@@ -240,7 +361,7 @@
 
 ---
 
-**US-4.7.2: Update Deed Verification Status**
+**US-3.10.2: Update Deed Verification Status**
 > As an **Administrator**, I want to update the deed verification status, so that enrollment can proceed once verified.
 
 **Acceptance Criteria:**
@@ -250,7 +371,7 @@
 
 ---
 
-**US-4.7.3: Initiate Income Verification**
+**US-3.10.3: Initiate Income Verification**
 > As a **System**, I want to verify income when required by underwriting, so that approval decisions are supported.
 
 **Acceptance Criteria:**
@@ -260,7 +381,7 @@
 
 ---
 
-**US-4.7.4: Update Income Verification Status**
+**US-3.10.4: Update Income Verification Status**
 > As an **Administrator**, I want to update income verification status, so that enrollment can proceed once verified.
 
 **Acceptance Criteria:**
@@ -270,9 +391,9 @@
 
 ---
 
-### 4.8 Application Management
+## 3.11 Premier Program - Application Management
 
-**US-4.8.1: Withdraw Application**
+**US-3.11.1: Withdraw Application**
 > As a **Homeowner**, I want to withdraw my application, so that I am not obligated to proceed if I change my mind.
 
 **Acceptance Criteria:**
@@ -283,7 +404,7 @@
 
 ---
 
-**US-4.8.2: Request Application Cancellation**
+**US-3.11.2: Request Application Cancellation**
 > As a **Dealer**, I want to request cancellation of an application, so that I can close out deals that won't proceed.
 
 **Acceptance Criteria:**
@@ -293,7 +414,7 @@
 
 ---
 
-**US-4.8.3: Cancel Application**
+**US-3.11.3: Cancel Application**
 > As an **Administrator**, I want to cancel an application, so that it is properly closed in the system.
 
 **Acceptance Criteria:**
@@ -304,13 +425,9 @@
 
 ---
 
----
+## 3.12 Loan Partners - Momnt Loan Flow
 
-## Domain 5: Application Origination - Loan Partners
-
-### 5.1 Momnt Loan Flow
-
-**US-5.1.1: Initiate Momnt Loan Application**
+**US-3.12.1: Initiate Momnt Loan Application**
 > As a **System**, I want to submit an application to Momnt when the homeowner selects a Momnt loan offer, so that they can obtain consumer financing.
 
 **Acceptance Criteria:**
@@ -321,7 +438,7 @@
 
 ---
 
-**US-5.1.2: Approve Momnt Hard Credit Pull**
+**US-3.12.2: Approve Momnt Hard Credit Pull**
 > As a **Homeowner**, I want to authorize a hard credit pull for my loan application, so that I can receive a final loan decision.
 
 **Acceptance Criteria:**
@@ -332,7 +449,7 @@
 
 ---
 
-**US-5.1.3: Receive Momnt Loan Decision**
+**US-3.12.3: Receive Momnt Loan Decision**
 > As a **Homeowner**, I want to receive my Momnt loan decision, so that I know if I can proceed with financing.
 
 **Acceptance Criteria:**
@@ -342,7 +459,7 @@
 
 ---
 
-**US-5.1.4: Submit Momnt Final Application**
+**US-3.12.4: Submit Momnt Final Application**
 > As a **Homeowner**, I want to complete my Momnt loan application, so that my loan can be processed.
 
 **Acceptance Criteria:**
@@ -352,7 +469,7 @@
 
 ---
 
-**US-5.1.5: Accept Momnt Loan Offer**
+**US-3.12.5: Accept Momnt Loan Offer**
 > As a **Homeowner**, I want to accept my Momnt loan offer, so that I can finalize my financing.
 
 **Acceptance Criteria:**
@@ -363,7 +480,7 @@
 
 ---
 
-**US-5.1.6: Cancel Momnt Application**
+**US-3.12.6: Cancel Momnt Application**
 > As a **Homeowner**, I want to cancel my Momnt application, so that I can pursue other financing options.
 
 **Acceptance Criteria:**
@@ -374,9 +491,9 @@
 
 ---
 
-### 5.2 Thrive Loan Flow
+## 3.13 Loan Partners - Thrive Loan Flow
 
-**US-5.2.1: Initiate Thrive Loan Application**
+**US-3.13.1: Initiate Thrive Loan Application**
 > As a **System**, I want to submit an application to Thrive when selected, so that the homeowner can obtain Thrive financing.
 
 **Acceptance Criteria:**
@@ -386,7 +503,7 @@
 
 ---
 
-**US-5.2.2: Submit Thrive Final Application**
+**US-3.13.2: Submit Thrive Final Application**
 > As a **Homeowner**, I want to complete my Thrive loan application, so that my loan can be processed.
 
 **Acceptance Criteria:**
@@ -396,7 +513,7 @@
 
 ---
 
-**US-5.2.3: Receive Thrive Loan Decision**
+**US-3.13.3: Receive Thrive Loan Decision**
 > As a **Homeowner**, I want to receive my Thrive loan decision, so that I can proceed with installation.
 
 **Acceptance Criteria:**
@@ -406,13 +523,9 @@
 
 ---
 
----
+## 3.14 LTO Partners - Microf LTO Flow
 
-## Domain 6: Application Origination - LTO Partners
-
-### 6.1 Microf LTO Flow
-
-**US-6.1.1: Initiate Microf Application**
+**US-3.14.1: Initiate Microf Application**
 > As a **System**, I want to submit an application to Microf when selected, so that the homeowner can obtain LTO financing.
 
 **Acceptance Criteria:**
@@ -423,7 +536,7 @@
 
 ---
 
-**US-6.1.2: Accept Microf Lease Offer**
+**US-3.14.2: Accept Microf Lease Offer**
 > As a **Homeowner**, I want to accept my Microf lease offer and sign the agreement, so that my LTO is finalized.
 
 **Acceptance Criteria:**
@@ -433,7 +546,7 @@
 
 ---
 
-**US-6.1.3: Submit Income Proof for Microf**
+**US-3.14.3: Submit Income Proof for Microf**
 > As a **Homeowner**, I want to submit income verification documents, so that my Microf application can be approved.
 
 **Acceptance Criteria:**
@@ -443,7 +556,7 @@
 
 ---
 
-**US-6.1.4: Verify Microf Income Proof Status**
+**US-3.14.4: Verify Microf Income Proof Status**
 > As a **System**, I want to check the status of income verification with Microf, so that the application can proceed when verified.
 
 **Acceptance Criteria:**
@@ -453,7 +566,7 @@
 
 ---
 
-**US-6.1.5: Complete Microf Work Order**
+**US-3.14.5: Complete Microf Work Order**
 > As a **Dealer**, I want to notify Microf that installation is complete, so that funding can be requested.
 
 **Acceptance Criteria:**
@@ -464,7 +577,7 @@
 
 ---
 
-**US-6.1.6: Refresh Microf Application Status**
+**US-3.14.6: Refresh Microf Application Status**
 > As a **System**, I want to periodically refresh application status from Microf, so that the platform reflects current state.
 
 **Acceptance Criteria:**
@@ -474,9 +587,9 @@
 
 ---
 
-### 6.2 Breeze LTO Flow
+## 3.15 LTO Partners - Breeze LTO Flow
 
-**US-6.2.1: Create Breeze Application**
+**US-3.15.1: Create Breeze Application**
 > As a **System**, I want to submit an application to Breeze/Okinus when selected, so that the homeowner can obtain Breeze LTO financing.
 
 **Acceptance Criteria:**
@@ -486,7 +599,7 @@
 
 ---
 
-**US-6.2.2: Initiate Breeze Checkout**
+**US-3.15.2: Initiate Breeze Checkout**
 > As a **System**, I want to create a checkout session with Breeze, so that the homeowner can complete their LTO agreement.
 
 **Acceptance Criteria:**
@@ -496,7 +609,7 @@
 
 ---
 
-**US-6.2.3: Calculate Breeze Lease Terms**
+**US-3.15.3: Calculate Breeze Lease Terms**
 > As a **System**, I want to calculate Breeze lease terms, so that accurate payment information is displayed.
 
 **Acceptance Criteria:**
@@ -506,7 +619,7 @@
 
 ---
 
-**US-6.2.4: Process Breeze Down Payment**
+**US-3.15.4: Process Breeze Down Payment**
 > As a **Homeowner**, I want to make my Breeze down payment, so that my LTO can be finalized.
 
 **Acceptance Criteria:**
@@ -517,7 +630,7 @@
 
 ---
 
-**US-6.2.5: Sign Breeze Contract**
+**US-3.15.5: Sign Breeze Contract**
 > As a **Homeowner**, I want to sign my Breeze LTO contract, so that my agreement is finalized.
 
 **Acceptance Criteria:**
@@ -527,7 +640,7 @@
 
 ---
 
-**US-6.2.6: Request Breeze Funding**
+**US-3.15.6: Request Breeze Funding**
 > As a **Dealer**, I want to request funding from Breeze after installation, so that I receive payment.
 
 **Acceptance Criteria:**
@@ -537,7 +650,7 @@
 
 ---
 
-**US-6.2.7: Cancel Breeze Funding Request**
+**US-3.15.7: Cancel Breeze Funding Request**
 > As a **Dealer**, I want to cancel a Breeze funding request, so that I can make corrections if needed.
 
 **Acceptance Criteria:**
@@ -547,7 +660,7 @@
 
 ---
 
-**US-6.2.8: Cancel Breeze Lease**
+**US-3.15.8: Cancel Breeze Lease**
 > As an **Administrator**, I want to cancel a Breeze lease, so that agreements that won't proceed are closed.
 
 **Acceptance Criteria:**
