@@ -362,3 +362,116 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 - Given a partner requires training
 - When a dealer attempts to use the partner
 - Then access is only granted if required training is complete
+
+---
+
+## 2.9 Company Group Management
+
+**US-2.9.1: Create Company Group**
+> As an **Administrator**, I want to create company groups, so that related dealers can be managed together.
+
+**Acceptance Criteria:**
+- Given I need to organize multiple dealer locations
+- When I create a company group with name, type, and contact information
+- Then the company group is created
+- And dealers can be assigned to this group
+
+---
+
+**US-2.9.2: Assign Dealer to Company Group**
+> As an **Administrator**, I want to assign dealers to company groups, so that they share common settings and reporting.
+
+**Acceptance Criteria:**
+- Given a company group exists
+- When I assign a dealer to the group
+- Then the dealer is associated with the group
+- And the dealer inherits group-level configurations
+
+---
+
+**US-2.9.3: Configure Group-Level Settings**
+> As an **Administrator**, I want to configure settings at the group level, so that all dealers in the group share common configurations.
+
+**Acceptance Criteria:**
+- Given a company group has assigned dealers
+- When I configure group-level settings (partner access, pricing, impersonation)
+- Then all dealers in the group receive these settings
+- And individual dealer settings can override group settings
+
+---
+
+**US-2.9.4: View Group-Level Reporting**
+> As an **Administrator**, I want to view reports at the group level, so that I can analyze performance across related dealers.
+
+**Acceptance Criteria:**
+- Given a company group has multiple dealers with activity
+- When I generate a group-level report
+- Then I see aggregated metrics across all group dealers
+- And can drill down to individual dealer performance
+
+---
+
+**US-2.9.5: Remove Dealer from Company Group**
+> As an **Administrator**, I want to remove a dealer from a company group, so that they operate independently.
+
+**Acceptance Criteria:**
+- Given a dealer is assigned to a company group
+- When I remove the dealer from the group
+- Then the dealer is no longer associated with the group
+- And group-level settings no longer apply
+
+---
+
+## 2.10 Merchant Risk Assessment
+
+**US-2.10.1: Generate AI-Based Merchant Assessment**
+> As an **Underwriter**, I want the system to generate an AI assessment of merchant applications, so that I have data-driven insights for approval decisions.
+
+**Acceptance Criteria:**
+- Given a merchant application has been submitted
+- When the AI assessment is generated
+- Then it includes risk score, recommendation, confidence level, and key factors
+- And positive indicators are also identified
+
+---
+
+**US-2.10.2: Validate Merchant via Web Search**
+> As a **System**, I want to validate merchant information via web search, so that submitted business details can be verified.
+
+**Acceptance Criteria:**
+- Given a merchant application is being processed
+- When the system performs web validation
+- Then it searches for business registration, BBB rating, reviews, and licensing
+- And findings are included in the assessment report
+
+---
+
+**US-2.10.3: Review Merchant Assessment Results**
+> As an **Underwriter**, I want to review AI assessment results, so that I can make informed approval decisions.
+
+**Acceptance Criteria:**
+- Given an AI assessment has been generated
+- When I review the assessment
+- Then I see the complete risk analysis
+- And I can accept or override the recommendation
+
+---
+
+**US-2.10.4: Configure Contractor Scoring Criteria**
+> As an **Administrator**, I want to configure scoring criteria, so that assessments reflect current business priorities.
+
+**Acceptance Criteria:**
+- Given I am configuring assessment parameters
+- When I set scoring weights for various factors
+- Then the scoring weights are applied to future assessments
+
+---
+
+**US-2.10.5: View Assessment History**
+> As an **Administrator**, I want to view assessment history for a merchant, so that I can track changes over time.
+
+**Acceptance Criteria:**
+- Given a merchant has had multiple assessments
+- When I view assessment history
+- Then I see all assessments with dates and scores
+- And can compare changes over time

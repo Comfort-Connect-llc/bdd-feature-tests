@@ -2524,5 +2524,327 @@
       "@domain-21",
       "@application"
     ]
+  },
+  {
+    "usId": "US-2.9.1",
+    "title": "Create Company Group",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/company-groups.feature",
+    "tags": ["@US-2-9-1", "@module-02", "@company-group", "@hierarchy"]
+  },
+  {
+    "usId": "US-2.9.2",
+    "title": "Assign Dealer to Company Group",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/company-groups.feature",
+    "tags": ["@US-2-9-2", "@module-02", "@company-group", "@assignment"]
+  },
+  {
+    "usId": "US-2.9.3",
+    "title": "Configure Group-Level Settings",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/company-groups.feature",
+    "tags": ["@US-2-9-3", "@module-02", "@company-group", "@settings"]
+  },
+  {
+    "usId": "US-2.9.4",
+    "title": "View Group-Level Reporting",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/company-groups.feature",
+    "tags": ["@US-2-9-4", "@module-02", "@company-group", "@reporting"]
+  },
+  {
+    "usId": "US-2.9.5",
+    "title": "Remove Dealer from Company Group",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/company-groups.feature",
+    "tags": ["@US-2-9-5", "@module-02", "@company-group", "@removal"]
+  },
+  {
+    "usId": "US-2.10.1",
+    "title": "Generate AI-Based Merchant Assessment",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/merchant-assessment.feature",
+    "tags": ["@US-2-10-1", "@module-02", "@assessment", "@ai"]
+  },
+  {
+    "usId": "US-2.10.2",
+    "title": "Validate Merchant via Web Search",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/merchant-assessment.feature",
+    "tags": ["@US-2-10-2", "@module-02", "@assessment", "@web-search"]
+  },
+  {
+    "usId": "US-2.10.3",
+    "title": "Review Merchant Assessment Results",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/merchant-assessment.feature",
+    "tags": ["@US-2-10-3", "@module-02", "@assessment", "@review"]
+  },
+  {
+    "usId": "US-2.10.4",
+    "title": "Configure Contractor Scoring Criteria",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/merchant-assessment.feature",
+    "tags": ["@US-2-10-4", "@module-02", "@assessment", "@scoring"]
+  },
+  {
+    "usId": "US-2.10.5",
+    "title": "View Assessment History",
+    "domain": "Dealer Management",
+    "featureFile": "features/module-02-dealer-management/merchant-assessment.feature",
+    "tags": ["@US-2-10-5", "@module-02", "@assessment", "@history"]
+  },
+  {
+    "usId": "US-5.7.1",
+    "title": "Configure Dealer Warranty Options",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/warranty-management.feature",
+    "tags": ["@US-5-7-1", "@module-05", "@warranty", "@configuration"]
+  },
+  {
+    "usId": "US-5.7.2",
+    "title": "Define Warranty Equipment Eligibility",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/warranty-management.feature",
+    "tags": ["@US-5-7-2", "@module-05", "@warranty", "@eligibility"]
+  },
+  {
+    "usId": "US-5.7.3",
+    "title": "Apply Warranty to Financing Application",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/warranty-management.feature",
+    "tags": ["@US-5-7-3", "@module-05", "@warranty", "@application"]
+  },
+  {
+    "usId": "US-5.7.4",
+    "title": "Calculate Warranty Impact on Monthly Payment",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/warranty-management.feature",
+    "tags": ["@US-5-7-4", "@module-05", "@warranty", "@pricing"]
+  },
+  {
+    "usId": "US-5.7.5",
+    "title": "View Warranty Coverage Report",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/warranty-management.feature",
+    "tags": ["@US-5-7-5", "@module-05", "@warranty", "@reporting"]
+  },
+  {
+    "usId": "US-5.8.1",
+    "title": "Enable Buy-Down Pricing for Dealer",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/buydown-pricing.feature",
+    "tags": ["@US-5-8-1", "@module-05", "@buydown", "@configuration"]
+  },
+  {
+    "usId": "US-5.8.2",
+    "title": "Calculate Buy-Down Impact on Payment",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/buydown-pricing.feature",
+    "tags": ["@US-5-8-2", "@module-05", "@buydown", "@calculation"]
+  },
+  {
+    "usId": "US-5.8.3",
+    "title": "Apply Buy-Down to Customer Quote",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/buydown-pricing.feature",
+    "tags": ["@US-5-8-3", "@module-05", "@buydown", "@application"]
+  },
+  {
+    "usId": "US-5.8.4",
+    "title": "Access Buy-Down Deeper Rates",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/buydown-pricing.feature",
+    "tags": ["@US-5-8-4", "@module-05", "@buydown", "@deeper"]
+  },
+  {
+    "usId": "US-5.8.5",
+    "title": "View Buy-Down Usage Report",
+    "domain": "Pricing & Equipment",
+    "featureFile": "features/module-05-pricing-equipment/buydown-pricing.feature",
+    "tags": ["@US-5-8-5", "@module-05", "@buydown", "@reporting"]
+  },
+  {
+    "usId": "US-12.8.1",
+    "title": "Configure Partner Rate Sheet",
+    "domain": "Administration",
+    "featureFile": "features/module-12-administration/rate-sheet-configuration.feature",
+    "tags": ["@US-12-8-1", "@module-12", "@rate-sheet", "@configuration"]
+  },
+  {
+    "usId": "US-12.8.2",
+    "title": "Configure Rate Eligibility Rules",
+    "domain": "Administration",
+    "featureFile": "features/module-12-administration/rate-sheet-configuration.feature",
+    "tags": ["@US-12-8-2", "@module-12", "@rate-sheet", "@eligibility"]
+  },
+  {
+    "usId": "US-12.8.3",
+    "title": "Designate Prime vs Non-Prime Rates",
+    "domain": "Administration",
+    "featureFile": "features/module-12-administration/rate-sheet-configuration.feature",
+    "tags": ["@US-12-8-3", "@module-12", "@rate-sheet", "@prime-rates"]
+  },
+  {
+    "usId": "US-12.8.4",
+    "title": "Configure Promotional Rate Terms",
+    "domain": "Administration",
+    "featureFile": "features/module-12-administration/rate-sheet-configuration.feature",
+    "tags": ["@US-12-8-4", "@module-12", "@rate-sheet", "@promotional"]
+  },
+  {
+    "usId": "US-12.8.5",
+    "title": "Activate or Deactivate Rate Sheet",
+    "domain": "Administration",
+    "featureFile": "features/module-12-administration/rate-sheet-configuration.feature",
+    "tags": ["@US-12-8-5", "@module-12", "@rate-sheet", "@activation"]
+  },
+  {
+    "usId": "US-12.8.6",
+    "title": "View Rate Sheet Change History",
+    "domain": "Administration",
+    "featureFile": "features/module-12-administration/rate-sheet-configuration.feature",
+    "tags": ["@US-12-8-6", "@module-12", "@rate-sheet", "@audit"]
+  },
+  {
+    "usId": "US-1.4.1",
+    "title": "Configure Partner Access for User",
+    "domain": "Identity & Access",
+    "featureFile": "features/module-01-identity-access/partner-access-management.feature",
+    "tags": ["@US-1-4-1", "@module-01", "@partner-access", "@configuration"]
+  },
+  {
+    "usId": "US-1.4.2",
+    "title": "Assign Momnt-Specific Role",
+    "domain": "Identity & Access",
+    "featureFile": "features/module-01-identity-access/partner-access-management.feature",
+    "tags": ["@US-1-4-2", "@module-01", "@partner-access", "@momnt-role"]
+  },
+  {
+    "usId": "US-1.4.3",
+    "title": "Enable Prequalification Access",
+    "domain": "Identity & Access",
+    "featureFile": "features/module-01-identity-access/partner-access-management.feature",
+    "tags": ["@US-1-4-3", "@module-01", "@partner-access", "@prequal"]
+  },
+  {
+    "usId": "US-1.4.4",
+    "title": "Enable Modular Pricing Access",
+    "domain": "Identity & Access",
+    "featureFile": "features/module-01-identity-access/partner-access-management.feature",
+    "tags": ["@US-1-4-4", "@module-01", "@partner-access", "@modular"]
+  },
+  {
+    "usId": "US-1.4.5",
+    "title": "Assign Promotional Access",
+    "domain": "Identity & Access",
+    "featureFile": "features/module-01-identity-access/partner-access-management.feature",
+    "tags": ["@US-1-4-5", "@module-01", "@partner-access", "@promo"]
+  },
+  {
+    "usId": "US-4.6.1",
+    "title": "Configure Credit Tiers",
+    "domain": "Underwriting & Verification",
+    "featureFile": "features/module-04-underwriting-verification/credit-tier-configuration.feature",
+    "tags": ["@US-4-6-1", "@module-04", "@credit-tier", "@configuration"]
+  },
+  {
+    "usId": "US-4.6.2",
+    "title": "Assign Pricing by Credit Tier",
+    "domain": "Underwriting & Verification",
+    "featureFile": "features/module-04-underwriting-verification/credit-tier-configuration.feature",
+    "tags": ["@US-4-6-2", "@module-04", "@credit-tier", "@pricing"]
+  },
+  {
+    "usId": "US-4.6.3",
+    "title": "Override Credit Tier Assignment",
+    "domain": "Underwriting & Verification",
+    "featureFile": "features/module-04-underwriting-verification/credit-tier-configuration.feature",
+    "tags": ["@US-4-6-3", "@module-04", "@credit-tier", "@override"]
+  },
+  {
+    "usId": "US-4.6.4",
+    "title": "Configure Debt-to-Income Limits by Tier",
+    "domain": "Underwriting & Verification",
+    "featureFile": "features/module-04-underwriting-verification/credit-tier-configuration.feature",
+    "tags": ["@US-4-6-4", "@module-04", "@underwriting", "@dti-limits"]
+  },
+  {
+    "usId": "US-9.4.1",
+    "title": "Enroll in Worry-Free Rewards Program",
+    "domain": "Account Servicing",
+    "featureFile": "features/module-09-account-servicing/gamification-rewards.feature",
+    "tags": ["@US-9-4-1", "@module-09", "@rewards", "@worry-free"]
+  },
+  {
+    "usId": "US-9.4.2",
+    "title": "Progress Through Reward Tiers",
+    "domain": "Account Servicing",
+    "featureFile": "features/module-09-account-servicing/gamification-rewards.feature",
+    "tags": ["@US-9-4-2", "@module-09", "@rewards", "@tiers"]
+  },
+  {
+    "usId": "US-9.4.3",
+    "title": "Redeem Rewards Benefits",
+    "domain": "Account Servicing",
+    "featureFile": "features/module-09-account-servicing/gamification-rewards.feature",
+    "tags": ["@US-9-4-3", "@module-09", "@rewards", "@redemption"]
+  },
+  {
+    "usId": "US-9.5.1",
+    "title": "View Dealer Performance Leaderboard",
+    "domain": "Account Servicing",
+    "featureFile": "features/module-09-account-servicing/gamification-rewards.feature",
+    "tags": ["@US-9-5-1", "@module-09", "@gamification", "@dealer", "@leaderboard"]
+  },
+  {
+    "usId": "US-9.5.2",
+    "title": "Earn Dealer Achievements",
+    "domain": "Account Servicing",
+    "featureFile": "features/module-09-account-servicing/gamification-rewards.feature",
+    "tags": ["@US-9-5-2", "@module-09", "@gamification", "@dealer", "@achievements"]
+  },
+  {
+    "usId": "US-9.5.3",
+    "title": "Qualify for Performance Incentives",
+    "domain": "Account Servicing",
+    "featureFile": "features/module-09-account-servicing/gamification-rewards.feature",
+    "tags": ["@US-9-5-3", "@module-09", "@gamification", "@dealer", "@incentives"]
+  },
+  {
+    "usId": "US-3.16.1",
+    "title": "Submit Application with Complete Homeowner Information",
+    "domain": "Prequalification & Origination",
+    "featureFile": "features/module-03-prequalification-origination/homeowner-application-attributes.feature",
+    "tags": ["@US-3-16-1", "@module-03", "@application", "@homeowner", "@attributes"]
+  },
+  {
+    "usId": "US-3.16.2",
+    "title": "Add Co-Applicant with Complete Information",
+    "domain": "Prequalification & Origination",
+    "featureFile": "features/module-03-prequalification-origination/homeowner-application-attributes.feature",
+    "tags": ["@US-3-16-2", "@module-03", "@application", "@co-applicant", "@attributes"]
+  },
+  {
+    "usId": "US-3.16.3",
+    "title": "Provide Property and Installation Details",
+    "domain": "Prequalification & Origination",
+    "featureFile": "features/module-03-prequalification-origination/homeowner-application-attributes.feature",
+    "tags": ["@US-3-16-3", "@module-03", "@application", "@property", "@attributes"]
+  },
+  {
+    "usId": "US-3.16.4",
+    "title": "Capture Required Consents and Disclosures",
+    "domain": "Prequalification & Origination",
+    "featureFile": "features/module-03-prequalification-origination/homeowner-application-attributes.feature",
+    "tags": ["@US-3-16-4", "@module-03", "@application", "@consent", "@disclosures"]
+  },
+  {
+    "usId": "US-3.16.5",
+    "title": "Capture Partner-Specific Application Data",
+    "domain": "Prequalification & Origination",
+    "featureFile": "features/module-03-prequalification-origination/homeowner-application-attributes.feature",
+    "tags": ["@US-3-16-5", "@module-03", "@application", "@partner-specific"]
   }
 ]
