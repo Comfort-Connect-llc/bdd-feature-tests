@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 08 - Billing & Payments"
+  frames:
+    - id: "overview"
+      name: "Module 08 - Billing & Payments Overview"
+      url: "TODO"
+---
+
 # Module 8: Billing & Payments
 ## Financial Operations for Premier Accounts
 

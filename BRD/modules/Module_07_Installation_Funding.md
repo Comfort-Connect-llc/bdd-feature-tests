@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 07 - Installation & Funding"
+  frames:
+    - id: "overview"
+      name: "Module 07 - Installation & Funding Overview"
+      url: "TODO"
+---
+
 # Module 7: Installation & Funding
 ## Fulfillment and Contractor Payment
 

@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 06 - Document Management"
+  frames:
+    - id: "overview"
+      name: "Module 06 - Document Management Overview"
+      url: "TODO"
+---
+
 # Module 6: Document Management
 ## Document Generation, E-Signatures, and Storage
 

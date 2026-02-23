@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 11 - Promotions"
+  frames:
+    - id: "overview"
+      name: "Module 11 - Promotions Overview"
+      url: "TODO"
+---
+
 # Module 11: Promotions
 ## Promotion Management and Application
 

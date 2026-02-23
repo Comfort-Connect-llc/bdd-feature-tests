@@ -1,0 +1,516 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-02-23",
+  "figmaProject": {
+    "name": "Comfort Connect Platform",
+    "fileId": "REPLACE_WITH_FIGMA_FILE_ID",
+    "fileUrl": "https://www.figma.com/file/REPLACE_WITH_FIGMA_FILE_ID/Comfort-Connect-Platform"
+  },
+  "modules": [
+    {
+      "moduleId": "01",
+      "moduleName": "Identity & Access",
+      "brdFile": "BRD/modules/Module_01_Identity_Access.md",
+      "featureDir": "features/module-01-identity-access",
+      "figmaPage": "Module 01 - Identity & Access",
+      "designs": [
+        {
+          "storyId": "US-1.1.1",
+          "title": "Register Dealer User Account",
+          "screen": "Dealer Registration Screen",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-1.1.2",
+          "title": "Authenticate via OTP",
+          "screen": "OTP Login Flow",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-1.1.3",
+          "title": "Register Homeowner Account",
+          "screen": "Homeowner Registration Screen",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-1.2.1",
+          "title": "Assign Role to User",
+          "screen": "Role Assignment Modal",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-1.3.1",
+          "title": "Update User Profile",
+          "screen": "Profile Settings Page",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-1.3.2",
+          "title": "Impersonate User for Support",
+          "screen": "Impersonation Banner & Modal",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "02",
+      "moduleName": "Dealer Management",
+      "brdFile": "BRD/modules/Module_02_Dealer_Management.md",
+      "featureDir": "features/module-02-dealer-management",
+      "figmaPage": "Module 02 - Dealer Management",
+      "designs": [
+        {
+          "storyId": "US-2.1.1",
+          "title": "Invite Dealer to Apply",
+          "screen": "Dealer Invitation Form",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-2.1.2",
+          "title": "Save Application Progress",
+          "screen": "Dealer Application Multi-Step Form",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-2.2.1",
+          "title": "Generate NDA for Signing",
+          "screen": "E-Signature Flow",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-2.4.1",
+          "title": "Enroll in Premier Program",
+          "screen": "Partner Enrollment Dashboard",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-2.6.1",
+          "title": "Create Training Course",
+          "screen": "LMS Course Builder",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-2.7.1",
+          "title": "Enroll in Training Course",
+          "screen": "LMS Course Catalog",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-2.9.1",
+          "title": "Create Company Group",
+          "screen": "Company Group Management",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-2.10.1",
+          "title": "Generate AI-Based Merchant Assessment",
+          "screen": "Merchant Risk Assessment Panel",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "03",
+      "moduleName": "Prequalification & Origination",
+      "brdFile": "BRD/modules/Module_03_Prequalification_Origination.md",
+      "featureDir": "features/module-03-prequalification-origination",
+      "figmaPage": "Module 03 - Prequalification & Origination",
+      "designs": [
+        {
+          "storyId": "US-3.1.1",
+          "title": "Send Prequalification Invitation",
+          "screen": "Prequal Invitation Form",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.2.1",
+          "title": "Provide Consent for Credit Check",
+          "screen": "Credit Consent Disclosure Screen",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.2.2",
+          "title": "Submit Prequalification Information",
+          "screen": "Prequal Application Form",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.3.1",
+          "title": "Receive Prequalification Decision",
+          "screen": "Prequal Decision/Offers Screen",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.4.1",
+          "title": "Create Premier Application",
+          "screen": "Premier Application Flow",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.5.1",
+          "title": "Select Financing Offer",
+          "screen": "Offer Selection Cards",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.6.1",
+          "title": "Create Work Order",
+          "screen": "Work Order Builder",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.8.1",
+          "title": "Sign Lease Documents",
+          "screen": "Document Signing Flow",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-3.9.1",
+          "title": "Collect First Payment",
+          "screen": "First Payment Collection",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "04",
+      "moduleName": "Underwriting & Verification",
+      "brdFile": "BRD/modules/Module_04_Underwriting_Verification.md",
+      "featureDir": "features/module-04-underwriting-verification",
+      "figmaPage": "Module 04 - Underwriting & Verification",
+      "designs": [
+        {
+          "storyId": "US-4.1.1",
+          "title": "Pull Credit Report",
+          "screen": "Credit Report Viewer",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-4.2.1",
+          "title": "Review Manual Underwriting Queue",
+          "screen": "Manual Review Queue",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-4.3.1",
+          "title": "Request Income Verification",
+          "screen": "Income Verification Request",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-4.4.1",
+          "title": "Configure Underwriting Rules",
+          "screen": "Underwriting Rules Builder",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "05",
+      "moduleName": "Pricing & Equipment",
+      "brdFile": "BRD/modules/Module_05_Pricing_Equipment.md",
+      "featureDir": "features/module-05-pricing-equipment",
+      "figmaPage": "Module 05 - Pricing & Equipment",
+      "designs": [
+        {
+          "storyId": "US-5.1.1",
+          "title": "Generate Payment Quote",
+          "screen": "Quote Calculator",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-5.1.3",
+          "title": "Generate Quote with Bundles",
+          "screen": "Bundle Selection UI",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-5.2.1",
+          "title": "Configure Pricing Models",
+          "screen": "Pricing Configuration Panel",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-5.4.1",
+          "title": "Look Up Equipment by Model",
+          "screen": "Equipment Search",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-5.4.2",
+          "title": "Identify Equipment via AI",
+          "screen": "AI Equipment Scanner",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-5.5.1",
+          "title": "Manage Equipment Catalog",
+          "screen": "Equipment Catalog Admin",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "06",
+      "moduleName": "Document Management",
+      "brdFile": "BRD/modules/Module_06_Document_Management.md",
+      "featureDir": "features/module-06-document-management",
+      "figmaPage": "Module 06 - Document Management",
+      "designs": [
+        {
+          "storyId": "US-6.1.1",
+          "title": "Generate Lease Agreement",
+          "screen": "Document Generation",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-6.2.1",
+          "title": "Send Document for E-Signature",
+          "screen": "E-Signature Workflow",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-6.3.1",
+          "title": "View Document History",
+          "screen": "Document History Panel",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "07",
+      "moduleName": "Installation & Funding",
+      "brdFile": "BRD/modules/Module_07_Installation_Funding.md",
+      "featureDir": "features/module-07-installation-funding",
+      "figmaPage": "Module 07 - Installation & Funding",
+      "designs": [
+        {
+          "storyId": "US-7.1.1",
+          "title": "Authorize Installation",
+          "screen": "Installation Authorization",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-7.2.1",
+          "title": "Submit Funding Documentation",
+          "screen": "Funding Document Upload",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-7.3.1",
+          "title": "View Contractor Payment Status",
+          "screen": "Payment Status Dashboard",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "08",
+      "moduleName": "Billing & Payments",
+      "brdFile": "BRD/modules/Module_08_Billing_Payments.md",
+      "featureDir": "features/module-08-billing-payments",
+      "figmaPage": "Module 08 - Billing & Payments",
+      "designs": [
+        {
+          "storyId": "US-8.1.1",
+          "title": "View Invoice",
+          "screen": "Invoice Detail View",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-8.2.1",
+          "title": "Make One-Time Payment",
+          "screen": "Payment Form",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-8.3.1",
+          "title": "Enroll in Autopay",
+          "screen": "Autopay Enrollment",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-8.4.1",
+          "title": "Manage Payment Methods",
+          "screen": "Payment Methods Manager",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-8.5.1",
+          "title": "View Payment History",
+          "screen": "Payment History List",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "09",
+      "moduleName": "Account Servicing",
+      "brdFile": "BRD/modules/Module_09_Account_Servicing.md",
+      "featureDir": "features/module-09-account-servicing",
+      "figmaPage": "Module 09 - Account Servicing",
+      "designs": [
+        {
+          "storyId": "US-9.1.1",
+          "title": "View Account Dashboard",
+          "screen": "Account Overview Dashboard",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-9.2.1",
+          "title": "Request Maintenance Service",
+          "screen": "Maintenance Request Form",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-9.3.1",
+          "title": "View Service History",
+          "screen": "Service History Timeline",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-9.4.1",
+          "title": "Request Account Buyout",
+          "screen": "Buyout Calculator",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-9.5.1",
+          "title": "Submit Customer Service Ticket",
+          "screen": "Support Ticket Form",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "10",
+      "moduleName": "Communications",
+      "brdFile": "BRD/modules/Module_10_Communications.md",
+      "featureDir": "features/module-10-communications",
+      "figmaPage": "Module 10 - Communications",
+      "designs": [
+        {
+          "storyId": "US-10.1.1",
+          "title": "View Notification Center",
+          "screen": "Notification Center",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-10.2.1",
+          "title": "Manage Communication Preferences",
+          "screen": "Communication Preferences",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "11",
+      "moduleName": "Promotions",
+      "brdFile": "BRD/modules/Module_11_Promotions.md",
+      "featureDir": "features/module-11-promotions",
+      "figmaPage": "Module 11 - Promotions",
+      "designs": [
+        {
+          "storyId": "US-11.1.1",
+          "title": "Create Promotion Campaign",
+          "screen": "Promotion Builder",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-11.2.1",
+          "title": "Apply Promotion Code",
+          "screen": "Promo Code Entry",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    },
+    {
+      "moduleId": "12",
+      "moduleName": "Administration",
+      "brdFile": "BRD/modules/Module_12_Administration.md",
+      "featureDir": "features/module-12-administration",
+      "figmaPage": "Module 12 - Administration",
+      "designs": [
+        {
+          "storyId": "US-12.1.1",
+          "title": "Manage Feature Flags",
+          "screen": "Feature Flag Dashboard",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-12.2.1",
+          "title": "View System Reports",
+          "screen": "Reporting Dashboard",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        },
+        {
+          "storyId": "US-12.3.1",
+          "title": "Configure System Settings",
+          "screen": "System Configuration",
+          "figmaNodeId": "TODO",
+          "figmaUrl": "TODO"
+        }
+      ]
+    }
+  ],
+  "_instructions": {
+    "howToUpdate": "Replace 'TODO' values with actual Figma URLs. Get frame URLs by: 1) Select frame in Figma, 2) Right-click > Copy link to selection, 3) Paste the URL here",
+    "nodeIdFormat": "Extract node-id from URL parameter, e.g., from '?node-id=1234-5678' use '1234-5678'",
+    "validation": "Run 'node scripts/validate-figma-links.js' to check for broken links"
+  }
+}

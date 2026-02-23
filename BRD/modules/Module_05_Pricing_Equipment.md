@@ -1,3 +1,19 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 05 - Pricing & Equipment"
+  frames:
+    - id: "quote-calculator-overview"
+      name: "Quote Calculator Overview"
+      url: "TODO"
+    - id: "pricing-config-admin"
+      name: "Pricing Configuration Admin"
+      url: "TODO"
+    - id: "equipment-search-flow"
+      name: "Equipment Search Flow"
+      url: "TODO"
+---
+
 # Module 5: Pricing & Equipment
 ## Quote Generation and Equipment Management
 
@@ -33,6 +49,8 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - Then monthly payment amounts are calculated for available financing options
 - And the quote displays term length, payment amount, and total cost
 
+🎨 **Design:** [Quote Calculator Screen](TODO)
+
 ---
 
 **US-5.1.2: Calculate Premier Program Payments**
@@ -55,6 +73,8 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - Then all bundle components are included
 - And the total price reflects any bundle discounts
 
+🎨 **Design:** [Bundle Selection UI](TODO)
+
 ---
 
 ## 5.2 Pricing Configuration
@@ -68,6 +88,8 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - Then new quotes use the updated pricing
 - And existing committed quotes are not affected
 
+🎨 **Design:** [Pricing Configuration Panel](TODO)
+
 ---
 
 **US-5.2.2: View Pricing Metrics**
@@ -77,6 +99,8 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - Given pricing has been in use
 - When I view pricing metrics
 - Then I see analytics on average deal size, common terms, and utilization
+
+🎨 **Design:** [Pricing Metrics Dashboard](TODO)
 
 ---
 
@@ -114,6 +138,8 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - Then matching equipment details are returned
 - And specifications are displayed
 
+🎨 **Design:** [Equipment Search Screen](TODO)
+
 ---
 
 **US-5.4.2: Identify Equipment via AI**
@@ -124,6 +150,8 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - When AI analysis is performed
 - Then equipment make, model, and specifications are extracted
 - And can be added to the work order
+
+🎨 **Design:** [AI Equipment Scanner](TODO)
 
 ---
 
@@ -149,6 +177,8 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - Then the equipment is available for lookup
 - And specifications are accurate
 
+🎨 **Design:** [Equipment Catalog Admin](TODO)
+
 ---
 
 ## 5.6 Invoice Verification
@@ -161,3 +191,5 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - When I verify the invoice
 - Then I confirm the equipment matches the work order
 - And the invoice is approved for funding
+
+🎨 **Design:** [Invoice Verification Panel](TODO)

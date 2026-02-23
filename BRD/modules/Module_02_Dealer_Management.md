@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 02 - Dealer Management"
+  frames:
+    - id: "overview"
+      name: "Module 02 - Dealer Management Overview"
+      url: "TODO"
+---
+
 # Module 2: Dealer Management
 ## Dealer Onboarding & Training
 

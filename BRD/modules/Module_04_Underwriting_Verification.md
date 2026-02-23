@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 04 - Underwriting & Verification"
+  frames:
+    - id: "overview"
+      name: "Module 04 - Underwriting & Verification Overview"
+      url: "TODO"
+---
+
 # Module 4: Underwriting & Verification
 ## Credit Decisions and Verification Services
 

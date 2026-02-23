@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 12 - Administration"
+  frames:
+    - id: "overview"
+      name: "Module 12 - Administration Overview"
+      url: "TODO"
+---
+
 # Module 12: Administration
 ## Configuration and Reporting
 

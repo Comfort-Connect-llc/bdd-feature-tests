@@ -1,3 +1,13 @@
+---
+figma:
+  file: "https://www.figma.com/file/FIGMA_FILE_ID/Comfort-Connect-Platform"
+  page: "Module 10 - Communications"
+  frames:
+    - id: "overview"
+      name: "Module 10 - Communications Overview"
+      url: "TODO"
+---
+
 # Module 10: Communications
 ## Notifications and Messaging Services
 

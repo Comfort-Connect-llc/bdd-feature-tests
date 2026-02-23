@@ -238,6 +238,20 @@ cat features/TRACEABILITY_MAP.json
 cat features/TRACEABILITY_MAP.json | jq '.[] | select(.usId == "US-1.1.1")'
 ```
 
+## 🎨 Design Integration
+
+This repo is the **single source of truth** for all product requirements, including UI/UX designs. Figma links are embedded directly in BRD user stories.
+
+```bash
+# View Figma design index
+cat designs/figma-index.json
+
+# Validate all Figma links
+node scripts/validate-figma-links.js
+```
+
+**See:** [FIGMA_DESIGN_LINKING.md](FIGMA_DESIGN_LINKING.md) for conventions and PO guide.
+
 ## 🐛 Debugging
 
 ### Screenshots on Failure
@@ -342,10 +356,12 @@ jobs:
 ## 🤝 Contributing
 
 1. Update BRD markdown files in `BRD/` folder with new user stories
-2. Run `node convert-to-features.js` to regenerate feature files
-3. Implement step definitions in `features/step-definitions/`
-4. Run tests to verify: `npm test`
-5. Commit both BRD and feature files
+2. Add Figma design links to stories with UI components (see [FIGMA_DESIGN_LINKING.md](FIGMA_DESIGN_LINKING.md))
+3. Run `node convert-to-features.js` to regenerate feature files
+4. Implement step definitions in `features/step-definitions/`
+5. Run tests to verify: `npm test`
+6. Run `node scripts/validate-figma-links.js` to check design links
+7. Commit BRD, feature files, and design index updates
 
 ## 📄 License
 

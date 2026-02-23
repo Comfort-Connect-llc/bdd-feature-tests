@@ -123,7 +123,27 @@ All user stories follow this format:
 - Given [precondition]
 - When [action]
 - Then [expected outcome]
+
+🎨 **Design:** [Screen Name](figma-url-with-node-id)
 ```
+
+---
+
+## 🎨 Figma Design Linking
+
+Each user story with a UI component includes a **design link** to the relevant Figma frame. This eliminates the need to go to Figma separately.
+
+**Convention:**
+- **Module-level:** YAML front matter at top of module file with overview frames
+- **Story-level:** Inline `🎨 **Design:**` annotation after acceptance criteria
+- **Index:** `designs/figma-index.json` for programmatic access
+
+**See:** [FIGMA_DESIGN_LINKING.md](../FIGMA_DESIGN_LINKING.md) for full documentation.
+
+**Quick Start for POs:**
+1. In Figma, select the frame for the screen
+2. Right-click → "Copy link to selection"
+3. Paste into the markdown: `🎨 **Design:** [Screen Name](paste-url-here)`
 
 ---
 
