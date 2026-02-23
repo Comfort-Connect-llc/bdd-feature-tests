@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 9
+**Stories:** 10
 
 ---
 
@@ -63,6 +63,19 @@ Foundation module for all user interactions. Manages authentication, authorizati
 - When I register using my email and account information
 - Then my account is created
 - And I can access my homeowner portal
+
+---
+
+**US-1.1.4: Access Portal via Magic Link**
+> As a **Homeowner**, I want to receive a magic link via email or SMS to access my portal, so that I can securely log in without needing to remember a password.
+
+**Acceptance Criteria:**
+- Given I am a registered homeowner and I have forgotten my password or prefer passwordless access
+- When I request a magic link from the login page
+- Then I receive a unique, time-limited link via my registered email or phone number
+- And when I click the link within the expiration window, I am authenticated and directed to my homeowner portal
+- And the magic link expires after a single use or after the configured time limit
+- And if the link has expired or already been used, I am prompted to request a new one
 
 ---
 

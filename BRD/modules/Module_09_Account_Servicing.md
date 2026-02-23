@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 28
+**Stories:** 31
 
 ---
 
@@ -23,6 +23,8 @@ Manages post-origination account activities including maintenance requests, cust
 
 **Key Capabilities:**
 - Service request creation and tracking
+- Equipment status visibility for homeowners
+- Servicing contractor information
 - Maintenance reminder scheduling
 - Service claim funding
 - Customer account lookup and research
@@ -67,6 +69,18 @@ Manages post-origination account activities including maintenance requests, cust
 - When I record completion
 - Then the service details are documented
 - And the homeowner receives confirmation
+
+---
+
+**US-9.1.4: View Equipment Status**
+> As a **Homeowner**, I want to view the status of my installed equipment, so that I can see what's installed, when it was installed, and its current service status.
+
+**Acceptance Criteria:**
+- Given I have an active Premier enrollment with installed equipment
+- When I view my equipment details
+- Then I see equipment make, model, serial number, and installation date
+- And I see current warranty and service status
+- And I see service history for each piece of equipment
 
 ---
 
@@ -129,6 +143,18 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
+**US-9.4.2: View Rewards Balance and History**
+> As a **Homeowner**, I want to view my Worry-Free Rewards balance and earning history, so that I can track what I've earned and understand my rewards status.
+
+**Acceptance Criteria:**
+- Given I am enrolled in the Worry-Free Rewards program
+- When I view my rewards dashboard
+- Then I see my current rewards balance
+- And I see a history of rewards earned with dates and amounts
+- And I see which on-time payments contributed to my rewards
+
+---
+
 ## 9.5 Customer Service - Account Lookup
 
 **US-9.5.1: Search for Customer Account**
@@ -149,6 +175,17 @@ Manages post-origination account activities including maintenance requests, cust
 - Given I have accessed a customer account
 - When I view the summary
 - Then I see key information including status, balance, payment history, and recent activity
+
+---
+
+**US-9.5.3: View Servicing Contractor Information**
+> As a **Homeowner**, I want to view information about my servicing contractor, so that I know who to contact for service needs and can see their details.
+
+**Acceptance Criteria:**
+- Given I have an active account with an assigned servicing dealer
+- When I view my contractor information
+- Then I see the contractor's business name, phone number, and email
+- And I see their service area and hours of operation
 
 ---
 

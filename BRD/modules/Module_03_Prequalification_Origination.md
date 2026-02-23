@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 52
+**Stories:** 53
 
 ---
 
@@ -168,6 +168,18 @@ Core business module managing the complete application lifecycle from prequalifi
 - When I submit my application
 - Then my credit is evaluated (soft pull)
 - And I receive a decision within seconds
+
+---
+
+**US-3.4.4: Apply for Additional System**
+> As a **Homeowner**, I want to apply for an additional system from my account portal, so that I can finance new equipment without going through a separate dealer invitation process.
+
+**Acceptance Criteria:**
+- Given I have an active Premier account in good standing
+- When I initiate a new application for an additional system
+- Then my existing profile information is pre-populated
+- And I can select a dealer or be matched with my existing contractor
+- And the application follows the standard prequalification and origination flow
 
 ---
 

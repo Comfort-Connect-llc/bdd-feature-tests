@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 6
+**Stories:** 9
 
 ---
 
@@ -28,6 +28,7 @@ Manages promotional offers and incentives for financing products. Supports creat
 - Promotion code application
 - Promotion validation
 - Promotion reporting
+- Referral program management
 
 ---
 
@@ -96,3 +97,40 @@ Manages promotional offers and incentives for financing products. Supports creat
 - Given a promotion
 - When I assign it to specific companies
 - Then only those companies can use the promotion
+
+---
+
+## 11.3 Referral Program
+
+**US-11.3.1: Refer a Friend**
+> As a **Homeowner**, I want to refer a friend to Comfort Connect, so that they can explore financing options and I can receive any applicable referral benefits.
+
+**Acceptance Criteria:**
+- Given I have an active account
+- When I submit a referral with the friend's name and email or phone number
+- Then the friend receives an invitation to explore financing options
+- And the referral is tracked and associated with my account
+- And any referral incentives are applied when the referred friend completes enrollment
+
+---
+
+**US-11.3.2: Configure Referral Program**
+> As an **Administrator**, I want to configure referral program rules and incentives, so that the referral program operates according to business goals.
+
+**Acceptance Criteria:**
+- Given referral program parameters need to be defined
+- When I configure the referral rules (incentive type, amount, eligibility criteria)
+- Then the rules are applied to new referrals
+- And existing referrals continue under their original terms
+
+---
+
+**US-11.3.3: Refer a Contractor**
+> As a **Dealer**, I want to refer another contractor to join the Comfort Connect platform, so that they can offer financing to their customers and I can receive any applicable referral benefits.
+
+**Acceptance Criteria:**
+- Given I am an active, enrolled dealer on the platform
+- When I submit a contractor referral with the contractor's business name, contact name, and email or phone number
+- Then the referred contractor receives an invitation to begin the merchant application process
+- And the referral is tracked and associated with my dealer account
+- And any referral incentives are applied when the referred contractor completes onboarding and is approved
