@@ -252,6 +252,16 @@ node scripts/validate-figma-links.js
 
 **See:** [FIGMA_DESIGN_LINKING.md](FIGMA_DESIGN_LINKING.md) for conventions and PO guide.
 
+## 🏃 Sprint Management
+
+This repo is the source of truth for requirements. Sprint execution happens in ClickUp with tight alignment to BDD specs.
+
+**See:** [SCRUM_WORKFLOW.md](SCRUM_WORKFLOW.md) for:
+- Product Backlog vs Sprint Backlog structure
+- Story lifecycle from creation → done
+- ClickUp setup and custom fields
+- GitHub/BDD/ClickUp alignment conventions
+
 ## 🐛 Debugging
 
 ### Screenshots on Failure
