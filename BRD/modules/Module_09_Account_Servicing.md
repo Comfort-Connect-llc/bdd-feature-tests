@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 31
+**Stories:** 43
 
 ---
 
@@ -27,6 +27,8 @@ Manages post-origination account activities including maintenance requests, cust
 - Servicing contractor information
 - Maintenance reminder scheduling
 - Service claim funding
+- Worry-Free Rewards enrollment, earning, redemption, and administration
+- Rewards suspension, forfeiture, and manager override
 - Customer account lookup and research
 - Task creation, assignment, and tracking
 - Account notes and history
@@ -130,34 +132,207 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.4 Worry-Free Rewards
+## 9.4 Worry-Free Rewards - Enrollment
 
 **US-9.4.1: Enroll in Worry-Free Rewards**
-> As a **Homeowner**, I want to enroll in the Worry-Free Rewards program, so that I can earn benefits for on-time payments.
+> As a **Homeowner**, I want to enroll in the Worry-Free Rewards program, so that I can earn rewards for on-time payments made while enrolled in Autopay.
 
 **Acceptance Criteria:**
-- Given I have an active Premier account
-- When I enroll in Worry-Free Rewards
-- Then my enrollment is recorded
-- And I begin earning rewards based on payment history
+- Given I have an active Premier account and am enrolled in Autopay
+- When I enroll in Worry-Free Rewards (or am auto-enrolled based on program configuration)
+- Then my enrollment is recorded with a timestamp
+- And I begin earning rewards based on qualifying on-time payments
+- And I receive confirmation of my enrollment along with the program terms
 
 ---
 
-**US-9.4.2: View Rewards Balance and History**
+**US-9.4.2: Configure Rewards Enrollment Mode**
+> As an **Administrator**, I want to configure whether the Worry-Free Rewards program is opt-in or auto-enroll, so that the enrollment approach aligns with business strategy.
+
+**Acceptance Criteria:**
+- Given the Worry-Free Rewards program is active
+- When I configure the enrollment mode (opt-in or auto-enroll for all Premier account holders)
+- Then new accounts follow the configured enrollment mode
+- And existing accounts are handled according to the transition rules I define
+- And auto-enrolled homeowners have the option to opt out
+
+---
+
+## 9.5 Worry-Free Rewards - Earning & Calculation
+
+**US-9.5.1: Calculate Quarterly Rewards**
+> As a **System**, I want to calculate Worry-Free Rewards at the end of each calendar quarter, so that homeowners earn rewards accurately based on their qualifying on-time payments.
+
+**Acceptance Criteria:**
+- Given a homeowner is enrolled in the Worry-Free Rewards program
+- When the calendar quarter ends
+- Then the system calculates net qualifying payments (total on-time Autopay payments minus net Transactions such as late payments, returned payments, taxes, and fees)
+- And rewards are calculated by multiplying the net amount by the configured earning rate (default 10%)
+- And rewards are posted to the homeowner's Rewards Account within 30 days of quarter end
+- And rewards are only calculated for payments within the first 120 months of the Agreement
+
+---
+
+**US-9.5.2: View Rewards Balance and History**
 > As a **Homeowner**, I want to view my Worry-Free Rewards balance and earning history, so that I can track what I've earned and understand my rewards status.
 
 **Acceptance Criteria:**
 - Given I am enrolled in the Worry-Free Rewards program
 - When I view my rewards dashboard
-- Then I see my current rewards balance
-- And I see a history of rewards earned with dates and amounts
+- Then I see my current rewards balance (where 1 Reward = $1)
+- And I see a history of rewards earned by quarter with amounts and calculation details
 - And I see which on-time payments contributed to my rewards
+- And I see any adjustments or deductions applied to my rewards balance
 
 ---
 
-## 9.5 Customer Service - Account Lookup
+**US-9.5.3: Adjust Rewards for Payment Changes**
+> As a **System**, I want to adjust a homeowner's rewards balance when qualifying payments are cancelled, disputed, or refunded, so that rewards accurately reflect actual payment history.
 
-**US-9.5.1: Search for Customer Account**
+**Acceptance Criteria:**
+- Given a homeowner has earned rewards
+- When a qualifying payment is cancelled, disputed, or refunded
+- Then the rewards balance is adjusted accordingly
+- And the adjustment may result in a negative rewards balance
+- And any future rewards earned are first applied to bring the balance to zero before accumulating
+
+---
+
+## 9.6 Worry-Free Rewards - Redemption
+
+**US-9.6.1: Redeem Rewards Toward New Premier Account**
+> As a **Homeowner**, I want to redeem my rewards toward a new Premier Program account, so that I can reduce my monthly payments on a new system.
+
+**Acceptance Criteria:**
+- Given I have a positive rewards balance and my account is current
+- When I redeem rewards toward a new Premier account (HVAC, water heater, tankless water heater, water filtration, standby generator, or other eligible products)
+- Then the redeemed amount is applied equally as a monthly credit across the scheduled payments of the new account
+- And my rewards balance is reduced accordingly
+- And rewards from different accounts cannot be combined for a single redemption
+
+---
+
+**US-9.6.2: Redeem Rewards Toward Equipment Buyout**
+> As a **Homeowner**, I want to redeem my rewards toward the Purchase Option or Extension Purchase Option price, so that I can reduce the cost of buying my equipment.
+
+**Acceptance Criteria:**
+- Given I have a positive rewards balance and my account is current
+- When I redeem rewards toward my Purchase Option at the scheduled end of my Agreement or Extension Purchase Option during an extension term
+- Then the redeemed amount is applied in full to the buyout price
+- And any remaining rewards after the buyout is completed are forfeited
+
+---
+
+**US-9.6.3: Donate Rewards to Non-Profit Partner**
+> As a **Homeowner**, I want to donate my rewards to a sustainability-focused non-profit partner, so that I can support decarbonization and environmental goals.
+
+**Acceptance Criteria:**
+- Given I have a positive rewards balance and my account is current
+- When I choose to donate rewards at the scheduled end of my Agreement or during an extension term
+- Then I can select from available non-profit partners
+- And the donated amount is applied in full to the selected organization
+- And donations are subject to a maximum of $500 per account
+- And I receive confirmation of my donation
+
+---
+
+**US-9.6.4: Process Rewards Redemption**
+> As a **System**, I want to process rewards redemptions according to the selected redemption path, so that rewards are applied correctly and balances are updated.
+
+**Acceptance Criteria:**
+- Given a homeowner has requested a rewards redemption
+- When the redemption is processed
+- Then the rewards balance is debited
+- And the redemption is applied per the selected path (monthly credits, buyout price reduction, or non-profit donation)
+- And the homeowner receives confirmation with redemption details
+- And the redemption is recorded for audit and tax reporting purposes
+
+---
+
+## 9.7 Worry-Free Rewards - Suspension & Forfeiture
+
+**US-9.7.1: Suspend Rewards for Delinquent Account**
+> As a **System**, I want to suspend rewards earning and redemption when an account becomes past due, so that program restrictions are enforced per the terms.
+
+**Acceptance Criteria:**
+- Given a homeowner's account has a past due balance
+- When the account is no longer current
+- Then the homeowner can no longer earn new rewards
+- And the homeowner cannot redeem existing rewards
+- And the suspension is recorded on the account
+- And if the account is brought current, earning and redemption eligibility are restored
+
+---
+
+**US-9.7.2: Forfeit Rewards on Account Closure or Transfer**
+> As a **System**, I want to forfeit unredeemed rewards when an account is closed, terminated, or transferred, so that program terms are enforced.
+
+**Acceptance Criteria:**
+- Given a homeowner has unredeemed rewards
+- When their account is closed, terminated, or transferred
+- Then all unredeemed rewards are forfeited
+- And the forfeiture is recorded on the account
+
+---
+
+**US-9.7.3: Handle Rewards for Deceased Account Holder**
+> As a **System**, I want to handle rewards appropriately when an account holder is deceased, so that rewards are managed per program terms.
+
+**Acceptance Criteria:**
+- Given the primary account holder (Customer) is deceased
+- When the death is recorded on the account
+- Then if there is a co-applicant, unredeemed rewards are retained by the co-applicant
+- And if there is no co-applicant, unredeemed rewards are forfeited
+- And the estate is not eligible to redeem rewards regardless of how it was created
+
+---
+
+**US-9.7.4: Override Rewards Suspension or Forfeiture**
+> As a **Manager**, I want to override a rewards suspension or forfeiture on a case-by-case basis, so that I can accommodate situations where the delinquency or issue is not entirely the customer's fault.
+
+**Acceptance Criteria:**
+- Given a homeowner's rewards have been suspended or forfeited
+- When I review the circumstances and determine an override is warranted
+- Then I can reinstate the rewards balance (partially or fully)
+- And I can restore earning and redemption eligibility
+- And the override is recorded with my rationale for audit purposes
+- And the homeowner is notified of the reinstatement
+
+---
+
+## 9.8 Worry-Free Rewards - Administration
+
+**US-9.8.1: Configure Rewards Program Rules**
+> As an **Administrator**, I want to configure the Worry-Free Rewards program rules, so that earning rates, redemption options, and program policies can be adjusted as the business evolves.
+
+**Acceptance Criteria:**
+- Given the Worry-Free Rewards program is active
+- When I configure program rules
+- Then I can set the earning rate (default 10% of net qualifying payments)
+- And I can configure the maximum earning period (default 120 months)
+- And I can manage the list of eligible redemption products and non-profit partners
+- And I can set the maximum donation amount per account (default $500)
+- And I can configure delinquency suspension and forfeiture thresholds
+- And changes take effect for the next calculation period without affecting previously posted rewards
+
+---
+
+**US-9.8.2: View Rewards Program Reporting**
+> As an **Administrator**, I want to view reporting on the Worry-Free Rewards program, so that I can monitor program costs, engagement, and redemption activity.
+
+**Acceptance Criteria:**
+- Given the Worry-Free Rewards program has active participants
+- When I view program reports
+- Then I see total rewards earned, redeemed, suspended, and forfeited across all accounts
+- And I see redemption breakdown by path (new account, buyout, donation)
+- And I see enrollment rates and active participant counts
+- And I can filter by date range, account status, and dealer
+
+---
+
+## 9.9 Customer Service - Account Lookup
+
+**US-9.9.1: Search for Customer Account**
 > As a **Customer Service Representative**, I want to search for customer accounts, so that I can assist them.
 
 **Acceptance Criteria:**
@@ -168,7 +343,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.5.2: View Account Summary**
+**US-9.9.2: View Account Summary**
 > As a **Customer Service Representative**, I want to view an account summary, so that I understand the customer's situation.
 
 **Acceptance Criteria:**
@@ -178,7 +353,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.5.3: View Servicing Contractor Information**
+**US-9.9.3: View Servicing Contractor Information**
 > As a **Homeowner**, I want to view information about my servicing contractor, so that I know who to contact for service needs and can see their details.
 
 **Acceptance Criteria:**
@@ -189,9 +364,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.6 Customer Service - Task Management
+## 9.10 Customer Service - Task Management
 
-**US-9.6.1: Create Service Task**
+**US-9.10.1: Create Service Task**
 > As a **Customer Service Representative**, I want to create a task for follow-up, so that issues are tracked to resolution.
 
 **Acceptance Criteria:**
@@ -202,7 +377,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.6.2: Assign Task to Team Member**
+**US-9.10.2: Assign Task to Team Member**
 > As a **Customer Service Representative**, I want to assign tasks to team members, so that work is distributed appropriately.
 
 **Acceptance Criteria:**
@@ -213,7 +388,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.6.3: Complete Service Task**
+**US-9.10.3: Complete Service Task**
 > As a **Customer Service Representative**, I want to mark tasks as complete, so that progress is tracked.
 
 **Acceptance Criteria:**
@@ -224,9 +399,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.7 Customer Service - Notes & Comments
+## 9.11 Customer Service - Notes & Comments
 
-**US-9.7.1: Add Note to Account**
+**US-9.11.1: Add Note to Account**
 > As a **Customer Service Representative**, I want to add notes to an account, so that interaction history is documented.
 
 **Acceptance Criteria:**
@@ -237,7 +412,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.7.2: View Account Notes**
+**US-9.11.2: View Account Notes**
 > As a **Customer Service Representative**, I want to view all notes on an account, so that I understand previous interactions.
 
 **Acceptance Criteria:**
@@ -248,9 +423,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.8 Customer Service - Document Access
+## 9.12 Customer Service - Document Access
 
-**US-9.8.1: Access Account Documents**
+**US-9.12.1: Access Account Documents**
 > As a **Customer Service Representative**, I want to access documents associated with an account, so that I can assist with document-related inquiries.
 
 **Acceptance Criteria:**
@@ -260,9 +435,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.9 Customer Service - Support Requests
+## 9.13 Customer Service - Support Requests
 
-**US-9.9.1: Submit Support Request**
+**US-9.13.1: Submit Support Request**
 > As a **Homeowner**, I want to submit a support request, so that I can get help with my account.
 
 **Acceptance Criteria:**
@@ -273,7 +448,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.9.2: View Support Request Status**
+**US-9.13.2: View Support Request Status**
 > As a **Homeowner**, I want to view the status of my support requests, so that I know when to expect resolution.
 
 **Acceptance Criteria:**
@@ -283,9 +458,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.10 Account Lifecycle - Status Management
+## 9.14 Account Lifecycle - Status Management
 
-**US-9.10.1: View Account Status History**
+**US-9.14.1: View Account Status History**
 > As a **User**, I want to view the history of account status changes, so that I understand the account journey.
 
 **Acceptance Criteria:**
@@ -295,7 +470,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.10.2: Transition Account Status**
+**US-9.14.2: Transition Account Status**
 > As a **System**, I want to automatically transition account status based on events, so that accounts reflect their current state.
 
 **Acceptance Criteria:**
@@ -306,9 +481,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.11 Account Lifecycle - Buyout Process
+## 9.15 Account Lifecycle - Buyout Process
 
-**US-9.11.1: Request Lease Buyout**
+**US-9.15.1: Request Lease Buyout**
 > As a **Homeowner**, I want to request a buyout of my Premier lease, so that I can own the equipment outright.
 
 **Acceptance Criteria:**
@@ -319,7 +494,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.11.2: Generate Buyout Quote**
+**US-9.15.2: Generate Buyout Quote**
 > As a **System**, I want to generate a buyout quote, so that homeowners know the cost to purchase their equipment.
 
 **Acceptance Criteria:**
@@ -329,7 +504,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.11.3: Process Buyout Payment**
+**US-9.15.3: Process Buyout Payment**
 > As a **Homeowner**, I want to pay my buyout amount, so that I complete the buyout.
 
 **Acceptance Criteria:**
@@ -340,7 +515,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.11.4: Complete Buyout Process**
+**US-9.15.4: Complete Buyout Process**
 > As a **System**, I want to complete the buyout process, so that the lease is properly closed.
 
 **Acceptance Criteria:**
@@ -352,7 +527,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.11.5: Cancel Buyout Request**
+**US-9.15.5: Cancel Buyout Request**
 > As a **Homeowner**, I want to cancel my buyout request, so that I can continue my lease if I change my mind.
 
 **Acceptance Criteria:**
@@ -363,9 +538,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.12 Account Lifecycle - Termination
+## 9.16 Account Lifecycle - Termination
 
-**US-9.12.1: Request Account Cancellation**
+**US-9.16.1: Request Account Cancellation**
 > As a **Homeowner**, I want to request cancellation of my account, so that I can end my agreement.
 
 **Acceptance Criteria:**
@@ -376,7 +551,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.12.2: Process Account Termination**
+**US-9.16.2: Process Account Termination**
 > As an **Administrator**, I want to process account terminations, so that accounts are properly closed.
 
 **Acceptance Criteria:**
@@ -388,7 +563,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.12.3: Terminate for Non-Payment**
+**US-9.16.3: Terminate for Non-Payment**
 > As a **System**, I want to terminate accounts for prolonged non-payment, so that uncollectable accounts are closed.
 
 **Acceptance Criteria:**
@@ -399,9 +574,9 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-## 9.13 Account Lifecycle - Archiving
+## 9.17 Account Lifecycle - Archiving
 
-**US-9.13.1: Archive Completed Account**
+**US-9.17.1: Archive Completed Account**
 > As a **System**, I want to archive completed accounts, so that they are preserved for historical reference.
 
 **Acceptance Criteria:**
@@ -412,7 +587,7 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.13.2: Retrieve Archived Account**
+**US-9.17.2: Retrieve Archived Account**
 > As a **Customer Service Representative**, I want to retrieve archived accounts, so that historical inquiries can be answered.
 
 **Acceptance Criteria:**
