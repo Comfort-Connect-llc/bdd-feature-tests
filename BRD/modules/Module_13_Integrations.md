@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0
 **Date:** February 23, 2026
-**Stories:** 22
+**Stories:** 21
 
 ---
 

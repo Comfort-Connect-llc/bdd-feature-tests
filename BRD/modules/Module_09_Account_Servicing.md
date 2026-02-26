@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 43
+**Stories:** 47
 
 ---
 
@@ -420,6 +420,21 @@ Manages post-origination account activities including maintenance requests, cust
 - When I view notes
 - Then I see all notes in chronological order
 - And can filter by date or type
+
+---
+
+**US-9.11.3: Auto-Save Draft Notes During Account Navigation**
+> As a **Customer Service Representative**, I want my in-progress note to be automatically saved as a draft when I navigate to other tabs on the same account, so that I don't lose my notes while looking up information during a live customer call.
+
+**Acceptance Criteria:**
+- Given I am composing a note on the Account Activity tab
+- When I navigate to another tab on the same account (e.g., Billing, Documents, Equipment)
+- Then my in-progress note is automatically saved as a draft
+- And when I return to the Account Activity tab, my draft note is restored with all content intact
+- And the draft persists for the duration of my session on that account
+- And I can see a visual indicator that an unsaved draft exists when I am on other tabs
+- And I can choose to discard the draft if I no longer need it
+- And once I explicitly save or submit the note, the draft is cleared
 
 ---
 
