@@ -19,7 +19,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 13
+**Stories:** 14
 
 ---
 
@@ -74,6 +74,20 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - And the total price reflects any bundle discounts
 
 🎨 **Design:** [Bundle Selection UI](TODO)
+
+---
+
+**US-5.1.4: Generate Multi-Lease Quote**
+> As a **Dealer**, I want to generate a quote for a multi-lease project type (e.g., Geothermal with Equipment + Ground Loop), so that the customer can see itemized monthly payments for each lease component and the combined total.
+
+**Acceptance Criteria:**
+- Given I am generating a quote for a project type with multiple lease components
+- When I enter the project details and equipment information for each component
+- Then the system calculates a separate monthly payment for each lease component (e.g., Equipment lease and Ground Loop lease)
+- And I see an itemized breakdown of each component's payment amount, term, and total cost
+- And I see a combined total monthly payment across all lease components
+- And each component can have a different term length and pricing model as configured by the project type
+- And the quote clearly labels each component for the customer
 
 ---
 

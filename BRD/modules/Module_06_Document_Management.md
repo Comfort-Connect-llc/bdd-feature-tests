@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 12
+**Stories:** 14
 
 ---
 
@@ -78,6 +78,19 @@ Manages the complete document lifecycle from generation through e-signature and 
 
 ---
 
+**US-6.1.5: Generate Multiple Lease Agreements for Multi-Lease Project**
+> As a **System**, I want to generate separate lease agreements for each lease component in a multi-lease project (e.g., Equipment lease and Ground Loop lease for Geothermal), so that each component has its own legally distinct agreement.
+
+**Acceptance Criteria:**
+- Given a Premier enrollment with a multi-lease project type (e.g., Geothermal)
+- When the lease agreements are generated
+- Then a separate lease document is created for each lease component defined by the project type
+- And each document includes the correct equipment details, payment terms, and disclosures for that component
+- And all documents reference the same homeowner, application, and project
+- And each lease is tracked independently for signing status
+
+---
+
 ## 6.2 Electronic Signatures
 
 **US-6.2.1: Send Document for E-Signature**
@@ -130,6 +143,20 @@ Manages the complete document lifecycle from generation through e-signature and 
 - Given documents are pending signature
 - When I resend the signing request
 - Then the homeowner receives a new signing link
+
+---
+
+**US-6.2.6: Manage Sequential Signing for Multi-Lease Project**
+> As a **System**, I want to manage a sequential signing workflow for multi-lease projects, so that each lease agreement is signed at the appropriate stage of the project and the overall project status reflects signing progress across all components.
+
+**Acceptance Criteria:**
+- Given a multi-lease project has multiple lease agreements to sign
+- When the signing workflow is initiated
+- Then each lease document is sent for signature according to the configured sequence (e.g., Equipment lease first, Ground Loop lease at a later stage)
+- And the homeowner is notified for each signing request individually
+- And the project tracks which leases have been signed and which are pending
+- And the project cannot advance to a stage that requires a specific lease to be signed until that signing is complete
+- And the dealer and homeowner can see the overall signing progress across all lease components
 
 ---
 

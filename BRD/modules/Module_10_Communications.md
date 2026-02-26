@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 12
+**Stories:** 13
 
 ---
 
@@ -30,6 +30,7 @@ Cross-cutting module managing all notification and communication channels. Suppo
 - In-app notification display
 - Real-time status updates
 - User notification preferences
+- Itemized batch funding notification emails
 
 ---
 
@@ -86,6 +87,21 @@ Cross-cutting module managing all notification and communication channels. Suppo
 - When the adverse action letter is generated
 - Then it is sent via email to the applicant
 - And delivery is confirmed
+
+---
+
+**US-10.1.6: Send Itemized Maintenance Funding Email**
+> As a **System**, I want to send a single consolidated email to a contractor when a batch of maintenance invoices has been funded, so that the contractor can easily reconcile the deposit against their bank statement.
+
+**Acceptance Criteria:**
+- Given a batch of maintenance invoices has been funded for a contractor
+- When the funding batch is processed (manual or automated)
+- Then the contractor receives a single email summarizing the entire batch
+- And the email includes: batch reference number, total funded amount, funding date, and expected deposit date
+- And the email contains an itemized table listing each funded invoice with: account/customer reference, invoice number, service date, service description, and funded amount
+- And the itemized table subtotals match the total funded amount
+- And the email is formatted for easy printing or forwarding to the contractor's bookkeeper
+- And if the contractor has multiple batches processed on the same day, each batch sends its own email with a distinct batch reference
 
 ---
 

@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 51
+**Stories:** 52
 
 ---
 
@@ -543,6 +543,20 @@ Manages post-origination account activities including maintenance requests, cust
 - When the transition is triggered
 - Then the account status is updated
 - And stakeholders are notified
+
+---
+
+**US-9.14.3: View Multi-Lease Project Summary**
+> As a **User**, I want to view a consolidated project summary for multi-lease accounts that shows the status, balance, and key details for each lease component side by side, so that I can understand the full scope and progress of a multi-lease project at a glance.
+
+**Acceptance Criteria:**
+- Given an account has a multi-lease project type (e.g., Geothermal with Equipment + Ground Loop)
+- When I view the account's project summary
+- Then I see each lease component displayed with its own status, payment amount, balance, installation date, and signing status
+- And I see the overall project status reflecting the combined state of all components
+- And I can navigate to individual lease details from the summary
+- And the timeline view shows milestones for each lease component on a unified timeline
+- And any actions needed (e.g., pending signature, upcoming payment) are highlighted per component
 
 ---
 

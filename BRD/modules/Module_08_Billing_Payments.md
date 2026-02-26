@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 24
+**Stories:** 25
 
 ---
 
@@ -77,6 +77,20 @@ Manages all billing and payment operations for Premier Program accounts. Include
 - When I disable autopay
 - Then automatic payments stop
 - And I am responsible for making manual payments
+
+---
+
+**US-8.1.5: Create Separate Billing Lines for Multi-Lease Project**
+> As a **System**, I want to create separate billing line items for each lease component in a multi-lease project, so that each component (e.g., Equipment and Ground Loop) has its own payment schedule and the homeowner can see an itemized breakdown.
+
+**Acceptance Criteria:**
+- Given a multi-lease Premier enrollment has been activated (e.g., Geothermal with Equipment + Ground Loop)
+- When the billing accounts are set up
+- Then a separate billing line is created for each lease component with its own payment amount and schedule
+- And the homeowner sees an itemized invoice showing each component's charge and a combined total
+- And each billing line can start on a different date if the lease components are activated at different times (phased installation)
+- And payment history and balance tracking are maintained separately per component
+- And autopay applies across all billing lines on the account
 
 ---
 

@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 64
+**Stories:** 65
 
 ---
 
@@ -244,6 +244,19 @@ Core business module managing the complete application lifecycle from prequalifi
 - Then my existing profile information is pre-populated
 - And I can select a dealer or be matched with my existing contractor
 - And the application follows the standard prequalification and origination flow
+
+---
+
+**US-3.4.5: Select Project Type for Premier Application**
+> As a **Dealer**, I want to select a project type (e.g., Standard, Geothermal) when creating a Premier application, so that the application flow, lease structure, and document requirements automatically adjust based on the type of installation.
+
+**Acceptance Criteria:**
+- Given I am creating a new Premier Program application
+- When I select a project type from the available options
+- Then the application flow adjusts to collect information specific to that project type
+- And the work order section reflects the required lease components (e.g., Geothermal shows separate Equipment and Ground Loop sections)
+- And pricing and quote generation use the correct lease structure for the selected project type
+- And only project types I am authorized to offer (based on my dealer enrollment) are available for selection
 
 ---
 

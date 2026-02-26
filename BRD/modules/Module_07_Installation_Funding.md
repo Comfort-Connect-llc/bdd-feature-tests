@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 12
+**Stories:** 17
 
 ---
 
@@ -27,6 +27,8 @@ Manages the installation authorization, documentation verification, and contract
 - Contractor payment initiation and processing
 - Funding status visibility for dealers
 - Partner-specific funding (Momnt, Breeze, Microf)
+- Batch maintenance invoice upload and validation
+- Manual and automated batch funding processing
 
 ---
 
@@ -51,6 +53,20 @@ Manages the installation authorization, documentation verification, and contract
 - When I record completion with date and details
 - Then the status changes to "Installation Completed"
 - And the funding process can begin
+
+---
+
+**US-7.1.3: Manage Phased Installation for Multi-Lease Project**
+> As a **Dealer**, I want to authorize and record installation completion for each lease component in a multi-lease project separately, so that each phase of the project (e.g., Ground Loop installation followed by Equipment installation) can be tracked and funded independently.
+
+**Acceptance Criteria:**
+- Given a multi-lease project (e.g., Geothermal) with multiple lease components
+- When I authorize installation for a specific component
+- Then only that component's status changes to "Installation Authorized"
+- And I can record completion for each component independently with its own date, details, and documentation
+- And funding for each component is processed independently upon its completion
+- And the overall project status reflects the progress of all components (e.g., "Phase 1 Complete — Awaiting Phase 2")
+- And I can view a consolidated timeline of all installation phases for the project
 
 ---
 
@@ -167,3 +183,62 @@ Manages the installation authorization, documentation verification, and contract
 - When I submit work completion
 - Then Microf is notified
 - And funding is initiated
+
+---
+
+## 7.5 Maintenance Funding
+
+**US-7.5.1: Batch Upload Maintenance Invoices**
+> As a **Dealer**, I want to upload multiple maintenance invoices at once through the dealer portal, so that I can efficiently submit all completed maintenance work for funding without entering each invoice individually.
+
+**Acceptance Criteria:**
+- Given I have completed maintenance work on multiple accounts
+- When I select "Batch Upload Invoices" from the dealer portal
+- Then I can upload a file (CSV or Excel) containing multiple maintenance invoices with account numbers, invoice amounts, service dates, and descriptions
+- And the system validates each invoice against active maintenance agreements and flags any errors (invalid account, amount mismatch, duplicate invoice)
+- And I can review the validation summary showing accepted and rejected invoices before confirming the submission
+- And upon confirmation, all valid invoices are submitted for funding review
+- And I receive a confirmation with a batch reference number and count of submitted invoices
+
+---
+
+**US-7.5.2: Review and Approve Maintenance Invoice Batch**
+> As an **Administrator**, I want to review and approve batches of maintenance invoices, so that I can efficiently process maintenance funding requests while maintaining oversight.
+
+**Acceptance Criteria:**
+- Given a dealer has submitted a batch of maintenance invoices
+- When I view the batch in the funding queue
+- Then I see the batch summary (dealer name, invoice count, total amount, submission date)
+- And I can expand to review individual invoices within the batch
+- And I can approve the entire batch, reject the entire batch, or approve/reject individual invoices within the batch
+- And rejected invoices include a reason that is communicated back to the dealer
+- And approved invoices are queued for funding processing
+
+---
+
+**US-7.5.3: Process Batch Maintenance Funding — Manual**
+> As an **Administrator**, I want to select multiple approved maintenance invoices and process their funding as a single batch, so that I can efficiently pay contractors for maintenance work.
+
+**Acceptance Criteria:**
+- Given there are approved maintenance invoices pending funding
+- When I select multiple invoices (filtered by dealer, date range, or status) and initiate batch funding
+- Then the system calculates the total funding amount per dealer
+- And I can review the funding summary before confirming
+- And upon confirmation, all selected invoices are processed as a single payment per dealer
+- And each invoice's status updates to "Funded" with the batch reference and funding date
+- And the contractor funding email notification is triggered for each dealer in the batch (see US-10.1.6)
+
+---
+
+**US-7.5.4: Process Batch Maintenance Funding — Automated**
+> As a **System**, I want to automatically batch and process approved maintenance invoices for funding on a configurable schedule, so that contractors receive timely payment without manual intervention.
+
+**Acceptance Criteria:**
+- Given there are approved maintenance invoices that have not yet been funded
+- When the scheduled batch funding cycle runs (e.g., daily at end of business, weekly)
+- Then the system groups all eligible invoices by dealer
+- And processes funding as a single payment per dealer
+- And each invoice's status updates to "Funded" with the batch reference and funding date
+- And the contractor funding email notification is triggered for each dealer in the batch (see US-10.1.6)
+- And the batch schedule is configurable by an Administrator in platform settings
+- And if processing fails for any invoice, it is flagged for manual review and does not block the remaining invoices in the batch

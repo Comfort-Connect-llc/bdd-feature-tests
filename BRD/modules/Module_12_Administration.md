@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 22
+**Stories:** 23
 
 ---
 
@@ -124,6 +124,20 @@ Platform administration module for system configuration, partner management, und
 - Given a feature needs to be controlled
 - When I toggle the feature flag
 - Then the feature is enabled or disabled accordingly
+
+---
+
+**US-12.3.3: Configure Project Types and Lease Structures**
+> As an **Administrator**, I want to define and manage project types (e.g., Standard, Geothermal) and configure the lease structure required for each, so that the platform can support different equipment categories with single-lease or multi-lease arrangements.
+
+**Acceptance Criteria:**
+- Given I am configuring project types for the Premier Program
+- When I create or edit a project type
+- Then I can define the project type name, description, and the set of lease components it requires (e.g., Standard = "Equipment" only; Geothermal = "Equipment" + "Ground Loop")
+- And I can configure whether each lease component has its own payment schedule and billing line
+- And I can activate or deactivate project types without affecting existing accounts
+- And new project types are immediately available for selection during application creation
+- And I can configure which dealers or company groups are eligible to offer each project type
 
 ---
 
