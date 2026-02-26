@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 53
+**Stories:** 56
 
 ---
 
@@ -55,6 +55,44 @@ Core business module managing the complete application lifecycle from prequalifi
 - When I click the link
 - Then I am taken to a secure prequalification form
 - And I see the dealer's branding
+
+---
+
+**US-3.1.3: Request Authorization for Assisted Application**
+> As a **Dealer**, I want to request a homeowner's authorization to complete the application on their behalf, so that I can assist customers who need help navigating the application process.
+
+**Acceptance Criteria:**
+- Given I am sending or have sent a prequalification invitation to a homeowner
+- When I request assisted application authorization
+- Then the homeowner receives an authorization request via SMS and/or email
+- And the request clearly explains that the dealer will be able to fill out and submit the application on their behalf
+- And the request specifies that the homeowner will still be required to sign all documents themselves
+
+---
+
+**US-3.1.4: Verify and Grant Assisted Application Authorization**
+> As a **Homeowner**, I want to verify my identity and grant my dealer authorization to complete the application on my behalf, so that they can help me through the process.
+
+**Acceptance Criteria:**
+- Given I have received an assisted application authorization request
+- When I verify my identity via OTP sent to my registered phone number and/or email
+- Then my authorization is recorded with a timestamp and verification method
+- And the dealer is notified that they can now complete the application on my behalf
+- And I receive confirmation that authorization has been granted
+- And I can revoke this authorization at any time before document signing
+
+---
+
+**US-3.1.5: Complete Application on Behalf of Homeowner**
+> As a **Dealer**, I want to fill out and submit the application on behalf of an authorized homeowner, so that I can help them complete the process efficiently.
+
+**Acceptance Criteria:**
+- Given the homeowner has granted me assisted application authorization
+- When I access the application in assisted mode
+- Then I can enter and submit all application information on the homeowner's behalf
+- And the application is clearly flagged as dealer-assisted for audit purposes
+- And the homeowner is notified at each major step (submission, decision)
+- And document signing requests are sent directly to the homeowner — I cannot sign on their behalf
 
 ---
 
