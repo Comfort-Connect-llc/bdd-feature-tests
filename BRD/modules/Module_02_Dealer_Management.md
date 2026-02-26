@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 25
+**Stories:** 29
 
 ---
 
@@ -28,6 +28,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 - Partner enrollment (Premier, Momnt, Microf, Breeze, Thrive)
 - Training course enrollment and completion
 - Compliance certification tracking
+- Interactive demo mode for onboarding and training
 
 ---
 
@@ -402,9 +403,61 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-## 2.9 Company Group Management
+## 2.9 Learning Management - Demo Mode
 
-**US-2.9.1: Create Company Group**
+**US-2.9.1: Access Demo Mode as New User**
+> As a **New User**, I want to walk through a simulated application experience on my own device, so that I can familiarize myself with the platform before working with real applications.
+
+**Acceptance Criteria:**
+- Given I am a registered user with access to the portal
+- When I launch demo mode from the portal
+- Then I can select a product type to demo (Premier Program, Installment Loan, Lease-to-Own)
+- And I am guided through the full application flow using sample data
+- And no real credit pulls, documents, or financial transactions are initiated
+- And my demo progress is tracked separately from real activity
+- And I can restart or exit the demo at any time
+
+---
+
+**US-2.9.2: Launch Demo Mode for Training Presentation**
+> As a **Training Team Member**, I want to launch a guided demo of any product application flow, so that I can walk trainees through the experience in a live training session.
+
+**Acceptance Criteria:**
+- Given I have training team permissions
+- When I launch demo mode and select a product type (Premier Program, Installment Loan, Lease-to-Own)
+- Then I can step through the application flow at my own pace
+- And I can demonstrate both the homeowner and dealer perspectives
+- And sample data is pre-populated for realistic demonstration
+- And the demo is clearly labeled so it cannot be confused with a live application
+
+---
+
+**US-2.9.3: Configure Demo Mode Scenarios**
+> As an **Administrator**, I want to configure demo mode scenarios for each product type, so that demos remain accurate as products evolve and new financing options are launched.
+
+**Acceptance Criteria:**
+- Given a product type exists on the platform (current or newly launched)
+- When I configure a demo scenario for that product
+- Then I can define the sample data, flow steps, and decision outcomes used in the demo
+- And I can create multiple scenarios per product (e.g., approved, declined, manual review)
+- And updates to demo scenarios take effect immediately without code deployment
+
+---
+
+**US-2.9.4: Track Demo Mode Usage**
+> As an **Administrator**, I want to track demo mode usage, so that I can measure training engagement and identify users who may need additional support.
+
+**Acceptance Criteria:**
+- Given users are accessing demo mode
+- When I view demo usage reports
+- Then I see which users have completed demos, which products they demoed, and completion rates
+- And I can filter by user type, organization, and date range
+
+---
+
+## 2.10 Company Group Management
+
+**US-2.10.1: Create Company Group**
 > As an **Administrator**, I want to create company groups, so that related dealers can be managed together.
 
 **Acceptance Criteria:**
@@ -415,7 +468,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.9.2: Assign Dealer to Company Group**
+**US-2.10.2: Assign Dealer to Company Group**
 > As an **Administrator**, I want to assign dealers to company groups, so that they share common settings and reporting.
 
 **Acceptance Criteria:**
@@ -426,7 +479,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.9.3: Configure Group-Level Settings**
+**US-2.10.3: Configure Group-Level Settings**
 > As an **Administrator**, I want to configure settings at the group level, so that all dealers in the group share common configurations.
 
 **Acceptance Criteria:**
@@ -437,7 +490,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.9.4: View Group-Level Reporting**
+**US-2.10.4: View Group-Level Reporting**
 > As an **Administrator**, I want to view reports at the group level, so that I can analyze performance across related dealers.
 
 **Acceptance Criteria:**
@@ -448,7 +501,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.9.5: Remove Dealer from Company Group**
+**US-2.10.5: Remove Dealer from Company Group**
 > As an **Administrator**, I want to remove a dealer from a company group, so that they operate independently.
 
 **Acceptance Criteria:**
@@ -459,9 +512,9 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-## 2.10 Merchant Risk Assessment
+## 2.11 Merchant Risk Assessment
 
-**US-2.10.1: Generate AI-Based Merchant Assessment**
+**US-2.11.1: Generate AI-Based Merchant Assessment**
 > As an **Underwriter**, I want the system to generate an AI assessment of merchant applications, so that I have data-driven insights for approval decisions.
 
 **Acceptance Criteria:**
@@ -472,7 +525,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.10.2: Validate Merchant via Web Search**
+**US-2.11.2: Validate Merchant via Web Search**
 > As a **System**, I want to validate merchant information via web search, so that submitted business details can be verified.
 
 **Acceptance Criteria:**
@@ -483,7 +536,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.10.3: Review Merchant Assessment Results**
+**US-2.11.3: Review Merchant Assessment Results**
 > As an **Underwriter**, I want to review AI assessment results, so that I can make informed approval decisions.
 
 **Acceptance Criteria:**
@@ -494,7 +547,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.10.4: Configure Contractor Scoring Criteria**
+**US-2.11.4: Configure Contractor Scoring Criteria**
 > As an **Administrator**, I want to configure scoring criteria, so that assessments reflect current business priorities.
 
 **Acceptance Criteria:**
@@ -504,7 +557,7 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
-**US-2.10.5: View Assessment History**
+**US-2.11.5: View Assessment History**
 > As an **Administrator**, I want to view assessment history for a merchant, so that I can track changes over time.
 
 **Acceptance Criteria:**
