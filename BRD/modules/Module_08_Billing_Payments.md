@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 23
+**Stories:** 24
 
 ---
 
@@ -193,6 +193,20 @@ Manages all billing and payment operations for Premier Program accounts. Include
 - Then the payment is reversed
 - And the account balance is adjusted
 - And the reversal is recorded for audit
+
+---
+
+**US-8.3.7: Generate and Send Payment Link**
+> As a **Customer Service Representative**, I want to generate a secure, single-use payment link and send it to a homeowner via email or SMS during a call, so that the customer can make a payment immediately without having to navigate the portal on their own.
+
+**Acceptance Criteria:**
+- Given I am viewing a customer account with a balance due
+- When I generate a payment link
+- Then a unique, time-limited payment link is created pre-populated with the account's balance due (or a custom amount I specify)
+- And I can send the link to the homeowner via their registered email and/or phone number
+- And the homeowner can complete payment through the link without needing to log in
+- And the link expires after a single use or after the configured time limit (e.g., 72 hours)
+- And the payment is recorded on the account the same as any other payment
 
 ---
 

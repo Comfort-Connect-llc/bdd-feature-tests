@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 62
+**Stories:** 64
 
 ---
 
@@ -93,6 +93,32 @@ Core business module managing the complete application lifecycle from prequalifi
 - And the application is clearly flagged as dealer-assisted for audit purposes
 - And the homeowner is notified at each major step (submission, decision)
 - And document signing requests are sent directly to the homeowner — I cannot sign on their behalf
+
+---
+
+**US-3.1.6: Send Bulk Prequalification Invitations**
+> As a **Dealer**, I want to send prequalification invitations to multiple prospective customers at once, so that I can efficiently reach a group of leads without sending each invitation individually.
+
+**Acceptance Criteria:**
+- Given I have a list of prospective customers with names and email addresses and/or phone numbers
+- When I upload or enter multiple contacts and send bulk invitations
+- Then each customer receives an individual prequalification link via email and/or SMS
+- And each invitation is tracked separately in my pipeline
+- And I can view a summary of sent, delivered, opened, and completed invitations from the batch
+- And duplicate contacts (same email or phone) are flagged before sending
+
+---
+
+**US-3.1.7: Auto-Save Application Progress for Dealer**
+> As a **Dealer**, I want my in-progress application work to be automatically saved as I enter information, so that I don't lose data if I navigate away, lose connectivity, or need to pause and return later.
+
+**Acceptance Criteria:**
+- Given I am creating or editing a Premier, Loan, or LTO application on behalf of a customer
+- When I enter information into any application field
+- Then my progress is automatically saved at regular intervals (e.g., every 30 seconds) and on any field change
+- And if I navigate away from the application or my session is interrupted, I can resume from where I left off
+- And auto-saved applications are clearly marked as "Draft" in my pipeline
+- And drafts that have not been submitted within a configurable period are flagged for follow-up
 
 ---
 

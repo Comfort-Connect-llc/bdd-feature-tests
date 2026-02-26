@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 10
+**Stories:** 13
 
 ---
 
@@ -28,6 +28,9 @@ Foundation module for all user interactions. Manages authentication, authorizati
 - Profile updates
 - User impersonation for support
 - Account deactivation
+- Global search across platform entities
+- Customizable dashboards
+- Session state persistence
 
 ---
 
@@ -142,3 +145,43 @@ Foundation module for all user interactions. Manages authentication, authorizati
 - When I deactivate the account
 - Then the user can no longer log in
 - And their historical activity is preserved
+
+---
+
+## 1.4 Portal Experience
+
+**US-1.4.1: Search Globally Across Platform**
+> As a **User**, I want to search across all platform entities (accounts, applications, dealers, tasks, and documents) from a single search bar, so that I can find what I need quickly without knowing which section it lives in.
+
+**Acceptance Criteria:**
+- Given I am logged into the platform
+- When I type a query into the global search bar
+- Then I see results grouped by entity type (accounts, applications, dealers, tasks, documents)
+- And results are ranked by relevance and show key identifying information (name, ID, status)
+- And I can click any result to navigate directly to that record
+- And the search supports partial matches, account numbers, names, email addresses, and phone numbers
+
+---
+
+**US-1.4.2: Customize Dashboard Layout**
+> As a **User**, I want to customize which widgets and data panels appear on my dashboard, so that I see the most relevant information for my role when I log in.
+
+**Acceptance Criteria:**
+- Given I am logged into the platform
+- When I enter dashboard customization mode
+- Then I can add, remove, reorder, and resize widgets from a library of available options appropriate to my role
+- And my layout preferences are saved and persist across sessions
+- And each role has a default dashboard layout that can be personalized
+- And an Administrator can define which widgets are available for each role
+
+---
+
+**US-1.4.3: Persist Session State Across Navigation**
+> As a **User**, I want my active filters, search queries, scroll positions, and in-progress form data to be preserved when I navigate between sections of the portal, so that I don't lose my working context.
+
+**Acceptance Criteria:**
+- Given I have active filters, a search query, or in-progress form data in any section of the portal
+- When I navigate to a different section and then return
+- Then my previous state (filters, search terms, scroll position, draft form data) is restored
+- And this applies across all major portal sections (pipeline, accounts, billing, reports, LMS)
+- And session state is cleared when I explicitly reset a view or log out

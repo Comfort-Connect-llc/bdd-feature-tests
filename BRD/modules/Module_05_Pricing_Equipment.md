@@ -19,7 +19,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 12
+**Stories:** 13
 
 ---
 
@@ -101,6 +101,20 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - Then I see analytics on average deal size, common terms, and utilization
 
 🎨 **Design:** [Pricing Metrics Dashboard](TODO)
+
+---
+
+**US-5.2.3: Assign Rate Plans to Trades**
+> As a **Sales or Service Manager**, I want to configure which rate plans are available for specific trades (HVAC, water heater, tankless water heater, water filtration, standby generator, etc.), so that dealers see only the appropriate pricing options for the type of equipment they are quoting.
+
+**Acceptance Criteria:**
+- Given rate plans and equipment trades exist on the platform
+- When I assign one or more rate plans to a specific trade
+- Then only the assigned rate plans are available when a dealer generates a quote for that trade
+- And I can assign different rate plans to different trades independently
+- And changes take effect for new quotes without affecting existing committed quotes
+- And I can view a summary of which rate plans are currently assigned to each trade
+- And rate plan-to-trade assignments can be overridden at the company or company group level if needed
 
 ---
 

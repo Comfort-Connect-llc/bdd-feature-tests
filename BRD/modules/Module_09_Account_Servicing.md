@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 47
+**Stories:** 51
 
 ---
 
@@ -364,6 +364,43 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
+**US-9.9.4: View Recently Accessed Accounts**
+> As a **Customer Service Representative**, I want to see a list of my recently accessed accounts, so that I can quickly return to an account without re-searching — especially when handling multiple calls or following up on a previous interaction.
+
+**Acceptance Criteria:**
+- Given I have accessed one or more customer accounts during my session
+- When I view the recently accessed accounts list
+- Then I see the last 20 accounts I've viewed, displayed with account holder name, account number, and last accessed timestamp
+- And I can click any entry to navigate directly to that account
+- And the list persists across my session (not cleared on page navigation)
+- And the list is personal to me and not visible to other users
+
+---
+
+**US-9.9.5: Access Quick-Action Toolbar on Account Summary**
+> As a **Customer Service Representative**, I want a quick-action toolbar on the account summary view, so that I can perform the most common actions (add note, create task, initiate call, generate payment link) without navigating to sub-tabs.
+
+**Acceptance Criteria:**
+- Given I am viewing a customer account summary
+- When the account loads
+- Then I see a persistent quick-action toolbar with buttons for the most common actions: Add Note, Create Task, Initiate Call, and Generate Payment Link
+- And clicking an action opens an inline form or modal without leaving the account summary view
+- And completed actions are reflected in the account's activity feed in real time
+
+---
+
+**US-9.9.6: View Consolidated Payment Assistance Panel**
+> As a **Customer Service Representative**, I want to see a consolidated payment assistance panel when helping a customer with billing, so that I can view their balance, recent payments, and payment options in a single view without switching tabs.
+
+**Acceptance Criteria:**
+- Given I am viewing a customer account and the customer has a billing inquiry
+- When I open the payment assistance panel
+- Then I see the current balance due, last 5 payments (with dates, amounts, and status), any past-due amount and days past due, and stored payment methods
+- And I can initiate a one-time payment or generate a payment link directly from this panel
+- And the panel can be accessed from any tab on the account
+
+---
+
 ## 9.10 Customer Service - Task Management
 
 **US-9.10.1: Create Service Task**
@@ -435,6 +472,19 @@ Manages post-origination account activities including maintenance requests, cust
 - And I can see a visual indicator that an unsaved draft exists when I am on other tabs
 - And I can choose to discard the draft if I no longer need it
 - And once I explicitly save or submit the note, the draft is cleared
+
+---
+
+**US-9.11.4: Use Canned Note Templates**
+> As a **Customer Service Representative**, I want to select from pre-built note templates for common interaction types, so that I can document calls quickly and consistently without typing repetitive content from scratch.
+
+**Acceptance Criteria:**
+- Given I am adding a note to a customer account
+- When I choose to insert a template
+- Then I see a list of available templates organized by category (e.g., Payment Inquiry, Maintenance Request, Complaint, General Inquiry, Collections)
+- And selecting a template pre-fills the note with structured fields and standard language
+- And I can edit the pre-filled content before saving
+- And an Administrator can create, update, and deactivate note templates
 
 ---
 

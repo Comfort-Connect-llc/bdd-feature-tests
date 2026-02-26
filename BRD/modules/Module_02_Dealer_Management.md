@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 46
+**Stories:** 48
 
 ---
 
@@ -238,6 +238,19 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 
 ---
 
+**US-2.4.10: Bulk Enroll Dealers in Partner Programs**
+> As an **Administrator**, I want to enroll multiple dealers in one or more partner programs at once, so that I can efficiently onboard batches of dealers without processing each enrollment individually.
+
+**Acceptance Criteria:**
+- Given I have a list of approved dealers who need partner enrollment
+- When I select multiple dealers and choose the partner programs to enroll them in (Premier, Momnt, Microf, Breeze, Thrive)
+- Then enrollment is initiated for each selected dealer and partner combination
+- And I can review the batch before confirming
+- And I receive a summary of successful enrollments, pending enrollments, and any failures with reasons
+- And each dealer is notified of their enrollment status individually
+
+---
+
 ## 2.5 Onboarding Completion
 
 **US-2.5.1: Complete Merchant Onboarding**
@@ -400,6 +413,19 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 - Given a partner requires training
 - When a dealer attempts to use the partner
 - Then access is only granted if required training is complete
+
+---
+
+**US-2.8.3: View Training Compliance Dashboard Widget**
+> As an **Administrator**, I want to see a training compliance summary widget on my main dashboard, so that I can quickly identify dealers and users who are behind on required training without navigating into the LMS section.
+
+**Acceptance Criteria:**
+- Given there are dealers and users with training requirements
+- When I view my administrator dashboard
+- Then I see a training compliance widget showing total users, percentage compliant, and count of overdue completions
+- And I can see a breakdown by dealer or company group
+- And overdue items are highlighted with the number of days past the deadline
+- And I can click through to the full training compliance report for details
 
 ---
 

@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 17
+**Stories:** 22
 
 ---
 
@@ -162,6 +162,31 @@ Platform administration module for system configuration, partner management, und
 
 ---
 
+**US-12.4.4: Save Report Configuration**
+> As an **Administrator**, I want to save my report filter and parameter configurations as named presets, so that I can re-run frequently used reports without rebuilding them each time.
+
+**Acceptance Criteria:**
+- Given I have configured a report with specific filters (date range, dealer, status, partner, etc.)
+- When I save the configuration with a name
+- Then the preset is available in my saved reports list
+- And I can load, run, edit, or delete saved presets
+- And saved presets are personal to me unless I choose to share them with my team
+
+---
+
+**US-12.4.5: Schedule Automated Report Delivery**
+> As an **Administrator**, I want to schedule reports to be automatically generated and delivered via email on a recurring basis, so that I receive regular reporting without manually running them.
+
+**Acceptance Criteria:**
+- Given I have a saved report configuration
+- When I set up a delivery schedule (daily, weekly, monthly) with one or more email recipients
+- Then the report is automatically generated on the configured schedule
+- And the report is delivered as a PDF or CSV attachment to the specified recipients
+- And I can pause, modify, or cancel scheduled deliveries at any time
+- And failed deliveries are logged and I am notified
+
+---
+
 ## 12.5 Partner Validation
 
 **US-12.5.1: Generate Partner Validation Report**
@@ -231,3 +256,45 @@ Platform administration module for system configuration, partner management, und
 - When I view the summary
 - Then I see counts by status
 - And can drill down to individual applications
+
+---
+
+**US-12.7.3: View Sales Rep Performance Report**
+> As a **Sales Representative**, I want to view a pre-built performance report showing my recent activity and results, so that I can track my own production and identify areas for improvement.
+
+**Acceptance Criteria:**
+- Given I am a sales representative with application and funding activity
+- When I view my performance report
+- Then I see my key metrics including applications submitted, approval rate, funded deals, total funded volume, and average deal size
+- And I can view trends over configurable time periods (week, month, quarter, year)
+- And I see how my current period compares to the previous period
+- And the report is available as a pre-built view on my dashboard without requiring manual configuration
+
+---
+
+**US-12.7.4: View Company Performance Report as Dealer Manager**
+> As a **Dealer Manager**, I want to view a pre-built company-level performance report, so that I can see how my organization is performing overall and identify which reps are driving results.
+
+**Acceptance Criteria:**
+- Given I have a manager or leadership role at my dealer organization
+- When I view the company performance report
+- Then I see aggregated company-level metrics including total applications, approval rates, funded volume, and average deal size
+- And I see a breakdown by individual sales representative within my organization
+- And I can compare rep-to-rep performance
+- And I can view trends over configurable time periods (week, month, quarter, year)
+- And the report is scoped to my organization only — I cannot see other dealers' data
+
+---
+
+**US-12.7.5: View Multi-Level Performance Report as Internal User**
+> As an **Internal User**, I want to view a pre-built performance report that I can drill into at the company level, dealer level, and individual rep level, so that I have full visibility into sales performance across the platform.
+
+**Acceptance Criteria:**
+- Given I am an internal user with reporting access
+- When I view the multi-level performance report
+- Then I see platform-wide aggregated metrics at the top level (total applications, approval rates, funded volume, average deal size)
+- And I can drill down to a specific company group or individual dealer to see their performance
+- And I can further drill down to individual sales representatives within a dealer
+- And each level shows the same core metrics with trends over configurable time periods
+- And I can filter by partner program, region, date range, and account status
+- And the report supports export to CSV or PDF for sharing
