@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 23
+**Stories:** 25
 
 ---
 
@@ -349,6 +349,33 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 - When I view my progress
 - Then I see completed and remaining lessons
 - And overall completion percentage
+
+---
+
+**US-2.7.4: Assign and Share Course via Deep Link (Internal)**
+> As an **Internal Team Member**, I want to assign and share a direct link to a specific course with one or more individuals or groups across contractors, dealers, and internal users, so that I can ensure targeted people receive and access the right training.
+
+**Acceptance Criteria:**
+- Given a course exists in the LMS
+- When I select a course and choose to assign or share it
+- Then I can select one or more individual recipients across any persona (contractor, dealer, or internal user)
+- And I can select one or more groups spanning multiple organizations
+- And each recipient receives a notification with a deep link that takes them directly to the course
+- And the assignment is tracked on the recipient's training record
+- And I can view assignment status (sent, opened, in progress, completed) for each recipient
+
+---
+
+**US-2.7.5: Assign and Share Courses as Dealer Leadership**
+> As a **Dealer Manager**, I want to assign and share specific courses or groups of courses with individual employees or groups of employees at my organization, so that I can manage my team's training and development.
+
+**Acceptance Criteria:**
+- Given I have a leadership role at my dealer organization
+- When I select one or more courses or course groups to share
+- Then I can assign them to individual employees or groups within my organization
+- And each recipient receives a notification with a deep link to the assigned course(s)
+- And I can view assignment and completion status for my team
+- And I cannot assign courses to users outside my organization
 
 ---
 
