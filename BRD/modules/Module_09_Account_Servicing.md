@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 52
+**Stories:** 53
 
 ---
 
@@ -364,7 +364,20 @@ Manages post-origination account activities including maintenance requests, cust
 
 ---
 
-**US-9.9.4: View Recently Accessed Accounts**
+**US-9.9.4: Copy Customer Name from Account Screen**
+> As a **Customer Service Representative**, I want a copy button next to the customer's name on the account screen, so that I can quickly copy the customer's full name to my clipboard for pasting into external tools such as CRM, ticketing systems, or correspondence without manually selecting and copying the text.
+
+**Acceptance Criteria:**
+- Given I am viewing a customer's account screen
+- When I click the copy icon displayed next to the customer's full name
+- Then the customer's full name is copied to my clipboard
+- And I see a brief visual confirmation (e.g., tooltip changes to "Copied!" for 2 seconds)
+- And the copy button is accessible via keyboard (Tab + Enter)
+- And the copied value matches the full name exactly as displayed (including any suffixes like Jr., Sr., III)
+
+---
+
+**US-9.9.5: View Recently Accessed Accounts**
 > As a **Customer Service Representative**, I want to see a list of my recently accessed accounts, so that I can quickly return to an account without re-searching — especially when handling multiple calls or following up on a previous interaction.
 
 **Acceptance Criteria:**

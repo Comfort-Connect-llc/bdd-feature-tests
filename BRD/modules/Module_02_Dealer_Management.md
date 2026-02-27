@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 48
+**Stories:** 50
 
 ---
 
@@ -591,3 +591,32 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 - When I view assessment history
 - Then I see all assessments with dates and scores
 - And can compare changes over time
+
+---
+
+## 2.12 User Department & Job Function
+
+**US-2.12.1: Assign Department or Job Function to Dealer User**
+> As a **Dealer Manager**, I want to assign a department or job function (e.g., Sales, Service, Technician) to each user within my company, so that the platform can tailor available rate plans and product options based on what each person's role requires.
+
+**Acceptance Criteria:**
+- Given I am managing users for my dealer company
+- When I edit a user's profile
+- Then I can assign a department/job function from a system-defined list (e.g., Sales, Service, Technician, Management)
+- And the assignment is saved to the user's profile and visible on the user management screen
+- And a user can only have one active department/job function at a time
+- And changing a user's department takes effect immediately for new quotes without affecting existing committed quotes
+- And the department/job function field is required during new user creation
+
+---
+
+**US-2.12.2: Configure Available Departments and Job Functions**
+> As an **Administrator**, I want to define and manage the list of available departments and job functions, so that dealer managers can assign the appropriate classification to their users.
+
+**Acceptance Criteria:**
+- Given I am configuring platform settings
+- When I manage the departments/job functions list
+- Then I can add, rename, deactivate, or reactivate department/job function entries
+- And deactivating a department does not remove it from users currently assigned to it but prevents new assignments
+- And each department has a name and optional description
+- And the list is available across all dealer companies

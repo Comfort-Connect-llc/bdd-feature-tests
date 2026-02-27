@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 23
+**Stories:** 24
 
 ---
 
@@ -138,6 +138,22 @@ Platform administration module for system configuration, partner management, und
 - And I can activate or deactivate project types without affecting existing accounts
 - And new project types are immediately available for selection during application creation
 - And I can configure which dealers or company groups are eligible to offer each project type
+
+---
+
+**US-12.3.4: Configure Department-Based Rate Plan Access**
+> As an **Administrator**, I want to configure which rate plans are available for each department/job function and trade combination, so that sales reps, service technicians, and other dealer roles see only the plans relevant to their function and the product category they are quoting.
+
+**Acceptance Criteria:**
+- Given departments/job functions and trade-based rate plan assignments (US-5.2.3) exist
+- When I configure department-based plan access
+- Then I can select a department (e.g., Sales) and a trade (e.g., HVAC) and assign which rate plans from that trade's pool are visible to users in that department
+- And I can set priority ordering for plans within each department–trade combination (highest priority displayed first)
+- And I can configure different plan sets for different department–trade pairs (e.g., Sales + HVAC gets promotional plans; Service + Plumbing gets repair-focused plans)
+- And I can set these configurations as global defaults that apply to all dealers
+- And dealer managers can create company-level overrides that further narrow (but not expand beyond) the administrator's configuration
+- And I can view a summary matrix of departments × trades showing the number of assigned plans for each combination
+- And changes take effect for new quotes without affecting existing committed quotes
 
 ---
 

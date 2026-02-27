@@ -19,7 +19,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 14
+**Stories:** 15
 
 ---
 
@@ -129,6 +129,21 @@ Manages payment quote generation, pricing models, tax calculation, and equipment
 - And changes take effect for new quotes without affecting existing committed quotes
 - And I can view a summary of which rate plans are currently assigned to each trade
 - And rate plan-to-trade assignments can be overridden at the company or company group level if needed
+
+---
+
+**US-5.2.4: Filter Rate Plan Visibility by User Department**
+> As the **System**, I want to filter the available rate plans shown to a dealer user based on both the trade/product category being quoted (per US-5.2.3) and the user's assigned department/job function, so that a sales rep selling HVAC systems sees different priority plans than a plumber quoting a water heater repair or a technician quoting a foundation repair.
+
+**Acceptance Criteria:**
+- Given a dealer user has a department/job function assigned (e.g., Sales, Service, Technician) and is generating a quote for a specific trade
+- When the system determines which rate plans to display
+- Then it applies both filters: trade-based assignment (US-5.2.3) AND department-based assignment
+- And only rate plans that match BOTH the selected trade and the user's department are displayed
+- And if no department-specific configuration exists for a trade, the system falls back to the trade-level defaults (US-5.2.3)
+- And an Administrator can configure which rate plans are available for each department–trade combination (see US-12.3.4)
+- And a Dealer Manager can further customize the department–trade plan visibility for their own company, within the bounds set by the Administrator
+- And the plan ordering reflects priority (highest-priority plans first) as configured per department–trade combination
 
 ---
 

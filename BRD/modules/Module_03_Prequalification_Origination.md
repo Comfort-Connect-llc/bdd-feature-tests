@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 65
+**Stories:** 66
 
 ---
 
@@ -151,6 +151,22 @@ Core business module managing the complete application lifecycle from prequalifi
 - Given I am completing a prequalification
 - When I choose to add a co-applicant and provide their information
 - Then both applicants' information is submitted together
+
+---
+
+**US-3.2.4: Preserve Primary Applicant Data During Co-Applicant Submission**
+> As the **System**, I want to ensure that when a co-applicant is added during the application submission process, the primary applicant's data (name, SSN, DOB, address, income, and contact information) is never overwritten or replaced by co-applicant data, so that both applicant records remain accurate and distinct throughout the application lifecycle.
+
+**Acceptance Criteria:**
+- Given a primary applicant has completed their portion of the application
+- When a co-applicant's information is submitted (via the same session or a separate co-applicant flow)
+- Then the primary applicant's data remains unchanged in all system fields (name, SSN, DOB, address, income, contact info)
+- And the co-applicant's data is stored in distinct co-applicant fields, never mapped to or merged with primary applicant fields
+- And the correct applicant data (primary vs. co-applicant) is transmitted in the appropriate fields for any partner API submissions (Momnt, Breeze, Microf)
+- And both applicant records are independently viewable on the account by CSRs
+- And the application submission process includes server-side validation that rejects any payload where the primary applicant ID would be overwritten
+- And an audit log entry is created if any data correction is made to either applicant record
+- And existing affected accounts are identified and flagged for manual data review
 
 ---
 

@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 17
+**Stories:** 18
 
 ---
 
@@ -183,6 +183,22 @@ Manages the installation authorization, documentation verification, and contract
 - When I submit work completion
 - Then Microf is notified
 - And funding is initiated
+
+---
+
+**US-7.4.5: Upload Multiple Invoices for Partner Funding Submission**
+> As a **Funding Team Member**, I want to upload multiple invoices at once when submitting a funding request to a financing partner (Momnt, Breeze, Microf), so that I can process multi-document funding submissions efficiently without uploading each invoice one at a time.
+
+**Acceptance Criteria:**
+- Given I am preparing a funding submission to a financing partner
+- When I upload invoices for the submission
+- Then I can select and attach multiple invoice files (PDF, JPG, PNG) in a single action via drag-and-drop or file picker
+- And each uploaded file is displayed in a list with file name, size, and a preview thumbnail
+- And I can remove individual files before submission
+- And the system validates that at least one invoice is attached before allowing submission
+- And all attached invoices are transmitted to the partner as part of the funding request payload
+- And the system confirms successful transmission of all files and flags any that failed to upload
+- And the uploaded invoices are stored and viewable on the account's funding history for audit purposes
 
 ---
 
