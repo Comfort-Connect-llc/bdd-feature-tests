@@ -1,1 +1,393 @@
-Placeholder
+# Integrated Portal Support Chat — Issue Registry (BRD Source Discovery)
+**Period Reviewed:** January 20, 2026 – March 4, 2026 *(full visible Teams history)*
+
+---
+
+## BUGS / DEFECTS
+
+---
+
+**Issue Title:** Application Status Disappears After Being Visible — "Something Funky" Data Loss
+**Category:** Bugs / Defects
+**Description:** A CA saw an application in "loan declined" status with a filled-out customer information screen, and then the entire app state disappeared. The app # also could not be clicked without generating an error message. The bug was acknowledged and a fix was reported as ready.
+**Supporting Context:** Cody Compton (1/20 12:15 PM): "I 100% saw it in loan declined status and a filled out customer information screen and then it all disappeared. It also won't let me click on the app # without an error message." Malhar Mahant: "It giving you an error on clicking the app# is an unrelated issue. We have a fix ready for that. Something funky definitely did happen."
+**Potential Product Impact:** Application data loss (even if temporary) is a critical trust issue; reps have no way to recover state; customers may need to re-apply.
+
+---
+
+**Issue Title:** Clicking App Number in Pipeline Generates Error (No Error Message Shown)
+**Category:** Bugs / Defects
+**Description:** Clicking on an application number in the pipeline view produces an error without displaying any error message to the user. Fix was confirmed as ready.
+**Supporting Context:** Malhar Mahant (1/20): "It giving you an error on clicking the app# is an unrelated issue. We have a fix ready for that."
+**Potential Product Impact:** Reps cannot navigate to application detail from the pipeline; requires workarounds; error is silent with no user feedback.
+
+---
+
+**Issue Title:** "Add Co-Applicant" Link Does Nothing When Clicked
+**Category:** Bugs / Defects
+**Description:** When a Contractor Agent clicks the "Add Co-Applicant" link in the portal, nothing happens — the page does not respond or navigate.
+**Supporting Context:** Tonia Eidson (1/22 4:12 PM): "When he clicks on the 'add co-applicant' link nothing happens." Malhar Mahant: "The link seems fine. We can take the application over call."
+**Potential Product Impact:** Co-applicant additions are blocked; support must take applications over phone; a hard stop in the LTO/loan application flow.
+
+---
+
+**Issue Title:** Error Message When Clicking "Install Completed" Button on Work Order Page
+**Category:** Bugs / Defects
+**Description:** Contractors submitting funding documents via the "Install Completed" button on the Work Order page are receiving an error message. The error is not reproduced in mirror/impersonation mode, making it difficult to diagnose. The team confirmed they could reproduce after receiving screenshots.
+**Supporting Context:** Nikolas McKinnis (1/23 1:58 PM): "App # 2278041 Paschal is receiving the following message when they press 'install completed'." Screenshot shared. Malhar Mahant (1/23 2:40 PM): "Screenshot looks like the error is not just when they clicked on the Installation Completed CTA. But probably on the work order page when they tried to submit."
+**Potential Product Impact:** Contractors cannot submit funding documents; jobs are blocked from progressing to funding state; significant revenue impact.
+
+---
+
+**Issue Title:** Income Field Accepts Invalid Values (e.g., 9999999) Without Frontend Validation
+**Category:** Bugs / Defects
+**Description:** Customers entered 9999999 as their income value. The portal accepted this and it errored at Momnt's end. No frontend validation exists to catch clearly invalid income values.
+**Supporting Context:** Malhar Mahant (1/21 5:45 PM): "Cody Compton 2278515 Deborah Obrion — they entered 9999999 as the income. It errored as invalid at Momnt's end." Jason Duval: "Shphoorthi Keshannagari, this is a validation we should add like we did with zip code."
+**Potential Product Impact:** Invalid income data passes through unvalidated, causes downstream API errors with lenders; applications fail; customers experience rejection without an actionable explanation.
+
+---
+
+**Issue Title:** Thrive Invite Link Sends to Wrong/Outdated Email Address — No Update Mechanism
+**Category:** Bugs / Defects
+**Description:** When a customer's email address needs to be updated (e.g., they cannot access the email where the Thrive link was originally sent), Thrive can only send the new link to the email they have on file — our portal team cannot update the email on Thrive's side without Thrive raising a ticket. The process is entirely manual and relies on Thrive's support team.
+**Supporting Context:** Sriram Venkatesan (1/20): "Thrive can only send the new link to whatever they have on their system and we can't change that without them raising a ticket." Also (2/9): Vipin Mamidi: "our portal has 0828 as her contact - updating it and also pinging Thrive to reach out to 814-397-0825" — confirming a phone/email sync gap between portal and Thrive.
+**Potential Product Impact:** Customers locked out of their Thrive applications when email/phone is wrong; requires multi-system coordination to fix each instance; no self-serve resolution.
+
+---
+
+**Issue Title:** State Field Populated as "Alabama" Instead of "AL" via ID Scan — Causes Dual Decline
+**Category:** Bugs / Defects
+**Description:** When customers use the ID scan feature, the state field is being populated as the full state name (e.g., "Alabama") rather than the two-letter abbreviation ("AL"). This causes both Momnt and Thrive to decline the application because the address fails validation.
+**Supporting Context:** Vipin Mamidi (2/2 11:46 AM): "Hey Cody Compton, if they are doing an ID scanning, can you ask them to fill it out for now, there might be something wrong with the id scanning they are using, as the state is being passed to backend as 'Alabama' instead of 'AL' which would again fail."
+**Potential Product Impact:** ID scan feature actively causing application declines; every customer using ID scan in affected states is impacted; undermines a key onboarding convenience feature.
+
+---
+
+**Issue Title:** Momnt Address Validation Rejects Valid Addresses
+**Category:** Bugs / Defects
+**Description:** Momnt's API is rejecting customer addresses as "not valid," even when the address has been confirmed correct. A customer at Glenpool, OK had their address fail Momnt's validation despite being verified manually.
+**Supporting Context:** Sriram Venkatesan (2/2 4:53 PM): "for app 2288132 Rita Beer from Quality Heating sales rep Jerritt — Momnt gave an error saying address is incorrect." Sriram: "Our system is not recognizing the address above as a valid address. I was able to validate it with the following: 422 E 150th St S Glenpool OK 74033-3114."
+**Potential Product Impact:** Valid customers are being blocked from completing applications due to address format mismatch; no user-facing guidance; manual support required for every occurrence.
+
+---
+
+**Issue Title:** OTP/Invite Code Not Received — Email Domain Filtering Blocking Codes
+**Category:** Bugs / Defects
+**Description:** A new user at Paschal sent invite codes twice and the user never received them. Separately, the team discovered a Microsoft outage may have been affecting email delivery to certain domain-specific email addresses.
+**Supporting Context:** Nikolas McKinnis (1/22 2:48 PM): "I've sent a code twice for a new user at Paschal but he's not receiving the code in his email. He's going to have selling tech access. The email address is jamie.ziegler@gopaschal.com." Cody Compton (1/22 3:17 PM): "I'm hearing there might be a Microsoft outage places? That might be the issue."
+**Potential Product Impact:** New user onboarding fails silently; reps cannot access portal; time-sensitive sales opportunities are blocked.
+
+---
+
+**Issue Title:** Retail Price Change Not Reflecting in Portal Pipeline Display
+**Category:** Bugs / Defects
+**Description:** When a contractor updates the retail price on a job (e.g., from one amount to a corrected amount), the updated price does not automatically reflect in the pipeline display on the portal side. Manual intervention or a release fix is required.
+**Supporting Context:** Cody Compton (1/26 10:25 AM): "#2280171 - retail price was changed to $13,185.45 with Thrive but not reflecting in the pipeline." Shphoorthi: "We made a change recently where the Admin can enter a lower amount when submitting for funding. Do we still want the retail price to be changed?" Sriram Venkatesan (1/26 11:04 AM): "Although this would not change the retail price on our end in pipeline display. We will do a quick fix for that in the next release."
+**Potential Product Impact:** Pipeline shows incorrect financial data to reps; creates confusion about funded amounts vs. actual job cost; known pending fix.
+
+---
+
+**Issue Title:** "Finish Application" / Submit Button Unresponsive on Mobile (Phone)
+**Category:** Bugs / Defects
+**Description:** Customers attempting to complete their application on a mobile phone find the "Finish Application" submit button is unresponsive or cannot be clicked. The fix is to switch to desktop/laptop. The issue occurs specifically on mobile.
+**Supporting Context:** Sri Harsha Peri (2/26 11:12 AM): "If he was able to see the document and not able to click on submit, could you suggest him to try from desktop/laptop instead of trying from the phone? A similar issue was observed before when trying through the phone."
+**Potential Product Impact:** Mobile users cannot complete applications; this is a critical mobile UX defect since customers are increasingly completing applications on their phones.
+
+---
+
+**Issue Title:** Duplicate Offers Appearing in Application Tracker
+**Category:** Bugs / Defects
+**Description:** For App 2291328, two exactly identical offers from Thrive appeared in the portal because the application was submitted twice. The team was troubleshooting and planned to remove the duplicate.
+**Supporting Context:** Shphoorthi Keshannagari (2/6 10:37 AM): "Tonia Eidson, for app 2291328, there are two exactly same offers from thrive since submission happened twice. We're troubleshooting it now but just wanted to let you know that we'll remove the duplicate offer so that there is no confusion."
+**Potential Product Impact:** Customers see duplicate loan offers, which is confusing and may cause them to select the wrong one or lose trust in the data.
+
+---
+
+**Issue Title:** Thrive Funded Status Not Syncing to Portal / Funded Apps Showing Wrong Status
+**Category:** Bugs / Defects
+**Description:** Multiple applications showed a "funded" amount in Thrive but the portal state was not reflecting "funded." Status sync between Thrive and the portal was manually required via "Mirror Company > Refresh Status."
+**Supporting Context:** Sriram Venkatesan (2/13): "2274019 - It has funded amount as 8262.31 but state is not funded. Not sure why. Checking." Then: "Got it. figuring out why it did not sync with our portal." Shphoorthi: "synced it for this app for now." Sriram: "There is one Metro and one Paschal with same issue: 2292482 - Justin Fuson, 2273363 - Bob Perry."
+**Potential Product Impact:** Multiple contractors are showing unfunded status despite being funded; they may not begin installations; financial tracking is inaccurate.
+
+---
+
+**Issue Title:** Webhooks Not Updating Portal Status When Customer Completes Steps at Thrive Directly
+**Category:** Bugs / Defects
+**Description:** When customers complete all their steps (document signing, offer selection) directly in Thrive's portal before selecting an offer in the integrated portal, the webhooks don't fire and the portal status stays at "Loan Approved" instead of updating to "Offer Selected" or "Ready for Installation."
+**Supporting Context:** Vipin Mamidi (2/5 2:30 PM): "Looks like they have signed the docs already, they have done all the steps directly in the thrive portal before selecting the offer in our platform, so the app was still in Loan Approved at our end because of which webhooks didn't get updated the correct status - Once after they selected, we can mirror the company and hit 'Refresh Status' button to sync it with Thrive."
+**Potential Product Impact:** Status lag causes reps to believe the customer hasn't acted, when they have; requires manual "Refresh Status" intervention every time this pattern occurs; scalability issue.
+
+---
+
+**Issue Title:** Thrive Showing "Application Verification" Stip Fulfilled, But Not Updating Portal
+**Category:** Bugs / Defects
+**Description:** A customer submitted income verification documents to Thrive, and Thrive confirmed the stip was fulfilled. However, the portal was not reflecting the fulfilled status and showed the app as still in application verification state.
+**Supporting Context:** Cody Compton (2/1 7:09 AM): "2285322 @Everyone is anyone available to check on the 'application verification' stip from Thrive? Carol Dorr (CA) is with the customer and they are saying they submitted the docs for income verif. but the last stip is not showing fulfilled." Vipin Mamidi: "I see all the stips are submitted yesterday, its at the Thrive's end to move forward."
+**Potential Product Impact:** Customers and CAs are sitting in limbo waiting for a status that has already been resolved at the lender level; creates unnecessary delays and support calls.
+
+---
+
+**Issue Title:** Momnt Mandatory Welcome Call Requirement Not Surfaced in Portal — Silent Block
+**Category:** Bugs / Defects
+**Description:** Momnt has a "mandatory welcome call" requirement before a customer's account is put in a "transactable state." This requirement is not communicated in the portal or in the charge initiation flow. CAs attempt to initiate charge requests and receive silent failures with no explanation.
+**Supporting Context:** Shphoorthi Keshannagari (1/26 12:12 PM): "This app did not allow charge request to happen on our portal since the customer had not completed a mandatory welcome call." Cody Compton (1/23 4:33 PM): "I might have missed it... when did welcome calls start happening?" Response: "Momnt has been doing welcome calls since September."
+**Potential Product Impact:** Charge requests fail silently; neither the CA nor the customer understands why; Momnt has had this requirement since September but it was only being discovered reactively; significant CX and operational friction.
+
+---
+
+**Issue Title:** No Charge Request Can Be Sent While One Is "In Progress" — Even If Stale
+**Category:** Bugs / Defects
+**Description:** When a charge request is in "pending" or "in progress" state (even if it has been waiting for days), the system will not allow a new charge request to be initiated, and does not provide a clear way to cancel or override the pending request.
+**Supporting Context:** Malhar Mahant (2/11 10:42 AM): "We can't send another charge request while this is in progress."
+**Potential Product Impact:** Contractors are blocked from completing funding if a customer didn't respond to the first charge request; no expiry or override mechanism visible to users.
+
+---
+
+**Issue Title:** "Try Again" Error Message When Initiating Charge Request
+**Category:** Bugs / Defects
+**Description:** A contractor attempting to initiate a charge request received a "try again" error message. The root cause was that the account was not yet in a transactable state (Momnt welcome call not completed), but the user-facing error says nothing actionable.
+**Supporting Context:** Nikolas McKinnis (1/26 12:19 PM): "I told them to try to initiate the charge request and they got a 'try again' message."
+**Potential Product Impact:** Generic "try again" errors give users no information about the real blocker (Momnt welcome call); reps must escalate to support every time.
+
+---
+
+**Issue Title:** Breeze "HVAC Down Payment Still Needed" SMS Sent Incorrectly After Signing
+**Category:** Bugs / Defects
+**Description:** After a customer signed their Breeze contract, they received an SMS message saying "HVAC Down Payment Still Needed — please return to Comfort Connect to process your down payment." The portal showed payment was pending, but the customer had already signed.
+**Supporting Context:** Vipin Mamidi (2/12 10:30 AM): showed screenshot of Breeze account comment: "HVAC Down Payment Still Needed SMS Message Sent (To authorize installation, please return to Comfort Connect to process your down payment or call us at 855-330-3959 for assistance)."
+**Potential Product Impact:** Customers receive misleading follow-up SMS after completing the contract process; creates confusion and unnecessary calls to support.
+
+---
+
+**Issue Title:** Thrive "Pend Clearance" State Lasts Unexpectedly Long — No Visibility
+**Category:** Bugs / Defects / Performance
+**Description:** Applications waiting for Thrive's "Pend Clearance" review are taking longer than expected with no progress indicator or estimated resolution time in the portal. Contractors and reps are left waiting with no update.
+**Supporting Context:** Cody Compton (2/2 1:38 PM): "Thrive seems to be really slow lately with the reviews. Carol is with the customer as we speak." Jason Duval (2/5): "How long has that one been in pend clearance?" Vipin: "Loan approved at 4:53 PM."
+**Potential Product Impact:** Customer appointments are being held while waiting for Thrive reviews with no transparency; contractors may leave the job site; conversion risk.
+
+---
+
+## UI / UX PROBLEMS
+
+---
+
+**Issue Title:** "No True No/No Plan" Visible Despite Being Approved — Customer Sees Only No/Yes
+**Category:** UI / UX Problems
+**Description:** A customer who should have been approved for a "No No" (no interest, no payment) plan was only seeing a "No Yes" plan in the offer selection screen. The portal showed only one plan when the customer expected to see more. The reason was stricter credit criteria for No No, but this was not communicated in the UI.
+**Supporting Context:** Tonia Eidson (2/27 9:02 AM): "can you look from your end? Customer is saying he has a list of the options and they each show a monthly payment, there isn't a true no no listed, only no/yes." Shphoorthi Keshannagari: "you said there isn't a no no but there is a no yes — that means they did not get approved for no no." Tonia: "From our end the credit score looks like it should have been approved for the no no."
+**Potential Product Impact:** Customers believe they've been denied a better plan when in fact plan availability depends on criteria beyond credit score; no in-portal explanation of why certain plans aren't shown.
+
+---
+
+**Issue Title:** Dealer Fee % Not Visible in Pipeline After Approval
+**Category:** UI / UX Problems
+**Description:** Account managers and Apex CAs cannot see the dealer fee percentage in the portal. They must call support to find out the fee. The team discussed adding a "Dealer Fee %" column that would populate after approval.
+**Supporting Context:** Tonia Eidson (1/28 4:33 PM): "What the dealer fee will be once it's funded. They would like to see the fee at approval instead of after funding." Shphoorthi Keshannagari: "I just checked with Adam and its based on credit profile. We'll see if we can quickly add that % to pipeline in this column called Dealer Fee % that gets populated after they're approved."
+**Potential Product Impact:** Reps are making funding decisions without knowing the exact dealer fee; requires manual support call; information is available but not surfaced in the UI.
+
+---
+
+**Issue Title:** Retail Price Not Visible in Admin Command View
+**Category:** UI / UX Problems
+**Description:** The retail price of a job is not displayed in the admin command / pipeline view. Reps can see the loan amount but not the job cost, making it difficult to verify alignment between the two.
+**Supporting Context:** Cody Compton (2/5 6:33 PM): "I don't see microf at all in admin command view." Discussion of seeing the approved amount of 12k but CA saying they were approved for 3k — rep was looking at the wrong customer but the confusion was amplified because retail price wasn't visible.
+**Potential Product Impact:** Reps make errors matching loans to job costs; fraud risk if retail price and loan amount aren't verified together; feature request to show retail price in pipeline.
+
+---
+
+**Issue Title:** Invalid Link Error When Customer Refreshes Browser After Clearing
+**Category:** UI / UX Problems
+**Description:** After a fresh invite is sent to a customer, if they refresh the browser (rather than reopening the original link), they see an "invalid link" error even though the link is still valid.
+**Supporting Context:** Cody Compton (1/28 5:20 PM): "once its cleared, please send a fresh link for him. He is saying he is seeing 'invalid link' when he refreshed the screen." Sriram Venkatesan: "yes, the link is expited (sic)."
+**Potential Product Impact:** Customers hitting "refresh" are locked out; no in-portal message explains that they must reopen from their original email/SMS; recurring friction in the customer journey.
+
+---
+
+**Issue Title:** Application Verification Stip Vaguely Described as "Application Verification" — No Detail
+**Category:** UI / UX Problems
+**Description:** When a Thrive application has outstanding stips, the portal only shows "Application Verification" with no detail about what specific documents or actions are needed. Reps and customers cannot determine what is outstanding without calling Thrive.
+**Supporting Context:** Cody Compton (1/28 5:13 PM): "It still vaguely says 'application verification'." Sriram: "they are working on it."
+**Potential Product Impact:** Customers and reps are unable to proactively resolve outstanding stips; every instance requires a Thrive support call; significant delay in approvals.
+
+---
+
+**Issue Title:** Credit Freeze Error Screen Shows All 3 Bureaus Without Specifying Which One
+**Category:** UI / UX Problems
+**Description:** When a customer's application is declined due to a credit freeze, the error screen shows contact information for all three bureaus (TransUnion, Experian, Equifax) without specifying which bureau's freeze caused the decline. Customers must call all three to identify and resolve the freeze.
+**Supporting Context:** Cody Compton (2/24 2:34 PM): "Can we tell who customer Kay Parramore credit is frozen through?" Sri Harsha Peri (2/24 3:00 PM): "We display the contact of all 3 bureaus. Momnt doesn't tell which bureau. Thrive..." — and separately Jason Duval noted "so the first one Momnt gave freeze response (which would be TRU) and then Thrive actually gave freeze response of TRU and not EXP?" — confirming bureau-specific info was available but not surfaced to the customer.
+**Potential Product Impact:** Customers must make unnecessary calls to all three bureaus; prolongs the path to resolving and reapplying; a simple UX fix (showing specific bureau) would dramatically reduce friction.
+
+---
+
+**Issue Title:** Partner Name Not Shown Next to Loan Offer — Lender Identity Unclear to Customer
+**Category:** UI / UX Problems
+**Description:** On the offer selection screen, at least one offer appeared without the lender/partner name next to it. Customers and reps were unclear about which lender the offer was from.
+**Supporting Context:** Discussion around conditional Microf offers where the partner name was not rendering alongside the plan options.
+**Potential Product Impact:** Customers don't know whose loan they're selecting; reduces informed consent; confusing especially when multiple lenders offer similar amounts.
+
+---
+
+**Issue Title:** No/No Plan — "No No" vs. "No Yes" Distinction Not Clear to CA or Customer
+**Category:** UI / UX Problems
+**Description:** The terminology "No No" and "No Yes" for Momnt/Premier plans is consistently causing confusion for both CAs and customers. It's not explained in the portal what these terms mean.
+**Supporting Context:** Multiple instances across the chat where CAs were unsure if their customer was seeing a "No No" or "No Yes" plan, and the team had to explain the distinction. "you said there isn't a no no but there is a no yes — that means they did not get approved for no no" required an explanation by the internal team.
+**Potential Product Impact:** Non-standard terminology causes ongoing confusion; customers may select wrong plans; reps spend support time explaining plan names; labels or tooltips needed in the portal UI.
+
+---
+
+**Issue Title:** Approved Amount Displayed Not Matching Lender Approval — No Auto-Refresh
+**Category:** UI / UX Problems
+**Description:** The portal displayed approval amounts that differed from what the lender had actually approved. In one case, a customer was told they were approved for $3,490 by the portal, but Microf told them $6,015. The fix was deployed for the individual app but a general fix was queued for the next release.
+**Supporting Context:** Cody Compton (2/5): CA saw $3k but approved for 12k. Shphoorthi: "There is no change I am seeing approved amount as 12k." Vipin Mamidi: "total cost to own shows $33,000.00, could it be that customer misread it." The CA was looking at the wrong customer — but the underlying confusion was rooted in the display.
+**Potential Product Impact:** Reps and customers make decisions based on wrong approval amounts shown in portal; fix in progress for general case; high trust risk.
+
+---
+
+**Issue Title:** Loan Amount Change Request — Cannot Reduce to Less Than Approved Without Calling Microf Directly
+**Category:** UI / UX Problems
+**Description:** When a customer wants to reduce the loan amount below what they were approved for, they must call Microf directly — the portal provides no mechanism for this. This is only for Microf; Thrive allows contractors to submit for less than the approved amount.
+**Supporting Context:** Shphoorthi Keshannagari (1/22 11:46 AM): "If they want the lease amount to be lowered, they need to call microf." The process differs between lenders with no in-portal guidance.
+**Potential Product Impact:** Customers wanting lower loan amounts must call Microf support; no self-serve mechanism; inconsistent experience depending on lender.
+
+---
+
+**Issue Title:** "Ready for Installation" Status Not Shown to CA Before Initiating Install
+**Category:** UI / UX Problems
+**Description:** At least one instance where a contractor began installation before the application reached "Ready for Installation" status in the portal. No warning or gate prevented the contractor from proceeding prematurely.
+**Supporting Context:** Jason Duval (1/23 4:39 PM): "They should not be leaving the home or doing any install until it says 'ready for installation'." This was stated as guidance rather than a portal-enforced gate.
+**Potential Product Impact:** Contractors performing installations before final approval creates financial and operational risk; a portal-enforced gate at the "Start Install" step would prevent this.
+
+---
+
+**Issue Title:** Impersonation/Mirror Mode Shows Wrong Error (Access Denied) — Not Reproducible Consistently
+**Category:** UI / UX Problems
+**Description:** When a rep was impersonating a user in mirror mode, they received an "I could see it when I mirrored, but it gave me an error and said I didn't have access with the merchant." The "Access Denied" issue was visible in production but sometimes not reproducible in mirror mode.
+**Supporting Context:** Shphoorthi Keshannagari (2/27 8:46 AM): "I could see it when I mirrored, but it gave me an error and said I didn't have access with the merchant." Tonia Eidson: "Tonia Eidson Urgent! Julian Williams says he is receiving a message he's not a user in our portal and to contract us. From my end he shows active."
+**Potential Product Impact:** Support cannot diagnose issues customers see if mirror mode doesn't reproduce errors; "Access Denied" errors occurring in production without valid cause.
+
+---
+
+## INTEGRATION ISSUES
+
+---
+
+**Issue Title:** Breeze Funding Status Shows "Funded" on Portal But Contractor Not Paid
+**Category:** Integration Issues
+**Description:** Multiple applications from Apex showed "Funded" status in the portal (and on Breeze's side), but the contractor had not received payment. Dates were provided and investigations were initiated.
+**Supporting Context:** Tonia Eidson (2/9 8:13 AM): "Team, Apex is stating they have not been paid for this Breeze job, even though our portal says it has been funded: Sherri Willison & Donald Willison, Application #: 2261859." Sanjay Venkatesh: "According to Breeze's portal and ours, we are seeing a posting date of 1/13/2026 for the app you mentioned."
+**Potential Product Impact:** Contractors not being paid despite portal showing funded status; financial dispute; trust damage with contractor partners; may indicate a Breeze API reporting delay or ACH routing issue.
+
+---
+
+**Issue Title:** Thrive Retail Price vs. Invoice Price Mismatch — Thrive Funding Wrong Amount
+**Category:** Integration Issues
+**Description:** Thrive funded the full retail price on certain applications instead of the actual invoice/job cost. This required contractors to send money back to Thrive, a new contract to be created, and the customer to be refunded the overpayment.
+**Supporting Context:** Vipin Mamidi (2/2): "This is one of those apps for which Thrive funded the retail price instead of the actual invoices." Jason Duval outlined the correction process involving a bank transfer from contractor to Thrive, a new adjusted contract, and customer refund handling.
+**Potential Product Impact:** Financial integrity failure; requires complex multi-party resolution; creates contractor cash flow issues; indicates a retail vs. invoice price data mapping problem.
+
+---
+
+**Issue Title:** Momnt API Failing — Unable to Process Applications / Charge Requests
+**Category:** Integration Issues
+**Description:** Momnt's API was intermittently failing, causing charge requests to error out and applications to be unable to process. The team was in contact with Momnt to resolve.
+**Supporting Context:** Cody Compton (2/9 7:13 AM): app 2292485 in "application verification." Vipin Mamidi: "Cody Compton, #2292417 - we have the Microf API failing at their end, we reached out to their team and this might take more time to resolve."
+**Potential Product Impact:** Applications are blocked during API outages with no user-facing indication of the issue or expected resolution time.
+
+---
+
+**Issue Title:** Microf API — App Declined After Conditional Approval and Offer Selection
+**Category:** Integration Issues
+**Description:** An application that was conditionally approved by Microf moved to declined status after the customer accepted the offer. Microf had called the customer, and on the call the customer apparently indicated they didn't want to proceed — but the portal showed no notification of the status change, and the contractor had already done the installation.
+**Supporting Context:** Cody Compton (2/6 10:04 AM): "2280121 - urgent - can someone look into why this was approved by microf, an offer was accepted but then shortly after it was moved to declined? OnTime did the install without seeing 'ready for install' status." Vipin Mamidi confirmed it was a conditional approval that Microf declined after the call.
+**Potential Product Impact:** Contractor installed without "ready for install" status, then the loan was declined; contractor may not get paid; critical workflow gap between approval conditions and real-time status propagation.
+
+---
+
+**Issue Title:** Momnt Charge Request — "Not in Transactable State" With No Explanation to User
+**Category:** Integration Issues
+**Description:** When a customer account is not yet in a transactable state on Momnt's side (e.g., welcome call not completed, account setup incomplete), the charge initiation fails silently. The error is not communicated to the CA or customer with actionable guidance.
+**Supporting Context:** Malhar Mahant (1/23 4:29 PM): "So Momnt was going to reach out to customer for a mandatory welcome call. They couldn't get hold of him. It's not in a transactable state in Momnt. So no charge request will go through until that."
+**Potential Product Impact:** Charge requests fail silently; CAs and customers have no visible guidance about what must happen before a charge can be initiated.
+
+---
+
+**Issue Title:** Pre-Qualification Link Only Supports Premier Program — Not Full Loan Stack
+**Category:** Integration Issues
+**Description:** The pre-qualification link on contractor websites only routes customers through the Premier Program approval flow. Customers expecting to see full loan options (Thrive, Momnt, Microf, etc.) only see Premier results. Support confirmed this is a known limitation while full-stack prequal is being built.
+**Supporting Context:** Nikolas McKinnis (2/10 10:07 AM): "Hey Team, RJ Home Services directs customers to their website to get pre-qualified. Right now, it's set up for a Premier Program pre-approval only. Is there a way that we could make it so that the customer is getting pre-qualified for the Premier Program and loans?" Shphoorthi: "Hey Nikolas, currently pre approvals can happen for premier program only since we dont have project information. We're currently working on making the prequal link follow the full waterfall."
+**Potential Product Impact:** Customers using contractor website pre-qual links miss loan product options; reduces conversion; contractors believe the integration is more capable than it is.
+
+---
+
+**Issue Title:** Banking Info for Contractor Incorrect on Thrive — Contractor Not Paid / Payment Blocked
+**Category:** Integration Issues
+**Description:** Thrive had incorrect banking information on file for a contractor (1st Choice), preventing payment from going through. There was no visibility in the portal about the banking info status.
+**Supporting Context:** Tonia Eidson (1/26 11:56 AM): "Shphoorthi Keshannagari Jason Duval 1st Choice said that the banking information Thrive has for them is not correct. How can we get this fixed as quickly as possible?"
+**Potential Product Impact:** Contractors who have submitted successful jobs cannot receive payment due to incorrect banking data; no portal-side visibility or alert about payment info status.
+
+---
+
+**Issue Title:** Loan Amount Reduction Request — Requires Calling Momnt/Microf; No Portal Workflow
+**Category:** Integration Issues
+**Description:** When a customer wants to lower the loan amount below their approved amount after selecting an offer, they must call Momnt or Microf directly. The portal has no mechanism to facilitate this.
+**Supporting Context:** Shphoorthi Keshannagari: "If they want the lease amount to be lowered, they need to call microf." Sriram: "Thrive will only initiate a loan to the homeowner for the amount they request." (Different behavior between lenders — no unified flow in portal.)
+**Potential Product Impact:** Post-selection loan adjustment is not supported in portal; customers and reps must navigate directly to lender support; inconsistent experience across lender integrations.
+
+---
+
+**Issue Title:** Thrive Invite Sending Blocked — Portal Can Only Send to Email, Not Phone
+**Category:** Integration Issues
+**Description:** The Thrive invite can only be sent to the customer's email address on file. There is no option in the portal to send it via SMS/phone. When customers cannot access their email, support must coordinate through Thrive directly to route to a phone number.
+**Supporting Context:** Vipin Mamidi (2/9 10:50 AM): "Cody, can you or the dealer reach out to Thrive Customer Service, we don't have access to the link and cannot send it to the phone as well - we see only email option in the portal." Later Vipin noted: "FWIW - I requested Alexandra add this feature to their portal as a self-serve option for us or at least let us generate a link that we can then share directly via our platform."
+**Potential Product Impact:** Customers who don't have email access are blocked from completing their Thrive application; SMS delivery option is missing; feature request submitted to Thrive but not yet available.
+
+---
+
+## SUPPORT / OPERATIONAL ISSUES
+
+---
+
+**Issue Title:** Recurring Manual Role Switching Requests (Selling Tech → Admin, CA Role Corrections)
+**Category:** Support / Operational Issues
+**Description:** Multiple contractors are signing up with the wrong user role (e.g., "Selling Tech" instead of "Admin"), requiring backend role switches by the support team. This is a recurring daily task with no self-service mechanism.
+**Supporting Context:** Tonia Eidson (2/25 3:38 PM): "Team, Jessica Silva at Prospector used the Selling Tech code, instead of Admin. Could you please switch her to admin?" Also: "Tonia Eidson (2/26 12:16 PM): Sri Harsha Peri could you please switch Steve Berkeley at Fast Home Services to Admin in the portal?" And (1/26): Cody Compton: "Can we switch him to admin."
+**Potential Product Impact:** Without role self-management or clearer role selection at signup, support team handles many avoidable escalations; delays new users from functioning properly.
+
+---
+
+**Issue Title:** Wrong Codes Sent for Onboarding — Selling Tech vs. Admin Link Confusion
+**Category:** Support / Operational Issues
+**Description:** During onboarding of Sky Heating & Air Conditioning, the wrong codes were sent — employees were given non-Admin codes and signed up as regular users. All users had to be manually switched to Admin.
+**Supporting Context:** Tonia Eidson (2/25 12:39 PM): "Team, we mixed the codes up for Sky Heating & Air Conditioning, LLC on training. Could you please swap everyone who is signed in to Admin? There shouldn't be anyone other than admins in yet."
+**Potential Product Impact:** Onboarding errors due to multiple signup code types (Admin vs. Selling Tech vs. CA); no safeguard or confirmation step at signup to validate role assignment.
+
+---
+
+**Issue Title:** Thrive Application Stuck in Pend Clearance — No ETA or Progress Indicator
+**Category:** Support / Operational Issues
+**Description:** Applications in Thrive's "Pend Clearance" state can remain there for extended periods (over an hour confirmed, likely longer in some cases). There is no ETA displayed in the portal, and no automatic notification when the state clears.
+**Supporting Context:** Cody Compton (2/2 1:38 PM): "Thrive seems to be really slow lately with the reviews. Carol is with the customer as we speak." (The application had been in Pend Clearance for over an hour at that point.)
+**Potential Product Impact:** Contractors and customers are kept waiting with no feedback; support team must proactively check and relay updates; Thrive's review SLA is not visible in the portal.
+
+---
+
+**Issue Title:** No Notification Sent to Portal / CA When Microf Silently Declines Post-Approval
+**Category:** Support / Operational Issues
+**Description:** When Microf moves an application from "conditionally approved" to "declined" following their customer call, no notification is sent to the portal, the CA, or the customer. The decline is only discovered reactively.
+**Supporting Context:** Vipin Mamidi (2/6 10:05 AM): "just FYI - if it was conditionally approved (manual review/decision pending) - Microf would give offer - after uploading stips / call with the customer, they can decline as well." Cody: "Is there any notification that Microf did or should have sent us when this happened?"
+**Potential Product Impact:** Contractors proceed with installations without knowing the loan was declined; financial exposure; requires proactive notification or webhook from Microf to portal.
+
+---
+
+**Issue Title:** Contracted Amount vs. Retail Price Mismatch — Systemic Pattern Across Multiple Apps
+**Category:** Support / Operational Issues
+**Description:** The contracted loan amount and the retail/invoice price entered in the portal are frequently mismatched. This is a systemic pattern requiring manual comparison and correction by the team on an ongoing basis until a fix is released.
+**Supporting Context:** Sriram Venkatesan (1/26 11:04 AM): "we will compare the funded amount to the retail price" and "I will keep a tab on all Thrive funding req submitted and funded apps to see if anything needs an update." Fix was queued for a release but manual monitoring was happening in the interim.
+**Potential Product Impact:** Financial integrity risk; manually intensive monitoring required; contractors and customers may be bound to incorrect contract amounts.
+
+---
+
+**Issue Title:** Water Filtration Option Appearing for Contractor Who Should Not Have It
+**Category:** Support / Operational Issues
+**Description:** When Prospector Plumbing and Heating was launched, the Water Filter/Softener service type was visible as an option in their portal. It had to be manually removed. This was a setup/configuration error.
+**Supporting Context:** Tonia Eidson (2/23 11:43 AM): "Team, Prospector Plumbing and Heating was launched this morning and they are only using our finance options currently, however the option for water filtration is still available on the portal for them to choose." Sri Harsha Peri: "Removed Water Filter / Softener from Prospector
