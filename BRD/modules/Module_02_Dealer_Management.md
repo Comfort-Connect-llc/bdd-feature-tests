@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 50
+**Stories:** 53
 
 ---
 
@@ -29,6 +29,8 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 - Training course enrollment and completion
 - Compliance certification tracking
 - Interactive demo mode for onboarding and training
+- White-label branding configuration (logo, tagline, brand colors)
+- Brand profile versioning and preview
 
 ---
 
@@ -620,3 +622,52 @@ Manages the complete dealer/contractor lifecycle from initial application throug
 - And deactivating a department does not remove it from users currently assigned to it but prevents new assignments
 - And each department has a name and optional description
 - And the list is available across all dealer companies
+
+---
+
+## 2.13 White-Label Branding
+
+**US-2.13.1: Configure Dealer Brand Profile**
+> As a **Dealer Manager**, I want to configure my company's brand profile — including logo, tagline, and brand colors — so that the customer-facing prequalification and application experience within Comfort Connect reflects my company's identity rather than generic platform branding.
+
+**Acceptance Criteria:**
+- Given I am a Dealer Manager with an active account
+- When I access the "Brand Profile" configuration screen in my dealer settings
+- Then I can upload a company logo (accepted formats: PNG, JPG, SVG; max file size: 2MB; recommended dimensions displayed)
+- And I can enter a company tagline (max 120 characters) that will appear below the logo on customer-facing screens
+- And I can select a primary brand color using a color picker or hex code entry (applied to buttons, headers, and progress indicators on customer-facing screens)
+- And I can select an accent color using a color picker or hex code entry (applied to links, highlights, and secondary UI elements)
+- And I see a real-time preview panel that shows how my branding will appear on the customer prequalification form as I make changes
+- And I can save my branding configuration as a draft without submitting for approval
+- And I can submit my branding for internal review when ready (see US-12.3.5)
+- And my branding does not go live until approved by an internal administrator
+- And if my branding has been previously approved and I make changes, the existing approved branding remains live until the updated version is approved
+
+---
+
+**US-2.13.2: Preview Branded Customer Experience**
+> As a **Dealer Manager**, I want to preview exactly how the customer prequalification and application screens will look with my branding applied, so that I can ensure the experience meets my company's standards before submitting for approval.
+
+**Acceptance Criteria:**
+- Given I have configured at least a logo and primary color in my brand profile
+- When I click "Preview Customer Experience"
+- Then a full preview of the customer-facing application flow opens (Step 1: Get Pre-Qualified, Step 2: Add Project Details) with my branding applied
+- And the preview shows my logo in the header position, my tagline below the logo, my primary color on buttons and progress indicators, and my accent color on links and highlights
+- And the preview uses realistic sample data (not blank fields) so I can see the full visual impact
+- And I can toggle between mobile and desktop views in the preview
+- And if my color selections create accessibility issues (e.g., insufficient contrast ratio against white or dark backgrounds per WCAG AA), the system displays a warning with a suggested alternative color
+- And the preview is view-only — customers cannot reach it, and no data is created
+
+---
+
+**US-2.13.3: Manage Brand Profile Versioning**
+> As a **Dealer Manager**, I want to view the history of my brand profile changes and revert to a previously approved version if needed, so that I can recover from unwanted changes without reconfiguring everything from scratch.
+
+**Acceptance Criteria:**
+- Given I have submitted brand profile configurations over time
+- When I view my brand profile history
+- Then I see a versioned list of all submissions with: version number, submission date, status (Draft, Pending Approval, Approved, Rejected), and a thumbnail preview of the branding
+- And I can click any approved version to view its full details (logo, tagline, colors)
+- And I can select a previously approved version and click "Restore" to reactivate it immediately without re-approval (since it was already approved)
+- And the currently live version is clearly indicated in the list
+- And rejected versions show the rejection reason provided by the administrator

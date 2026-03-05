@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 24
+**Stories:** 30
 
 ---
 
@@ -154,6 +154,23 @@ Platform administration module for system configuration, partner management, und
 - And dealer managers can create company-level overrides that further narrow (but not expand beyond) the administrator's configuration
 - And I can view a summary matrix of departments × trades showing the number of assigned plans for each combination
 - And changes take effect for new quotes without affecting existing committed quotes
+
+---
+
+**US-12.3.5: Review and Approve Dealer Brand Profile**
+> As an **Administrator**, I want to review dealer-submitted brand profiles (logo, tagline, and colors) and approve or reject them before they go live on customer-facing screens, so that all branding meets platform quality standards, compliance requirements, and does not contain inappropriate or misleading content.
+
+**Acceptance Criteria:**
+- Given a dealer has submitted a brand profile for approval
+- When I view the branding approval queue
+- Then I see all pending submissions listed with: dealer name, submission date, and a thumbnail preview
+- And I can click a submission to see a full side-by-side comparison of the proposed branding vs. the currently live branding (or default platform branding if first submission)
+- And I can view a rendered preview of the customer-facing application with the proposed branding applied
+- And I can approve the submission, which immediately publishes the branding to the dealer's customer-facing screens
+- And I can reject the submission with a required reason (free-text) which is sent back to the dealer as a notification with specific feedback on what to change
+- And the approval/rejection decision is recorded in the audit log with: administrator ID, dealer ID, decision, reason (if rejected), and timestamp
+- And I can set platform-wide branding guidelines (e.g., minimum logo resolution, prohibited color ranges) that are enforced automatically during upload — submissions that violate guidelines are blocked before reaching the approval queue
+- And if a dealer has no approved branding, the default Comfort Connect platform branding is displayed on their customer-facing screens
 
 ---
 
@@ -328,3 +345,69 @@ Platform administration module for system configuration, partner management, und
 - And each level shows the same core metrics with trends over configurable time periods
 - And I can filter by partner program, region, date range, and account status
 - And the report supports export to CSV or PDF for sharing
+
+---
+
+## 12.8 Platform Branding & Naming Consistency
+
+**US-12.8.1: Display "Comfort Connect" as Default Platform Brand**
+> As a **User** (any role), I want all platform interfaces to display "Comfort Connect" as the platform name by default, so that I have a consistent brand experience across the portal.
+
+**Acceptance Criteria:**
+- Given I am logged into the platform
+- When I view any screen that is NOT specific to a Premier Program application
+- Then the platform name, headers, navigation, dashboards, and general UI elements display "Comfort Connect" — not "Premier Program"
+- And page titles, breadcrumbs, and browser tab titles reference "Comfort Connect"
+- And footer, help text, and support references use "Comfort Connect"
+- And welcome messages, onboarding screens, and empty states reference "Comfort Connect"
+
+---
+
+**US-12.8.2: Display "Premier Program" Only in Premier Program Application Context**
+> As a **User** (any role), I want to see the text "Premier Program" only when I am actively viewing or working with a specific Premier Program application, so that I can clearly distinguish the Premier Program product from the broader Comfort Connect platform.
+
+**Acceptance Criteria:**
+- Given I am viewing or managing a specific Premier Program application (e.g., application detail, offer selection, underwriting decision, document signing, billing for a Premier account)
+- When the screen context is tied to that Premier Program application
+- Then the UI may display "Premier Program" to identify the product type
+- And "Premier Program" appears as a product label or descriptor — not as the platform name
+- And if I navigate away from the Premier Program application context back to a general screen (dashboard, application list, settings), the branding reverts to "Comfort Connect"
+
+---
+
+**US-12.8.3: Use "Comfort Connect" in Non-Premier Product Contexts**
+> As a **Dealer**, I want product selection screens, multi-product application lists, and general financing workflows to reference the "Comfort Connect" platform name rather than "Premier Program," so that I understand I am using the Comfort Connect platform even when the Premier Program is one of several available products.
+
+**Acceptance Criteria:**
+- Given I am on a screen that lists multiple financing products (Premier Program, Momnt, Thrive, Microf, Breeze)
+- When the screen displays a platform-level header, navigation bar, or page title
+- Then the platform name shown is "Comfort Connect" — not "Premier Program"
+- And "Premier Program" appears only as a selectable product option alongside the other products
+- And filter labels, column headers, and report titles that span multiple products use "Comfort Connect" as the platform identifier
+
+---
+
+**US-12.8.4: Display "Comfort Connect" in Communications and Notifications**
+> As a **Homeowner**, I want emails, SMS messages, and in-portal notifications to reference "Comfort Connect" as the sender/platform name unless the communication is specifically about my Premier Program account, so that I recognize the platform brand consistently.
+
+**Acceptance Criteria:**
+- Given a notification or communication is being sent
+- When the communication is a general platform message (welcome email, password reset, general announcement, prequalification invitation)
+- Then the sender name, email header, and body reference "Comfort Connect"
+- And "Premier Program" is NOT used as the platform name in these communications
+- When the communication is specific to a Premier Program account (payment reminder, lease document, Premier offer details)
+- Then the communication may reference "Premier Program" as the product name within the body
+- And the sender/platform name still references "Comfort Connect"
+
+---
+
+**US-12.8.5: Display "Comfort Connect" on Dealer-Facing Portal and Dashboards**
+> As a **Dealer**, I want my portal dashboard, navigation menu, and general dealer management screens to be branded as "Comfort Connect," so that I associate the overall platform with Comfort Connect rather than any single financing product.
+
+**Acceptance Criteria:**
+- Given I am a dealer logged into the portal
+- When I view my dashboard, application pipeline, or dealer management screens
+- Then the portal header, sidebar navigation, and dashboard title display "Comfort Connect"
+- And "Premier Program" does NOT appear in navigation labels, menu items, or dashboard titles
+- And "Premier Program" only appears as a product type filter option or within individual application details where the application is a Premier Program application
+- And training modules, help documentation, and support links reference "Comfort Connect" as the platform

@@ -1,0 +1,456 @@
+# Portal 2.0 / Customer Service Team — Issue Registry
+**Period Reviewed:** January 20, 2026 – March 4, 2026 *(Teams' visible history window)*
+**Note:** Teams limits the scrollable history window; the earliest visible messages began around January 20, 2026. All issues documented below are extracted directly from chat content.
+
+---
+
+## BUGS / DEFECTS
+
+---
+
+**Issue Title:** "Crossed Wires" Error When Accessing Application
+**Category:** Bugs / Defects
+**Description:** A user received a "crossed wires" error when attempting to access an application in the portal. The error prevented normal access to the app record.
+**Supporting Context:** Adam Weber (1/20): "i get a crossed wires error when trying to access: 2266623." Malhar Mahant: "There is an error occurring. I'm looking into it." Malhar later: "This issue was already known and a fix will be deployed with next release."
+**Potential Product Impact:** Application records intermittently inaccessible to reps; known defect with a fix queued but not yet released.
+
+---
+
+**Issue Title:** Application Takes Over 15 Minutes to Process Through the Portal
+**Category:** Bugs / Defects
+**Description:** An application submitted via the portal took over 15 minutes to come through and be visible, causing a significant delay for a rep waiting on the result.
+**Supporting Context:** Malhar Mahant (1/20): "it took over 15 minutes for the application to come through on our end."
+**Potential Product Impact:** Processing latency creates a poor experience for sales reps in-home with customers; could result in lost sales.
+
+---
+
+**Issue Title:** Application Submission Redirects Back to Generate Quote Page
+**Category:** Bugs / Defects
+**Description:** A contractor filled out all information for an application, clicked "Next," and the portal redirected them back to the generate quote page instead of proceeding.
+**Supporting Context:** Adam Weber (1/20): "Jason Glancy with Go Green says that he filled out all of the information for an app, then clicks next and it just goes back…it took him back to the generate quote page."
+**Potential Product Impact:** Application submission fails silently; contractors cannot complete apps; potential lost sales.
+
+---
+
+**Issue Title:** App Reaches Customer Info Screen Without Project Info / Rate Plans Being Set
+**Category:** Bugs / Defects
+**Description:** A contractor managed to advance to the customer information screen without having selected project type or rate plans, resulting in a broken/incomplete application that had no plan selections attached.
+**Supporting Context:** Malhar Mahant (1/20): "Some other issue could have happened. We have theories." Cody Compton: "how could he have gotten to customer info screen if he never selected that and sent invite?"
+**Potential Product Impact:** Data integrity issue; applications can exist in a partially configured state with no plan context.
+
+---
+
+**Issue Title:** "Unable to Process the Application" Error Message on CA Portal
+**Category:** Bugs / Defects
+**Description:** Contractor Agents (CAs) are receiving an "unable to process the application" error message in the portal with no additional context or recovery steps.
+**Supporting Context:** Kiley Williams (1/20): "Urgent: 2276546 CA said that he is getting a message that we are unable to process the application."
+**Potential Product Impact:** Blocks contractors from submitting applications; no user-facing guidance on what to do next.
+
+---
+
+**Issue Title:** Pipeline Not Reflecting Correct App Status / Apps Not Visible in Pipeline
+**Category:** Bugs / Defects
+**Description:** Applications in manual review were not appearing in the pipeline and could not be located by account number. Applications also appeared in incorrect status states (e.g., showing as funded/contractor paid when the pipeline view showed a different status).
+**Supporting Context:** Tonia Eidson (1/20): "Apex is on the phone - they ran an app 2276227 - it is in manual review. I don't see it pending in the pipeline and am not able to locate it with the app number." Adam Weber (2/6): "when i click on it, it shows that its in contractor paid status. so the pipeline is wrong." Vipin Mamidi: "we did a manual update on it, sync didn't happen – just synced it."
+**Potential Product Impact:** Reps cannot track apps; status integrity is unreliable requiring manual sync interventions.
+
+---
+
+**Issue Title:** Clicking Application in Pipeline Not Showing Side Card / App Details
+**Category:** Bugs / Defects
+**Description:** When clicking on an application in the pipeline, the side card detail view was not displaying — it was taking users to the ACC view instead.
+**Supporting Context:** Vipin Mamidi (1/31): "noticed an error in pipeline, clicking the application is not showing the side car, it takes to ACC, will check and fix it after sending this agreement." Later confirmed: "Fixed and moved to PROD."
+**Potential Product Impact:** Pipeline usability broken; reps cannot quickly view app details without navigating away. Was fixed but indicates regression risk.
+
+---
+
+**Issue Title:** Approve Amount Displayed in Portal Does Not Match Lender-Approved Amount
+**Category:** Bugs / Defects
+**Description:** The portal was displaying a different approved loan amount than what the lender (Microf, Breeze) had actually approved. This caused confusion for both contractors and customers.
+**Supporting Context:** Nikolas McKinnis (2/6): "App # 2287129 — contractor saw that the customer was approved for $3490 in the portal. Customer said she talked to Microf and they told her she was approved for $6015." Vipin Mamidi: "For this app - I can update it in the portal now, as a change in general for all apps - Will include in next week's release. Updated." Also Nikolas McKinnis (2/6 4:55 PM): "I think that since the updates were not displaying in the portal it confused the contractor."
+**Potential Product Impact:** Major trust and CX issue; customers and reps are making decisions based on incorrect approval amounts shown in the portal.
+
+---
+
+**Issue Title:** OTP (One-Time Password) Verification Loop — Code Marked Invalid After Entering
+**Category:** Bugs / Defects
+**Description:** Customers entering their OTP are receiving "invalid code" errors even after correctly receiving and entering the code. Hitting VERIFY causes the screen to blink and do nothing, then displays invalid. The customer is forced into a loop requesting new codes.
+**Supporting Context:** Susan Levy (1/30): "as soon as she does it all and hits VERIFY, screen blinks and doesn't do anything. If she hit VERIFY again, then it says invalid code." Sphoorthi Keshannagari: "too many attempts happens when they try to request OTP multiple times." Backend fix required.
+**Potential Product Impact:** Customers locked out of their accounts; support overhead extremely high; significant friction in customer onboarding flow.
+
+---
+
+**Issue Title:** OTP Email Delivery Failure / Delay — Customer Times Out Before Receiving Code
+**Category:** Bugs / Defects
+**Description:** Customers are not receiving OTP emails in time (or at all), causing setup to fail. Codes that are sent appear to time out before the customer can act on them.
+**Supporting Context:** Susan Levy (2/5): "she did. it's timing out by the time she gets the email." Vipin Mamidi: "the code that is sent once to the email will be valid for 24 hours" — suggesting the "timeout" experience is a screen display issue rather than actual expiry.
+**Potential Product Impact:** Customer onboarding fails; requires backend support intervention to reset; poor CX at a critical first-touch moment.
+
+---
+
+**Issue Title:** Maintenance Invoice Not Viewable in Portal Preview (Word Format Issue)
+**Category:** Bugs / Defects
+**Description:** When viewing a maintenance invoice in the portal, it displayed as blank. The invoice exists in Word format and cannot be previewed — it can only be downloaded.
+**Supporting Context:** Adam Weber (1/25): "2073687 - when i look at the maintenance invoice on this one, it's blank. do you see anything in the system?" Sphoorthi Keshannagari: "Its in word format, it wont open in preview in portal but it should get downloaded."
+**Potential Product Impact:** Portal users cannot preview maintenance invoices inline; must download to view, creating UX friction and confusion.
+
+---
+
+**Issue Title:** Contract Not Saved Correctly When Price Changes Are Made
+**Category:** Bugs / Defects
+**Description:** The portal has a known problem saving the correct contract when there are price changes. Contracts with updated amounts are not always reflected properly without manual intervention.
+**Supporting Context:** Vipin Mamidi (1/31): "We seem to have a problem with saving the correct contract in the portal when there are changes. Is it urgent for this account? That's a bigger change that I am currently working on to fetch it for all the accounts." Jason Duval: "sure, I'll retroactively update it for all of them."
+**Potential Product Impact:** Customers and contractors may be signing contracts with incorrect/outdated amounts; serious financial and legal risk.
+
+---
+
+**Issue Title:** Charge Initiated Error — "Unable to Transact with Customer"
+**Category:** Bugs / Defects
+**Description:** When a contractor initiates a charge request in the portal, they receive an error message: "unable to transact with customer." The cause is either the customer not having set up their payment portal account or Momnt's mandatory "welcome call" requirement not being completed.
+**Supporting Context:** Sriram Venkatesan (2/3): "It says unable to transact with customer." Sphoorthi: "The customer might not have setup their payment portal account" and "Momnt does something called a mandatory welcome call with the customer and if its not done yet, they will temporarily disable the ability to transact."
+**Potential Product Impact:** Charge initiation fails with no clear user-facing explanation; support required for every instance; CX friction at funding stage.
+
+---
+
+**Issue Title:** Expired Charge Request Not Visible / No Transactions Showing
+**Category:** Bugs / Defects
+**Description:** When a customer follows a charge link, the portal tells them to set up autopay instead of showing the charge request. If the charge request has expired, the customer sees "no transactions available" when navigating to the Transactions section.
+**Supporting Context:** Adam Weber (2/9): "itsays click this link, when they click the link, its goes to momny portal and it asks to set up autopay and doesn't say anything about approving charge request." Then: "if he clicks transactions, it says no transactions available." Root cause: charge request was expired on Momnt's end.
+**Potential Product Impact:** Customers are presented with misleading / incorrect next steps (autopay setup instead of charge approval); support escalation required every time.
+
+---
+
+**Issue Title:** Microf API Failing — Offer Selection Returning Error
+**Category:** Bugs / Defects
+**Description:** The Microf API was failing on their end, causing an error message when contractors or customers tried to select the 72-month offer.
+**Supporting Context:** Vipin Mamidi (2/9 10:37 AM): "Cody Compton, #2292417 - we have the Microf api failing at their end, we reached out to their team and this might take more time to resolve, can you ask the dealer to ask the Microf support team to update the offer and make the selection directly at their end, we will reflect the same in our portal after their selection."
+**Potential Product Impact:** Customers/contractors cannot complete offer selection through portal; dependent on Microf's support team to resolve; major conversion blocker.
+
+---
+
+**Issue Title:** ID Scan Feature Not Working / Poor Lighting Fallback Needed
+**Category:** Bugs / Defects
+**Description:** A customer attempting to scan their ID via the portal was getting a "poor lighting" error message even after adjusting lighting and cleaning the lens. There is no manual entry fallback shown to the user.
+**Supporting Context:** Kiley Williams (2/9): "urgent:2291109 CA is having difficulty scanning the ID they have tried to adjust the lighting and it is not working." Sphoorthi Keshannagari: "they can manually enter the information." Kiley: "where can they do that."
+**Potential Product Impact:** ID scan failure with no visible fallback option in the UI creates a hard blocker for customers; support required to unblock.
+
+---
+
+**Issue Title:** Social Login Conflict — Users Blocked When Account Was Created via Email/Password
+**Category:** Bugs / Defects
+**Description:** A user who originally created their account using email/password could not log in. The underlying issue was a conflict with a social login (e.g., Google SSO). The account was linked on the backend to resolve.
+**Supporting Context:** Sanjay Venkatesh (2/4): "this was an old login when we had social login. The user already made an attempt to sign up using regular email/password sign up. I just linked it up with their app now. They can just refresh or relogin to their account and it should work."
+**Potential Product Impact:** Legacy social login accounts create login conflicts; customers locked out; requires backend fix to resolve each instance.
+
+---
+
+**Issue Title:** "Access Denied" Error — Appearing for Sales Reps / Contractors Mid-Flow
+**Category:** Bugs / Defects
+**Description:** Users with Contactor/Sales Rep roles are hitting an "Access Denied" / "Contact Admin" screen mid-session. This appears on the portal when users try to access certain pages. The fix is to navigate back to the Home icon.
+**Supporting Context:** Tonia Eidson (2/3): posted screenshot of "Access Denied" screen. Vipin Mamidi: "Can you ask him to click on Home icon or pipeline icon. his role is Contactor, he might not have access to all menus." Follow-up: "we follow up with him to try to simulate what's causing access denied."
+**Potential Product Impact:** Recurring issue from the Integrated Support chat as well; role-based permissions are blocking legitimate user actions with no useful error guidance.
+
+---
+
+**Issue Title:** Application Form Partially Completes Then Stops — Customer Cannot Continue
+**Category:** Bugs / Defects
+**Description:** A customer gets partway through the online application and then cannot continue — the form appears stuck and won't let her complete it. Closing and reopening the browser does not resolve it.
+**Supporting Context:** Susan Levy (1/23): "urgent - customer on the phone…trying to apply online. Gets partially through it then it won't let her continue." Malhar Mahant: "They see the form but won't submit?" Susan: "can't complete the application. Has closed out and reopened and still not working."
+**Potential Product Impact:** Application abandonment; support required to submit a replacement link; severe customer-facing UX failure.
+
+---
+
+## UI / UX PROBLEMS
+
+---
+
+**Issue Title:** Portal Displays Approved Amount Different From What Was Actually Approved — No Auto-Sync
+**Category:** UI / UX Problems
+**Description:** The portal's displayed approved amount does not update automatically when lenders (Breeze, Microf) update approval amounts on their end. Reps see stale data and have to call support to learn the actual approved amount.
+**Supporting Context:** Multiple instances in January–February. Vipin Mamidi acknowledged this as a known gap and stated a fix was being built for an upcoming release.
+**Potential Product Impact:** Reps are quoting wrong amounts to customers in-home; damages trust with homeowners; sales rep credibility issue.
+
+---
+
+**Issue Title:** Loan Offer Shows "No Loan Offers Available at This Time" Even When Approved
+**Category:** UI / UX Problems
+**Description:** The customer's phone shows "no loan offers available" even when the portal shows the customer is approved. This is because the sales rep selected rate plans that the customer was not approved for; the portal doesn't clearly communicate this distinction.
+**Supporting Context:** Nikolas McKinnis (1/21): "Urgent: app 2278806 — says loan approved in portal but says 'no loan offers available at this time' on customer's phone." The issue was traced to the rep selecting plans the customer wasn't approved for; the customer needed to see the plans they were actually approved for.
+**Potential Product Impact:** Customers see a rejection-like message after being told they're approved; major trust issue at point of offer selection.
+
+---
+
+**Issue Title:** Partner Name Not Visible Next to Offer on Customer Journey Preview
+**Category:** UI / UX Problems
+**Description:** On the offer selection screen, one offer was visible without a partner name label. This caused confusion about which lender the offer was from.
+**Supporting Context:** Kiley Williams (1/23): "Can we put the partner's name next to the offer #?" Malhar Mahant: "Partner name is not supposed to be there. It only shows up because microf is giving a conditional offer."
+**Potential Product Impact:** Customers cannot identify which lender's offer they are selecting; reduces transparency and informed decision-making.
+
+---
+
+**Issue Title:** Customer Cannot See "Decline Offer" / "See Other Offers" Button After Premier Program Decline
+**Category:** UI / UX Problems
+**Description:** When a customer using the Premier Program is declined, they should see a "Decline Offer" button or a prompt to view other offers. In some cases this button is not visible or requires a page refresh to appear.
+**Supporting Context:** Sphoorthi Keshannagari (1/30): "CA did choose premier + loans, the customer should see a decline offer button. is he not seeing it?" — customer confirmed they did not see it. After refresh the button appeared.
+**Potential Product Impact:** Customers miss the pathway to explore loan alternatives after a Premier decline; conversion is lost unnecessarily.
+
+---
+
+**Issue Title:** Offer Selection Screen Not Reflecting Actual Available Approved Plans
+**Category:** UI / UX Problems
+**Description:** The invite sent to customers only reflects the plans that the CA selected (e.g., Premier Program only), not all plans the customer is approved for. Customers believe they have only one option and don't know additional plans exist.
+**Supporting Context:** Sphoorthi Keshannagari (1/23 12:54 PM): "but during the initial invite the CA deliberately sent a premier only invite, meaning they want the applicant to just see premier decision." Discussion about whether backend should add all plans by default vs. CA selecting specific plans.
+**Potential Product Impact:** Customer experience is artificially limited; customers may decline a Premier offer without realizing they qualify for other loan products.
+
+---
+
+**Issue Title:** New Hires Not Seeing New "Quick Button" (Pipeline / Account Overview Link)
+**Category:** UI / UX Problems
+**Description:** Newly added portal users (new hires) could not see the quick button/direct link to account overview from the pipeline. The feature existed but permissions were not granted to new profiles by default.
+**Supporting Context:** Kiley Williams (1/26): "Hey Team, the new hires do not see the new quick button. Is it a profile thing?" Sphoorthi: "oh ok, we'll add the permissions to their profiles." Fixed within minutes.
+**Potential Product Impact:** New hires have a degraded portal experience vs. existing users; no automatic permission provisioning for new features.
+
+---
+
+**Issue Title:** Rate Plan Changes Apply to All Users of a Company — No Per-User Control
+**Category:** UI / UX Problems
+**Description:** When a rate plan is enabled for a company (e.g., to allow a specific tech to offer a 36-month plan to a customer), it applies to ALL users at that company, not just the individual. CAs must be aware of this before making rate card changes.
+**Supporting Context:** Sphoorthi Keshannagari (2/5): "any changes to the rate sheet will be applied to all users of that company not to just one tech."
+**Potential Product Impact:** Admins cannot make targeted plan availability changes at the rep level; unintended exposure of plans to all company reps.
+
+---
+
+**Issue Title:** System Type Field Cannot Be Changed Once Application Is Started
+**Category:** UI / UX Problems
+**Description:** The "System Type" field (e.g., HVAC/Repair) cannot be changed after the application has been started. This is a known limitation with no in-portal warning or edit capability.
+**Supporting Context:** Vipin Mamidi (2/6): "if the system type here in the pipeline says – HVAC / Repair, this cannot be changed once after the app is started." Screenshot shared showing the field in pipeline.
+**Potential Product Impact:** Data entry errors in system type require creating a new application; no correction mechanism and no upfront warning to users.
+
+---
+
+**Issue Title:** Co-Applicant Banking Info — "Same Bank Info" Option Not Visible or Confusing
+**Category:** UI / UX Problems
+**Description:** When processing an LTO application with a co-applicant, customers were unclear about how to indicate the co-applicant uses the same bank account as the primary. The "same bank info" option was reportedly not visible at the top of the screen.
+**Supporting Context:** Sriram Venkatesan (1/23): "Are they not seeing an option to check saying primary and coapp has same bank info?" Malhar: "This option should be there at the top." Kiley: "it won't let them move forward without adding bank account info for co app."
+**Potential Product Impact:** Co-applicant flow creates friction and confusion; customers cannot proceed; support escalations required.
+
+---
+
+**Issue Title:** Customer Portal Billing Link — Old Portal Customers Don't Show Up
+**Category:** UI / UX Problems
+**Description:** When using the Billing Link to look up customer accounts, customers from the "old portal" do not appear in search results. Support reps were inadvertently using the wrong URL for certain legacy customers.
+**Supporting Context:** Adam Weber (1/21): "Old portal customers won't come up if you use the Billing Link." Kiley: "Ok, that makes sense. I just need to train to use the billing link for customer inquiries instead of using the pipeline."
+**Potential Product Impact:** Support reps cannot locate legacy customers through the standard billing link; two different lookup workflows required based on customer vintage.
+
+---
+
+**Issue Title:** Selling Tech Role Cannot Access "More" Menu — Role Permission Gap
+**Category:** UI / UX Problems
+**Description:** Users with a "Selling Tech" role cannot access the "More" menu in the portal. This is an Admin-only section. The role limitation is not communicated to the user; they see the menu structure but may not know why certain options are unavailable.
+**Supporting Context:** Vipin Mamidi (2/3): "even with selling tech role he will not have access to More menu because that is Admin only action."
+**Potential Product Impact:** Role-based permission gaps cause confusion; users have no in-app guidance about what they can/cannot do based on their role.
+
+---
+
+**Issue Title:** Selling Tech Role Not Appearing in Mirror Mode Name List
+**Category:** UI / UX Problems
+**Description:** When a support rep tries to impersonate a "Selling Tech" role user in mirror mode, that user does not appear in the list. Only Admins and Contractors are shown.
+**Supporting Context:** Nikolas McKinnis (1/30): "I tried to do it in mirror mode but he wasn't on the list of names. Is that because he's a selling tech?" Sphoorthi: "yeah I think its showing only profiles of admins and contractors — since they're new roles we missed adding it to the list."
+**Potential Product Impact:** Support team cannot diagnose Selling Tech role issues via mirror mode; diagnostic capability is role-limited.
+
+---
+
+**Issue Title:** Company Portal Link Only Supports Premier Program — Not Full Loan Stack
+**Category:** UI / UX Problems
+**Description:** When contractors send customers to their company-branded portal link (e.g., their website), the link only supports the Premier Program and does not expose the full loan product stack. This is confusing to customers who expect to see all options.
+**Supporting Context:** Nikolas McKinnis (2/3): "He is sending the customer to their company website to start an application from there. I believe this is a Premier Program only app link. Is there anyway that we could get this updated on their website so that the customer is applying for the full stack?" Vipin: "We'll push the relevant changes by eod today, as of now their company level link is only for Premier Program, if they need full stack can we ask them to send invites from the login until then?"
+**Potential Product Impact:** Customers using contractor website links get a degraded experience; only see one product type; conversion to loan products is lost.
+
+---
+
+**Issue Title:** "Paper Statements" Toggle Visible But No Paper Statement Option Exists
+**Category:** UI / UX Problems
+**Description:** The billing/payment details screen shows a "Paper Statements" toggle, but paper statements are not an actual feature. This creates confusion for customers who try to enable it.
+**Supporting Context:** A screenshot shared (1/31) shows the Payment Details screen with a "Paper Statements" toggle visible. Jason Duval's question: "Is it fair to assume that the pricing will reflect correct once you run the billing update?" — the toggle was visible and potentially misleading.
+**Potential Product Impact:** UI element misrepresents an unavailable feature; customers may toggle it on expecting paper statements to arrive and become confused when they don't.
+
+---
+
+## INTEGRATION ISSUES
+
+---
+
+**Issue Title:** Thrive Portal Status Not Syncing After Customer Signs Documents
+**Category:** Integration Issues
+**Description:** After a customer signs documents on Thrive's portal, the status on the Portal 2.0 side does not automatically update to reflect the completion. Reps cannot confirm the customer has finished their steps without manual status checks.
+**Supporting Context:** Nikolas McKinnis (1/30): "Did the customer receive a link to thrives portal to finish the steps? Its still showing loan declined in the pipeline." Sphoorthi: "Can you refresh and see, I just moved it back to offer selected."
+**Potential Product Impact:** Status lag between Thrive and Portal 2.0 requires manual interventions; reps and customers are in limbo waiting for status to update.
+
+---
+
+**Issue Title:** Thrive Funded Retail Price Instead of Invoice Price — Financial Discrepancy
+**Category:** Integration Issues
+**Description:** For certain apps, Thrive funded the full retail price rather than the actual invoice/job cost. This created overpayments that required contractors to send money back via bank transfer, with Thrive then adjusting the contract amount.
+**Supporting Context:** Vipin Mamidi (2/2): "This is one of those apps for which thrive funded the retail price instead of the actual invoices. Sriram is checking with Thrive on what we can do about these apps." Jason Duval outlined the complex resolution process: contractor sends funds back to Thrive, Thrive adjusts contract and refunds any overpayments.
+**Potential Product Impact:** Significant financial process failure; requires multi-party coordination (contractor, Thrive, customer) to resolve; indicates data mapping issue between portal retail price and invoice price.
+
+---
+
+**Issue Title:** Momnt API Integration Failure — Charge Request Flow Broken
+**Category:** Integration Issues
+**Description:** Momnt's API was returning failures, blocking charge requests from being initiated or processed. Separately, Momnt's mandatory welcome call requirement was not visible in the portal, causing unexplained "unable to transact" errors.
+**Supporting Context:** Multiple instances (2/3, 2/9). "Yes, it was caught up on the lender's side and I was able to push it through." Sphoorthi: "We recently got to know that Momnt does something called a mandatory welcome call with the customer and if its not done yet, they will temporarily disable the ability to transact."
+**Potential Product Impact:** Charge requests fail silently; portal does not surface Momnt's pre-conditions (welcome call completion) to reps or customers; support overhead is high.
+
+---
+
+**Issue Title:** Breeze Deposit Request Confusing Contractors — Misunderstood as Down Payment
+**Category:** Integration Issues
+**Description:** Breeze's contract includes a "lease deposit" (representing the first month's payment and the difference between approved amount and retail price). Contractors are confusing this for a cash down payment requirement, causing concern.
+**Supporting Context:** Kiley Williams (2/6): "Amy from Apex pros has some concern about the deposit being requested by Breeze... She said it should only be the first months payment." Adam Weber: "I think they are confusing it with the Premier Program requirements because we require a one month payment."
+**Potential Product Impact:** Integration with Breeze surfaces financial terms that are not well explained in the portal UI; contractors misinterpret payment requirements; customer trust issues.
+
+---
+
+**Issue Title:** Change Orders Not Supported for Funded Apps — Thrive vs. Microf Limitation
+**Category:** Integration Issues
+**Description:** For applications already funded through Thrive, change orders (e.g., price adjustments after funding) cannot be processed through the portal. This requires manual coordination with the lender.
+**Supporting Context:** Nikolas McKinnis (2/2): "App # 2247008 customer Matthew Stafford - Paschal needs a change order for $7,422. This one has already funded so I wasn't sure how we would go about doing this." Vipin: "This is one of those apps for which thrive funded the retail price instead of the actual invoices, Sriram is checking with Thrive on what we can do about these apps."
+**Potential Product Impact:** No self-serve change order workflow post-funding; every post-fund adjustment requires manual support escalation.
+
+---
+
+## SUPPORT / OPERATIONAL ISSUES
+
+---
+
+**Issue Title:** "Undo Maintenance Funding" Requests — Recurring Manual Operational Task
+**Category:** Support / Operational Issues
+**Description:** Multiple support agents are requesting backend "undo maintenance funding" for specific account numbers on a near-daily basis across multiple date ranges (2023, 2024). This is clearly a recurring operational task with no self-serve mechanism in the portal.
+**Supporting Context:** Taylor Moyer (1/29): "#917009 - may someone please undo maintenance funding for 2024?" And multiple other requests on 1/28, 1/29, 1/30, 2/2, 2/4 from multiple users (Kanjia Kroma, Taylor Moyer, Adam Weber).
+**Potential Product Impact:** Support team is spending significant time on manual maintenance funding reversals; no admin UI to self-service this; creates operational bottleneck and delay for end customers.
+
+---
+
+**Issue Title:** No Self-Service Offer Re-selection / Correction Mechanism for Customers Who Chose Wrong Plan
+**Category:** Support / Operational Issues
+**Description:** When a customer accidentally selects the wrong loan offer, there is no way for the customer or rep to go back and correct it. The backend must manually reset the selection.
+**Supporting Context:** Nikolas McKinnis (2/5): "app 2290459 I believe this customer had an offer that was approved for 10k. Customer accidentally selected the wrong offer and would like to go back to where he can see all the offers and monthly payment." Vipin: "Updating... 5 mins."
+**Potential Product Impact:** No self-service error correction; every mis-selection requires backend intervention; customers and reps are blocked until resolved.
+
+---
+
+**Issue Title:** Bereaved Homeowner Cannot Access Deceased Customer's Account
+**Category:** Support / Operational Issues
+**Description:** A customer passed away and their son needed access to the portal to manage the account (make payments, add payment method, etc.). The account email had to be changed manually by the support team.
+**Supporting Context:** Susan Levy (1/27): "I have a customer who is deceased and her son needs access to the portal so he can add payment method, make payments, etc. He doesn't know her email address and I changed it to his before realizing he would have issue."
+**Potential Product Impact:** No account transfer/succession workflow; bereaved family members have no pathway to manage accounts without support intervention.
+
+---
+
+**Issue Title:** Test Applications in Production Pipeline
+**Category:** Support / Operational Issues
+**Description:** Test applications are appearing in the live production pipeline, requiring manual removal by the team.
+**Supporting Context:** Kiley Williams (1/23): "Please remove test app 2280870."
+**Potential Product Impact:** Test data pollutes the production environment; could cause reporting inaccuracies or confusion for other reps viewing the pipeline.
+
+---
+
+**Issue Title:** Lender Decline Reason Not Communicated Back to Portal / Rep
+**Category:** Support / Operational Issues
+**Description:** When Momnt declines an application, the portal does not surface the decline reason clearly. Reps and customers do not know why they were declined, and the communication timeline from Momnt via email is unclear.
+**Supporting Context:** Malhar Mahant (1/20): "Not sure about the contents or timeline of the communication, I've asked Momnt. Jason Duval, do you have any idea?" Nikolas McKinnis: "it has information about how the decision was made and its sent out immediately."
+**Potential Product Impact:** Reps cannot communicate decline reasons to customers in-home; follow-up application decisions are made without full context.
+
+---
+
+**Issue Title:** Additional Income Field Not Submitted to Loan Partners — Only Used for LTO
+**Category:** Support / Operational Issues
+**Description:** The "additional income" field in the application is not included when the application is submitted to loan partners (Thrive, Momnt). It is only used for LTO partners. This means loan decisions are made without full income data, leading to unexpected declines.
+**Supporting Context:** Jason Duval (1/21): "without a co-applicant we are supposed to take the additional income field and add it to get total combined income for loan partners as well." Malhar Mahant: "We don't add additional while sending to loans or for PP." Fix was deployed shortly after.
+**Potential Product Impact:** Loan applications may have been submitted with incomplete income information, causing avoidable declines; fix deployed but indicates data mapping inconsistency.
+
+---
+
+## FEATURE REQUESTS
+
+---
+
+**Issue Title:** Request: Retail Price Visible in Admin Command / Pipeline View
+**Category:** Feature Requests
+**Description:** Account managers want to see the retail price of the job in the pipeline/admin view without navigating to a separate screen. This would help them quickly verify whether the loan amount aligns with the job cost.
+**Supporting Context:** Adam Weber: requested this as a feature. (Noted also in Integrated Portal Support chat review.)
+**Potential Product Impact:** Without this, reps must navigate to multiple views to cross-check figures; risk of contract errors.
+
+---
+
+**Issue Title:** Request: Ability to See All Lender Offers (Not Just Ones CA Pre-Selected) in Application Tracker
+**Category:** Feature Requests
+**Description:** Sales reps noted it would be helpful to see all offers the customer was approved for in the application tracker, not just the ones the CA preselected in the invite. Currently CAs are told not to click on customer phone display to avoid selecting a plan on the customer's behalf.
+**Supporting Context:** Nikolas McKinnis (1/29): "I think it would be helpful if the sales rep was able to see all offers that the customer was approved for. We teach the CA's to not click on the customers phone display in the application tracker."
+**Potential Product Impact:** Current UX requires training workarounds; showing all approved offers to the rep would improve transparency and reduce errors.
+
+---
+
+**Issue Title:** Request: Customer Link Should Navigate Directly to Selected Billing Tab
+**Category:** Feature Requests
+**Description:** When sending a customer a link for billing/account, the link should take them directly to the specific billing tab selected, not just to the top level. Confirmed that "old portal customers won't come up" via the billing link.
+**Supporting Context:** Kiley Williams (1/21): "Can we have the new link go right to the Billing tab we selected?"
+**Potential Product Impact:** Extra navigation steps required; link usability is low; customer gets dropped on a generic page and must find their billing info manually.
+
+---
+
+**Issue Title:** Request: Ability for Admin to Set Per-Rep Rate Plan Access (Instead of Company-Wide)
+**Category:** Feature Requests
+**Description:** Currently, any rate plan change applies to all users at a company. Admins want the ability to enable or disable specific rate plans at the individual rep/tech level.
+**Supporting Context:** Kiley Williams (2/5): wants to turn on 36-month plan "for just one tech in Columbus." Sphoorthi: "any changes to the rate sheet will be applied to all users of that company not to just one tech."
+**Potential Product Impact:** Without per-rep rate plan control, companies must choose between exposing plans to everyone or no one; reduces flexibility for multi-branch operators.
+
+---
+
+**Issue Title:** Request: Automated Notification When Application Status Changes (Decline, Approval Change)
+**Category:** Feature Requests
+**Description:** Reps and account managers want proactive notifications when an application changes status — particularly when a previously approved or conditionally approved app moves to declined. Currently status changes are discovered manually.
+**Supporting Context:** Inferred from multiple instances of reps being surprised by status changes they discovered manually. Nikolas McKinnis (1/30): "Did the customer receive a link to thrives portal to finish the steps? Its still showing loan declined in the pipeline" — rep was unaware of the status.
+**Potential Product Impact:** Without automated status notifications, reps miss time-sensitive actions; customers may be left waiting without anyone following up.
+
+---
+
+## OTHER PRODUCT OBSERVATIONS
+
+---
+
+**Issue Title:** Observation: "Customer Journey Preview" Feature Well-Received by Reps
+**Category:** Other Product Observations
+**Description:** The Customer Journey Preview feature was positively noted by at least one CS rep as a meaningful addition to their workflow.
+**Supporting Context:** Kiley Williams (1/23): "SE team and Jason! this Customer Journey Preview…NEXT LEVEL! I love the addition. First time having to rely on it."
+**Potential Product Impact:** Positive signal — this feature should be retained and expanded; helps reps guide customers remotely.
+
+---
+
+**Issue Title:** Observation: Portal "Copy Feature" Positively Noted
+**Category:** Other Product Observations
+**Description:** A new copy feature in the portal was called out positively.
+**Supporting Context:** Adam Weber (1/20): "i love the new copy feature in the portal…"
+**Potential Product Impact:** Positive signal that small UX conveniences (clipboard copy) are noticed and appreciated by power users.
+
+---
+
+**Issue Title:** Observation: Contracted Amount vs. Portal Retail Price Mismatch Is a Systemic Pattern
+**Category:** Other Product Observations
+**Description:** Across multiple conversations, the pattern of "contracted price" not matching "portal retail price" was a recurring issue. This is not just a one-time error — it reflects a systemic gap in how price changes are propagated through the system.
+**Supporting Context:** Multiple instances: Angela Snyder (1/21), Matthew Stafford (2/2), numerous others. Requires backend fix to propagate contract price changes across portal and lender systems in sync.
+**Potential Product Impact:** Financial integrity risk; customers may be bound to incorrect contract amounts; lenders and contractors may be paid wrong amounts.
+
+---
+
+## Summary of Key Themes
+
+From a CX and product lens, the most impactful patterns across this chat are:
+
+1. **Status and data staleness** — Portal data (approval amounts, app status, contract values) frequently lags behind lender systems, with no automatic sync or user notification.
+2. **OTP / authentication friction** — Customer login and verification flows are a consistent source of support volume, particularly OTP delivery failures and invalid code loops.
+3. **Silent failures with no user guidance** — Errors like "unable to process," "unable to transact," "access denied," and "no offers available" appear without context or next steps.
+4. **Manual backend dependency** — A disproportionate number of issues require backend intervention (undo maintenance funding, manual offer reset, contract regeneration) that could be self-served by admins.
+5. **Role-based access inconsistencies** — New roles (Selling Tech) and new features aren't consistently provisioned, causing reps to have different experiences based on account setup timing.
+6. **Integration opacity** — Lender integrations (Momnt, Thrive, Microf, Breeze) fail in ways that aren't surfaced clearly to reps or customers, requiring tribal knowledge to diagnose.

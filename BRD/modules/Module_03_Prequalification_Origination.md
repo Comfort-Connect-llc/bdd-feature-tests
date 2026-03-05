@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 66
+**Stories:** 67
 
 ---
 
@@ -31,6 +31,7 @@ Core business module managing the complete application lifecycle from prequalifi
 - Partner loan flows (Momnt, Thrive)
 - Partner LTO flows (Microf, Breeze)
 - First payment collection
+- Dealer-branded customer application rendering
 
 ---
 
@@ -54,7 +55,7 @@ Core business module managing the complete application lifecycle from prequalifi
 - Given I received a prequalification invitation
 - When I click the link
 - Then I am taken to a secure prequalification form
-- And I see the dealer's branding
+- And I see the dealer's approved branding (logo, tagline, and brand colors per US-3.1.8) or the default Comfort Connect branding if no approved brand profile exists
 
 ---
 
@@ -119,6 +120,24 @@ Core business module managing the complete application lifecycle from prequalifi
 - And if I navigate away from the application or my session is interrupted, I can resume from where I left off
 - And auto-saved applications are clearly marked as "Draft" in my pipeline
 - And drafts that have not been submitted within a configurable period are flagged for follow-up
+
+---
+
+**US-3.1.8: Render Dealer-Branded Customer Application Experience**
+> As a **Homeowner**, I want the prequalification and application screens to display my contractor's branding (logo, tagline, and colors), so that the experience feels connected to the company I'm working with and builds my confidence that I'm in the right place.
+
+**Acceptance Criteria:**
+- Given I have accessed the prequalification or application flow through a dealer-specific invitation link
+- When the application screens load
+- Then the dealer's approved logo is displayed in the header area of every step in the flow (Step 1: Get Pre-Qualified, Step 2: Add Project Details, and any subsequent screens)
+- And the dealer's tagline is displayed below the logo
+- And the dealer's primary brand color is applied to: the primary action button (e.g., "Next," "Submit"), the progress stepper/indicator, and section headers
+- And the dealer's accent color is applied to: hyperlinks, secondary highlights, and hover states
+- And all other UI elements (form fields, labels, layout, fonts, content, and field ordering) remain standard across the platform and are not dealer-customizable
+- And if the dealer does not have an approved brand profile, the default Comfort Connect platform branding is rendered (Comfort Connect logo, standard colors)
+- And the branding is consistent across desktop and mobile views — the logo scales appropriately and colors render correctly on both
+- And branding assets (logo, colors) are cached for performance so they do not delay page load
+- And the Comfort Connect footer attribution ("Powered by Comfort Connect" or equivalent) remains visible on all branded screens regardless of dealer customization
 
 ---
 
