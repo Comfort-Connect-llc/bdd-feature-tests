@@ -56,3 +56,16 @@ Feature: Momnt Loan Flow
     When I cancel the application
     Then the cancellation is submitted to Momnt
     And the status changes to "Loan Application Cancelled"
+
+  @US-3-12-7 @module-03 @momnt @installation-date
+  Scenario: Capture Planned Installation Date for Momnt Loan
+    # As a Dealer, I want to enter the planned installation date after a homeowner
+    # accepts a Momnt loan offer, so that the platform can determine the appropriate
+    # charge request timing and set expectations for all parties
+    Given a homeowner has accepted a Momnt loan offer
+    When the dealer views the application post-acceptance
+    Then the dealer is prompted to enter the planned installation date
+    And the date must be today or a future date
+    And the dealer can update the planned installation date until the charge request has been initiated
+    And the planned installation date is stored on the application record and visible to administrators
+    And the platform uses the planned installation date with charge timing rules to determine whether to recommend immediate charge initiation or scheduled charge

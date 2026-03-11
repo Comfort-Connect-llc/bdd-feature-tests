@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 30
+**Stories:** 31
 
 ---
 
@@ -171,6 +171,21 @@ Platform administration module for system configuration, partner management, und
 - And the approval/rejection decision is recorded in the audit log with: administrator ID, dealer ID, decision, reason (if rejected), and timestamp
 - And I can set platform-wide branding guidelines (e.g., minimum logo resolution, prohibited color ranges) that are enforced automatically during upload — submissions that violate guidelines are blocked before reaching the approval queue
 - And if a dealer has no approved branding, the default Comfort Connect platform branding is displayed on their customer-facing screens
+
+---
+
+**US-12.3.6: Configure Momnt Charge Request Timing Rules**
+> As an **Administrator**, I want to configure the rules that determine whether a Momnt charge request should be initiated immediately or scheduled for a future date, so that the platform can guide dealers on optimal charge timing based on installation proximity.
+
+**Acceptance Criteria:**
+- Given charge timing rules need to be configured for Momnt loans
+- When I access the Momnt charge configuration settings
+- Then I can set an "immediate charge threshold" (number of days) — if the planned installation date is within this threshold from loan acceptance, the platform recommends immediate charge initiation
+- And I can set a "scheduled charge lead time" (number of days before planned installation) — if the installation date is beyond the immediate threshold, the platform recommends scheduling the charge this many days before installation
+- And I can configure a minimum and maximum lead time for scheduled charges
+- And I can enable or disable the scheduling option entirely (forcing all charges to be immediate)
+- And changes to timing rules apply only to new charge requests and do not affect already-initiated or scheduled charges
+- And I can view the current configuration with a summary of how many pending applications would be affected by a change
 
 ---
 

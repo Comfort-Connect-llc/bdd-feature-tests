@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 53
+**Stories:** 55
 
 ---
 
@@ -687,3 +687,33 @@ Manages post-origination account activities including maintenance requests, cust
 - When I search for it
 - Then the archived account data is retrievable
 - And I can view historical information
+
+---
+
+## 9.18 Momnt Loan Visibility
+
+**US-9.18.1: View Momnt Account Readiness Status**
+> As an **Administrator**, I want to view the Momnt Account Readiness status (Welcome Call and Portal Setup) on a homeowner's account, so that I can identify and troubleshoot potential charge request blockers before they cause delays.
+
+**Acceptance Criteria:**
+- Given a homeowner has an active Momnt loan application
+- When I view the account detail
+- Then I see a Momnt Account Readiness section showing the current Welcome Call status (Scheduled, Attempted, Completed, Failed) and Portal Setup status (Incomplete, Complete)
+- And I see the date and time of the most recent status update for each readiness indicator
+- And if either readiness indicator reflects a blocker (Welcome Call Failed or Portal Setup Incomplete), it is visually highlighted as a warning
+- And I can view the readiness status history showing all status changes with timestamps
+- And the readiness data is sourced from Momnt webhooks (US-13.6.2)
+
+---
+
+**US-9.18.2: View Momnt Charge and Funding Timeline**
+> As an **Administrator**, I want to view a consolidated timeline of Momnt charge request and funding events on a homeowner's account, so that I have full visibility into the financing lifecycle and can answer dealer or homeowner inquiries.
+
+**Acceptance Criteria:**
+- Given a homeowner has an active or completed Momnt loan
+- When I view the account detail
+- Then I see a Momnt Financing Timeline showing key events in chronological order: loan acceptance date, installation date entered, charge request initiated (or scheduled date), homeowner charge approval date, funding date, and payment amount
+- And each event shows the date, time, and relevant details (e.g., charge amount, initiating user, approval status)
+- And if a charge request is currently scheduled for a future date, the scheduled date is displayed with the ability to see or modify the schedule (subject to permissions)
+- And if a charge was rejected, the rejection reason and any subsequent retry attempts are visible
+- And the timeline data is sourced from platform records and Momnt webhooks (US-13.6.1)

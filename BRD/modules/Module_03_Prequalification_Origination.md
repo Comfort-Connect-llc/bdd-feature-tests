@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 67
+**Stories:** 68
 
 ---
 
@@ -622,6 +622,20 @@ Core business module managing the complete application lifecycle from prequalifi
 - When I cancel the application
 - Then the cancellation is submitted to Momnt
 - And the status changes to "Loan Application Cancelled"
+
+---
+
+**US-3.12.7: Capture Planned Installation Date for Momnt Loan**
+> As a **Dealer**, I want to enter the planned installation date after a homeowner accepts a Momnt loan offer, so that the platform can determine the appropriate charge request timing and set expectations for all parties.
+
+**Acceptance Criteria:**
+- Given a homeowner has accepted a Momnt loan offer (US-3.12.5)
+- When the dealer views the application post-acceptance
+- Then the dealer is prompted to enter the planned installation date
+- And the date must be today or a future date
+- And the dealer can update the planned installation date until the charge request has been initiated
+- And the planned installation date is stored on the application record and visible to administrators
+- And the platform uses the planned installation date in conjunction with charge timing rules (US-12.3.6) to determine whether to recommend immediate charge initiation or scheduled charge
 
 ---
 

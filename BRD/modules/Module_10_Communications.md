@@ -13,7 +13,7 @@ figma:
 
 **Version:** 1.0  
 **Date:** February 12, 2026  
-**Stories:** 13
+**Stories:** 14
 
 ---
 
@@ -102,6 +102,20 @@ Cross-cutting module managing all notification and communication channels. Suppo
 - And the itemized table subtotals match the total funded amount
 - And the email is formatted for easy printing or forwarding to the contractor's bookkeeper
 - And if the contractor has multiple batches processed on the same day, each batch sends its own email with a distinct batch reference
+
+---
+
+**US-10.1.7: Send Momnt Welcome Call Notification to Homeowner**
+> As a **System**, I want to send a proactive notification to the homeowner after they accept a Momnt loan offer, so that they are informed that a Welcome Call from Momnt is the next step in finalizing their loan and can proactively complete it.
+
+**Acceptance Criteria:**
+- Given a homeowner has accepted a Momnt loan offer (US-3.12.5)
+- When the acceptance is recorded on the platform
+- Then the system sends an email notification to the homeowner explaining that Momnt will conduct a Welcome Call within the next few days to verify their loan details
+- And the notification includes guidance that the homeowner should expect a call from Momnt and should answer to avoid delays in their financing
+- And the notification includes Momnt's contact information so the homeowner can proactively reach out to Momnt to complete the Welcome Call
+- And the notification is sent only once per loan acceptance (not re-sent on subsequent status changes)
+- And the notification content is configurable by an administrator
 
 ---
 

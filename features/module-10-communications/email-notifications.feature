@@ -48,3 +48,16 @@ Feature: Email Notifications
     When the adverse action letter is generated
     Then it is sent via email to the applicant
     And delivery is confirmed
+
+  @US-10-1-7 @module-10 @momnt @email @welcome-call
+  Scenario: Send Momnt Welcome Call Notification to Homeowner
+    # As a System, I want to send a proactive notification to the homeowner after they
+    # accept a Momnt loan offer, so that they are informed that a Welcome Call from Momnt
+    # is the next step in finalizing their loan and can proactively complete it
+    Given a homeowner has accepted a Momnt loan offer
+    When the acceptance is recorded on the platform
+    Then the system sends an email notification to the homeowner explaining that Momnt will conduct a Welcome Call within the next few days to verify their loan details
+    And the notification includes guidance that the homeowner should expect a call from Momnt and should answer to avoid delays
+    And the notification includes Momnt contact information so the homeowner can proactively reach out to complete the Welcome Call
+    And the notification is sent only once per loan acceptance and not re-sent on subsequent status changes
+    And the notification content is configurable by an administrator
