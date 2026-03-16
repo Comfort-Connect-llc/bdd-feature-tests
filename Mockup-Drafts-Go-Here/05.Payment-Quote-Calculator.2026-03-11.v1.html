@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comfort Connect — Payment Quote Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   PORTAL 2.0 DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --cc-navy: #002F6C;
+  --cc-navy-dark: #002147;
+  --cc-green: #6CC24A;
+  --cc-green-dark: #398F17;
+  --cc-orange: #EE8F1E;
+  --cc-red: #DD331D;
+  --cc-amber: #E8B93F;
+  --cc-blue-main: #009CDE;
+  --cc-blue-info: #1C51A4;
+  --cc-red-text: #AB2816;
+  --cc-amber-text: #82620F;
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+  --bg-primary: #EDF4FF;
+  --bg-disabled: #E0E2E5;
+  --bg-success: #D9F3D0;
+  --bg-warning: #FFF6E0;
+  --bg-error: #FDE7E5;
+  --bg-general: #F9FAFB;
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+  --gray-600: #2A2E34;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 1px 3px rgba(0,47,108,0.06), 0 1px 2px rgba(0,47,108,0.04);
+  --shadow-elevated: 0 4px 16px rgba(0,47,108,0.10), 0 2px 6px rgba(0,47,108,0.06);
+  --shadow-glow: 0 0 0 3px rgba(0,47,108,0.12);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-general);
+  color: var(--text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOP BAR
+   ═══════════════════════════════════════════════════════════════ */
+.topbar {
+  background: var(--cc-navy);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,33,71,0.3);
+}
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+}
+.topbar-brand svg { color: var(--cc-green); }
+.topbar-brand span.sep { opacity: 0.5; font-weight: 400; margin: 0 4px; }
+.topbar-brand .flow-label { font-weight: 600; opacity: 0.85; font-size: 14px; }
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+}
+.topbar-user .avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--cc-green);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+.app-layout { display: flex; flex: 1; min-height: calc(100vh - 56px); }
+
+.sidebar {
+  width: 64px;
+  background: var(--cc-navy-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 4px;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+}
+.sb-item {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+.sb-item:hover { background: rgba(255,255,255,0.1); color: white; }
+.sb-item.active { background: rgba(108,194,74,0.15); color: var(--cc-green); }
+.sb-item .sb-tip {
+  position: absolute; left: 56px; background: var(--gray-600); color: white;
+  padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600;
+  white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--transition-fast);
+}
+.sb-item:hover .sb-tip { opacity: 1; }
+.sb-spacer { flex: 1; }
+
+.main-content {
+  flex: 1;
+  padding: 28px 32px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.page-header {
+  margin-bottom: 24px;
+}
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-header h1 svg { color: var(--cc-navy); }
+.page-header p {
+  color: var(--text-disabled);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ORANGE SECTION LABELS
+   ═══════════════════════════════════════════════════════════════ */
+.section-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--cc-orange);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cc-orange) 0%, transparent 100%);
+  opacity: 0.25;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INPUT PANEL (left side)
+   ═══════════════════════════════════════════════════════════════ */
+.calc-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+.input-panel {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  position: sticky;
+  top: 84px;
+}
+.input-panel-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.input-panel-header h2 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.input-panel-body {
+  padding: 20px 24px 24px;
+}
+
+/* Form Elements */
+.fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
+.fg:last-child { margin-bottom: 0; }
+.fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fl {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fl .hint { font-weight: 400; color: var(--text-placeholder); font-size: 11px; }
+.fi {
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-heading);
+  background: white;
+  transition: all var(--transition-fast);
+  outline: none;
+  width: 100%;
+}
+.fi:focus { border-color: var(--cc-navy); box-shadow: var(--shadow-glow); }
+.fi::placeholder { color: var(--text-placeholder); }
+.fi-lg { font-size: 22px; font-weight: 800; padding: 12px 16px; }
+select.fi {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237B8493' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* Amount slider */
+.slider-container { margin-top: 4px; }
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.slider-row input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--gray-200);
+  outline: none;
+}
+.slider-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--cc-navy);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,47,108,0.3);
+  transition: transform var(--transition-fast);
+}
+.slider-row input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+.slider-val {
+  min-width: 90px;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-heading);
+}
+.slider-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-placeholder);
+  margin-top: 4px;
+}
+
+/* Down payment row */
+.down-payment-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 8px;
+  align-items: end;
+}
+.down-payment-row .or-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-placeholder);
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+/* Buydown toggle */
+.buydown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 12px;
+}
+.buydown-toggle:hover { border-color: var(--cc-navy); background: var(--bg-primary); }
+.buydown-toggle.active { border-color: var(--cc-green); background: var(--bg-success); }
+.buydown-toggle input { accent-color: var(--cc-green); width: 16px; height: 16px; }
+.buydown-toggle .bt-text { font-size: 13px; color: var(--text-body); }
+.buydown-toggle .bt-text strong { color: var(--text-heading); display: block; font-size: 13px; }
+
+.buydown-tiers {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.buydown-tiers.open { max-height: 200px; }
+.tier-pills {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.tier-pill {
+  flex: 1;
+  text-align: center;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 12px;
+}
+.tier-pill:hover { border-color: var(--cc-navy); background: var(--bg-primary); }
+.tier-pill.selected {
+  border-color: var(--cc-green);
+  background: var(--bg-success);
+  box-shadow: 0 0 0 2px rgba(108,194,74,0.15);
+}
+.tier-pill .tp-rate { font-weight: 800; font-size: 14px; color: var(--text-heading); display: block; }
+.tier-pill .tp-fee { color: var(--text-placeholder); font-size: 11px; }
+
+/* CTA */
+.calc-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--cc-green);
+  color: white;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(108,194,74,0.3);
+  margin-top: 20px;
+}
+.calc-btn:hover { background: var(--cc-green-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(108,194,74,0.4); }
+.calc-btn:active { transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESULTS PANEL
+   ═══════════════════════════════════════════════════════════════ */
+.results-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Summary bar */
+.quote-summary {
+  background: linear-gradient(135deg, var(--cc-navy) 0%, var(--cc-navy-dark) 100%);
+  color: white;
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  box-shadow: var(--shadow-elevated);
+  animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes slideUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+.qs-item { text-align: center; }
+.qs-item .qs-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  opacity: 0.55;
+  margin-bottom: 4px;
+}
+.qs-item .qs-value { font-size: 20px; font-weight: 800; }
+.qs-item .qs-value.green { color: var(--cc-green); }
+
+/* Lender cards */
+.lender-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  animation: slideUp 0.45s cubic-bezier(0.16,1,0.3,1);
+  animation-fill-mode: backwards;
+}
+.lender-card:hover {
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-2px);
+}
+.lender-card:nth-child(2) { animation-delay: 0.05s; }
+.lender-card:nth-child(3) { animation-delay: 0.1s; }
+.lender-card:nth-child(4) { animation-delay: 0.15s; }
+.lender-card:nth-child(5) { animation-delay: 0.2s; }
+
+.lender-header {
+  padding: 18px 24px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-100);
+}
+.lender-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lender-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: white;
+}
+.lender-icon.momnt { background: var(--cc-navy); }
+.lender-icon.microf { background: #7C3AED; }
+.lender-icon.breeze { background: #0891B2; }
+.lender-icon.thrive { background: #059669; }
+.lender-name h3 { font-size: 16px; font-weight: 800; color: var(--text-heading); }
+.lender-name .lender-type {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-placeholder);
+}
+.lender-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.lender-badge.best-rate { background: var(--bg-success); color: var(--cc-green-dark); }
+.lender-badge.lowest-total { background: var(--bg-primary); color: var(--cc-blue-info); }
+.lender-badge.lowest-payment { background: var(--bg-warning); color: var(--cc-amber-text); }
+
+.lender-body { padding: 20px 24px; }
+
+/* Option rows inside lender card */
+.option-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px 120px 100px auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gray-100);
+  transition: background var(--transition-fast);
+}
+.option-row:last-child { border-bottom: none; }
+.option-row:hover { background: var(--bg-general); margin: 0 -12px; padding: 12px; border-radius: var(--radius-sm); }
+.option-row .or-term {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+.option-row .or-term small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-placeholder);
+}
+.option-row .or-rate { font-size: 14px; font-weight: 700; color: var(--text-heading); }
+.option-row .or-monthly {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--cc-green-dark);
+}
+.option-row .or-total { font-size: 13px; color: var(--text-disabled); }
+.option-row .or-savings { font-size: 12px; color: var(--cc-green-dark); font-weight: 600; }
+.option-row .or-savings.none { color: var(--text-placeholder); }
+.option-row .or-select-btn {
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--cc-navy);
+  background: transparent;
+  color: var(--cc-navy);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+.option-row .or-select-btn:hover { background: var(--cc-navy); color: white; }
+.option-row .or-select-btn.selected { background: var(--cc-green); color: white; border-color: var(--cc-green); }
+
+/* Option header */
+.option-header {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px 120px 100px auto;
+  gap: 12px;
+  padding: 0 0 8px;
+  border-bottom: 2px solid var(--gray-200);
+  margin-bottom: 4px;
+}
+.option-header span {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-placeholder);
+}
+
+/* LTO-specific factor display */
+.factor-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--gray-100);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT/SHARE BAR
+   ═══════════════════════════════════════════════════════════════ */
+.action-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200);
+  background: white;
+  color: var(--text-body);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.action-btn:hover { border-color: var(--cc-navy); color: var(--cc-navy); background: var(--bg-primary); }
+
+/* ═══════════════════════════════════════════════════════════════
+   COMPARISON FLYOUT
+   ═══════════════════════════════════════════════════════════════ */
+.compare-bar {
+  position: fixed;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cc-navy);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 40px;
+  box-shadow: 0 8px 32px rgba(0,33,71,0.3);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+  transition: bottom 0.4s cubic-bezier(0.16,1,0.3,1);
+  font-size: 14px;
+  font-weight: 600;
+}
+.compare-bar.visible { bottom: 24px; }
+.compare-bar .compare-count {
+  background: var(--cc-green);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px;
+}
+.compare-bar button {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: none;
+  background: var(--cc-green);
+  color: white;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.compare-bar button:hover { background: var(--cc-green-dark); }
+.compare-bar .compare-clear {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: white;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   EMPTY STATE
+   ═══════════════════════════════════════════════════════════════ */
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--text-placeholder);
+}
+.empty-state svg { opacity: 0.3; margin-bottom: 16px; }
+.empty-state h3 { font-size: 18px; font-weight: 700; color: var(--text-disabled); margin-bottom: 6px; }
+.empty-state p { font-size: 14px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   DISCLAIMER
+   ═══════════════════════════════════════════════════════════════ */
+.disclaimer {
+  font-size: 11px;
+  color: var(--text-placeholder);
+  line-height: 1.6;
+  padding: 16px 20px;
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  margin-top: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .calc-layout { grid-template-columns: 1fr; }
+  .input-panel { position: static; }
+  .quote-summary { grid-template-columns: 1fr 1fr; }
+  .option-header, .option-row { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .option-header span:nth-child(n+4), .option-row > *:nth-child(n+4) { display: none; }
+  .sidebar { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHART BAR — Simple visual for cost comparison
+   ═══════════════════════════════════════════════════════════════ */
+.cost-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.cost-bar-fill {
+  height: 6px;
+  border-radius: 6px;
+  transition: width 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.cost-bar-label { font-size: 11px; font-weight: 600; color: var(--text-placeholder); white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <i data-lucide="shield-check" style="width:24px;height:24px"></i>
+    ComfortConnect
+    <span class="sep">|</span>
+    <span class="flow-label">Payment Quote Calculator</span>
+  </div>
+  <div class="topbar-user">
+    <i data-lucide="bell" style="width:18px;height:18px;opacity:0.6"></i>
+    <span>Sarah Mitchell</span>
+    <div class="avatar">SM</div>
+  </div>
+</header>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sb-item"><i data-lucide="layout-dashboard" style="width:20px;height:20px"></i><span class="sb-tip">Dashboard</span></div>
+    <div class="sb-item"><i data-lucide="file-plus" style="width:20px;height:20px"></i><span class="sb-tip">New App</span></div>
+    <div class="sb-item active"><i data-lucide="calculator" style="width:20px;height:20px"></i><span class="sb-tip">Quotes</span></div>
+    <div class="sb-item"><i data-lucide="users" style="width:20px;height:20px"></i><span class="sb-tip">Customers</span></div>
+    <div class="sb-item"><i data-lucide="package" style="width:20px;height:20px"></i><span class="sb-tip">Equipment</span></div>
+    <div class="sb-spacer"></div>
+    <div class="sb-item"><i data-lucide="settings" style="width:20px;height:20px"></i><span class="sb-tip">Settings</span></div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1><i data-lucide="calculator" style="width:28px;height:28px"></i> Payment Quote Calculator</h1>
+      <p>Generate and compare estimated monthly payments across all lending partners for your customer</p>
+    </div>
+
+    <div class="calc-layout">
+
+      <!-- ═══════════════════════════════════════════════════════
+           LEFT — INPUT PANEL
+           ═══════════════════════════════════════════════════════ -->
+      <div class="input-panel">
+        <div class="input-panel-header">
+          <h2><i data-lucide="sliders-horizontal" style="width:18px;height:18px;color:var(--cc-navy)"></i> Quote Parameters</h2>
+        </div>
+        <div class="input-panel-body">
+
+          <div class="section-label">Project Amount</div>
+          <div class="fg">
+            <div class="slider-container">
+              <div class="slider-row">
+                <input type="range" id="amountSlider" min="1000" max="50000" step="500" value="12500" oninput="syncAmount(this.value)">
+                <div class="slider-val" id="amountDisplay">$12,500</div>
+              </div>
+              <div class="slider-range"><span>$1,000</span><span>$50,000</span></div>
+            </div>
+          </div>
+
+          <div class="fg">
+            <div class="down-payment-row">
+              <div>
+                <label class="fl">Down Payment ($)</label>
+                <input class="fi" type="text" id="downDollar" value="0" oninput="syncDownDollar()">
+              </div>
+              <div class="or-label">or</div>
+              <div>
+                <label class="fl">Down Payment (%)</label>
+                <input class="fi" type="text" id="downPercent" value="0" oninput="syncDownPercent()">
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg-success);border-radius:var(--radius-sm);margin-bottom:16px;">
+            <span style="font-size:13px;font-weight:600;color:var(--text-disabled);">Financed Amount</span>
+            <span style="font-size:20px;font-weight:800;color:var(--cc-green-dark);" id="financedDisplay">$12,500</span>
+          </div>
+
+          <div class="section-label">Equipment</div>
+          <div class="fg">
+            <label class="fl">Equipment Type</label>
+            <select class="fi" id="equipType">
+              <option>Full HVAC System</option>
+              <option>AC Unit</option>
+              <option>Furnace</option>
+              <option>Heat Pump</option>
+              <option>Water Heater</option>
+              <option>Mini-Split System</option>
+            </select>
+          </div>
+
+          <div class="section-label">Buy-Down Pricing</div>
+          <label class="buydown-toggle" id="buydownToggle" onclick="toggleBuydown()">
+            <input type="checkbox" id="buydownCheck">
+            <div class="bt-text">
+              <strong>Enable Dealer Buy-Down</strong>
+              Offer reduced rates by absorbing a dealer fee
+            </div>
+          </label>
+          <div class="buydown-tiers" id="buydownTiers">
+            <div class="tier-pills">
+              <div class="tier-pill selected" onclick="selectTier(this, 1)" data-reduction="1">
+                <span class="tp-rate">−1.00%</span>
+                <span class="tp-fee">Tier 1</span>
+              </div>
+              <div class="tier-pill" onclick="selectTier(this, 2)" data-reduction="2">
+                <span class="tp-rate">−2.00%</span>
+                <span class="tp-fee">Tier 2</span>
+              </div>
+              <div class="tier-pill" onclick="selectTier(this, 3)" data-reduction="3">
+                <span class="tp-rate">−3.00%</span>
+                <span class="tp-fee">Tier 3</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg-warning);border-radius:var(--radius-sm);font-size:13px;">
+              <span style="color:var(--cc-amber-text);font-weight:600;">Estimated Dealer Fee</span>
+              <span style="font-weight:800;color:var(--cc-amber-text);" id="dealerFeeDisplay">$375</span>
+            </div>
+          </div>
+
+          <button class="calc-btn" onclick="calculateQuotes()">
+            <i data-lucide="sparkles" style="width:18px;height:18px"></i> Generate Quotes
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           RIGHT — RESULTS PANEL
+           ═══════════════════════════════════════════════════════ -->
+      <div class="results-panel" id="resultsPanel">
+        <div class="empty-state" id="emptyState">
+          <i data-lucide="file-search" style="width:56px;height:56px"></i>
+          <h3>No Quotes Generated</h3>
+          <p>Adjust the project amount and parameters on the left, then click "Generate Quotes" to see estimated monthly payments across all lending partners.</p>
+        </div>
+
+        <!-- Results injected here by JS -->
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- COMPARISON BAR -->
+<div class="compare-bar" id="compareBar">
+  <div class="compare-count" id="compareCount">0</div>
+  <span id="compareText">options selected</span>
+  <button onclick="showComparison()">Compare Side by Side</button>
+  <button class="compare-clear" onclick="clearCompare()">Clear</button>
+</div>
+
+<script>
+lucide.createIcons();
+
+// ══════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════
+let projectAmount = 12500;
+let downPayment = 0;
+let buydownEnabled = false;
+let buydownTier = 1; // 1, 2, or 3 (percentage reduction)
+let selectedOptions = new Set();
+
+// ══════════════════════════════════════════════════════════════
+// LENDER PRODUCT DEFINITIONS
+// ══════════════════════════════════════════════════════════════
+const LENDERS = [
+  {
+    id: 'momnt',
+    name: 'Momnt',
+    type: 'Loan',
+    icon: 'M',
+    iconClass: 'momnt',
+    terms: [
+      { months: 60,  baseAPR: 5.99  },
+      { months: 84,  baseAPR: 6.99  },
+      { months: 120, baseAPR: 7.99  },
+      { months: 144, baseAPR: 8.99  },
+      { months: 180, baseAPR: 9.99  },
+    ]
+  },
+  {
+    id: 'thrive',
+    name: 'Thrive',
+    type: 'Loan',
+    icon: 'T',
+    iconClass: 'thrive',
+    terms: [
+      { months: 36,  baseAPR: 6.49  },
+      { months: 60,  baseAPR: 7.49  },
+      { months: 84,  baseAPR: 8.49  },
+      { months: 120, baseAPR: 9.49  },
+    ]
+  },
+  {
+    id: 'microf',
+    name: 'Microf',
+    type: 'Lease-to-Own',
+    icon: 'μ',
+    iconClass: 'microf',
+    terms: [
+      { months: 36,  factor: 1.55 },
+      { months: 48,  factor: 1.65 },
+      { months: 60,  factor: 1.89 },
+    ]
+  },
+  {
+    id: 'breeze',
+    name: 'Breeze',
+    type: 'Lease-to-Own',
+    icon: 'B',
+    iconClass: 'breeze',
+    terms: [
+      { months: 36,  factor: 1.49 },
+      { months: 48,  factor: 1.60 },
+      { months: 60,  factor: 1.78 },
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════════════════
+// SYNC FUNCTIONS
+// ══════════════════════════════════════════════════════════════
+function fmt(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+function fmtDec(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+function syncAmount(val) {
+  projectAmount = parseInt(val);
+  document.getElementById('amountDisplay').textContent = fmt(projectAmount);
+  updateFinanced();
+}
+
+function syncDownDollar() {
+  const v = parseInt(document.getElementById('downDollar').value) || 0;
+  downPayment = Math.min(v, projectAmount);
+  document.getElementById('downPercent').value = projectAmount > 0 ? ((downPayment / projectAmount) * 100).toFixed(1) : '0';
+  updateFinanced();
+}
+
+function syncDownPercent() {
+  const v = parseFloat(document.getElementById('downPercent').value) || 0;
+  downPayment = Math.round((Math.min(v, 100) / 100) * projectAmount);
+  document.getElementById('downDollar').value = downPayment;
+  updateFinanced();
+}
+
+function updateFinanced() {
+  const financed = projectAmount - downPayment;
+  document.getElementById('financedDisplay').textContent = fmt(financed);
+  updateDealerFee();
+}
+
+function toggleBuydown() {
+  setTimeout(() => {
+    buydownEnabled = document.getElementById('buydownCheck').checked;
+    document.getElementById('buydownToggle').classList.toggle('active', buydownEnabled);
+    document.getElementById('buydownTiers').classList.toggle('open', buydownEnabled);
+  }, 10);
+}
+
+function selectTier(el, tier) {
+  buydownTier = tier;
+  document.querySelectorAll('.tier-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  updateDealerFee();
+}
+
+function updateDealerFee() {
+  const financed = projectAmount - downPayment;
+  // Fee is ~3% of financed per tier point
+  const fee = Math.round(financed * 0.03 * buydownTier);
+  document.getElementById('dealerFeeDisplay').textContent = fmt(fee);
+}
+
+// ══════════════════════════════════════════════════════════════
+// CALCULATION ENGINE
+// ══════════════════════════════════════════════════════════════
+function calcLoanPayment(principal, annualRate, months) {
+  if (annualRate === 0) return principal / months;
+  const r = annualRate / 100 / 12;
+  return principal * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+}
+
+function calcLTOPayment(principal, factor, months) {
+  return (principal * factor) / months;
+}
+
+function calculateQuotes() {
+  const financed = projectAmount - downPayment;
+  if (financed <= 0) return;
+
+  const reduction = buydownEnabled ? buydownTier : 0;
+  let allOptions = [];
+
+  LENDERS.forEach(lender => {
+    lender.terms.forEach(term => {
+      let monthly, totalCost, rate, rateLabel;
+
+      if (lender.type === 'Loan') {
+        rate = Math.max(0, term.baseAPR - reduction);
+        monthly = calcLoanPayment(financed, rate, term.months);
+        totalCost = monthly * term.months;
+        rateLabel = rate.toFixed(2) + '% APR';
+      } else {
+        // LTO — buydown reduces factor slightly
+        const adjustedFactor = Math.max(1.0, term.factor - (reduction * 0.05));
+        monthly = calcLTOPayment(financed, adjustedFactor, term.months);
+        totalCost = monthly * term.months;
+        rate = adjustedFactor;
+        rateLabel = adjustedFactor.toFixed(2) + '× factor';
+      }
+
+      allOptions.push({
+        lenderId: lender.id,
+        lenderName: lender.name,
+        lenderType: lender.type,
+        iconClass: lender.iconClass,
+        icon: lender.icon,
+        months: term.months,
+        rate,
+        rateLabel,
+        monthly,
+        totalCost,
+        savings: buydownEnabled ? (lender.type === 'Loan'
+          ? calcLoanPayment(financed, term.baseAPR, term.months) * term.months - totalCost
+          : calcLTOPayment(financed, term.factor, term.months) * term.months - totalCost) : 0
+      });
+    });
+  });
+
+  renderResults(financed, allOptions);
+}
+
+// ══════════════════════════════════════════════════════════════
+// RENDERING
+// ══════════════════════════════════════════════════════════════
+function renderResults(financed, allOptions) {
+  const panel = document.getElementById('resultsPanel');
+  document.getElementById('emptyState').style.display = 'none';
+  selectedOptions.clear();
+  updateCompareBar();
+
+  // Find best values for badges
+  const loanOptions = allOptions.filter(o => o.lenderType === 'Loan');
+  const allMonthly = allOptions.map(o => o.monthly);
+  const lowestMonthly = Math.min(...allMonthly);
+  const lowestTotal = Math.min(...loanOptions.map(o => o.totalCost));
+  const lowestRate = Math.min(...loanOptions.map(o => o.rate));
+
+  // Group by lender
+  const byLender = {};
+  LENDERS.forEach(l => { byLender[l.id] = { ...l, options: [] }; });
+  allOptions.forEach(o => byLender[o.lenderId].options.push(o));
+
+  // Determine badges per lender
+  const badges = {};
+  allOptions.forEach(o => {
+    if (o.lenderType === 'Loan' && o.rate === lowestRate && !badges[o.lenderId]) {
+      badges[o.lenderId] = { label: 'Best Rate', cls: 'best-rate' };
+    }
+  });
+  allOptions.forEach(o => {
+    if (o.lenderType === 'Loan' && o.totalCost === lowestTotal && !badges[o.lenderId]) {
+      badges[o.lenderId] = { label: 'Lowest Total', cls: 'lowest-total' };
+    }
+  });
+  allOptions.forEach(o => {
+    if (o.monthly === lowestMonthly && !badges[o.lenderId]) {
+      badges[o.lenderId] = { label: 'Lowest Payment', cls: 'lowest-payment' };
+    }
+  });
+
+  // Summary bar
+  const bestMonthly = Math.min(...allOptions.map(o => o.monthly));
+  const bestTotal = Math.min(...allOptions.map(o => o.totalCost));
+  const numOptions = allOptions.length;
+
+  let html = `
+    <div class="action-bar">
+      <button class="action-btn" onclick="window.print()"><i data-lucide="printer" style="width:14px;height:14px"></i> Print Quote</button>
+      <button class="action-btn"><i data-lucide="mail" style="width:14px;height:14px"></i> Email to Customer</button>
+      <button class="action-btn"><i data-lucide="download" style="width:14px;height:14px"></i> Export PDF</button>
+    </div>
+    <div class="quote-summary">
+      <div class="qs-item">
+        <div class="qs-label">Financed Amount</div>
+        <div class="qs-value">${fmt(financed)}</div>
+      </div>
+      <div class="qs-item">
+        <div class="qs-label">Lowest Monthly</div>
+        <div class="qs-value green">${fmtDec(bestMonthly)}</div>
+      </div>
+      <div class="qs-item">
+        <div class="qs-label">Lowest Total Cost</div>
+        <div class="qs-value">${fmtDec(bestTotal)}</div>
+      </div>
+      <div class="qs-item">
+        <div class="qs-label">Options Available</div>
+        <div class="qs-value">${numOptions}</div>
+      </div>
+    </div>
+  `;
+
+  // Max total for bar chart scaling
+  const maxTotal = Math.max(...allOptions.map(o => o.totalCost));
+
+  // Lender cards
+  LENDERS.forEach(lender => {
+    const opts = byLender[lender.id].options;
+    if (opts.length === 0) return;
+    const badge = badges[lender.id];
+
+    html += `<div class="lender-card">
+      <div class="lender-header">
+        <div class="lender-name">
+          <div class="lender-icon ${lender.iconClass || ''}">${lender.icon}</div>
+          <div>
+            <h3>${lender.name}</h3>
+            <div class="lender-type">${lender.type}</div>
+          </div>
+        </div>
+        ${badge ? `<div class="lender-badge ${badge.cls}">${badge.label}</div>` : ''}
+      </div>
+      <div class="lender-body">
+        <div class="option-header">
+          <span>Term</span>
+          <span>Rate</span>
+          <span>Monthly</span>
+          <span>Total Cost</span>
+          <span>Buy-Down Savings</span>
+          <span></span>
+        </div>`;
+
+    opts.forEach((o, i) => {
+      const key = `${o.lenderId}-${o.months}`;
+      const barWidth = Math.round((o.totalCost / maxTotal) * 100);
+      const barColor = o.lenderType === 'Loan' ? 'var(--cc-navy)' : (lender.id === 'microf' ? '#7C3AED' : '#0891B2');
+      const savingsText = o.savings > 0 ? `−${fmtDec(o.savings)}` : '—';
+      const savingsClass = o.savings > 0 ? '' : 'none';
+
+      html += `<div class="option-row" data-key="${key}">
+        <div class="or-term">
+          ${o.months} months<small>${(o.months / 12).toFixed(o.months % 12 === 0 ? 0 : 1)} years</small>
+          ${o.lenderType !== 'Loan' ? `<span class="factor-tag">${o.rate.toFixed(2)}× factor</span>` : ''}
+          <div class="cost-bar">
+            <div class="cost-bar-fill" style="width:${barWidth}%;background:${barColor};opacity:0.3;"></div>
+          </div>
+        </div>
+        <div class="or-rate">${o.lenderType === 'Loan' ? o.rate.toFixed(2) + '%' : o.rate.toFixed(2) + '×'}</div>
+        <div class="or-monthly">${fmtDec(o.monthly)}</div>
+        <div class="or-total">${fmtDec(o.totalCost)}</div>
+        <div class="or-savings ${savingsClass}">${savingsText}</div>
+        <button class="or-select-btn" onclick="toggleSelect(this, '${key}')">Select</button>
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  // Disclaimer
+  html += `<div class="disclaimer">
+    <strong>Disclaimer:</strong> Payment estimates are for illustrative purposes only and do not constitute a loan offer or commitment.
+    Actual rates, terms, and eligibility are determined by the lending partner upon application review.
+    Lease-to-own (LTO) payments represent total lease cost including all fees. APR and factor rates shown are based on
+    current rate sheets and may vary. Buy-down pricing reduces the customer's rate by absorbing a dealer fee.
+    Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.
+  </div>`;
+
+  panel.innerHTML = html;
+  lucide.createIcons();
+
+  // Animate cost bars
+  setTimeout(() => {
+    document.querySelectorAll('.cost-bar-fill').forEach(bar => {
+      const w = bar.style.width;
+      bar.style.width = '0%';
+      requestAnimationFrame(() => { bar.style.width = w; });
+    });
+  }, 100);
+}
+
+// ══════════════════════════════════════════════════════════════
+// SELECTION / COMPARE
+// ══════════════════════════════════════════════════════════════
+function toggleSelect(btn, key) {
+  if (selectedOptions.has(key)) {
+    selectedOptions.delete(key);
+    btn.classList.remove('selected');
+    btn.textContent = 'Select';
+  } else {
+    selectedOptions.add(key);
+    btn.classList.add('selected');
+    btn.textContent = '✓ Selected';
+  }
+  updateCompareBar();
+}
+
+function updateCompareBar() {
+  const bar = document.getElementById('compareBar');
+  const count = selectedOptions.size;
+  document.getElementById('compareCount').textContent = count;
+  document.getElementById('compareText').textContent = count === 1 ? 'option selected' : 'options selected';
+  bar.classList.toggle('visible', count >= 2);
+}
+
+function clearCompare() {
+  selectedOptions.clear();
+  document.querySelectorAll('.or-select-btn.selected').forEach(b => {
+    b.classList.remove('selected');
+    b.textContent = 'Select';
+  });
+  updateCompareBar();
+}
+
+function showComparison() {
+  // Highlight selected rows
+  document.querySelectorAll('.option-row').forEach(row => {
+    const key = row.dataset.key;
+    if (selectedOptions.has(key)) {
+      row.style.background = 'var(--bg-success)';
+      row.style.borderRadius = 'var(--radius-sm)';
+      row.style.margin = '0 -12px';
+      row.style.padding = '12px';
+    } else {
+      row.style.background = '';
+      row.style.margin = '';
+      row.style.padding = '12px 0';
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+// INIT — Auto-generate on load for a nice first impression
+// ══════════════════════════════════════════════════════════════
+updateFinanced();
+setTimeout(() => calculateQuotes(), 300);
+</script>
+</body>
+</html>

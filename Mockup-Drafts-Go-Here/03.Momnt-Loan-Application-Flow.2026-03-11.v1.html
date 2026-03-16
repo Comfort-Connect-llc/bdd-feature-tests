@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comfort Connect — Momnt Loan Application Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   COMFORT CONNECT — PORTAL 2.0 DESIGN SYSTEM TOKENS
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --cc-navy: #002F6C;
+  --cc-navy-dark: #002147;
+  --cc-green: #6CC24A;
+  --cc-green-dark: #398F17;
+  --cc-orange: #EE8F1E;
+  --cc-red: #DD331D;
+  --cc-amber: #E8B93F;
+  --cc-blue-main: #009CDE;
+  --cc-blue-info: #1C51A4;
+  --cc-red-text: #AB2816;
+  --cc-amber-text: #82620F;
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+  --bg-primary: #EDF4FF;
+  --bg-disabled: #E0E2E5;
+  --bg-success: #D9F3D0;
+  --bg-warning: #FFF6E0;
+  --bg-error: #FDE7E5;
+  --bg-general: #F9FAFB;
+  --state-hover: #1759C4;
+  --state-hover-secondary: #EDF4FF;
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+  --gray-600: #2A2E34;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --shadow-card: 0 1px 3px rgba(0,47,108,0.06), 0 1px 2px rgba(0,47,108,0.04);
+  --shadow-elevated: 0 4px 16px rgba(0,47,108,0.10), 0 2px 6px rgba(0,47,108,0.06);
+  --shadow-glow: 0 0 0 3px rgba(0,47,108,0.12);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-general);
+  color: var(--text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOP BAR
+   ═══════════════════════════════════════════════════════════════ */
+.topbar {
+  background: var(--cc-navy);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,33,71,0.3);
+}
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+}
+.topbar-brand svg { color: var(--cc-green); }
+.topbar-brand span { opacity: 0.5; font-weight: 400; margin: 0 4px; }
+.topbar-brand .flow-label { font-weight: 600; opacity: 0.85; font-size: 14px; }
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+}
+.topbar-user .avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--cc-green);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+.app-layout {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 56px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR — LEFT NAV (Dark Navy)
+   ═══════════════════════════════════════════════════════════════ */
+.sidebar {
+  width: 64px;
+  background: var(--cc-navy-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 4px;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  z-index: 50;
+}
+.sb-item {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+.sb-item:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+.sb-item.active {
+  background: rgba(108,194,74,0.15);
+  color: var(--cc-green);
+}
+.sb-item .sb-tooltip {
+  position: absolute;
+  left: 56px;
+  background: var(--gray-600);
+  color: white;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+.sb-item:hover .sb-tooltip { opacity: 1; }
+.sb-spacer { flex: 1; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.main-content {
+  flex: 1;
+  padding: 28px 32px 48px;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TRACKER PILLS — 7-Stage Progress Bar
+   ═══════════════════════════════════════════════════════════════ */
+.tracker {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 60px;
+  padding: 6px 8px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 28px;
+  overflow-x: auto;
+}
+.tracker-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+  cursor: default;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tracker-pill.completed {
+  background: var(--cc-navy);
+  color: white;
+}
+.tracker-pill.active {
+  background: var(--cc-green);
+  color: white;
+  box-shadow: 0 2px 8px rgba(108,194,74,0.35);
+}
+.tracker-pill.pending {
+  background: var(--gray-100);
+  color: var(--gray-400);
+}
+.tracker-connector {
+  width: 20px;
+  height: 3px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.tracker-connector.done { background: var(--cc-navy); }
+.tracker-connector.pending { background: var(--gray-200); }
+
+/* ═══════════════════════════════════════════════════════════════
+   STEP CARD — Main Form Container
+   ═══════════════════════════════════════════════════════════════ */
+.step-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  animation: cardEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.step-header {
+  padding: 24px 32px 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.step-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin-bottom: 4px;
+}
+.step-header p {
+  color: var(--text-disabled);
+  font-size: 14px;
+}
+.step-body {
+  padding: 28px 32px;
+}
+.step-footer {
+  padding: 20px 32px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-general);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ORANGE SECTION LABELS (Portal 2.0 pattern)
+   ═══════════════════════════════════════════════════════════════ */
+.form-section-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--cc-orange);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.form-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cc-orange) 0%, transparent 100%);
+  opacity: 0.25;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORM ELEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.form-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-grid.cols-1 { grid-template-columns: 1fr; }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group.full-width { grid-column: 1 / -1; }
+.form-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+.form-label .required {
+  color: var(--cc-red);
+  margin-left: 2px;
+}
+.form-input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-heading);
+  background: white;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--cc-navy);
+  box-shadow: var(--shadow-glow);
+}
+.form-input::placeholder { color: var(--text-placeholder); }
+.form-input.error {
+  border-color: var(--cc-red);
+  box-shadow: 0 0 0 3px rgba(221,51,29,0.1);
+}
+.form-input.success {
+  border-color: var(--cc-green);
+}
+select.form-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237B8493' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+.form-error {
+  font-size: 12px;
+  color: var(--cc-red-text);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.form-hint {
+  font-size: 12px;
+  color: var(--text-placeholder);
+}
+.form-checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.form-checkbox-row:hover {
+  border-color: var(--cc-navy);
+  background: var(--bg-primary);
+}
+.form-checkbox-row.checked {
+  border-color: var(--cc-green);
+  background: var(--bg-success);
+}
+.form-checkbox-row input[type="checkbox"] {
+  width: 18px; height: 18px;
+  margin-top: 2px;
+  accent-color: var(--cc-green);
+  flex-shrink: 0;
+}
+.form-checkbox-row .cb-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-body);
+}
+.form-checkbox-row .cb-text strong {
+  color: var(--text-heading);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--cc-green);
+  color: white;
+  box-shadow: 0 2px 6px rgba(108,194,74,0.3);
+}
+.btn-primary:hover {
+  background: var(--cc-green-dark);
+  box-shadow: 0 4px 12px rgba(108,194,74,0.4);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+.btn-secondary {
+  background: white;
+  color: var(--cc-navy);
+  border: 1.5px solid var(--cc-navy);
+}
+.btn-secondary:hover {
+  background: var(--bg-primary);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-disabled);
+}
+.btn-ghost:hover {
+  color: var(--text-heading);
+  background: var(--gray-100);
+}
+.btn-disabled {
+  background: var(--bg-disabled);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.btn-lg {
+  padding: 14px 32px;
+  font-size: 15px;
+}
+.btn-sm {
+  padding: 7px 16px;
+  font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VERTICAL STEPPER (Left Rail)
+   ═══════════════════════════════════════════════════════════════ */
+.stepper-container {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+.v-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 200px;
+  position: sticky;
+  top: 100px;
+}
+.v-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.v-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 44px;
+  bottom: -4px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--gray-200);
+  transition: background var(--transition-normal);
+}
+.v-step.completed:not(:last-child)::after {
+  background: var(--cc-green);
+}
+.v-step-circle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all var(--transition-normal);
+}
+.v-step.completed .v-step-circle {
+  background: var(--cc-green);
+  color: white;
+}
+.v-step.active .v-step-circle {
+  background: var(--cc-navy);
+  color: white;
+  box-shadow: 0 0 0 4px rgba(0,47,108,0.15);
+}
+.v-step.pending .v-step-circle {
+  background: white;
+  color: var(--gray-400);
+  border: 2px solid var(--gray-200);
+}
+.v-step-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-disabled);
+  padding-top: 5px;
+  line-height: 1.3;
+}
+.v-step.active .v-step-label { color: var(--cc-navy); font-weight: 700; }
+.v-step.completed .v-step-label { color: var(--cc-green-dark); }
+.stepper-content { flex: 1; min-width: 0; }
+
+/* ═══════════════════════════════════════════════════════════════
+   OFFER CARDS
+   ═══════════════════════════════════════════════════════════════ */
+.offer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.offer-card {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+.offer-card:hover {
+  border-color: var(--cc-navy);
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-2px);
+}
+.offer-card.selected {
+  border-color: var(--cc-green);
+  background: var(--bg-success);
+  box-shadow: 0 0 0 3px rgba(108,194,74,0.15);
+}
+.offer-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--cc-green);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700;
+}
+.offer-lender {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cc-blue-info);
+  margin-bottom: 8px;
+}
+.offer-lender.momnt { color: var(--cc-navy); }
+.offer-amount {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1.1;
+}
+.offer-amount small {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-disabled);
+}
+.offer-details {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.offer-detail {
+  font-size: 12px;
+  color: var(--text-disabled);
+}
+.offer-detail strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-heading);
+  font-weight: 700;
+}
+.offer-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 12px;
+}
+.offer-badge.best { background: var(--bg-success); color: var(--cc-green-dark); }
+.offer-badge.low { background: var(--bg-primary); color: var(--cc-blue-info); }
+
+/* ═══════════════════════════════════════════════════════════════
+   CONSENT PANEL
+   ═══════════════════════════════════════════════════════════════ */
+.consent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DECISION / STATUS SCREENS
+   ═══════════════════════════════════════════════════════════════ */
+.decision-hero {
+  text-align: center;
+  padding: 48px 32px;
+}
+.decision-icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+.decision-icon.success {
+  background: var(--bg-success);
+  color: var(--cc-green);
+}
+.decision-icon.info {
+  background: var(--bg-primary);
+  color: var(--cc-navy);
+}
+.decision-hero h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+.decision-hero p {
+  color: var(--text-disabled);
+  font-size: 15px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   READINESS / STATUS CARD (Momnt-specific)
+   ═══════════════════════════════════════════════════════════════ */
+.readiness-card {
+  background: linear-gradient(135deg, var(--cc-navy) 0%, var(--cc-navy-dark) 100%);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.readiness-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.readiness-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.readiness-item {
+  text-align: center;
+}
+.readiness-item .r-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+.readiness-item .r-value {
+  font-size: 15px;
+  font-weight: 700;
+}
+.readiness-item .r-value.ok { color: var(--cc-green); }
+.readiness-item .r-value.warn { color: var(--cc-amber); }
+.readiness-item .r-value.pending { color: rgba(255,255,255,0.5); }
+
+/* ═══════════════════════════════════════════════════════════════
+   DOCUMENT SIGNING MOCK
+   ═══════════════════════════════════════════════════════════════ */
+.doc-preview {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  background: var(--bg-general);
+  margin-bottom: 20px;
+}
+.doc-preview h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.doc-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.doc-line {
+  height: 10px;
+  background: var(--gray-200);
+  border-radius: 5px;
+}
+.doc-line:nth-child(2n) { width: 85%; }
+.doc-line:nth-child(3n) { width: 70%; }
+.sig-pad {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius-md);
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-placeholder);
+  font-size: 14px;
+  gap: 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 20px;
+}
+.sig-pad:hover {
+  border-color: var(--cc-navy);
+  background: var(--bg-primary);
+}
+.sig-pad.signed {
+  border-color: var(--cc-green);
+  border-style: solid;
+  background: var(--bg-success);
+  color: var(--cc-green-dark);
+  font-family: 'Brush Script MT', cursive;
+  font-size: 28px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHARGE REQUEST PANEL
+   ═══════════════════════════════════════════════════════════════ */
+.charge-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.charge-item {
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-general);
+  border: 1px solid var(--gray-100);
+}
+.charge-item .c-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-placeholder);
+  margin-bottom: 4px;
+}
+.charge-item .c-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-heading);
+}
+.charge-item .c-value.green { color: var(--cc-green-dark); }
+
+/* ═══════════════════════════════════════════════════════════════
+   TIMELINE
+   ═══════════════════════════════════════════════════════════════ */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 24px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--gray-200);
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 20px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute;
+  left: -24px;
+  top: 3px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  border: 3px solid;
+}
+.timeline-dot.done { border-color: var(--cc-green); background: var(--cc-green); }
+.timeline-dot.active { border-color: var(--cc-navy); background: white; }
+.timeline-dot.pending { border-color: var(--gray-300); background: white; }
+.timeline-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+.timeline-sub {
+  font-size: 12px;
+  color: var(--text-placeholder);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INFO BANNER
+   ═══════════════════════════════════════════════════════════════ */
+.info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.info-banner.info { background: var(--bg-primary); color: var(--cc-blue-info); }
+.info-banner.success { background: var(--bg-success); color: var(--cc-green-dark); }
+.info-banner.warning { background: var(--bg-warning); color: var(--cc-amber-text); }
+
+/* ═══════════════════════════════════════════════════════════════
+   LOADING / PROCESSING ANIMATION
+   ═══════════════════════════════════════════════════════════════ */
+.processing-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,33,71,0.6);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.processing-overlay.visible { display: flex; }
+.processing-box {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 40px 48px;
+  text-align: center;
+  box-shadow: var(--shadow-elevated);
+  animation: cardEnter 0.3s ease;
+}
+.spinner {
+  width: 48px; height: 48px;
+  border: 4px solid var(--gray-200);
+  border-top-color: var(--cc-navy);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.processing-box p {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+.processing-box .sub {
+  font-size: 13px;
+  color: var(--text-disabled);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 800px) {
+  .stepper-container { flex-direction: column; }
+  .v-stepper { flex-direction: row; overflow-x: auto; min-width: auto; position: static; }
+  .v-step:not(:last-child)::after { display: none; }
+  .form-grid { grid-template-columns: 1fr; }
+  .offer-grid { grid-template-columns: 1fr; }
+  .readiness-grid { grid-template-columns: 1fr; }
+  .charge-summary { grid-template-columns: 1fr; }
+  .main-content { padding: 20px 16px; }
+  .sidebar { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+.fade-in {
+  animation: fadeIn 0.35s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.slide-up {
+  animation: slideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Step transition */
+.step-view { display: none; }
+.step-view.active { display: block; }
+
+/* Co-applicant toggle */
+.co-applicant-section {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.co-applicant-section.open {
+  max-height: 600px;
+}
+
+/* Progress ring for the processing step */
+.progress-ring {
+  width: 80px; height: 80px;
+  margin: 0 auto 16px;
+}
+.progress-ring circle {
+  fill: none;
+  stroke-width: 4;
+}
+.progress-ring .bg { stroke: var(--gray-200); }
+.progress-ring .fg {
+  stroke: var(--cc-green);
+  stroke-dasharray: 226;
+  stroke-dashoffset: 226;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 2s ease;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TOP BAR
+     ═══════════════════════════════════════════════════════════════ -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <i data-lucide="shield-check" style="width:24px;height:24px"></i>
+    ComfortConnect
+    <span>|</span>
+    <span class="flow-label">Momnt Loan Application</span>
+  </div>
+  <div class="topbar-user">
+    <i data-lucide="bell" style="width:18px;height:18px;opacity:0.6"></i>
+    <span>Sarah Mitchell</span>
+    <div class="avatar">SM</div>
+  </div>
+</header>
+
+<div class="app-layout">
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SIDEBAR
+       ═══════════════════════════════════════════════════════════════ -->
+  <nav class="sidebar">
+    <div class="sb-item active"><i data-lucide="layout-dashboard" style="width:20px;height:20px"></i><span class="sb-tooltip">Dashboard</span></div>
+    <div class="sb-item"><i data-lucide="file-plus" style="width:20px;height:20px"></i><span class="sb-tooltip">New Application</span></div>
+    <div class="sb-item"><i data-lucide="users" style="width:20px;height:20px"></i><span class="sb-tooltip">Customers</span></div>
+    <div class="sb-item"><i data-lucide="package" style="width:20px;height:20px"></i><span class="sb-tooltip">Equipment</span></div>
+    <div class="sb-item"><i data-lucide="bar-chart-3" style="width:20px;height:20px"></i><span class="sb-tooltip">Reports</span></div>
+    <div class="sb-spacer"></div>
+    <div class="sb-item"><i data-lucide="settings" style="width:20px;height:20px"></i><span class="sb-tooltip">Settings</span></div>
+    <div class="sb-item"><i data-lucide="log-out" style="width:20px;height:20px"></i><span class="sb-tooltip">Logout</span></div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════════════════════════════════════════ -->
+  <main class="main-content">
+
+    <!-- TRACKER PILLS -->
+    <div class="tracker" id="trackerBar">
+      <div class="tracker-pill active" data-stage="0">Apply</div>
+      <div class="tracker-connector pending"></div>
+      <div class="tracker-pill pending" data-stage="1">Qualify</div>
+      <div class="tracker-connector pending"></div>
+      <div class="tracker-pill pending" data-stage="2">Offer</div>
+      <div class="tracker-connector pending"></div>
+      <div class="tracker-pill pending" data-stage="3">Sign</div>
+      <div class="tracker-connector pending"></div>
+      <div class="tracker-pill pending" data-stage="4">Pay</div>
+      <div class="tracker-connector pending"></div>
+      <div class="tracker-pill pending" data-stage="5">Install</div>
+      <div class="tracker-connector pending"></div>
+      <div class="tracker-pill pending" data-stage="6">Fund</div>
+    </div>
+
+    <div class="stepper-container">
+
+      <!-- VERTICAL STEPPER -->
+      <div class="v-stepper" id="vStepper">
+        <div class="v-step active" data-step="0" onclick="goToStep(0)">
+          <div class="v-step-circle">1</div>
+          <div class="v-step-label">Customer Info</div>
+        </div>
+        <div class="v-step pending" data-step="1" onclick="goToStep(1)">
+          <div class="v-step-circle">2</div>
+          <div class="v-step-label">Property &<br>Equipment</div>
+        </div>
+        <div class="v-step pending" data-step="2" onclick="goToStep(2)">
+          <div class="v-step-circle">3</div>
+          <div class="v-step-label">Consent &<br>Disclosures</div>
+        </div>
+        <div class="v-step pending" data-step="3" onclick="goToStep(3)">
+          <div class="v-step-circle">4</div>
+          <div class="v-step-label">Prequalification</div>
+        </div>
+        <div class="v-step pending" data-step="4" onclick="goToStep(4)">
+          <div class="v-step-circle">5</div>
+          <div class="v-step-label">Offer Selection</div>
+        </div>
+        <div class="v-step pending" data-step="5" onclick="goToStep(5)">
+          <div class="v-step-circle">6</div>
+          <div class="v-step-label">Hard Credit<br>Decision</div>
+        </div>
+        <div class="v-step pending" data-step="6" onclick="goToStep(6)">
+          <div class="v-step-circle">7</div>
+          <div class="v-step-label">Document<br>Signing</div>
+        </div>
+        <div class="v-step pending" data-step="7" onclick="goToStep(7)">
+          <div class="v-step-circle">8</div>
+          <div class="v-step-label">Installation &<br>Charge</div>
+        </div>
+        <div class="v-step pending" data-step="8" onclick="goToStep(8)">
+          <div class="v-step-circle">9</div>
+          <div class="v-step-label">Funding<br>Complete</div>
+        </div>
+      </div>
+
+      <div class="stepper-content">
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 0: Customer Information
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view active" id="step-0">
+          <div class="step-card">
+            <div class="step-header">
+              <h2>Customer Information</h2>
+              <p>Enter the homeowner's personal details to start their financing application</p>
+            </div>
+            <div class="step-body">
+
+              <div class="form-section-label">Personal Information</div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">First Name <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="Jane" value="Jane">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Last Name <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="Doe" value="Doe">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Date of Birth <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="MM/DD/YYYY" value="05/15/1985">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">SSN <span class="required">*</span></label>
+                  <input class="form-input" type="password" placeholder="XXX-XX-XXXX" value="123456789">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Address <span class="required">*</span></label>
+                  <input class="form-input" type="email" placeholder="jane.doe@email.com" value="jane.doe@email.com">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phone Number <span class="required">*</span></label>
+                  <input class="form-input" type="tel" placeholder="(555) 234-5678" value="(555) 234-5678">
+                </div>
+              </div>
+
+              <div class="form-section-label">Residential Address</div>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label class="form-label">Street Address <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="456 Oak Lane" value="456 Oak Lane">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">City <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="Austin" value="Austin">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">State <span class="required">*</span></label>
+                  <select class="form-input"><option>TX</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">ZIP Code <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="78702" value="78702">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Ownership Status <span class="required">*</span></label>
+                  <select class="form-input"><option>Own</option><option>Rent</option></select>
+                </div>
+              </div>
+
+              <div class="form-section-label">Employment &amp; Income</div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Employment Status <span class="required">*</span></label>
+                  <select class="form-input"><option>Employed Full-Time</option><option>Employed Part-Time</option><option>Self-Employed</option><option>Retired</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Employer Name</label>
+                  <input class="form-input" type="text" placeholder="Tech Company Inc" value="Tech Company Inc">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Annual Gross Income <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="$95,000" value="$95,000">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Years Employed</label>
+                  <input class="form-input" type="text" placeholder="3" value="3">
+                </div>
+              </div>
+
+              <!-- Co-Applicant Toggle -->
+              <div style="margin-bottom: 16px;">
+                <label class="form-checkbox-row" id="coAppToggle" onclick="toggleCoApplicant()">
+                  <input type="checkbox" id="coAppCheck">
+                  <div class="cb-text"><strong>Add a Co-Applicant</strong><br>Adding a co-applicant may improve approval chances by combining financial profiles</div>
+                </label>
+              </div>
+              <div class="co-applicant-section" id="coAppSection">
+                <div class="form-section-label">Co-Applicant Information</div>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input class="form-input" type="text" placeholder="John">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input class="form-input" type="text" placeholder="Doe">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Relationship</label>
+                    <select class="form-input"><option>Spouse</option><option>Co-Owner</option><option>Other</option></select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Annual Income</label>
+                    <input class="form-input" type="text" placeholder="$72,000">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step-footer">
+              <div></div>
+              <button class="btn btn-primary btn-lg" onclick="nextStep()">Continue <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 1: Property & Equipment
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-1">
+          <div class="step-card">
+            <div class="step-header">
+              <h2>Property & Equipment Details</h2>
+              <p>Specify the installation property and equipment being financed</p>
+            </div>
+            <div class="step-body">
+              <div class="form-section-label">Property Details</div>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label class="form-checkbox-row checked" style="cursor: default;">
+                    <input type="checkbox" checked disabled>
+                    <div class="cb-text"><strong>Installation address same as residential</strong></div>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Property Type</label>
+                  <select class="form-input"><option>Single Family Home</option><option>Townhouse</option><option>Condo</option><option>Multi-Family</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Year Built</label>
+                  <input class="form-input" type="text" placeholder="1998" value="1998">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Square Footage</label>
+                  <input class="form-input" type="text" placeholder="2,400" value="2,400">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Foundation Type</label>
+                  <select class="form-input"><option>Slab</option><option>Crawl Space</option><option>Basement</option></select>
+                </div>
+              </div>
+
+              <div class="form-section-label">Equipment Information</div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Equipment Type <span class="required">*</span></label>
+                  <select class="form-input"><option>Full HVAC System</option><option>AC Only</option><option>Furnace Only</option><option>Water Heater</option><option>Heat Pump</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Equipment Brand</label>
+                  <select class="form-input"><option>Carrier</option><option>Trane</option><option>Lennox</option><option>Rheem</option><option>Goodman</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Equipment Model</label>
+                  <input class="form-input" type="text" placeholder="24ACC636A003" value="24ACC636A003">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Planned Install Date</label>
+                  <input class="form-input" type="text" placeholder="03/25/2026" value="03/25/2026">
+                </div>
+              </div>
+
+              <div class="form-section-label">Project Financials</div>
+              <div class="form-grid cols-3">
+                <div class="form-group">
+                  <label class="form-label">Project Total <span class="required">*</span></label>
+                  <input class="form-input" type="text" placeholder="$12,500" value="$12,500" style="font-size:18px;font-weight:800;">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Down Payment</label>
+                  <input class="form-input" type="text" placeholder="$0" value="$0">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Financed Amount</label>
+                  <input class="form-input" type="text" value="$12,500" style="font-weight:700;color:var(--cc-green-dark);background:var(--bg-success);" readonly>
+                </div>
+              </div>
+            </div>
+            <div class="step-footer">
+              <button class="btn btn-ghost" onclick="prevStep()"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back</button>
+              <button class="btn btn-primary btn-lg" onclick="nextStep()">Continue <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 2: Consent & Disclosures
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-2">
+          <div class="step-card">
+            <div class="step-header">
+              <h2>Consent & Disclosures</h2>
+              <p>Please review and acknowledge the required disclosures to continue</p>
+            </div>
+            <div class="step-body">
+              <div class="info-banner info">
+                <i data-lucide="info" style="width:18px;height:18px;flex-shrink:0;margin-top:1px"></i>
+                <div>A <strong>soft credit check</strong> will be performed to determine your financing eligibility. This will <strong>not</strong> impact your credit score.</div>
+              </div>
+
+              <div class="consent-list">
+                <label class="form-checkbox-row" onclick="toggleConsent(this)">
+                  <input type="checkbox" class="consent-check">
+                  <div class="cb-text"><strong>Credit Check Authorization</strong><br>I authorize Comfort Connect and its partners to perform a soft credit inquiry to determine my eligibility for financing.</div>
+                </label>
+                <label class="form-checkbox-row" onclick="toggleConsent(this)">
+                  <input type="checkbox" class="consent-check">
+                  <div class="cb-text"><strong>E-Sign Consent</strong><br>I consent to conduct this transaction electronically and to receive documents via electronic delivery.</div>
+                </label>
+                <label class="form-checkbox-row" onclick="toggleConsent(this)">
+                  <input type="checkbox" class="consent-check">
+                  <div class="cb-text"><strong>Privacy Policy</strong><br>I have read and agree to the <a href="#" style="color:var(--cc-blue-main)">Privacy Policy</a> regarding the collection and use of my personal information.</div>
+                </label>
+                <label class="form-checkbox-row" onclick="toggleConsent(this)">
+                  <input type="checkbox" class="consent-check">
+                  <div class="cb-text"><strong>Terms and Conditions</strong><br>I have read and agree to the <a href="#" style="color:var(--cc-blue-main)">Terms and Conditions</a> of this financing application.</div>
+                </label>
+                <label class="form-checkbox-row" onclick="toggleConsent(this)">
+                  <input type="checkbox" class="consent-check">
+                  <div class="cb-text"><strong>Adverse Action Rights</strong><br>I understand that I will receive a notice if my application is declined, including the reasons for the decision.</div>
+                </label>
+              </div>
+            </div>
+            <div class="step-footer">
+              <button class="btn btn-ghost" onclick="prevStep()"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back</button>
+              <button class="btn btn-primary btn-lg" id="consentNextBtn" onclick="submitForPrequal()" disabled style="opacity:0.5">Submit for Prequalification <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 3: Prequalification (Processing + Result)
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-3">
+          <div class="step-card">
+            <!-- Processing state -->
+            <div id="prequal-processing" class="decision-hero">
+              <div class="spinner"></div>
+              <h2>Running Prequalification...</h2>
+              <p>Performing a soft credit check and evaluating financing options with our lending partners. This typically takes just a few seconds.</p>
+            </div>
+            <!-- Result state (hidden initially) -->
+            <div id="prequal-result" style="display:none">
+              <div class="decision-hero">
+                <div class="decision-icon success">
+                  <i data-lucide="check-circle" style="width:40px;height:40px"></i>
+                </div>
+                <h2>Congratulations, Jane!</h2>
+                <p>You've been prequalified for financing. Multiple offers are available from our lending partners.</p>
+              </div>
+              <div style="padding: 0 32px 24px;">
+                <div class="readiness-card">
+                  <h3><i data-lucide="trending-up" style="width:18px;height:18px"></i> Prequalification Summary</h3>
+                  <div class="readiness-grid">
+                    <div class="readiness-item">
+                      <div class="r-label">Credit Score</div>
+                      <div class="r-value ok">Good (720+)</div>
+                    </div>
+                    <div class="readiness-item">
+                      <div class="r-label">Max Approved</div>
+                      <div class="r-value ok">$25,000</div>
+                    </div>
+                    <div class="readiness-item">
+                      <div class="r-label">Offers Available</div>
+                      <div class="r-value ok">4 Offers</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="step-footer">
+                <div></div>
+                <button class="btn btn-primary btn-lg" onclick="nextStep()">View Offers <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 4: Offer Selection
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-4">
+          <div class="step-card">
+            <div class="step-header">
+              <h2>Select Your Financing Offer</h2>
+              <p>Compare offers from our lending partners and choose the best fit for your budget</p>
+            </div>
+            <div class="step-body">
+              <div class="form-section-label">Available Offers for $12,500</div>
+              <div class="offer-grid">
+                <div class="offer-card" onclick="selectOffer(this, 0)">
+                  <div class="offer-lender momnt">Momnt — Loan</div>
+                  <div class="offer-amount">$131<small>/mo</small></div>
+                  <div class="offer-details">
+                    <div class="offer-detail">APR<strong>7.99%</strong></div>
+                    <div class="offer-detail">Term<strong>120 months</strong></div>
+                    <div class="offer-detail">Total Cost<strong>$15,720</strong></div>
+                    <div class="offer-detail">Type<strong>Loan</strong></div>
+                  </div>
+                  <div class="offer-badge best">Best Rate</div>
+                </div>
+                <div class="offer-card" onclick="selectOffer(this, 1)">
+                  <div class="offer-lender momnt">Momnt — Loan</div>
+                  <div class="offer-amount">$219<small>/mo</small></div>
+                  <div class="offer-details">
+                    <div class="offer-detail">APR<strong>5.99%</strong></div>
+                    <div class="offer-detail">Term<strong>60 months</strong></div>
+                    <div class="offer-detail">Total Cost<strong>$13,140</strong></div>
+                    <div class="offer-detail">Type<strong>Loan</strong></div>
+                  </div>
+                  <div class="offer-badge low">Lowest Total</div>
+                </div>
+                <div class="offer-card" onclick="selectOffer(this, 2)">
+                  <div class="offer-lender">Microf — Lease-to-Own</div>
+                  <div class="offer-amount">$149<small>/mo</small></div>
+                  <div class="offer-details">
+                    <div class="offer-detail">Factor<strong>1.89x</strong></div>
+                    <div class="offer-detail">Term<strong>60 months</strong></div>
+                    <div class="offer-detail">Total Cost<strong>$23,625</strong></div>
+                    <div class="offer-detail">Type<strong>LTO</strong></div>
+                  </div>
+                </div>
+                <div class="offer-card" onclick="selectOffer(this, 3)">
+                  <div class="offer-lender">Breeze — Lease-to-Own</div>
+                  <div class="offer-amount">$139<small>/mo</small></div>
+                  <div class="offer-details">
+                    <div class="offer-detail">Factor<strong>1.78x</strong></div>
+                    <div class="offer-detail">Term<strong>60 months</strong></div>
+                    <div class="offer-detail">Total Cost<strong>$22,250</strong></div>
+                    <div class="offer-detail">Type<strong>LTO</strong></div>
+                  </div>
+                </div>
+              </div>
+              <div class="info-banner info" id="offerInfo" style="display:none">
+                <i data-lucide="check-circle" style="width:18px;height:18px;flex-shrink:0;margin-top:1px"></i>
+                <div><strong>Momnt Loan selected</strong> — Selecting this offer will require a hard credit pull for final loan approval. You'll be asked to authorize this in the next step.</div>
+              </div>
+            </div>
+            <div class="step-footer">
+              <button class="btn btn-ghost" onclick="prevStep()"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back</button>
+              <button class="btn btn-primary btn-lg" id="offerNextBtn" onclick="nextStep()" disabled style="opacity:0.5">Accept & Continue <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 5: Hard Credit Decision
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-5">
+          <div class="step-card">
+            <div class="step-header">
+              <h2>Momnt Loan — Final Credit Decision</h2>
+              <p>Authorize a hard credit pull to receive your final loan approval</p>
+            </div>
+            <div class="step-body" id="hardPullBody">
+              <div class="info-banner warning">
+                <i data-lucide="alert-triangle" style="width:18px;height:18px;flex-shrink:0;margin-top:1px"></i>
+                <div>This step requires a <strong>hard credit inquiry</strong> which may temporarily affect the applicant's credit score. The homeowner must authorize this check.</div>
+              </div>
+
+              <div style="text-align:center; padding: 24px 0;">
+                <div style="display:inline-flex;align-items:center;gap:12px;padding:16px 24px;background:var(--bg-primary);border-radius:var(--radius-md);margin-bottom:24px;">
+                  <i data-lucide="shield" style="width:24px;height:24px;color:var(--cc-navy)"></i>
+                  <div style="text-align:left;">
+                    <div style="font-weight:800;color:var(--text-heading);font-size:15px;">Momnt Loan — 7.99% APR × 120 months</div>
+                    <div style="font-size:13px;color:var(--text-disabled);">$131/mo · $12,500 financed amount</div>
+                  </div>
+                </div>
+                <div style="margin-bottom: 24px;">
+                  <button class="btn btn-primary btn-lg" onclick="authorizeHardPull()" id="hardPullBtn">
+                    <i data-lucide="lock" style="width:16px;height:16px"></i> Authorize Hard Credit Pull
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Hard pull result -->
+            <div id="hardPullResult" style="display:none">
+              <div class="decision-hero">
+                <div class="decision-icon success">
+                  <i data-lucide="award" style="width:40px;height:40px"></i>
+                </div>
+                <h2>Loan Approved!</h2>
+                <p>Jane Doe has been approved for a Momnt loan. Final loan terms are confirmed below.</p>
+              </div>
+              <div style="padding: 0 32px 24px;">
+                <div class="charge-summary">
+                  <div class="charge-item"><div class="c-label">Approved Amount</div><div class="c-value green">$12,500</div></div>
+                  <div class="charge-item"><div class="c-label">Final APR</div><div class="c-value">7.99%</div></div>
+                  <div class="charge-item"><div class="c-label">Monthly Payment</div><div class="c-value green">$131.00</div></div>
+                  <div class="charge-item"><div class="c-label">Loan Term</div><div class="c-value">120 months</div></div>
+                </div>
+              </div>
+              <div class="step-footer">
+                <div></div>
+                <button class="btn btn-primary btn-lg" onclick="nextStep()">Proceed to Document Signing <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 6: Document Signing
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-6">
+          <div class="step-card">
+            <div class="step-header">
+              <h2>Document Signing</h2>
+              <p>Review and electronically sign the Momnt loan agreement to finalize your financing</p>
+            </div>
+            <div class="step-body">
+              <div class="form-section-label">Loan Agreement — Review</div>
+              <div class="doc-preview">
+                <h4><i data-lucide="file-text" style="width:16px;height:16px"></i> Momnt Consumer Loan Agreement</h4>
+                <div class="doc-lines">
+                  <div class="doc-line"></div><div class="doc-line"></div><div class="doc-line"></div>
+                  <div class="doc-line"></div><div class="doc-line"></div><div class="doc-line"></div>
+                  <div class="doc-line"></div><div class="doc-line"></div>
+                </div>
+                <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-200);display:flex;gap:16px;font-size:12px;color:var(--text-placeholder);">
+                  <span>📄 12 pages</span>
+                  <span>📅 Generated Mar 11, 2026</span>
+                  <span>🔒 DocuSign</span>
+                </div>
+              </div>
+
+              <div class="form-section-label">Electronic Signature</div>
+              <div class="sig-pad" id="sigPad" onclick="signDocument()">
+                <i data-lucide="pen-tool" style="width:20px;height:20px"></i>
+                Click to sign
+              </div>
+
+              <div class="info-banner success" id="signedBanner" style="display:none">
+                <i data-lucide="check-circle" style="width:18px;height:18px;flex-shrink:0;margin-top:1px"></i>
+                <div><strong>Document signed successfully!</strong> A copy of the signed agreement has been sent to jane.doe@email.com. You may now proceed to the installation phase.</div>
+              </div>
+            </div>
+            <div class="step-footer">
+              <button class="btn btn-ghost" onclick="prevStep()"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back</button>
+              <button class="btn btn-primary btn-lg" id="signNextBtn" onclick="nextStep()" disabled style="opacity:0.5">Continue to Installation <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 7: Installation & Charge Request
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-7">
+          <div class="step-card">
+            <div class="step-header">
+              <h2>Installation & Charge Request</h2>
+              <p>Confirm installation details and initiate the Momnt charge request for funding</p>
+            </div>
+            <div class="step-body">
+
+              <div class="readiness-card">
+                <h3><i data-lucide="activity" style="width:18px;height:18px"></i> Momnt Account Readiness</h3>
+                <div class="readiness-grid">
+                  <div class="readiness-item">
+                    <div class="r-label">Welcome Call</div>
+                    <div class="r-value ok">✓ Completed</div>
+                  </div>
+                  <div class="readiness-item">
+                    <div class="r-label">Portal Setup</div>
+                    <div class="r-value ok">✓ Active</div>
+                  </div>
+                  <div class="readiness-item">
+                    <div class="r-label">Loan Status</div>
+                    <div class="r-value ok">✓ Ready</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section-label">Charge Details</div>
+              <div class="charge-summary">
+                <div class="charge-item"><div class="c-label">Approved Loan Amount</div><div class="c-value">$12,500.00</div></div>
+                <div class="charge-item"><div class="c-label">Charge Amount</div><div class="c-value green">$12,500.00</div></div>
+                <div class="charge-item"><div class="c-label">Planned Install Date</div><div class="c-value">Mar 25, 2026</div></div>
+                <div class="charge-item"><div class="c-label">Requesting Dealer</div><div class="c-value" style="font-size:15px">Sarah Mitchell</div></div>
+              </div>
+
+              <div class="form-section-label">Charge Timing</div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-checkbox-row checked" onclick="this.querySelector('input').checked=true;document.getElementById('schedChargeRow').querySelector('input').checked=false;document.getElementById('schedChargeRow').classList.remove('checked');this.classList.add('checked');">
+                    <input type="radio" name="charge-timing" checked style="accent-color:var(--cc-green)">
+                    <div class="cb-text"><strong>Initiate Charge Now</strong><br>Submit the charge request to Momnt immediately</div>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="form-checkbox-row" id="schedChargeRow" onclick="this.querySelector('input').checked=true;this.previousElementSibling.querySelector('.form-checkbox-row').classList.remove('checked');this.previousElementSibling.querySelector('input').checked=false;this.classList.add('checked');">
+                    <input type="radio" name="charge-timing" style="accent-color:var(--cc-green)">
+                    <div class="cb-text"><strong>Schedule for Later</strong><br>Automatically submit on a future date aligned with installation</div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="info-banner info">
+                <i data-lucide="info" style="width:18px;height:18px;flex-shrink:0;margin-top:1px"></i>
+                <div>After the charge is initiated, the homeowner will receive a text message from Momnt to approve the charge. You'll be able to track the approval status in real-time.</div>
+              </div>
+            </div>
+            <div class="step-footer">
+              <button class="btn btn-ghost" onclick="prevStep()"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Back</button>
+              <button class="btn btn-primary btn-lg" onclick="initiateCharge()"><i data-lucide="zap" style="width:16px;height:16px"></i> Initiate Charge Request</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             STEP 8: Funding Complete
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="step-view" id="step-8">
+          <div class="step-card">
+            <div class="decision-hero">
+              <div class="decision-icon success">
+                <i data-lucide="circle-check-big" style="width:40px;height:40px"></i>
+              </div>
+              <h2>Funding Complete!</h2>
+              <p>The Momnt charge has been approved and funds are being disbursed. The homeowner's HVAC installation can proceed.</p>
+            </div>
+            <div style="padding: 0 32px 32px;">
+
+              <div class="readiness-card" style="background: linear-gradient(135deg, var(--cc-green-dark), #2a7a0f);">
+                <h3><i data-lucide="banknote" style="width:18px;height:18px"></i> Funding Summary</h3>
+                <div class="readiness-grid">
+                  <div class="readiness-item">
+                    <div class="r-label">Funded Amount</div>
+                    <div class="r-value" style="color:white;font-size:20px;">$12,500.00</div>
+                  </div>
+                  <div class="readiness-item">
+                    <div class="r-label">Funding Date</div>
+                    <div class="r-value" style="color:white;">Mar 11, 2026</div>
+                  </div>
+                  <div class="readiness-item">
+                    <div class="r-label">Charge Status</div>
+                    <div class="r-value" style="color:white;">✓ Approved</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section-label">Charge & Funding Timeline</div>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Application Submitted</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 10:30 AM</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Prequalified — 4 Offers Available</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 10:31 AM</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Momnt Loan Offer Accepted</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 10:32 AM</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Hard Credit Pull — Approved</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 10:33 AM</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Loan Agreement Signed (DocuSign)</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 10:35 AM</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Charge Request Initiated by Sarah Mitchell</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 10:40 AM</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Homeowner Approved Charge (SMS)</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 10:42 AM</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot done"></div>
+                  <div class="timeline-label">Funds Disbursed — $12,500.00</div>
+                  <div class="timeline-sub">Mar 11, 2026 · 11:00 AM</div>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">
+                <button class="btn btn-secondary"><i data-lucide="printer" style="width:16px;height:16px"></i> Print Summary</button>
+                <button class="btn btn-primary" onclick="goToStep(0)"><i data-lucide="plus" style="width:16px;height:16px"></i> New Application</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /stepper-content -->
+    </div><!-- /stepper-container -->
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROCESSING OVERLAY
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="processing-overlay" id="processingOverlay">
+  <div class="processing-box">
+    <div class="spinner"></div>
+    <p id="processingTitle">Processing...</p>
+    <div class="sub" id="processingSub">Please wait</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+// Initialize Lucide icons
+lucide.createIcons();
+
+// ── State ──
+let currentStep = 0;
+const totalSteps = 9;
+let selectedOffer = -1;
+
+// Tracker stage mapping: which tracker pill corresponds to which steps
+const trackerStageMap = [0,0, 1, 1, 2, 2, 3, 4,5,6]; // rough map
+
+function updateTrackerStage() {
+  const pills = document.querySelectorAll('.tracker-pill');
+  const connectors = document.querySelectorAll('.tracker-connector');
+  let stage = 0;
+  if (currentStep >= 7) stage = 5;
+  else if (currentStep >= 6) stage = 3;
+  else if (currentStep >= 5) stage = 2;
+  else if (currentStep >= 3) stage = 1;
+  else stage = 0;
+
+  if (currentStep >= 8) stage = 6;
+
+  pills.forEach((p, i) => {
+    p.classList.remove('completed', 'active', 'pending');
+    if (i < stage) p.classList.add('completed');
+    else if (i === stage) p.classList.add('active');
+    else p.classList.add('pending');
+  });
+  connectors.forEach((c, i) => {
+    c.classList.remove('done', 'pending');
+    c.classList.add(i < stage ? 'done' : 'pending');
+  });
+}
+
+function updateStepper() {
+  document.querySelectorAll('.v-step').forEach((s, i) => {
+    s.classList.remove('completed', 'active', 'pending');
+    if (i < currentStep) {
+      s.classList.add('completed');
+      s.querySelector('.v-step-circle').innerHTML = '<i data-lucide="check" style="width:16px;height:16px"></i>';
+    } else if (i === currentStep) {
+      s.classList.add('active');
+      s.querySelector('.v-step-circle').textContent = i + 1;
+    } else {
+      s.classList.add('pending');
+      s.querySelector('.v-step-circle').textContent = i + 1;
+    }
+  });
+  lucide.createIcons();
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step-view').forEach(v => v.classList.remove('active'));
+  const el = document.getElementById('step-' + n);
+  if (el) {
+    el.classList.add('active');
+    el.querySelector('.step-card').style.animation = 'none';
+    el.querySelector('.step-card').offsetHeight; // force reflow
+    el.querySelector('.step-card').style.animation = '';
+  }
+  updateStepper();
+  updateTrackerStage();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToStep(n) {
+  if (n <= currentStep) {
+    currentStep = n;
+    showStep(n);
+  }
+}
+
+function nextStep() {
+  if (currentStep < totalSteps - 1) {
+    currentStep++;
+    showStep(currentStep);
+  }
+}
+
+function prevStep() {
+  if (currentStep > 0) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
+// ── Co-Applicant Toggle ──
+function toggleCoApplicant() {
+  const sec = document.getElementById('coAppSection');
+  const row = document.getElementById('coAppToggle');
+  const chk = document.getElementById('coAppCheck');
+  // Toggle happens on next tick after label click propagates
+  setTimeout(() => {
+    if (chk.checked) {
+      sec.classList.add('open');
+      row.classList.add('checked');
+    } else {
+      sec.classList.remove('open');
+      row.classList.remove('checked');
+    }
+  }, 10);
+}
+
+// ── Consent Checkboxes ──
+function toggleConsent(el) {
+  setTimeout(() => {
+    const chk = el.querySelector('.consent-check');
+    if (chk.checked) el.classList.add('checked');
+    else el.classList.remove('checked');
+    checkAllConsents();
+  }, 10);
+}
+
+function checkAllConsents() {
+  const all = document.querySelectorAll('.consent-check');
+  const allChecked = Array.from(all).every(c => c.checked);
+  const btn = document.getElementById('consentNextBtn');
+  btn.disabled = !allChecked;
+  btn.style.opacity = allChecked ? '1' : '0.5';
+}
+
+// ── Prequalification Processing ──
+function submitForPrequal() {
+  nextStep();
+  // Show processing, then result after 2.5s
+  document.getElementById('prequal-processing').style.display = '';
+  document.getElementById('prequal-result').style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('prequal-processing').style.display = 'none';
+    document.getElementById('prequal-result').style.display = '';
+    lucide.createIcons();
+  }, 2500);
+}
+
+// ── Offer Selection ──
+function selectOffer(card, index) {
+  document.querySelectorAll('.offer-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedOffer = index;
+  const btn = document.getElementById('offerNextBtn');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  const info = document.getElementById('offerInfo');
+  if (index <= 1) {
+    info.style.display = '';
+    info.querySelector('div').innerHTML = '<strong>Momnt Loan selected</strong> — Selecting this offer will require a hard credit pull for final loan approval. You\'ll be asked to authorize this in the next step.';
+  } else {
+    info.style.display = '';
+    info.querySelector('div').innerHTML = '<strong>Lease-to-Own selected</strong> — This offer does not require a hard credit pull. You\'ll proceed directly to agreement signing.';
+  }
+}
+
+// ── Hard Credit Pull ──
+function authorizeHardPull() {
+  const btn = document.getElementById('hardPullBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0"></div> Processing...';
+
+  setTimeout(() => {
+    document.getElementById('hardPullBody').style.display = 'none';
+    document.getElementById('hardPullResult').style.display = '';
+    lucide.createIcons();
+  }, 2000);
+}
+
+// ── Document Signing ──
+function signDocument() {
+  const pad = document.getElementById('sigPad');
+  pad.classList.add('signed');
+  pad.innerHTML = 'Jane Doe';
+  document.getElementById('signedBanner').style.display = '';
+  const btn = document.getElementById('signNextBtn');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+}
+
+// ── Charge Request ──
+function initiateCharge() {
+  showProcessing('Initiating Momnt Charge Request...', 'Submitting charge to Momnt API');
+  setTimeout(() => {
+    hideProcessing();
+    showProcessing('Charge Submitted — Awaiting Approval', 'Homeowner will receive SMS from Momnt');
+    setTimeout(() => {
+      hideProcessing();
+      currentStep = 8;
+      showStep(8);
+    }, 1800);
+  }, 2000);
+}
+
+// ── Processing Overlay ──
+function showProcessing(title, sub) {
+  const o = document.getElementById('processingOverlay');
+  document.getElementById('processingTitle').textContent = title || 'Processing...';
+  document.getElementById('processingSub').textContent = sub || 'Please wait';
+  o.classList.add('visible');
+}
+
+function hideProcessing() {
+  document.getElementById('processingOverlay').classList.remove('visible');
+}
+
+// ── Init ──
+showStep(0);
+</script>
+</body>
+</html>

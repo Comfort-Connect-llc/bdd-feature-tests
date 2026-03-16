@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ComfortConnect — Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== DESIGN TOKENS — Portal 2.0 ===== */
+:root {
+  /* Brand */
+  --cc-navy: #002F6C;
+  --cc-navy-dark: #002147;
+  --cc-green: #6CC24A;
+  --cc-green-hover: #5DB33E;
+  --cc-orange: #EE8F1E;
+  --cc-blue-main: #009CDE;
+
+  /* Typography */
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+
+  /* Backgrounds */
+  --bg-general: #F9FAFB;
+  --bg-primary: #EDF4FF;
+
+  /* Grays */
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+
+  /* Layout */
+  --sidebar-width: 85px;
+
+  /* Font */
+  --font: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== BASE ===== */
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  color: var(--text-body);
+  background: var(--bg-general);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== APP SHELL ===== */
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== SIDEBAR — Figma Portal 2.0 (node 8183:39145) ===== */
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--cc-navy-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  z-index: 100;
+  position: relative;
+}
+
+.sidebar-logo {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-logo svg { width: 28px; height: 28px; }
+
+.sidebar-nav {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  gap: 2px;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 4px 8px;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  color: rgba(255,255,255,0.5);
+  transition: color 0.2s, background 0.2s;
+  border-radius: 0;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-item.active {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px;
+  background: var(--cc-green);
+  border-radius: 0 3px 3px 0;
+}
+.nav-item svg { width: 22px; height: 22px; flex-shrink: 0; }
+.nav-item span {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-align: center;
+  max-width: 72px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-bottom {
+  width: 100%;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 8px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-add-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--cc-green);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 8px auto 12px;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(108,194,74,0.35);
+}
+.sidebar-add-btn:hover {
+  background: var(--cc-green-hover);
+  transform: scale(1.05);
+}
+.sidebar-add-btn svg { width: 20px; height: 20px; }
+
+/* + Button Popover Menu */
+.add-menu-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 8px auto 12px;
+}
+.sidebar-add-btn { margin: 0; }
+
+.add-menu {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) scale(0.92);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06);
+  padding: 6px;
+  min-width: 210px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 200;
+}
+.add-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1);
+}
+
+/* Arrow pointing left toward the + button */
+.add-menu::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  box-shadow: -2px 2px 4px rgba(0,0,0,0.06);
+  border-radius: 2px;
+}
+
+.add-menu-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-placeholder);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 6px 12px 4px;
+}
+
+.add-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+  color: var(--text-heading);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  background: none;
+  width: 100%;
+  font-family: var(--font);
+}
+.add-menu-item:hover {
+  background: var(--bg-primary);
+}
+.add-menu-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.add-menu-item .menu-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.add-menu-item .menu-icon.system {
+  background: rgba(108,194,74,0.12);
+  color: var(--cc-green-hover);
+}
+.add-menu-item .menu-icon.repair {
+  background: rgba(0,156,222,0.1);
+  color: var(--cc-blue-main);
+}
+.add-menu-item .menu-text {
+  display: flex;
+  flex-direction: column;
+}
+.add-menu-item .menu-text span:first-child {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+  line-height: 1.3;
+}
+.add-menu-item .menu-text span:last-child {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-placeholder);
+  line-height: 1.3;
+}
+
+.add-menu-divider {
+  height: 1px;
+  background: var(--gray-100);
+  margin: 4px 8px;
+}
+
+/* Overlay to close menu on outside click */
+.add-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+}
+.add-menu-overlay.open { display: block; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ===== HEADER ACTIONS (top-right, no topbar) ===== */
+.header-actions {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 50;
+}
+
+.header-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.header-icon-btn:hover {
+  background: var(--bg-primary);
+  border-color: var(--cc-blue-main);
+  color: var(--cc-navy);
+  box-shadow: 0 2px 8px rgba(0,47,108,0.1);
+}
+.header-icon-btn svg { width: 18px; height: 18px; }
+
+.notification-dot {
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--cc-orange);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(238,143,30,0.4);
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 4px;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.header-user:hover {
+  background: var(--bg-primary);
+  border-color: var(--cc-blue-main);
+  box-shadow: 0 2px 8px rgba(0,47,108,0.1);
+}
+
+.header-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--cc-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.header-user-info {
+  display: flex;
+  flex-direction: column;
+}
+.header-user-name {
+  color: var(--text-heading);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.header-user-role {
+  color: var(--text-placeholder);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.header-chevron {
+  color: var(--gray-300);
+  width: 16px; height: 16px;
+  margin-left: 2px;
+}
+
+/* ===== CONTENT AREA ===== */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  padding-top: 60px; /* space for header actions */
+}
+
+/* Subtle background pattern */
+.content-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23002F6C' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Gradient orb accents */
+.content::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108,194,74,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.content::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -60px;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,47,108,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 560px;
+  width: 100%;
+}
+
+/* Welcome greeting */
+.welcome-greeting {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-placeholder);
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+/* Main heading */
+.hero-heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.3;
+  margin-bottom: 40px;
+  animation: fadeInDown 0.6s ease-out 0.1s both;
+}
+
+/* Illustration */
+.hero-illustration {
+  width: 120px;
+  height: auto;
+  margin-bottom: 32px;
+  opacity: 0.85;
+  animation: fadeInUp 0.7s ease-out 0.15s both;
+}
+
+/* ===== CTA BUTTONS ===== */
+.cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 340px;
+  animation: fadeInUp 0.6s ease-out 0.25s both;
+}
+
+.cta-btn {
+  width: 100%;
+  height: 56px;
+  border-radius: 14px;
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  letter-spacing: 0.2px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.cta-btn-primary {
+  background: var(--cc-green);
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 12px rgba(108,194,74,0.3), 0 1px 3px rgba(0,0,0,0.08);
+}
+.cta-btn-primary:hover {
+  background: var(--cc-green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(108,194,74,0.4), 0 2px 6px rgba(0,0,0,0.1);
+}
+.cta-btn-primary:active { transform: translateY(0); }
+
+.cta-btn-secondary {
+  background: #fff;
+  color: var(--text-heading);
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.cta-btn-secondary:hover {
+  border-color: var(--gray-300);
+  background: var(--gray-100);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.cta-btn-secondary:active { transform: translateY(0); }
+
+/* ===== THEO CHAT WIDGET ===== */
+.chat-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  animation: fadeInUp 0.5s ease-out 0.5s both;
+}
+.chat-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--cc-navy);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,47,108,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.chat-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(0,47,108,0.45);
+}
+.chat-btn svg { width: 24px; height: 24px; }
+.chat-label {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cc-navy);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .header-actions { top: 12px; right: 12px; gap: 4px; }
+  .header-user-info { display: none; }
+  .header-icon-btn { width: 34px; height: 34px; }
+  .content { padding: 16px; padding-top: 56px; }
+  .hero-heading { font-size: 22px; margin-bottom: 32px; }
+  .hero-illustration { width: 90px; margin-bottom: 24px; }
+  .cta-group { max-width: 100%; }
+  .cta-btn { height: 52px; font-size: 16px; border-radius: 12px; }
+
+  /* Mobile bottom nav */
+  .mobile-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 64px;
+    background: #fff;
+    border-top: 1px solid var(--gray-200);
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px;
+    z-index: 100;
+  }
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: var(--gray-400);
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 6px 12px;
+  }
+  .mobile-nav-item.active { color: var(--cc-navy); }
+  .mobile-nav-item svg { width: 22px; height: 22px; }
+
+  .chat-widget { bottom: 80px; right: 16px; }
+}
+
+.mobile-nav { display: none; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <!-- CC Bracket Icon -->
+    <div class="sidebar-logo">
+      <svg width="28" height="28" viewBox="0 0 132 134" fill="none"><path d="M33.1098 55.052V100.544H59.8852V133.9H0V36.172L59.8852 0V38.864L33.1098 55.052Z" fill="white"/><path d="M131.347 36.172V133.9H71.4697V100.544H98.2451V55.06L71.4697 38.864V0L131.347 36.172Z" fill="white"/></svg>
+    </div>
+
+    <!-- Green + Button with Context Menu -->
+    <div class="add-menu-wrapper">
+      <button class="sidebar-add-btn" title="New Application" onclick="toggleAddMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="add-menu" id="addMenu">
+        <div class="add-menu-label">New Application</div>
+        <button class="add-menu-item" onclick="closeAddMenu()">
+          <div class="menu-icon system">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="menu-text">
+            <span>New System Financing</span>
+            <span>Full HVAC install</span>
+          </div>
+        </button>
+        <div class="add-menu-divider"></div>
+        <button class="add-menu-item" onclick="closeAddMenu()">
+          <div class="menu-icon repair">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="menu-text">
+            <span>Repair Financing</span>
+            <span>Service &amp; repairs</span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="add-menu-overlay" id="addMenuOverlay" onclick="closeAddMenu()"></div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Deals</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Customers</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span>Payments</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Messages</span>
+      </a>
+    </nav>
+
+    <!-- Bottom nav -->
+    <div class="sidebar-bottom">
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Settings</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-wrapper">
+
+    <!-- ===== CONTENT ===== -->
+    <main class="content">
+
+      <!-- Header actions (top-right) -->
+      <div class="header-actions">
+        <!-- Notification Bell -->
+        <button class="header-icon-btn" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="notification-dot"></span>
+        </button>
+
+        <!-- Support -->
+        <button class="header-icon-btn" title="Support">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+
+        <!-- User Dropdown -->
+        <div class="header-user">
+          <div class="header-avatar">JD</div>
+          <div class="header-user-info">
+            <span class="header-user-name">Jason Duval</span>
+            <span class="header-user-role">Dealer Admin</span>
+          </div>
+          <svg class="header-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="content-bg"></div>
+
+      <div class="hero">
+        <!-- Welcome greeting -->
+        <p class="welcome-greeting">Welcome back, Jason</p>
+
+        <!-- SweetHome Illustration -->
+        <svg class="hero-illustration" viewBox="0 0 150 127" fill="none">
+          <path d="M115.19 117.528H47.265C46.844 117.528 46.44 117.36 46.142 117.063C45.845 116.765 45.677 116.362 45.677 115.941V69.59C45.677 69.169 45.845 68.765 46.142 68.468C46.44 68.17 46.844 68.003 47.265 68.002H115.19C115.611 68.003 116.015 68.17 116.313 68.468C116.61 68.765 116.778 69.169 116.778 69.59V115.941C116.778 116.362 116.61 116.765 116.313 117.063C116.015 117.36 115.611 117.528 115.19 117.528Z" fill="white"/>
+          <path d="M115.19 117.528H47.265C46.844 117.528 46.44 117.36 46.142 117.063C45.845 116.765 45.677 116.362 45.677 115.941V69.59C45.677 69.169 45.845 68.765 46.142 68.468C46.44 68.17 46.844 68.003 47.265 68.002H115.19C115.611 68.003 116.015 68.17 116.313 68.468C116.61 68.765 116.778 69.169 116.778 69.59V115.941C116.778 116.362 116.61 116.765 116.313 117.063C116.015 117.36 115.611 117.528 115.19 117.528ZM47.265 68.355C46.938 68.356 46.624 68.486 46.392 68.717C46.16 68.949 46.03 69.262 46.03 69.59V115.941C46.03 116.268 46.16 116.582 46.392 116.813C46.624 117.045 46.938 117.175 47.265 117.175H115.19C115.518 117.175 115.832 117.045 116.063 116.813C116.295 116.582 116.425 116.268 116.425 115.941V69.59C116.425 69.262 116.295 68.949 116.063 68.717C115.832 68.486 115.518 68.356 115.19 68.355H47.265Z" fill="#3F3D56"/>
+          <path d="M89.09 117.249H73.365V91.233C73.365 90.616 73.611 90.024 74.048 89.588C74.484 89.151 75.076 88.906 75.694 88.905H86.761C87.379 88.906 87.971 89.151 88.407 89.588C88.844 90.024 89.09 90.616 89.09 91.233V117.249Z" fill="#E6E6E6"/>
+          <path d="M60.853 64.438C70.404 64.438 78.146 56.701 78.146 47.156C78.146 37.612 70.404 29.874 60.853 29.874C51.302 29.874 43.56 37.612 43.56 47.156C43.56 56.701 51.302 64.438 60.853 64.438Z" fill="#F2F2F2"/>
+          <path d="M66.723 96.463H53.439C52.909 96.462 52.401 96.251 52.027 95.877C51.652 95.503 51.441 94.995 51.441 94.465V83.522C51.441 82.992 51.652 82.484 52.027 82.11C52.401 81.736 52.909 81.525 53.439 81.524H66.723C67.253 81.525 67.761 81.736 68.135 82.11C68.51 82.484 68.721 82.992 68.721 83.522V94.465C68.721 94.995 68.51 95.503 68.135 95.877C67.761 96.251 67.253 96.462 66.723 96.463Z" fill="#E6E6E6"/>
+          <path d="M109.323 96.463H96.04C95.51 96.462 95.002 96.251 94.627 95.877C94.253 95.503 94.042 94.995 94.041 94.465V83.522C94.042 82.992 94.253 82.484 94.627 82.11C95.002 81.736 95.51 81.525 96.04 81.524H109.323C109.853 81.525 110.361 81.736 110.736 82.11C111.11 82.484 111.321 82.992 111.322 83.522V94.465C111.321 94.995 111.11 95.503 110.736 95.877C110.361 96.251 109.853 96.462 109.323 96.463Z" fill="#E6E6E6"/>
+          <path d="M40.605 68.956V61.824C40.605 61.277 40.75 60.738 41.025 60.265C41.301 59.791 41.696 59.398 42.172 59.126L81.822 36.479C82.314 36.198 82.874 36.057 83.441 36.071C84.008 36.084 84.56 36.253 85.038 36.557L120.412 59.105C120.853 59.386 121.215 59.773 121.467 60.231C121.718 60.689 121.85 61.203 121.85 61.725V68.956C121.85 69.78 121.522 70.571 120.939 71.153C120.356 71.736 119.565 72.064 118.74 72.064H43.715C42.89 72.064 42.099 71.736 41.516 71.153C40.933 70.571 40.605 69.78 40.605 68.956Z" fill="#6CC24A"/>
+          <path opacity="0.2" d="M118.74 68.889H43.715C42.89 68.889 42.099 68.561 41.516 67.978C40.933 67.395 40.605 66.605 40.605 65.781V68.603C40.605 69.427 40.933 70.217 41.516 70.8C42.099 71.383 42.89 71.71 43.715 71.71H118.74C119.565 71.71 120.356 71.383 120.939 70.8C121.522 70.217 121.85 69.427 121.85 68.603V65.781C121.85 66.605 121.522 67.395 120.939 67.978C120.356 68.561 119.565 68.889 118.74 68.889Z" fill="black"/>
+          <path d="M124.831 93.292C124.831 87.824 129.268 74.846 134.74 74.846C140.213 74.846 144.649 87.824 144.649 93.292C144.649 95.919 143.605 98.437 141.747 100.294C139.888 102.151 137.368 103.195 134.74 103.195C132.112 103.195 129.592 102.151 127.734 100.294C125.875 98.437 124.831 95.919 124.831 93.292Z" fill="#F2F2F2"/>
+          <path d="M134.74 117.318C134.693 117.318 134.648 117.299 134.615 117.266C134.582 117.233 134.564 117.188 134.564 117.141V81.585C134.564 81.539 134.582 81.494 134.615 81.461C134.648 81.428 134.693 81.409 134.74 81.409C134.787 81.409 134.832 81.428 134.865 81.461C134.898 81.494 134.917 81.539 134.917 81.585V117.141C134.917 117.188 134.898 117.233 134.865 117.266C134.832 117.299 134.787 117.318 134.74 117.318Z" fill="#3F3D56"/>
+          <path d="M3.887 82.411C3.887 74.367 10.413 55.277 18.464 55.277C26.514 55.277 33.04 74.367 33.04 82.411C33.04 86.275 31.504 89.98 28.771 92.711C26.037 95.443 22.33 96.978 18.464 96.978C14.598 96.978 10.89 95.443 8.157 92.711C5.423 89.98 3.887 86.275 3.887 82.411Z" fill="#6CC24A"/>
+          <path d="M18.464 117.67C18.417 117.67 18.372 117.652 18.339 117.619C18.306 117.586 18.287 117.541 18.287 117.494V65.19C18.287 65.143 18.306 65.098 18.339 65.065C18.372 65.032 18.417 65.013 18.464 65.013C18.511 65.013 18.555 65.032 18.589 65.065C18.622 65.098 18.64 65.143 18.64 65.19V117.494C18.64 117.541 18.622 117.586 18.589 117.619C18.555 117.652 18.511 117.67 18.464 117.67Z" fill="#3F3D56"/>
+          <path d="M150 117.176L0 117.46L0.001 117.813L150 117.529V117.176Z" fill="#3F3D56"/>
+        </svg>
+
+        <!-- Main Heading -->
+        <h1 class="hero-heading">What Transaction Can We<br>Help You With?</h1>
+
+        <!-- CTA Buttons -->
+        <div class="cta-group">
+          <button class="cta-btn cta-btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            New System Financing
+          </button>
+          <button class="cta-btn cta-btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            Repair Financing
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== THEO CHAT WIDGET ===== -->
+<div class="chat-widget">
+  <button class="chat-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  </button>
+  <span class="chat-label">THEO</span>
+</div>
+
+<!-- ===== MOBILE BOTTOM NAV ===== -->
+<nav class="mobile-nav">
+  <a class="mobile-nav-item active" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </a>
+  <a class="mobile-nav-item" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Deals
+  </a>
+  <a class="mobile-nav-item" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    New
+  </a>
+  <a class="mobile-nav-item" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Payments
+  </a>
+  <a class="mobile-nav-item" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    Help
+  </a>
+</nav>
+
+<script>
+function toggleAddMenu() {
+  const menu = document.getElementById('addMenu');
+  const overlay = document.getElementById('addMenuOverlay');
+  const btn = document.querySelector('.sidebar-add-btn');
+  const isOpen = menu.classList.contains('open');
+  if (isOpen) {
+    closeAddMenu();
+  } else {
+    menu.classList.add('open');
+    overlay.classList.add('open');
+    btn.style.transform = 'rotate(45deg)';
+  }
+}
+function closeAddMenu() {
+  document.getElementById('addMenu').classList.remove('open');
+  document.getElementById('addMenuOverlay').classList.remove('open');
+  document.querySelector('.sidebar-add-btn').style.transform = '';
+}
+</script>
+</body>
+</html>

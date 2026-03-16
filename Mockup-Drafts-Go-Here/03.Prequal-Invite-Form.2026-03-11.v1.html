@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send Pre-qualification Invite — Comfort Connect Portal 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    /* Primary */
+    --cc-navy: #002F6C;
+    --cc-green: #6CC24A;
+    --cc-navy-dark: #002147;
+    --cc-blue-main: #009CDE;
+    --cc-blue-info: #1C51A4;
+    /* Typography */
+    --text-heading: #14181F;
+    --text-body: #414750;
+    --text-disabled: #565E69;
+    --text-placeholder: #8B939F;
+    --cc-green-dark: #398F17;
+    --cc-amber-text: #82620F;
+    --cc-red-text: #AB2816;
+    /* Button/Icons */
+    --cc-orange: #EE8F1E;
+    --cc-red: #DD331D;
+    --cc-amber: #E8B93F;
+    /* Background */
+    --bg-primary: #EDF4FF;
+    --bg-disabled: #E0E2E5;
+    --bg-success: #D9F3D0;
+    --bg-warning: #FFF6E0;
+    --bg-error: #FDE7E5;
+    --bg-general: #F9FAFB;
+    /* States */
+    --state-hover: #1759C4;
+    --state-hover-secondary: #EDF4FF;
+    /* Gray Scale */
+    --gray-100: #F3F4F5;
+    --gray-200: #D0D4D9;
+    --gray-300: #AEB3BC;
+    --gray-400: #7B8493;
+    --gray-500: #4D545E;
+    --gray-600: #2A2E34;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito Sans', 'Metropolis', sans-serif;
+    background: #e8eef6;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ─── Portal Shell ─── */
+  .portal-shell {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+  }
+
+  /* ─── Sidebar ─── */
+  .sidebar {
+    width: 72px;
+    min-width: 72px;
+    background: var(--cc-navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    z-index: 10;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.12);
+  }
+
+  .sidebar-logo {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .sidebar-add {
+    width: 40px;
+    height: 40px;
+    background: var(--cc-green);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 20px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .sidebar-add:hover {
+    transform: scale(1.08);
+    box-shadow: 0 3px 8px rgba(108,194,74,0.4);
+  }
+
+  .sidebar-divider {
+    width: 32px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    margin: 4px 0 16px;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .sidebar-item {
+    width: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    text-decoration: none;
+    position: relative;
+  }
+  .sidebar-item:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  .sidebar-item.active {
+    background: rgba(255,255,255,0.12);
+  }
+  .sidebar-item.active::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 24px;
+    background: var(--cc-green);
+    border-radius: 0 3px 3px 0;
+  }
+  .sidebar-item i {
+    color: rgba(255,255,255,0.65);
+    width: 22px;
+    height: 22px;
+  }
+  .sidebar-item.active i,
+  .sidebar-item:hover i {
+    color: white;
+  }
+  .sidebar-item-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    margin-top: 3px;
+    text-align: center;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .sidebar-item.active .sidebar-item-label,
+  .sidebar-item:hover .sidebar-item-label {
+    color: rgba(255,255,255,0.9);
+  }
+
+  .sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding-bottom: 8px;
+  }
+
+  /* ─── Main Area ─── */
+  .main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* ─── Top Bar ─── */
+  .topbar {
+    height: 56px;
+    min-height: 56px;
+    background: var(--cc-navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 5;
+  }
+  .topbar-brand {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.5px;
+  }
+  .topbar-brand span { color: var(--cc-green); }
+  .topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .topbar-user i { width: 16px; height: 16px; }
+
+  /* ─── Content Area (behind overlay) ─── */
+  .content-area {
+    flex: 1;
+    background: #e8eef6;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background illustration */
+  .bg-illustration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+  .bg-illustration svg {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Background text */
+  .bg-processing-text {
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--cc-navy);
+    opacity: 0.15;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* Decorative dots (bottom-right, from Figma) */
+  .bg-dots {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    display: grid;
+    grid-template-columns: repeat(7, 12px);
+    gap: 10px;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  .bg-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--cc-blue-main);
+  }
+  .bg-dot.alt { background: var(--gray-300); }
+
+  /* ─── Overlay ─── */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 47, 108, 0.25);
+    backdrop-filter: blur(2px);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* ─── Popup Card ─── */
+  .popup-card {
+    width: 864px;
+    max-width: 92vw;
+    min-height: 560px;
+    background: var(--bg-general);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.08);
+    padding: 48px 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    transform: scale(0.92) translateY(20px);
+    opacity: 0;
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
+    position: relative;
+  }
+  @keyframes popIn {
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  /* ─── Step Title ─── */
+  .popup-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1D3A70;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ─── Progress Stepper ─── */
+  .stepper {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+    position: relative;
+  }
+  .step:first-child { flex: 0 0 auto; }
+  .step:last-child { flex: 1; align-items: flex-end; }
+
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+  .step-circle.active {
+    background: var(--cc-green);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(108,194,74,0.2);
+  }
+  .step-circle.completed {
+    background: var(--cc-green);
+    color: white;
+  }
+  .step-circle.pending {
+    background: white;
+    color: var(--text-body);
+    border: 2px solid var(--gray-200);
+  }
+
+  .step-line {
+    position: absolute;
+    top: 18px;
+    left: 36px;
+    right: 36px;
+    height: 2px;
+    background: var(--gray-200);
+    z-index: 1;
+  }
+  .step-line-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--cc-green);
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+  .step-line-fill.full { width: 100%; }
+
+  .step-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cc-navy);
+    text-align: center;
+    line-height: 1.25;
+    max-width: 120px;
+  }
+  .step-label.pending-label {
+    color: var(--gray-400);
+  }
+
+  /* ─── Form ─── */
+  .form-area {
+    width: 100%;
+    max-width: 608px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 20px;
+  }
+  .form-row.full { flex-direction: column; }
+
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-body);
+    letter-spacing: -0.1px;
+  }
+
+  .form-input {
+    height: 40px;
+    background: var(--gray-100);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 0 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-heading);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .form-input::placeholder {
+    color: var(--text-placeholder);
+    font-weight: 400;
+  }
+  .form-input:focus {
+    border-color: var(--cc-blue-main);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 156, 222, 0.12);
+  }
+  .form-input.error {
+    border-color: var(--cc-red);
+    background: var(--bg-error);
+  }
+
+  .form-error {
+    font-size: 12px;
+    color: var(--cc-red-text);
+    display: none;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+  }
+  .form-error.show { display: flex; }
+  .form-error i { width: 14px; height: 14px; }
+
+  /* ─── Buttons ─── */
+  .button-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    max-width: 506px;
+    margin-top: 8px;
+  }
+
+  .btn {
+    flex: 1;
+    height: 42px;
+    border-radius: 6px;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn i { width: 16px; height: 16px; }
+
+  .btn-secondary {
+    background: white;
+    color: var(--text-body);
+    border: 1px solid var(--gray-200);
+  }
+  .btn-secondary:hover {
+    background: var(--bg-primary);
+    border-color: var(--cc-navy);
+    color: var(--cc-navy);
+  }
+
+  .btn-primary {
+    background: var(--cc-blue-main);
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 156, 222, 0.3);
+  }
+  .btn-primary:hover {
+    background: #0088c2;
+    box-shadow: 0 4px 12px rgba(0, 156, 222, 0.4);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary.loading {
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  .btn-primary.loading .btn-spinner { display: block; }
+  .btn-primary.loading .btn-label { display: none; }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ─── Step 2: Invitation Sent ─── */
+  .step2-content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .step2-content.visible {
+    display: flex;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .success-icon-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--bg-success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .success-icon-ring::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(108,194,74,0.2);
+    animation: pulseRing 2s ease infinite;
+  }
+  @keyframes pulseRing {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.5; }
+  }
+  .success-icon-ring i {
+    color: var(--cc-green-dark);
+    width: 36px;
+    height: 36px;
+  }
+
+  .success-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1D3A70;
+  }
+
+  .success-detail {
+    font-size: 15px;
+    color: var(--text-body);
+    line-height: 1.6;
+    max-width: 440px;
+  }
+  .success-detail strong {
+    color: var(--cc-navy);
+    font-weight: 700;
+  }
+
+  .invite-summary {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 420px;
+    text-align: left;
+  }
+  .invite-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .invite-summary-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-placeholder);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .invite-summary-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-heading);
+  }
+  .invite-summary-divider {
+    height: 1px;
+    background: var(--gray-100);
+  }
+
+  .sent-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-success);
+    color: var(--cc-green-dark);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .sent-badge i { width: 14px; height: 14px; }
+
+  .btn-done {
+    height: 42px;
+    padding: 0 32px;
+    border-radius: 6px;
+    border: none;
+    background: var(--cc-green);
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(108,194,74,0.3);
+    transition: all 0.2s ease;
+    margin-top: 8px;
+  }
+  .btn-done:hover {
+    background: #5ab33e;
+    box-shadow: 0 4px 12px rgba(108,194,74,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-done i { width: 16px; height: 16px; }
+
+  /* ─── Step 1 fade out ─── */
+  .form-area.hidden,
+  .button-row.hidden {
+    display: none;
+  }
+
+  /* ─── Toast notification ─── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--cc-navy);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    z-index: 100;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .toast i { width: 18px; height: 18px; color: var(--cc-green); }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 960px) {
+    .popup-card { padding: 36px 32px; width: 96vw; }
+    .popup-title { font-size: 28px; }
+    .form-row { flex-direction: column; }
+    .button-row { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+  <div class="portal-shell">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">
+        <i data-lucide="home" style="width:26px;height:26px;"></i>
+      </div>
+      <div class="sidebar-add">
+        <i data-lucide="plus-square" style="width:22px;height:22px;"></i>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-nav">
+        <a class="sidebar-item active" href="#">
+          <i data-lucide="file-check-2"></i>
+          <span class="sidebar-item-label">Applications</span>
+        </a>
+        <a class="sidebar-item" href="#">
+          <i data-lucide="briefcase"></i>
+          <span class="sidebar-item-label">Toolbox</span>
+        </a>
+        <a class="sidebar-item" href="#">
+          <i data-lucide="building-2"></i>
+          <span class="sidebar-item-label">Merchants</span>
+        </a>
+        <a class="sidebar-item" href="#">
+          <i data-lucide="bar-chart-3"></i>
+          <span class="sidebar-item-label">Insights</span>
+        </a>
+        <a class="sidebar-item" href="#">
+          <i data-lucide="graduation-cap"></i>
+          <span class="sidebar-item-label">Academy</span>
+        </a>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-divider" style="margin-bottom:8px;"></div>
+        <a class="sidebar-item" href="#">
+          <i data-lucide="sliders-horizontal"></i>
+          <span class="sidebar-item-label">Settings</span>
+        </a>
+        <a class="sidebar-item" href="#">
+          <i data-lucide="user-circle"></i>
+          <span class="sidebar-item-label">Profile</span>
+        </a>
+        <a class="sidebar-item" href="#">
+          <i data-lucide="log-out"></i>
+          <span class="sidebar-item-label">Logout</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Area -->
+    <div class="main-area">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-brand">Comfort<span>Connect</span></div>
+        <div class="topbar-user">
+          Your Name
+          <i data-lucide="chevron-down"></i>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="content-area">
+        <!-- Background processing text (from Figma design) -->
+        <div class="bg-processing-text">Processing your information</div>
+
+        <!-- Decorative dot pattern (bottom-right, per Figma) -->
+        <div class="bg-dots">
+          <div class="bg-dot"></div><div class="bg-dot alt"></div><div class="bg-dot"></div>
+          <div class="bg-dot"></div><div class="bg-dot alt"></div><div class="bg-dot"></div><div class="bg-dot"></div>
+          <div class="bg-dot alt"></div><div class="bg-dot"></div><div class="bg-dot alt"></div>
+          <div class="bg-dot"></div><div class="bg-dot"></div><div class="bg-dot alt"></div>
+        </div>
+
+        <!-- ─── Overlay + Popup ─── -->
+        <div class="overlay" id="overlay">
+          <div class="popup-card" id="popupCard">
+            <!-- Title -->
+            <h1 class="popup-title" id="popupTitle">Send Pre-qualification Invite</h1>
+
+            <!-- Stepper -->
+            <div class="stepper">
+              <div class="step">
+                <div class="step-circle active" id="stepCircle1">1</div>
+                <div class="step-label" id="stepLabel1">Enter Applicant Information</div>
+              </div>
+              <div class="step-line">
+                <div class="step-line-fill" id="stepLineFill"></div>
+              </div>
+              <div class="step">
+                <div class="step-circle pending" id="stepCircle2">2</div>
+                <div class="step-label pending-label" id="stepLabel2">Invitation Sent</div>
+              </div>
+            </div>
+
+            <!-- Step 1: Form -->
+            <div class="form-area" id="formArea">
+              <div class="form-row full">
+                <div class="form-group">
+                  <label class="form-label" for="email">Email Address</label>
+                  <input type="email" class="form-input" id="email" placeholder="applicant@email.com" autocomplete="off">
+                  <div class="form-error" id="emailError">
+                    <i data-lucide="alert-circle"></i>
+                    <span>Please enter a valid email address</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="name">Applicant Name</label>
+                  <input type="text" class="form-input" id="name" placeholder="Full name" autocomplete="off">
+                  <div class="form-error" id="nameError">
+                    <i data-lucide="alert-circle"></i>
+                    <span>Name is required</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="phone">Mobile Phone</label>
+                  <input type="tel" class="form-input" id="phone" placeholder="(555) 000-0000" autocomplete="off">
+                  <div class="form-error" id="phoneError">
+                    <i data-lucide="alert-circle"></i>
+                    <span>Please enter a valid phone number</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 1: Buttons -->
+            <div class="button-row" id="buttonRow">
+              <button class="btn btn-secondary" onclick="handleGoBack()">
+                <i data-lucide="chevron-left"></i>
+                Go Back
+              </button>
+              <button class="btn btn-primary" id="sendBtn" onclick="handleSendInvite()">
+                <div class="btn-spinner"></div>
+                <span class="btn-label">
+                  <i data-lucide="send"></i>
+                  Send Invite
+                </span>
+              </button>
+            </div>
+
+            <!-- Step 2: Success -->
+            <div class="step2-content" id="step2Content">
+              <div class="success-icon-ring">
+                <i data-lucide="check"></i>
+              </div>
+              <div class="success-title">Invitation Sent!</div>
+              <div class="success-detail">
+                A pre-qualification invite has been sent to <strong id="sentEmail">—</strong>.
+                The applicant will receive an email and SMS with a link to complete their application.
+              </div>
+              <div class="invite-summary" id="inviteSummary">
+                <div class="invite-summary-row">
+                  <span class="invite-summary-label">Applicant</span>
+                  <span class="invite-summary-value" id="summaryName">—</span>
+                </div>
+                <div class="invite-summary-divider"></div>
+                <div class="invite-summary-row">
+                  <span class="invite-summary-label">Email</span>
+                  <span class="invite-summary-value" id="summaryEmail">—</span>
+                </div>
+                <div class="invite-summary-divider"></div>
+                <div class="invite-summary-row">
+                  <span class="invite-summary-label">Phone</span>
+                  <span class="invite-summary-value" id="summaryPhone">—</span>
+                </div>
+                <div class="invite-summary-divider"></div>
+                <div class="invite-summary-row">
+                  <span class="invite-summary-label">Status</span>
+                  <span class="sent-badge"><i data-lucide="check-circle"></i> Sent</span>
+                </div>
+              </div>
+              <button class="btn-done" onclick="handleSendAnother()">
+                <i data-lucide="plus"></i>
+                Send Another Invite
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i data-lucide="mail-check"></i>
+    <span id="toastMsg">Invitation sent successfully</span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // ─── Phone formatting ───
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '');
+      if (val.length > 10) val = val.slice(0, 10);
+      if (val.length >= 7) {
+        e.target.value = `(${val.slice(0,3)}) ${val.slice(3,6)}-${val.slice(6)}`;
+      } else if (val.length >= 4) {
+        e.target.value = `(${val.slice(0,3)}) ${val.slice(3)}`;
+      } else if (val.length > 0) {
+        e.target.value = `(${val}`;
+      }
+    });
+
+    // ─── Clear errors on input ───
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('input', () => {
+        input.classList.remove('error');
+        const errorEl = input.parentElement.querySelector('.form-error');
+        if (errorEl) errorEl.classList.remove('show');
+      });
+    });
+
+    // ─── Validation ───
+    function validateForm() {
+      const email = document.getElementById('email');
+      const name = document.getElementById('name');
+      const phone = document.getElementById('phone');
+      let valid = true;
+
+      // Email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim())) {
+        email.classList.add('error');
+        document.getElementById('emailError').classList.add('show');
+        valid = false;
+      }
+
+      // Name
+      if (name.value.trim().length < 2) {
+        name.classList.add('error');
+        document.getElementById('nameError').classList.add('show');
+        valid = false;
+      }
+
+      // Phone
+      const phoneDigits = phone.value.replace(/\D/g, '');
+      if (phoneDigits.length < 10) {
+        phone.classList.add('error');
+        document.getElementById('phoneError').classList.add('show');
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    // ─── Send Invite ───
+    function handleSendInvite() {
+      if (!validateForm()) return;
+
+      const btn = document.getElementById('sendBtn');
+      btn.classList.add('loading');
+
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        transitionToStep2();
+      }, 1800);
+    }
+
+    // ─── Transition to Step 2 ───
+    function transitionToStep2() {
+      const email = document.getElementById('email').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      // Update stepper
+      const circle1 = document.getElementById('stepCircle1');
+      circle1.innerHTML = '<i data-lucide="check" style="width:18px;height:18px;"></i>';
+      circle1.classList.remove('active');
+      circle1.classList.add('completed');
+
+      const circle2 = document.getElementById('stepCircle2');
+      circle2.classList.remove('pending');
+      circle2.classList.add('active');
+
+      document.getElementById('stepLabel2').classList.remove('pending-label');
+      document.getElementById('stepLineFill').classList.add('full');
+
+      // Hide form, show success
+      document.getElementById('formArea').classList.add('hidden');
+      document.getElementById('buttonRow').classList.add('hidden');
+
+      // Fill success data
+      document.getElementById('sentEmail').textContent = email;
+      document.getElementById('summaryName').textContent = name;
+      document.getElementById('summaryEmail').textContent = email;
+      document.getElementById('summaryPhone').textContent = phone;
+
+      document.getElementById('step2Content').classList.add('visible');
+
+      // Re-initialize icons for dynamically added ones
+      lucide.createIcons();
+
+      // Show toast
+      showToast(`Invitation sent to ${email}`);
+    }
+
+    // ─── Go Back ───
+    function handleGoBack() {
+      showToast('Navigating back to Applications...');
+    }
+
+    // ─── Send Another ───
+    function handleSendAnother() {
+      // Reset stepper
+      const circle1 = document.getElementById('stepCircle1');
+      circle1.innerHTML = '1';
+      circle1.classList.remove('completed');
+      circle1.classList.add('active');
+
+      const circle2 = document.getElementById('stepCircle2');
+      circle2.classList.remove('active');
+      circle2.classList.add('pending');
+
+      document.getElementById('stepLabel2').classList.add('pending-label');
+      document.getElementById('stepLineFill').classList.remove('full');
+
+      // Show form, hide success
+      document.getElementById('step2Content').classList.remove('visible');
+      document.getElementById('formArea').classList.remove('hidden');
+      document.getElementById('buttonRow').classList.remove('hidden');
+
+      // Clear inputs
+      document.getElementById('email').value = '';
+      document.getElementById('name').value = '';
+      document.getElementById('phone').value = '';
+
+      // Clear errors
+      document.querySelectorAll('.form-input').forEach(i => i.classList.remove('error'));
+      document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
+
+      document.getElementById('email').focus();
+    }
+
+    // ─── Toast ───
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+  </script>
+</body>
+</html>

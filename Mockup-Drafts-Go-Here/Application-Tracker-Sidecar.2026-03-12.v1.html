@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ComfortConnect — Application Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== DESIGN TOKENS — Portal 2.0 ===== */
+:root {
+  /* Brand */
+  --cc-navy: #002F6C;
+  --cc-navy-dark: #002147;
+  --cc-green: #6CC24A;
+  --cc-green-hover: #5DB33E;
+  --cc-green-dark: #398F17;
+  --cc-orange: #EE8F1E;
+  --cc-amber: #E8B93F;
+  --cc-amber-text: #82620F;
+  --cc-blue-main: #009CDE;
+  --cc-blue-info: #1C51A4;
+  --cc-red: #DD331D;
+  --cc-red-text: #AB2816;
+
+  /* Typography */
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+
+  /* Backgrounds */
+  --bg-general: #F9FAFB;
+  --bg-primary: #EDF4FF;
+  --bg-success: #D9F3D0;
+  --bg-warning: #FFF6E0;
+  --bg-error: #FDE7E5;
+
+  /* States */
+  --state-hover: #1759C4;
+  --state-hover-secondary: #EDF4FF;
+
+  /* Grays */
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+  --gray-600: #2A2E34;
+
+  /* Font */
+  --font: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Sidecar Dimensions */
+  --sidecar-width: 420px;
+}
+
+/* ===== BASE ===== */
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  color: var(--text-body);
+  background: var(--bg-general);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== DEMO WRAPPER — simulates portal background ===== */
+.demo-backdrop {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-general);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+/* ===== SIDECAR PANEL ===== */
+.sidecar {
+  width: var(--sidecar-width);
+  max-height: calc(100vh - 48px);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 40px rgba(0,47,108,0.10),
+    0 2px 12px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0,47,108,0.06);
+  animation: slideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== SIDECAR HEADER ===== */
+.sidecar-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.sidecar-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.customer-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--cc-green), var(--cc-green-hover));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(108,194,74,0.3);
+}
+
+.customer-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.customer-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.25;
+}
+
+.customer-id-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.customer-id {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-placeholder);
+  font-variant-numeric: tabular-nums;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-300);
+  padding: 2px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: all 0.15s;
+}
+.copy-btn:hover {
+  color: var(--cc-blue-main);
+  background: var(--bg-primary);
+}
+.copy-btn svg { width: 14px; height: 14px; }
+
+.close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  color: var(--gray-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.close-btn:hover {
+  background: var(--bg-error);
+  border-color: var(--cc-red);
+  color: var(--cc-red);
+}
+.close-btn svg { width: 16px; height: 16px; }
+
+/* Progress Bar */
+.progress-section {
+  margin-top: 4px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-disabled);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progress-steps {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cc-navy);
+}
+
+.progress-track {
+  height: 8px;
+  background: var(--gray-100);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--cc-green), var(--cc-blue-main));
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+  border-radius: 4px;
+}
+
+/* ===== SIDECAR BODY (scrollable) ===== */
+.sidecar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-200) transparent;
+}
+
+.sidecar-body::-webkit-scrollbar { width: 5px; }
+.sidecar-body::-webkit-scrollbar-track { background: transparent; }
+.sidecar-body::-webkit-scrollbar-thumb {
+  background: var(--gray-200);
+  border-radius: 3px;
+}
+
+/* ===== ACTION REQUIRED BANNER ===== */
+.action-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid;
+  animation: bannerPulse 3s ease-in-out infinite;
+}
+
+@keyframes bannerPulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 0 3px rgba(232,185,63,0.12); }
+}
+
+.action-banner.warning {
+  background: var(--bg-warning);
+  border-color: rgba(232,185,63,0.3);
+}
+
+.action-banner.error {
+  background: var(--bg-error);
+  border-color: rgba(221,51,29,0.2);
+}
+
+.action-banner-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.action-banner.warning .action-banner-icon { color: var(--cc-amber); }
+.action-banner.error .action-banner-icon { color: var(--cc-red); }
+
+.action-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.action-banner-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.action-banner.warning .action-banner-title { color: var(--cc-amber-text); }
+.action-banner.error .action-banner-title { color: var(--cc-red-text); }
+
+.action-banner-text {
+  font-size: 12px;
+  color: var(--text-body);
+  line-height: 1.45;
+}
+
+/* ===== SECTION HEADER ===== */
+.section-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--cc-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+  padding-left: 2px;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 24px;
+}
+
+/* Vertical connector line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: var(--gray-200);
+  border-radius: 1px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 6px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: -28px;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform 0.2s;
+}
+
+.timeline-item:hover .timeline-dot { transform: scale(1.1); }
+
+/* Dot variants */
+.timeline-dot.completed {
+  background: var(--cc-green);
+  box-shadow: 0 2px 6px rgba(108,194,74,0.35);
+}
+.timeline-dot.completed svg { width: 12px; height: 12px; color: #fff; }
+
+.timeline-dot.active {
+  background: var(--cc-blue-main);
+  box-shadow: 0 0 0 4px rgba(0,156,222,0.15), 0 2px 6px rgba(0,156,222,0.3);
+}
+.timeline-dot.active::after {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.timeline-dot.alert {
+  background: var(--cc-orange);
+  box-shadow: 0 0 0 4px rgba(238,143,30,0.15), 0 2px 6px rgba(238,143,30,0.3);
+}
+.timeline-dot.alert svg { width: 12px; height: 12px; color: #fff; }
+
+.timeline-dot.pending {
+  background: #fff;
+  border: 2px solid var(--gray-200);
+}
+.timeline-dot.pending::after {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gray-200);
+}
+
+/* Timeline card */
+.timeline-card {
+  background: var(--bg-general);
+  border: 1px solid var(--gray-100);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.timeline-card:hover {
+  border-color: var(--gray-200);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.timeline-card.expanded {
+  background: #fff;
+  border-color: var(--gray-200);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.timeline-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeline-card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.timeline-stage {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.3;
+}
+
+.timeline-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeline-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.badge-complete {
+  background: var(--bg-success);
+  color: var(--cc-green-dark);
+}
+
+.badge-sent, .badge-active {
+  background: var(--bg-primary);
+  color: var(--cc-blue-info);
+}
+
+.badge-alert {
+  background: var(--bg-warning);
+  color: var(--cc-amber-text);
+}
+
+.badge-pending {
+  background: var(--gray-100);
+  color: var(--text-placeholder);
+}
+
+.badge-error {
+  background: var(--bg-error);
+  color: var(--cc-red-text);
+}
+
+.timeline-time {
+  font-size: 11px;
+  color: var(--text-placeholder);
+  font-weight: 400;
+}
+
+.timeline-chevron {
+  width: 20px;
+  height: 20px;
+  color: var(--gray-300);
+  transition: transform 0.25s ease, color 0.15s;
+  flex-shrink: 0;
+  margin-left: 6px;
+}
+.timeline-card.expanded .timeline-chevron {
+  transform: rotate(180deg);
+  color: var(--cc-navy);
+}
+
+/* Timeline expansion content */
+.timeline-expand {
+  display: none;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-100);
+}
+.timeline-card.expanded .timeline-expand { display: block; }
+
+/* Credit freeze alert card inside expansion */
+.alert-detail-card {
+  background: var(--bg-warning);
+  border: 1px solid rgba(232,185,63,0.25);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.alert-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.alert-detail-header svg {
+  width: 18px; height: 18px;
+  color: var(--cc-orange);
+  flex-shrink: 0;
+}
+.alert-detail-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cc-amber-text);
+}
+
+.alert-detail-body {
+  font-size: 12px;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.bureau-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bureau-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.7);
+  color: var(--text-body);
+  border: 1px solid rgba(232,185,63,0.2);
+}
+.bureau-tag svg { width: 12px; height: 12px; color: var(--cc-orange); }
+.bureau-tag.ok svg { color: var(--cc-green); }
+.bureau-tag.frozen svg { color: var(--cc-red); }
+
+.alert-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cc-blue-main);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.alert-action-link:hover { color: var(--state-hover); }
+.alert-action-link svg { width: 14px; height: 14px; }
+
+/* ===== QUICK ACTIONS ===== */
+.quick-actions {
+  margin-bottom: 8px;
+}
+
+.action-grid {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: var(--font);
+  text-decoration: none;
+}
+.action-btn:hover {
+  border-color: var(--cc-blue-main);
+  background: var(--bg-primary);
+  box-shadow: 0 2px 8px rgba(0,47,108,0.06);
+}
+
+.action-btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.action-btn-icon svg { width: 18px; height: 18px; }
+
+.action-btn-icon.resend {
+  background: rgba(108,194,74,0.1);
+  color: var(--cc-green);
+}
+.action-btn-icon.archive {
+  background: rgba(0,156,222,0.08);
+  color: var(--cc-blue-main);
+}
+.action-btn-icon.track {
+  background: rgba(0,47,108,0.06);
+  color: var(--cc-navy);
+}
+
+.action-btn-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-body);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ===== SIDECAR FOOTER ===== */
+.sidecar-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--gray-100);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.footer-updated {
+  font-size: 11px;
+  color: var(--text-placeholder);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.footer-updated svg { width: 13px; height: 13px; }
+
+.footer-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cc-blue-main);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--state-hover); }
+.footer-link svg { width: 14px; height: 14px; }
+
+/* ===== TOOLTIP ===== */
+.tooltip {
+  position: fixed;
+  padding: 6px 10px;
+  background: var(--gray-600);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s;
+  white-space: nowrap;
+}
+.tooltip.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .demo-backdrop { padding: 0; }
+  .sidecar {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-backdrop">
+  <!-- SIDECAR PANEL -->
+  <div class="sidecar">
+
+    <!-- HEADER -->
+    <div class="sidecar-header">
+      <div class="sidecar-header-top">
+        <div class="customer-info">
+          <div class="customer-avatar">A</div>
+          <div class="customer-details">
+            <div class="customer-name">Allred</div>
+            <div class="customer-id-row">
+              <span class="customer-id">#2327175</span>
+              <button class="copy-btn" onclick="copyId()" title="Copy ID">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button class="close-btn" onclick="closeSidecar()" title="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-label">
+          <span class="progress-text">Application Progress</span>
+          <span class="progress-steps">2 of 5 steps</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width: 40%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="sidecar-body">
+
+      <!-- Action Required Banner -->
+      <div class="action-banner warning">
+        <svg class="action-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="action-banner-content">
+          <div class="action-banner-title">Action Required</div>
+          <div class="action-banner-text">Credit freeze detected — customer must lift freeze to proceed with partner application.</div>
+        </div>
+      </div>
+
+      <!-- Timeline Section -->
+      <div class="section-label">Application Timeline</div>
+
+      <div class="timeline">
+
+        <!-- Stage 1: Quote — Complete -->
+        <div class="timeline-item">
+          <div class="timeline-dot completed">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="timeline-card" onclick="toggleExpand(this)">
+            <div class="timeline-card-header">
+              <div class="timeline-card-left">
+                <div class="timeline-stage">Quote</div>
+                <div class="timeline-status-row">
+                  <span class="timeline-status-badge badge-complete">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><polyline points="20 6 9 17 4 12"/></svg>
+                    Complete
+                  </span>
+                  <span class="timeline-time">Mar 8 · 2:14 PM</span>
+                </div>
+              </div>
+              <svg class="timeline-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="timeline-expand">
+              <div style="font-size:12px;color:var(--text-body);line-height:1.5;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <span style="color:var(--text-placeholder);font-weight:600;">Equipment</span>
+                  <span>Trane XR15 Heat Pump</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <span style="color:var(--text-placeholder);font-weight:600;">Amount</span>
+                  <span style="font-weight:700;color:var(--text-heading);">$12,450.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span style="color:var(--text-placeholder);font-weight:600;">Term</span>
+                  <span>120 months @ 9.99%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 2: Pre-Qualification — Sent -->
+        <div class="timeline-item">
+          <div class="timeline-dot completed">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="timeline-card" onclick="toggleExpand(this)">
+            <div class="timeline-card-header">
+              <div class="timeline-card-left">
+                <div class="timeline-stage">Pre-Qualification</div>
+                <div class="timeline-status-row">
+                  <span class="timeline-status-badge badge-sent">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><polyline points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Sent
+                  </span>
+                  <span class="timeline-time">Mar 8 · 2:22 PM</span>
+                </div>
+              </div>
+              <svg class="timeline-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="timeline-expand">
+              <div style="font-size:12px;color:var(--text-body);line-height:1.5;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <span style="color:var(--text-placeholder);font-weight:600;">Lender</span>
+                  <span>Momnt Financial</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                  <span style="color:var(--text-placeholder);font-weight:600;">Status</span>
+                  <span style="color:var(--cc-green-dark);font-weight:600;">Pre-Qualified</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span style="color:var(--text-placeholder);font-weight:600;">Submitted by</span>
+                  <span>Sarah M. (Dealer)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 3: Partner Apply — Credit Freeze (Alert) -->
+        <div class="timeline-item">
+          <div class="timeline-dot alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="timeline-card expanded" onclick="toggleExpand(this)">
+            <div class="timeline-card-header">
+              <div class="timeline-card-left">
+                <div class="timeline-stage">Partner Apply</div>
+                <div class="timeline-status-row">
+                  <span class="timeline-status-badge badge-alert">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Credit Freeze
+                  </span>
+                  <span class="timeline-time">Mar 9 · 10:05 AM</span>
+                </div>
+              </div>
+              <svg class="timeline-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="timeline-expand">
+              <div class="alert-detail-card">
+                <div class="alert-detail-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <span class="alert-detail-title">Credit Freeze Detected</span>
+                </div>
+                <div class="alert-detail-body">
+                  Applicant has a credit freeze on file with one or more bureaus. The freeze must be temporarily lifted for the credit pull to proceed.
+                </div>
+                <div class="bureau-list">
+                  <span class="bureau-tag frozen">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><circle cx="12" cy="12" r="6"/></svg>
+                    Experian — Frozen
+                  </span>
+                  <span class="bureau-tag frozen">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><circle cx="12" cy="12" r="6"/></svg>
+                    TransUnion — Frozen
+                  </span>
+                  <span class="bureau-tag ok">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><circle cx="12" cy="12" r="6"/></svg>
+                    Equifax — OK
+                  </span>
+                </div>
+                <a class="alert-action-link">
+                  Contact Customer to Lift Freeze
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 4: Underwriting — Pending -->
+        <div class="timeline-item">
+          <div class="timeline-dot pending"></div>
+          <div class="timeline-card" onclick="toggleExpand(this)">
+            <div class="timeline-card-header">
+              <div class="timeline-card-left">
+                <div class="timeline-stage" style="color:var(--text-placeholder);">Underwriting</div>
+                <div class="timeline-status-row">
+                  <span class="timeline-status-badge badge-pending">Pending</span>
+                </div>
+              </div>
+              <svg class="timeline-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="timeline-expand">
+              <div style="font-size:12px;color:var(--text-placeholder);line-height:1.5;font-style:italic;">
+                Waiting for credit freeze to be lifted before underwriting can proceed.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5: Closing — Pending -->
+        <div class="timeline-item">
+          <div class="timeline-dot pending"></div>
+          <div class="timeline-card" onclick="toggleExpand(this)">
+            <div class="timeline-card-header">
+              <div class="timeline-card-left">
+                <div class="timeline-stage" style="color:var(--text-placeholder);">Closing</div>
+                <div class="timeline-status-row">
+                  <span class="timeline-status-badge badge-pending">Pending</span>
+                </div>
+              </div>
+              <svg class="timeline-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="timeline-expand">
+              <div style="font-size:12px;color:var(--text-placeholder);line-height:1.5;font-style:italic;">
+                Final closing steps will appear here once underwriting is complete.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="section-label">Quick Actions</div>
+      <div class="quick-actions">
+        <div class="action-grid">
+          <button class="action-btn" onclick="handleAction('resend')">
+            <div class="action-btn-icon resend">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+            <span class="action-btn-label">Resend<br>Invite</span>
+          </button>
+          <button class="action-btn" onclick="handleAction('archive')">
+            <div class="action-btn-icon archive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+            </div>
+            <span class="action-btn-label">Archive</span>
+          </button>
+          <button class="action-btn" onclick="handleAction('track')">
+            <div class="action-btn-icon track">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <span class="action-btn-label">Track<br>Progress</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="sidecar-footer">
+      <span class="footer-updated">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Last updated 22 min ago
+      </span>
+      <a class="footer-link" onclick="openAdmin()">
+        Admin Center
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Tooltip element -->
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+/* ===== Timeline Expand/Collapse ===== */
+function toggleExpand(card) {
+  card.classList.toggle('expanded');
+}
+
+/* ===== Copy ID ===== */
+function copyId() {
+  const id = '#2327175';
+  navigator.clipboard.writeText(id).then(() => {
+    showTooltip(event, 'Copied!');
+  }).catch(() => {
+    showTooltip(event, 'Copied!');
+  });
+  event.stopPropagation();
+}
+
+/* ===== Tooltip ===== */
+function showTooltip(e, text) {
+  const tip = document.getElementById('tooltip');
+  tip.textContent = text;
+  tip.style.left = e.clientX + 'px';
+  tip.style.top = (e.clientY - 36) + 'px';
+  tip.classList.add('show');
+  setTimeout(() => tip.classList.remove('show'), 1200);
+}
+
+/* ===== Quick Actions ===== */
+function handleAction(type) {
+  const labels = {
+    resend: 'Invite resent successfully',
+    archive: 'Application archived',
+    track: 'Tracking enabled'
+  };
+  const btn = event.currentTarget;
+  btn.style.borderColor = 'var(--cc-green)';
+  btn.style.background = 'var(--bg-success)';
+  setTimeout(() => {
+    btn.style.borderColor = '';
+    btn.style.background = '';
+  }, 1200);
+}
+
+/* ===== Close Sidecar ===== */
+function closeSidecar() {
+  const sc = document.querySelector('.sidecar');
+  sc.style.transform = 'translateX(24px)';
+  sc.style.opacity = '0';
+  setTimeout(() => sc.style.display = 'none', 300);
+}
+
+/* ===== Admin Center ===== */
+function openAdmin() {
+  // Stub — would navigate to admin
+}
+</script>
+
+</body>
+</html>
