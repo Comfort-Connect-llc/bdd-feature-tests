@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comfort Connect — Component Inventory (Atomic Design)</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cc-navy: #002F6C;
+  --cc-navy-dark: #002147;
+  --cc-green: #6CC24A;
+  --cc-green-dark: #398F17;
+  --cc-orange: #EE8F1E;
+  --cc-red: #DD331D;
+  --cc-amber: #E8B93F;
+  --cc-blue-main: #009CDE;
+  --cc-blue-info: #1C51A4;
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+  --cc-amber-text: #82620F;
+  --cc-red-text: #AB2816;
+  --bg-primary: #EDF4FF;
+  --bg-disabled: #E0E2E5;
+  --bg-success: #D9F3D0;
+  --bg-warning: #FFF6E0;
+  --bg-error: #FDE7E5;
+  --bg-general: #F9FAFB;
+  --state-hover: #1759C4;
+  --state-hover-secondary: #EDF4FF;
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+  --gray-600: #2A2E34;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  color: var(--text-body);
+  background: var(--bg-general);
+  line-height: 1.6;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px; background: var(--cc-navy);
+  display: flex; align-items: center; padding: 0 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.topbar h1 { color: #fff; font-size: 18px; font-weight: 700; letter-spacing: .3px; }
+.topbar .subtitle { color: rgba(255,255,255,.65); font-size: 13px; margin-left: 12px; }
+.topbar .stats {
+  margin-left: auto; display: flex; gap: 16px; color: rgba(255,255,255,.8); font-size: 12px; font-weight: 600;
+}
+.topbar .stats span { background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 12px; }
+
+/* ── SIDEBAR NAV ── */
+.sidebar {
+  position: fixed; top: 56px; left: 0; bottom: 0; width: 260px;
+  background: var(--cc-navy-dark); overflow-y: auto; padding: 16px 0;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 2px; }
+
+.sidebar .search-box {
+  margin: 0 12px 12px; position: relative;
+}
+.sidebar .search-box input {
+  width: 100%; padding: 8px 12px 8px 32px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.08);
+  color: #fff; font-size: 13px; outline: none; font-family: inherit;
+}
+.sidebar .search-box input::placeholder { color: rgba(255,255,255,.4); }
+.sidebar .search-box input:focus { border-color: var(--cc-blue-main); background: rgba(255,255,255,.12); }
+.sidebar .search-box svg {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 14px; fill: rgba(255,255,255,.4);
+}
+
+.nav-group { margin-bottom: 4px; }
+.nav-group-label {
+  padding: 8px 16px 4px; font-size: 10px; font-weight: 800; letter-spacing: 1.2px;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+}
+.nav-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 16px; color: rgba(255,255,255,.7);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+  text-decoration: none; border-left: 3px solid transparent;
+}
+.nav-link:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-link.active { background: rgba(255,255,255,.1); color: #fff; border-left-color: var(--cc-green); }
+.nav-link .count {
+  margin-left: auto; font-size: 11px; background: rgba(255,255,255,.12);
+  padding: 1px 7px; border-radius: 8px; font-weight: 700;
+}
+.nav-link .dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  margin-left: 260px; margin-top: 56px; padding: 32px 40px 80px;
+  max-width: 1200px;
+}
+
+/* ── SECTIONS ── */
+.section { display: none; }
+.section.active { display: block; }
+
+.section-header {
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 2px solid var(--gray-200);
+}
+.section-header h2 {
+  font-size: 28px; font-weight: 800; color: var(--cc-navy);
+  margin-bottom: 4px;
+}
+.section-header p { color: var(--text-body); font-size: 15px; }
+
+/* ── LEVEL BADGE ── */
+.level-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 4px; font-size: 11px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+}
+.level-badge.atom { background: #E8F5FE; color: #0277BD; }
+.level-badge.molecule { background: #F3E8FF; color: #7B1FA2; }
+.level-badge.organism { background: #FFF3E0; color: #E65100; }
+.level-badge.screen { background: #E8F5E9; color: #2E7D32; }
+.level-badge.flow { background: #FCE4EC; color: #C62828; }
+
+/* ── COMPONENT CARD ── */
+.card-grid {
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+}
+
+.comp-card {
+  background: #fff; border: 1px solid var(--gray-200); border-radius: 10px;
+  overflow: hidden; transition: box-shadow .2s;
+}
+.comp-card:hover { box-shadow: 0 4px 16px rgba(0,47,108,.08); }
+
+.comp-card-header {
+  padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+  cursor: pointer; user-select: none;
+}
+.comp-card-header h3 {
+  font-size: 16px; font-weight: 700; color: var(--text-heading); flex: 1;
+}
+.comp-card-header .toggle-icon {
+  width: 20px; height: 20px; transition: transform .2s; color: var(--gray-400);
+}
+.comp-card.open .comp-card-header .toggle-icon { transform: rotate(180deg); }
+
+.comp-card-body {
+  display: none; padding: 0 20px 20px; border-top: 1px solid var(--gray-100);
+}
+.comp-card.open .comp-card-body { display: block; }
+
+.detail-grid {
+  display: grid; grid-template-columns: 140px 1fr; gap: 6px 16px;
+  font-size: 13px; margin-top: 12px;
+}
+.detail-label {
+  font-weight: 700; color: var(--cc-navy); text-transform: uppercase;
+  font-size: 10px; letter-spacing: .8px; padding-top: 2px;
+}
+.detail-value { color: var(--text-body); }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.tag {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600;
+}
+.tag.story { background: var(--bg-primary); color: var(--cc-blue-info); }
+.tag.token { background: var(--bg-success); color: var(--cc-green-dark); }
+.tag.figma { background: #F3E8FF; color: #7B1FA2; }
+.tag.state { background: var(--bg-warning); color: var(--cc-amber-text); }
+.tag.module { background: var(--gray-100); color: var(--gray-500); }
+
+.variants-table {
+  width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px;
+}
+.variants-table th {
+  background: var(--gray-100); padding: 6px 10px; text-align: left;
+  font-weight: 700; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--gray-500);
+}
+.variants-table td {
+  padding: 6px 10px; border-bottom: 1px solid var(--gray-100);
+}
+
+/* ── OVERVIEW SECTION ── */
+.overview-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin-bottom: 32px;
+}
+.stat-card {
+  background: #fff; border-radius: 10px; padding: 20px;
+  border: 1px solid var(--gray-200); text-align: center;
+}
+.stat-card .number {
+  font-size: 36px; font-weight: 800; color: var(--cc-navy);
+}
+.stat-card .label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .8px; color: var(--gray-400); margin-top: 4px;
+}
+
+.level-summary {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+  margin-bottom: 32px;
+}
+.level-card {
+  background: #fff; border-radius: 10px; padding: 16px;
+  border: 1px solid var(--gray-200); cursor: pointer; transition: all .15s;
+}
+.level-card:hover { border-color: var(--cc-navy); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,47,108,.1); }
+.level-card .lc-count { font-size: 28px; font-weight: 800; }
+.level-card .lc-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--gray-400); }
+
+.level-card.atom .lc-count { color: #0277BD; }
+.level-card.molecule .lc-count { color: #7B1FA2; }
+.level-card.organism .lc-count { color: #E65100; }
+.level-card.screen .lc-count { color: #2E7D32; }
+.level-card.flow .lc-count { color: #C62828; }
+
+/* ── MODULE MAP ── */
+.module-map {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px; margin-top: 16px;
+}
+.module-card {
+  background: #fff; border-radius: 8px; padding: 14px;
+  border: 1px solid var(--gray-200); border-left: 4px solid var(--cc-navy);
+}
+.module-card h4 { font-size: 13px; font-weight: 700; color: var(--cc-navy); margin-bottom: 4px; }
+.module-card .mc-stats { font-size: 11px; color: var(--gray-400); }
+
+/* ── SEARCH HIGHLIGHT ── */
+.highlight { background: #FFEB3B; border-radius: 2px; padding: 0 2px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { width: 220px; }
+  .main { margin-left: 220px; padding: 24px 20px; }
+  .level-summary { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+}
+
+/* ── SCREEN LIST TABLE ── */
+.screen-list {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+.screen-list th {
+  background: var(--cc-navy); color: #fff; padding: 10px 14px; text-align: left;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+}
+.screen-list td { padding: 10px 14px; border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+.screen-list tr:hover td { background: var(--state-hover-secondary); }
+
+/* ── FLOW DIAGRAM ── */
+.flow-steps {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin: 12px 0;
+}
+.flow-step {
+  background: var(--cc-navy); color: #fff; padding: 6px 14px;
+  border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap;
+}
+.flow-arrow { color: var(--gray-300); font-size: 18px; font-weight: 700; }
+
+/* ── DESIGN TOKENS SECTION ── */
+.token-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;
+}
+.token-swatch {
+  background: #fff; border: 1px solid var(--gray-200); border-radius: 8px;
+  overflow: hidden;
+}
+.token-swatch .swatch { height: 48px; }
+.token-swatch .swatch-info {
+  padding: 8px 10px; font-size: 11px;
+}
+.token-swatch .swatch-name { font-weight: 700; color: var(--text-heading); }
+.token-swatch .swatch-hex { color: var(--gray-400); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <h1>ComfortConnect</h1>
+  <span class="subtitle">Component Inventory — Atomic Design System</span>
+  <div class="stats">
+    <span>325 Scenarios</span>
+    <span>90 Features</span>
+    <span>13 Modules</span>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="search-box">
+    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <input type="text" placeholder="Search components… ( / )" id="searchInput">
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Overview</div>
+    <a class="nav-link active" data-section="overview">
+      <span class="dot" style="background:var(--cc-green)"></span>Dashboard
+    </a>
+    <a class="nav-link" data-section="design-tokens">
+      <span class="dot" style="background:var(--cc-orange)"></span>Design Tokens
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Atomic Levels</div>
+    <a class="nav-link" data-section="atoms">
+      <span class="dot" style="background:#0277BD"></span>Atoms <span class="count" id="atomCount">0</span>
+    </a>
+    <a class="nav-link" data-section="molecules">
+      <span class="dot" style="background:#7B1FA2"></span>Molecules <span class="count" id="moleculeCount">0</span>
+    </a>
+    <a class="nav-link" data-section="organisms">
+      <span class="dot" style="background:#E65100"></span>Organisms <span class="count" id="organismCount">0</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Application</div>
+    <a class="nav-link" data-section="screens">
+      <span class="dot" style="background:#2E7D32"></span>Screens <span class="count" id="screenCount">0</span>
+    </a>
+    <a class="nav-link" data-section="flows">
+      <span class="dot" style="background:#C62828"></span>Flows <span class="count" id="flowCount">0</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">By Module</div>
+    <a class="nav-link" data-section="mod01"><span class="dot" style="background:var(--gray-300)"></span>01 Identity & Access</a>
+    <a class="nav-link" data-section="mod02"><span class="dot" style="background:var(--gray-300)"></span>02 Dealer Mgmt</a>
+    <a class="nav-link" data-section="mod03"><span class="dot" style="background:var(--gray-300)"></span>03 Prequal & Origination</a>
+    <a class="nav-link" data-section="mod04"><span class="dot" style="background:var(--gray-300)"></span>04 Underwriting</a>
+    <a class="nav-link" data-section="mod05"><span class="dot" style="background:var(--gray-300)"></span>05 Pricing & Equipment</a>
+    <a class="nav-link" data-section="mod06"><span class="dot" style="background:var(--gray-300)"></span>06 Document Mgmt</a>
+    <a class="nav-link" data-section="mod07"><span class="dot" style="background:var(--gray-300)"></span>07 Install & Funding</a>
+    <a class="nav-link" data-section="mod08"><span class="dot" style="background:var(--gray-300)"></span>08 Billing & Payments</a>
+    <a class="nav-link" data-section="mod09"><span class="dot" style="background:var(--gray-300)"></span>09 Account Servicing</a>
+    <a class="nav-link" data-section="mod10"><span class="dot" style="background:var(--gray-300)"></span>10 Communications</a>
+    <a class="nav-link" data-section="mod11"><span class="dot" style="background:var(--gray-300)"></span>11 Promotions</a>
+    <a class="nav-link" data-section="mod12"><span class="dot" style="background:var(--gray-300)"></span>12 Administration</a>
+    <a class="nav-link" data-section="mod13"><span class="dot" style="background:var(--gray-300)"></span>13 Integrations</a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="mainContent">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- OVERVIEW SECTION -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section active" id="sec-overview">
+  <div class="section-header">
+    <h2>Component Inventory Dashboard</h2>
+    <p>Complete atomic design inventory derived from 90 feature files, 325 Gherkin scenarios, and 13 BRD modules for the Comfort Connect platform.</p>
+  </div>
+
+  <div class="level-summary">
+    <div class="level-card atom" onclick="showSection('atoms')">
+      <div class="lc-count">42</div>
+      <div class="lc-label">Atoms</div>
+    </div>
+    <div class="level-card molecule" onclick="showSection('molecules')">
+      <div class="lc-count">38</div>
+      <div class="lc-label">Molecules</div>
+    </div>
+    <div class="level-card organism" onclick="showSection('organisms')">
+      <div class="lc-count">31</div>
+      <div class="lc-label">Organisms</div>
+    </div>
+    <div class="level-card screen" onclick="showSection('screens')">
+      <div class="lc-count">58</div>
+      <div class="lc-label">Screens</div>
+    </div>
+    <div class="level-card flow" onclick="showSection('flows')">
+      <div class="lc-count">14</div>
+      <div class="lc-label">Flows</div>
+    </div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="stat-card"><div class="number">183</div><div class="label">Total Items</div></div>
+    <div class="stat-card"><div class="number">4</div><div class="label">Portal Types</div></div>
+    <div class="stat-card"><div class="number">5</div><div class="label">Lender Integrations</div></div>
+    <div class="stat-card"><div class="number">6</div><div class="label">User Roles</div></div>
+  </div>
+
+  <h3 style="font-size:16px;color:var(--cc-navy);margin-bottom:12px;">Module Coverage Map</h3>
+  <div class="module-map">
+    <div class="module-card"><h4>01 — Identity & Access</h4><div class="mc-stats">4 features · 15 scenarios · Registration, Auth, Roles, Partner Access</div></div>
+    <div class="module-card"><h4>02 — Dealer Management</h4><div class="mc-stats">10 features · 40 scenarios · Onboarding, Training, Risk, Groups</div></div>
+    <div class="module-card"><h4>03 — Prequal & Origination</h4><div class="mc-stats">16 features · 55 scenarios · Applications, Offers, 4 Lender Flows</div></div>
+    <div class="module-card"><h4>04 — Underwriting</h4><div class="mc-stats">6 features · 20 scenarios · Credit, Auto/Manual UW, Income/Deed</div></div>
+    <div class="module-card"><h4>05 — Pricing & Equipment</h4><div class="mc-stats">8 features · 25 scenarios · Quotes, Catalog, Tax, Warranty, Buydown</div></div>
+    <div class="module-card"><h4>06 — Document Management</h4><div class="mc-stats">3 features · 12 scenarios · Generation, Storage, E-Signatures</div></div>
+    <div class="module-card"><h4>07 — Installation & Funding</h4><div class="mc-stats">4 features · 18 scenarios · Auth, Completion, Payment, Charge Requests</div></div>
+    <div class="module-card"><h4>08 — Billing & Payments</h4><div class="mc-stats">6 features · 25 scenarios · Setup, Cycles, Processing, Fees, Scheduling</div></div>
+    <div class="module-card"><h4>09 — Account Servicing</h4><div class="mc-stats">16 features · 50 scenarios · Lookup, Buyout, Maintenance, Gamification</div></div>
+    <div class="module-card"><h4>10 — Communications</h4><div class="mc-stats">5 features · 14 scenarios · Email, SMS, In-Portal, Preferences</div></div>
+    <div class="module-card"><h4>11 — Promotions</h4><div class="mc-stats">2 features · 6 scenarios · Promo Config, Company Assignment</div></div>
+    <div class="module-card"><h4>12 — Administration</h4><div class="mc-stats">9 features · 45 scenarios · Config, Rates, Branding, Reports, UW Config</div></div>
+    <div class="module-card"><h4>13 — Integrations</h4><div class="mc-stats">1 feature · 2 scenarios · Momnt Webhooks (Charge + Readiness)</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DESIGN TOKENS SECTION -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="sec-design-tokens">
+  <div class="section-header">
+    <h2>Design Tokens</h2>
+    <p>Extracted from Figma Portal 2.0 (file: nO8BrnBe7Z0UhLd2s5FecK, node: 5137:26283). Typography: Metropolis / Nunito Sans, 1.200 Minor Third scale, 16px baseline.</p>
+  </div>
+
+  <h3 style="font-size:14px;color:var(--cc-navy);margin:0 0 12px;">Primary Colors</h3>
+  <div class="token-grid">
+    <div class="token-swatch"><div class="swatch" style="background:#002F6C"></div><div class="swatch-info"><div class="swatch-name">--cc-navy</div><div class="swatch-hex">#002F6C · Primary brand</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#6CC24A"></div><div class="swatch-info"><div class="swatch-name">--cc-green</div><div class="swatch-hex">#6CC24A · CTA buttons</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#002147"></div><div class="swatch-info"><div class="swatch-name">--cc-navy-dark</div><div class="swatch-hex">#002147 · Sidebar bg</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#EE8F1E"></div><div class="swatch-info"><div class="swatch-name">--cc-orange</div><div class="swatch-hex">#EE8F1E · Accent / Form labels</div></div></div>
+  </div>
+
+  <h3 style="font-size:14px;color:var(--cc-navy);margin:24px 0 12px;">Typography Colors</h3>
+  <div class="token-grid">
+    <div class="token-swatch"><div class="swatch" style="background:#14181F"></div><div class="swatch-info"><div class="swatch-name">--text-heading</div><div class="swatch-hex">#14181F · Headings</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#414750"></div><div class="swatch-info"><div class="swatch-name">--text-body</div><div class="swatch-hex">#414750 · Body text</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#009CDE"></div><div class="swatch-info"><div class="swatch-name">--cc-blue-main</div><div class="swatch-hex">#009CDE · Links</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#1C51A4"></div><div class="swatch-info"><div class="swatch-name">--cc-blue-info</div><div class="swatch-hex">#1C51A4 · Info text</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#398F17"></div><div class="swatch-info"><div class="swatch-name">--cc-green-dark</div><div class="swatch-hex">#398F17 · Success text</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#82620F"></div><div class="swatch-info"><div class="swatch-name">--cc-amber-text</div><div class="swatch-hex">#82620F · Warning text</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#AB2816"></div><div class="swatch-info"><div class="swatch-name">--cc-red-text</div><div class="swatch-hex">#AB2816 · Error text</div></div></div>
+  </div>
+
+  <h3 style="font-size:14px;color:var(--cc-navy);margin:24px 0 12px;">State & Feedback Colors</h3>
+  <div class="token-grid">
+    <div class="token-swatch"><div class="swatch" style="background:#DD331D"></div><div class="swatch-info"><div class="swatch-name">--cc-red</div><div class="swatch-hex">#DD331D · Error / Destructive</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#E8B93F"></div><div class="swatch-info"><div class="swatch-name">--cc-amber</div><div class="swatch-hex">#E8B93F · Warning</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#1759C4"></div><div class="swatch-info"><div class="swatch-name">--state-hover</div><div class="swatch-hex">#1759C4 · Hover state</div></div></div>
+  </div>
+
+  <h3 style="font-size:14px;color:var(--cc-navy);margin:24px 0 12px;">Background Colors</h3>
+  <div class="token-grid">
+    <div class="token-swatch"><div class="swatch" style="background:#EDF4FF; border-bottom:1px solid #D0D4D9;"></div><div class="swatch-info"><div class="swatch-name">--bg-primary</div><div class="swatch-hex">#EDF4FF</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#F9FAFB; border-bottom:1px solid #D0D4D9;"></div><div class="swatch-info"><div class="swatch-name">--bg-general</div><div class="swatch-hex">#F9FAFB</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#D9F3D0; border-bottom:1px solid #D0D4D9;"></div><div class="swatch-info"><div class="swatch-name">--bg-success</div><div class="swatch-hex">#D9F3D0</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#FFF6E0; border-bottom:1px solid #D0D4D9;"></div><div class="swatch-info"><div class="swatch-name">--bg-warning</div><div class="swatch-hex">#FFF6E0</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#FDE7E5; border-bottom:1px solid #D0D4D9;"></div><div class="swatch-info"><div class="swatch-name">--bg-error</div><div class="swatch-hex">#FDE7E5</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#E0E2E5; border-bottom:1px solid #D0D4D9;"></div><div class="swatch-info"><div class="swatch-name">--bg-disabled</div><div class="swatch-hex">#E0E2E5</div></div></div>
+  </div>
+
+  <h3 style="font-size:14px;color:var(--cc-navy);margin:24px 0 12px;">Gray Scale</h3>
+  <div class="token-grid">
+    <div class="token-swatch"><div class="swatch" style="background:#F3F4F5; border-bottom:1px solid #D0D4D9;"></div><div class="swatch-info"><div class="swatch-name">--gray-100</div><div class="swatch-hex">#F3F4F5</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#D0D4D9; border-bottom:1px solid #AEB3BC;"></div><div class="swatch-info"><div class="swatch-name">--gray-200</div><div class="swatch-hex">#D0D4D9</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#AEB3BC"></div><div class="swatch-info"><div class="swatch-name">--gray-300</div><div class="swatch-hex">#AEB3BC</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#7B8493"></div><div class="swatch-info"><div class="swatch-name">--gray-400</div><div class="swatch-hex">#7B8493</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#4D545E"></div><div class="swatch-info"><div class="swatch-name">--gray-500</div><div class="swatch-hex">#4D545E</div></div></div>
+    <div class="token-swatch"><div class="swatch" style="background:#2A2E34"></div><div class="swatch-info"><div class="swatch-name">--gray-600</div><div class="swatch-hex">#2A2E34</div></div></div>
+  </div>
+
+  <h3 style="font-size:14px;color:var(--cc-navy);margin:24px 0 12px;">Typography Scale (Figma node: 19:131)</h3>
+  <table class="variants-table" style="max-width:700px;">
+    <tr><th>Level</th><th>Weight</th><th>Size</th><th>Line-Height</th></tr>
+    <tr><td>H1</td><td>Bold</td><td>57.3px</td><td>80px</td></tr>
+    <tr><td>H2</td><td>Bold</td><td>47.78px</td><td>71.67px</td></tr>
+    <tr><td>H3</td><td>Semibold</td><td>39.81px</td><td>56px</td></tr>
+    <tr><td>H4</td><td>Semibold</td><td>27.65px</td><td>32px</td></tr>
+    <tr><td>H5</td><td>Semibold</td><td>23.04px</td><td>32px</td></tr>
+    <tr><td>H6</td><td>Semibold</td><td>19.2px</td><td>24px</td></tr>
+    <tr><td>Body</td><td>Medium</td><td>16px</td><td>24px</td></tr>
+    <tr><td>Small</td><td>Medium</td><td>13.33px</td><td>20px</td></tr>
+    <tr><td>XSmall</td><td>Medium</td><td>11.11px</td><td>16px</td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ATOMS SECTION -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="sec-atoms">
+  <div class="section-header">
+    <h2><span class="level-badge atom">Atoms</span> Foundational UI Elements</h2>
+    <p>The smallest, indivisible interface elements. Each atom maps to design tokens and appears across multiple modules.</p>
+  </div>
+  <div class="card-grid" id="atomCards"></div>
+</div>
+
+<!-- MOLECULES -->
+<div class="section" id="sec-molecules">
+  <div class="section-header">
+    <h2><span class="level-badge molecule">Molecules</span> Composed Elements</h2>
+    <p>Groups of atoms functioning together as a unit — form fields with labels, search bars, card headers, notification banners.</p>
+  </div>
+  <div class="card-grid" id="moleculeCards"></div>
+</div>
+
+<!-- ORGANISMS -->
+<div class="section" id="sec-organisms">
+  <div class="section-header">
+    <h2><span class="level-badge organism">Organisms</span> Complex Components</h2>
+    <p>Distinct sections of the interface composed of molecules and atoms — sidebars, data tables, form wizards, dashboards.</p>
+  </div>
+  <div class="card-grid" id="organismCards"></div>
+</div>
+
+<!-- SCREENS -->
+<div class="section" id="sec-screens">
+  <div class="section-header">
+    <h2><span class="level-badge screen">Screens</span> Full Page Views</h2>
+    <p>Complete page layouts combining organisms into distinct portal views, organized by portal type and module.</p>
+  </div>
+  <div id="screenContent"></div>
+</div>
+
+<!-- FLOWS -->
+<div class="section" id="sec-flows">
+  <div class="section-header">
+    <h2><span class="level-badge flow">Flows</span> Multi-Screen Journeys</h2>
+    <p>End-to-end user journeys connecting multiple screens into complete workflows, mapped to user stories.</p>
+  </div>
+  <div class="card-grid" id="flowCards"></div>
+</div>
+
+<!-- MODULE SECTIONS (13) -->
+<div class="section" id="sec-mod01"><div class="section-header"><h2>Module 01 — Identity & Access</h2><p>User registration, authentication, role management, and partner access configuration.</p></div><div id="mod01Content"></div></div>
+<div class="section" id="sec-mod02"><div class="section-header"><h2>Module 02 — Dealer Management</h2><p>Merchant onboarding, training, agreements, risk assessment, and company groups.</p></div><div id="mod02Content"></div></div>
+<div class="section" id="sec-mod03"><div class="section-header"><h2>Module 03 — Prequalification & Origination</h2><p>Applications, prequalification, offers, lender-specific flows, document signing, first payment.</p></div><div id="mod03Content"></div></div>
+<div class="section" id="sec-mod04"><div class="section-header"><h2>Module 04 — Underwriting & Verification</h2><p>Credit bureau, automated/manual underwriting, income verification, property/deed verification.</p></div><div id="mod04Content"></div></div>
+<div class="section" id="sec-mod05"><div class="section-header"><h2>Module 05 — Pricing & Equipment</h2><p>Equipment catalog, buydown pricing, quote generation, tax management, warranty.</p></div><div id="mod05Content"></div></div>
+<div class="section" id="sec-mod06"><div class="section-header"><h2>Module 06 — Document Management</h2><p>Document generation, secure storage, e-signature workflows and tracking.</p></div><div id="mod06Content"></div></div>
+<div class="section" id="sec-mod07"><div class="section-header"><h2>Module 07 — Installation & Funding</h2><p>Installation authorization, contractor payment, partner funding, charge requests.</p></div><div id="mod07Content"></div></div>
+<div class="section" id="sec-mod08"><div class="section-header"><h2>Module 08 — Billing & Payments</h2><p>Billing setup, payment processing, invoicing, fees, scheduling, reconciliation.</p></div><div id="mod08Content"></div></div>
+<div class="section" id="sec-mod09"><div class="section-header"><h2>Module 09 — Account Servicing</h2><p>Account lookup, maintenance, buyout, gamification, support, Momnt visibility, funding audit.</p></div><div id="mod09Content"></div></div>
+<div class="section" id="sec-mod10"><div class="section-header"><h2>Module 10 — Communications</h2><p>Email, SMS, in-portal notifications, real-time updates, and preferences.</p></div><div id="mod10Content"></div></div>
+<div class="section" id="sec-mod11"><div class="section-header"><h2>Module 11 — Promotions</h2><p>Promotion management, eligibility rules, and company-specific promotions.</p></div><div id="mod11Content"></div></div>
+<div class="section" id="sec-mod12"><div class="section-header"><h2>Module 12 — Administration</h2><p>System config, rate sheets, branding, reporting, data export, underwriting config.</p></div><div id="mod12Content"></div></div>
+<div class="section" id="sec-mod13"><div class="section-header"><h2>Module 13 — Integrations</h2><p>External system integrations, Momnt charge and readiness webhooks.</p></div><div id="mod13Content"></div></div>
+
+</div><!-- end main -->
+
+<script>
+// ══════════════════════════════════════════
+// DATA: Complete Component Inventory
+// ══════════════════════════════════════════
+
+const ATOMS = [
+  { name:"Button — Primary (Green CTA)", desc:"Main call-to-action. Green (#6CC24A) fill, white text, rounded corners.", states:"Default, Hover (#398F17), Active, Disabled (bg-disabled), Loading (spinner)", tokens:"--cc-green, --cc-green-dark, --bg-disabled", figma:"27:79", modules:["All"], stories:["US-3.4.1","US-3.9.1","US-7.4.1","US-8.1.1","US-11.3.1"] },
+  { name:"Button — Secondary (Navy Outline)", desc:"Secondary actions. Navy (#002F6C) border, transparent fill, navy text.", states:"Default, Hover (navy fill + white text), Active, Disabled", tokens:"--cc-navy, --state-hover", figma:"27:79", modules:["All"], stories:["US-3.7.1","US-8.1.4","US-19.2.5"] },
+  { name:"Button — Destructive (Red)", desc:"Destructive/cancel actions. Red (#DD331D) fill, white text.", states:"Default, Hover (darken), Confirmation required, Disabled", tokens:"--cc-red, --cc-red-text", figma:"27:79", modules:["03","07","08","09"], stories:["US-3.7.1","US-3.15.7","US-19.3.1"] },
+  { name:"Button — Ghost/Text", desc:"Minimal text-only button for tertiary actions. No background, link-colored text.", states:"Default, Hover (underline), Active", tokens:"--cc-blue-main", figma:"27:79", modules:["All"], stories:[] },
+  { name:"Button — Icon", desc:"Square icon-only button for compact actions (copy, refresh, download, call).", states:"Default, Hover, Active, Disabled", tokens:"--gray-400, --state-hover", figma:"8183:39145", modules:["All"], stories:["US-2.4.9","US-10.3.2","US-16.1.1"] },
+  { name:"Text Input", desc:"Standard single-line input with label, placeholder, and validation states.", states:"Empty, Focused (navy ring), Filled, Error (red border + message), Disabled", tokens:"--text-placeholder, --cc-navy, --cc-red, --bg-disabled", figma:"27:79", modules:["All"], stories:["US-2.1.3","US-3.2.2","US-3.12.1","US-8.1.2"] },
+  { name:"Text Area", desc:"Multi-line text input for notes, descriptions, and rationale fields.", states:"Empty, Focused, Filled, Error, Disabled, Character count", tokens:"--text-placeholder, --cc-navy", figma:"27:79", modules:["04","09","16"], stories:["US-4.3.3","US-16.3.1"] },
+  { name:"Select / Dropdown", desc:"Single-selection dropdown with label. Used for roles, statuses, config types.", states:"Closed, Open (dropdown visible), Selected, Error, Disabled", tokens:"--cc-navy, --gray-100", figma:"27:79", modules:["All"], stories:["US-1.2.1","US-8.1.3","US-20.2.2"] },
+  { name:"Checkbox", desc:"Boolean toggle for consents, eligibility flags, feature toggles.", states:"Unchecked, Checked (green), Indeterminate, Disabled", tokens:"--cc-green, --bg-disabled", figma:"27:79", modules:["01","03","05","10","12"], stories:["US-3.12.4","US-5.7.2","US-15.5.1"] },
+  { name:"Toggle Switch", desc:"On/off switch for feature flags, autopay, partner enable/disable.", states:"Off (gray), On (green), Disabled", tokens:"--cc-green, --gray-300, --bg-disabled", figma:"27:79", modules:["01","08","10","12"], stories:["US-8.1.3","US-8.1.4","US-20.1.1","US-20.3.2"] },
+  { name:"Radio Button", desc:"Single-selection from mutually exclusive options (payment type, decision).", states:"Unselected, Selected (navy fill), Disabled", tokens:"--cc-navy, --bg-disabled", figma:"27:79", modules:["03","04","08","09"], stories:["US-4.3.3","US-9.4.3","US-11.3.1"] },
+  { name:"Date Picker", desc:"Calendar input for scheduling installs, payments, promotions.", states:"Empty, Focused, Date selected, Range mode, Error, Disabled", tokens:"--cc-navy, --cc-green", figma:"27:79", modules:["03","07","08","11","17"], stories:["US-3.12.7","US-7.4.6","US-8.1.5","US-11.5.1"] },
+  { name:"Badge / Pill", desc:"Small label indicating status, count, or category.", variants:"Success (green), Warning (amber), Error (red), Info (blue), Neutral (gray)", tokens:"--bg-success/--cc-green-dark, --bg-warning/--cc-amber-text, --bg-error/--cc-red-text, --bg-primary/--cc-blue-info, --gray-100/--gray-500", figma:"27:79", modules:["All"], stories:["US-2.2.1","US-4.3.3","US-14.1.1","US-19.1.2"] },
+  { name:"Status Indicator Dot", desc:"Tiny colored circle for inline status (active, inactive, connected, error).", variants:"Green (active), Amber (pending), Red (error), Gray (inactive)", tokens:"--cc-green, --cc-amber, --cc-red, --gray-300", figma:"", modules:["01","02","04","09","13"], stories:["US-2.4.9","US-9.18.1"] },
+  { name:"Avatar", desc:"User or dealer avatar circle with initials or image.", states:"Image loaded, Initials fallback, Online indicator", tokens:"--cc-navy, --gray-100", figma:"8183:39145", modules:["01","09"], stories:["US-1.3.1","US-16.2.2"] },
+  { name:"Icon (Lucide set)", desc:"Line icons used throughout for navigation, actions, status. Consistent 20px/24px sizes.", variants:"Navigation (home, users, file, settings), Action (edit, trash, download, copy), Status (check-circle, x-circle, alert-triangle, info)", tokens:"--gray-400 (default), --cc-navy (active), --cc-green (success), --cc-red (error)", figma:"8183:39145", modules:["All"], stories:[] },
+  { name:"Logo — ComfortConnect", desc:"Horizontal and icon-only brand marks. Color on white, white on navy variants.", variants:"Horizontal Color, Horizontal White, Icon Color, Icon White, Co-Brand Color, Co-Brand White, Co-Brand Black", tokens:"--cc-navy, --cc-navy-dark", figma:"5507:327669, 5507:327621, 11857:39471, 5507:327422", modules:["All"], stories:["US-12.8.1–5"] },
+  { name:"Spinner / Loader", desc:"Circular loading indicator for async operations.", variants:"Small (16px inline), Medium (24px button), Large (40px page)", tokens:"--cc-navy, --cc-green", figma:"", modules:["All"], stories:["US-2.4.9","US-4.1.1","US-15.4.1"] },
+  { name:"Divider / Separator", desc:"Horizontal or vertical line separating content sections.", variants:"Full-width, Inset (left margin), Vertical", tokens:"--gray-200", figma:"", modules:["All"], stories:[] },
+  { name:"Tooltip", desc:"Contextual help text on hover. Appears above/below trigger element.", states:"Hidden, Visible (with arrow)", tokens:"--gray-600, --gray-100", figma:"", modules:["01","05","09","12"], stories:["US-5.8.2","US-9.18.1"] },
+  { name:"Label — Form Section (Orange)", desc:"Uppercase orange (#EE8F1E) section headers above form groups. Portal 2.0 signature pattern.", states:"Static display only", tokens:"--cc-orange", figma:"198:43799", modules:["02","03","05","08"], stories:["US-2.1.3","US-3.12.1","US-8.1.1"] },
+  { name:"Link — Inline", desc:"Blue (#009CDE) text link for navigation, document access, external references.", states:"Default, Hover (underline), Visited, Active", tokens:"--cc-blue-main, --state-hover", figma:"", modules:["All"], stories:["US-10.3.2","US-15.1.2","US-16.4.1"] },
+  { name:"Progress Bar", desc:"Horizontal bar showing completion percentage for training, uploads, processes.", states:"0% empty, Partial (green fill), 100% complete, Indeterminate (animated)", tokens:"--cc-green, --gray-200", figma:"", modules:["02","05","06","07"], stories:["US-2.5.3","US-10.3.3"] },
+  { name:"Tag / Chip", desc:"Removable label for filters, categories, multi-select values.", states:"Default, Hover, Selected, Removable (with × icon)", tokens:"--bg-primary, --cc-blue-info", figma:"", modules:["09","11","12"], stories:["US-9.19.2","US-17.1.2"] },
+  { name:"Currency Input", desc:"Text input formatted for dollar amounts with $ prefix and thousand separators.", states:"Empty, Focused, Filled (formatted), Error, Disabled", tokens:"--text-heading, --cc-navy", figma:"", modules:["03","05","07","08"], stories:["US-3.6.1","US-5.8.2","US-7.4.1","US-8.1.1","US-11.3.1"] },
+  { name:"Percentage Input", desc:"Input constrained to percentage values with % suffix.", states:"Empty, Focused, Filled, Error", tokens:"--text-heading", figma:"", modules:["04","05","12"], stories:["US-4.6.4","US-5.8.1","US-12.8.1"] },
+  { name:"SSN Input (Masked)", desc:"Social Security Number input with masking (XXX-XX-1234). Auto-format on entry.", states:"Empty, Partial entry, Masked display, Error", tokens:"", figma:"", modules:["02","03"], stories:["US-2.1.3","US-3.2.2","US-3.12.1"] },
+  { name:"Phone Input", desc:"Phone number input with (XXX) XXX-XXXX auto-formatting.", states:"Empty, Focused, Formatted, Error", tokens:"", figma:"", modules:["01","02","03"], stories:["US-1.1.1","US-2.1.3","US-3.12.1"] },
+  { name:"OTP Input", desc:"6-digit one-time password entry with individual character boxes.", states:"Empty, Partial, Complete, Error (invalid), Expired", tokens:"--cc-navy, --cc-red", figma:"", modules:["01","10"], stories:["US-1.1.2","US-15.2.1"] },
+  { name:"File Input / Drop Zone", desc:"Drag-and-drop upload area with browse button. Accepts documents, images.", states:"Empty (dashed border), Drag over (highlight), File selected (preview), Uploading (progress), Error", tokens:"--bg-primary, --cc-navy, --cc-green", figma:"", modules:["02","04","06","07"], stories:["US-2.2.3","US-4.4.2","US-10.3.3","US-14.2.1"] },
+  { name:"Search Input", desc:"Input with magnifying glass icon and clear button for search bars.", states:"Empty, Focused, With text, Loading results", tokens:"--text-placeholder, --cc-navy", figma:"", modules:["05","09","12"], stories:["US-13.1.1","US-16.1.1","US-9.19.2"] },
+  { name:"Breadcrumb", desc:"Navigation path showing hierarchy. Separator between levels.", states:"Current page (bold), Ancestor (link), Separator (>)", tokens:"--cc-blue-main, --text-body, --gray-300", figma:"", modules:["12"], stories:["US-12.8.1"] },
+  { name:"Tab", desc:"Horizontal tab for switching between related content panels.", states:"Inactive, Active (navy underline), Hover, Disabled", tokens:"--cc-navy, --gray-400", figma:"", modules:["03","08","09","12"], stories:["US-3.12.1","US-8.1.1","US-9.18.2"] },
+  { name:"Stepper Dot (Vertical/Horizontal)", desc:"Individual step indicator in a multi-step process. Green check (done), navy numbered (active), gray (pending).", states:"Completed (green ✓), Active (navy number + ring shadow), Pending (white + gray border)", tokens:"--cc-green, --cc-navy, --gray-200", figma:"4166:386206", modules:["02","03","07"], stories:["US-2.1.3","US-3.4.1","US-14.1.1"] },
+  { name:"Tracker Pill", desc:"Individual pill in the 7-stage tracker bar (Apply→Sign→Pay→Authorize→Install→Review→Fund).", states:"Completed (navy), Active (green), Pending (gray), Rounded end caps", tokens:"--cc-navy, --cc-green, --gray-200", figma:"3035:34235", modules:["03","07","09"], stories:["US-3.4.1","US-7.4.7","US-9.18.2"] },
+  { name:"Notification Dot / Badge Count", desc:"Small red dot or number badge on bell icon or nav items for unread counts.", states:"Hidden (0), Dot (unread), Count (number)", tokens:"--cc-red", figma:"11:1717", modules:["10"], stories:["US-15.3.1"] },
+  { name:"Skeleton Loader", desc:"Placeholder gray shapes shown while content loads. Matches target layout.", variants:"Text line, Card, Table row, Avatar", tokens:"--gray-100, --gray-200", figma:"", modules:["All"], stories:[] },
+  { name:"Empty State Illustration", desc:"Illustrated message shown when a list/table has no data. Includes action prompt.", states:"No data, No results (with clear filter), Error state", tokens:"--gray-300, --text-body", figma:"", modules:["All"], stories:[] },
+  { name:"Color Swatch (Admin)", desc:"Small color preview circle/square used in brand profile configuration.", states:"Selected (border ring), Default", tokens:"", figma:"", modules:["02","12"], stories:["US-2.10.brand"] },
+  { name:"Star Rating", desc:"1-5 star rating display for customer satisfaction and dealer performance.", states:"Empty, Partial, Full, Interactive (click to rate), Read-only", tokens:"--cc-amber, --gray-200", figma:"", modules:["09"], stories:["US-9.5.2"] },
+  { name:"Consent Checkbox (Legal)", desc:"Checkbox with linked legal text (Terms, Privacy, E-Sign consent). Must be individually checkable.", states:"Unchecked, Checked, Error (required)", tokens:"--cc-green, --cc-red", figma:"", modules:["03"], stories:["US-3.12.4"] },
+  { name:"Micro-Deposit Amount Input", desc:"Small currency input for verifying micro-deposit amounts ($0.XX format).", states:"Empty, Filled, Verified (green), Failed (red)", tokens:"--cc-green, --cc-red", figma:"", modules:["02"], stories:["US-2.4.5"] },
+];
+
+const MOLECULES = [
+  { name:"Form Field Group", desc:"Label + Input + Helper text + Error message combined. The building block of every form.", atoms:["Label (Orange section or standard)","Text Input / Select / Date Picker","Helper text (gray-400)","Error message (red)"], tokens:"--cc-orange (section label), --cc-red-text (error), --text-placeholder", modules:["All"], stories:["US-2.1.3","US-3.12.1","US-8.1.1"] },
+  { name:"Search Bar with Results", desc:"Search input + auto-complete dropdown with result cards grouped by entity type.", atoms:["Search Input","Spinner","Result card items","Entity group headers"], tokens:"--bg-primary, --cc-navy", modules:["01","09","12"], stories:["US-16.1.1","US-9.19.2"] },
+  { name:"Notification Banner", desc:"Full-width colored banner with icon, message, and optional action button.", variants:"Info (blue), Success (green), Warning (amber), Error (red)", atoms:["Icon","Text","Dismiss button","Action link"], tokens:"--bg-primary/--cc-blue-info, --bg-success/--cc-green-dark, --bg-warning/--cc-amber-text, --bg-error/--cc-red-text", figma:"11:1717", modules:["All"], stories:["US-4.1.4","US-11.3.5","US-15.3.1"] },
+  { name:"Status Badge Pill", desc:"Badge with status text and colored background. Used for application, funding, enrollment states.", variants:"Approved, Pending, In Review, Declined, Funded, Active, Inactive, Draft, Cancelled", atoms:["Badge","Status Indicator Dot"], tokens:"Various state colors", modules:["All"], stories:["US-2.2.1","US-3.3.1","US-7.4.7","US-19.1.2"] },
+  { name:"Metric Card (KPI)", desc:"Card displaying a large number, label, and optional trend indicator. Used across dashboards.", atoms:["Large number text","Label text","Trend arrow icon","Sparkline (optional)"], tokens:"--cc-navy, --cc-green (up), --cc-red (down)", modules:["02","05","08","09","12"], stories:["US-2.8.3","US-7.2.2","US-9.5.1","US-21.4.1"] },
+  { name:"Confirmation Dialog", desc:"Modal overlay with title, message, and Confirm/Cancel buttons. Used for destructive actions.", atoms:["Title","Message text","Button Primary","Button Secondary","Backdrop"], tokens:"--cc-red (destructive), --cc-navy (standard)", modules:["All"], stories:["US-3.7.1","US-8.1.4","US-11.5.2","US-19.3.1"] },
+  { name:"Stepper (Progress Indicator)", desc:"Connected sequence of stepper dots showing multi-step progress. Vertical and horizontal variants.", atoms:["Stepper Dot (completed/active/pending)","Connector line (3px)","Step label"], tokens:"--cc-green, --cc-navy, --gray-200", figma:"4166:386206", modules:["02","03","07"], stories:["US-2.1.3","US-3.4.1","US-14.1.1"] },
+  { name:"Tracker Pill Bar", desc:"7-stage horizontal pill bar: Apply→Sign→Pay→Authorize→Install→Review→Fund. Shows deal progress.", atoms:["Tracker Pill × 7","Rounded end caps"], tokens:"--cc-navy, --cc-green, --gray-200", figma:"3035:34235", modules:["03","07","09"], stories:["US-3.4.1","US-7.4.7","US-9.18.2"] },
+  { name:"Document Upload Card", desc:"File upload zone with file list, progress bar, and validation status.", atoms:["File Input / Drop Zone","File name/size display","Progress Bar","Remove button","Status icon"], tokens:"--bg-primary, --cc-green, --cc-red", modules:["02","04","06","07"], stories:["US-2.2.3","US-4.4.2","US-10.3.3","US-14.2.1"] },
+  { name:"Offer Comparison Card", desc:"Financing option card showing monthly payment, term, total cost, and partner logo.", atoms:["Partner logo","Monthly payment (large)","Term text","Total cost","Select button"], tokens:"--cc-navy, --cc-green", figma:"198:42813", modules:["03"], stories:["US-3.5.1","US-3.5.2"] },
+  { name:"Account Readiness Card", desc:"Momnt-specific status card showing Welcome Call and Portal Setup readiness with color-coded badges.", atoms:["Card container","Status badge (Welcome Call)","Status badge (Portal Setup)","Timestamp","Warning highlight"], tokens:"--cc-navy, --bg-warning, --bg-success, --bg-error", modules:["03","07","09"], stories:["US-7.4.1","US-9.18.1"] },
+  { name:"Credit Score Display", desc:"Visual representation of FICO score with tier indicator and gauge.", atoms:["Score number (large)","Tier badge","Color bar (red→green range)","Label"], tokens:"--cc-red, --cc-amber, --cc-green", modules:["03","04"], stories:["US-4.1.1","US-4.2.1","US-4.6.1"] },
+  { name:"Payment Method Card", desc:"Stored payment method display with masked account number, type icon, and edit/remove actions.", atoms:["Bank/card icon","Account type label","Masked number","Edit button","Remove button","Default indicator"], tokens:"--cc-navy, --gray-100", modules:["08"], stories:["US-8.1.2"] },
+  { name:"Invoice Line Item Row", desc:"Single row in an invoice showing description, quantity, amount. Supports multi-lease itemization.", atoms:["Description text","Quantity","Amount (currency)","Subtotal"], tokens:"--text-body, --text-heading", modules:["07","08"], stories:["US-8.1.1","US-11.2.1","US-14.2.1"] },
+  { name:"Notification Item", desc:"Single notification in the bell dropdown: icon + message + timestamp + read/unread indicator.", atoms:["Type icon","Message text","Relative timestamp","Read/unread dot","Dismiss button"], tokens:"--cc-blue-info, --gray-400", figma:"11:1717", modules:["10"], stories:["US-15.3.1","US-15.3.2"] },
+  { name:"Account Summary Card", desc:"Quick-view card for an account: holder name, account #, status badge, balance, next payment date.", atoms:["Account holder name","Account number","Status badge","Balance amount","Next payment date","View details link"], tokens:"--cc-navy, --text-heading", modules:["09"], stories:["US-16.1.2"] },
+  { name:"Task Card", desc:"Service task display: title, assignee, due date, status, linked account.", atoms:["Task title","Assignee avatar + name","Due date","Status badge","Account link"], tokens:"--cc-navy, --cc-amber (overdue)", modules:["09"], stories:["US-16.2.1","US-16.2.2","US-16.2.3"] },
+  { name:"Achievement Badge", desc:"Gamification achievement display with icon, name, and earned/locked state.", atoms:["Badge icon","Achievement name","Earned date or locked overlay"], tokens:"--cc-green (earned), --gray-300 (locked)", modules:["09"], stories:["US-9.5.2"] },
+  { name:"Reward Tier Card", desc:"Tier progress display showing current tier, next tier, payments remaining, and benefit.", atoms:["Tier name (Bronze/Silver/Gold/Platinum)","Progress bar","Payments count","Benefit description"], tokens:"--cc-amber (bronze), --gray-300 (silver), --cc-amber (gold), --cc-navy (platinum)", modules:["09"], stories:["US-9.4.2"] },
+  { name:"Promotion Card", desc:"Available promotion display: discount, eligible products, dates, apply button.", atoms:["Promotion name","Discount badge","Product types","Date range","Apply button"], tokens:"--cc-green, --cc-orange", modules:["11"], stories:["US-17.1.1","US-17.1.5"] },
+  { name:"Rate Sheet Row", desc:"Single rate configuration showing APR, term, dealer fee, credit tier, product type.", atoms:["APR display","Term (months)","Dealer fee %","Credit tier badge","Product name","Active toggle"], tokens:"--cc-navy, --gray-100", modules:["12"], stories:["US-12.8.1","US-12.8.5"] },
+  { name:"Partner Toggle Row", desc:"Row in partner configuration grid: partner name, enable/disable toggle, role dropdown.", atoms:["Partner name","Toggle switch","Role dropdown","Status indicator"], tokens:"--cc-green (enabled), --gray-300 (disabled)", modules:["01","12"], stories:["US-1.4.1","US-20.1.1","US-20.1.2"] },
+  { name:"Training Course Card", desc:"Course listing card: title, duration, completion %, lesson count, resume/start button.", atoms:["Course title","Duration badge","Progress bar","Lesson count","Action button"], tokens:"--cc-navy, --cc-green", modules:["02"], stories:["US-2.5.1","US-2.5.3"] },
+  { name:"Brand Profile Preview", desc:"Side-by-side preview of dealer branding: logo, tagline, primary/accent colors applied to sample screen.", atoms:["Logo preview","Tagline text","Color swatches","Sample button","Sample header"], tokens:"Custom dealer colors", modules:["02","12"], stories:["US-2.10.brand","US-12.brand.approve"] },
+  { name:"Delinquency Aging Bar", desc:"Horizontal segmented bar showing 30/60/90+ days past due with amounts.", atoms:["Segment blocks","Day range labels","Amount labels","Color gradient (amber → red)"], tokens:"--cc-amber, --cc-red", modules:["08","12"], stories:["US-11.4.2","US-21.1.3"] },
+  { name:"Quick Action Toolbar", desc:"Floating/fixed bar with 4 primary action buttons: Add Note, Create Task, Initiate Call, Generate Payment Link.", atoms:["Button Icon × 4","Button labels","Dividers"], tokens:"--cc-navy, --gray-100", modules:["09"], stories:["US-16.3.1","US-16.2.1"] },
+  { name:"Signature Capture Box", desc:"E-signature input area with 'Sign here' prompt, date/name capture, and clear button.", atoms:["Signature pad area","Name input","Date display (auto)","Clear button","Sign button"], tokens:"--cc-navy, --gray-200", modules:["03","06"], stories:["US-3.8.2","US-10.2.2"] },
+  { name:"Equipment Detail Card", desc:"Equipment display: make, model, serial, install date, warranty status, service history link.", atoms:["Equipment image (optional)","Make/Model text","Serial number","Install date badge","Warranty status","Service history link"], tokens:"--cc-navy", modules:["05","09"], stories:["US-13.1.1","US-13.1.3"] },
+  { name:"DTI Calculation Display", desc:"Debt-to-Income ratio visualization with breakdown: total debt, monthly income, ratio percentage, threshold.", atoms:["Monthly debt amount","Monthly income amount","DTI percentage (large)","Threshold bar","Pass/Fail indicator"], tokens:"--cc-green (pass), --cc-red (fail), --cc-amber (near limit)", modules:["04"], stories:["US-4.2.3","US-4.6.4"] },
+  { name:"Canned Response Selector", desc:"Dropdown of note templates by category (Payment Inquiry, Maintenance, Complaint, Collections, General).", atoms:["Category dropdown","Template list","Preview text","Insert button"], tokens:"--gray-100", modules:["09"], stories:["US-16.3.1"] },
+  { name:"Webhook Status Row", desc:"Admin monitoring row: timestamp, event type, status badge, retry count, payload toggle.", atoms:["Timestamp","Event type label","Status badge","Retry count","Expand icon"], tokens:"--cc-green (success), --cc-red (failed), --cc-amber (retrying)", modules:["13"], stories:["US-13.6.1","US-13.6.2"] },
+  { name:"Multi-Lease Component Row", desc:"Side-by-side display of lease components (Equipment, Ground Loop) with individual status, payment, signing progress.", atoms:["Component name","Status badge","Monthly payment","Balance","Signing status icon"], tokens:"--cc-navy", modules:["03","06","07","08"], stories:["US-3.multilease"] },
+  { name:"Permission Toggle Grid", desc:"Matrix of role permissions with checkboxes per action/resource combination.", atoms:["Row labels (resources)","Column headers (actions)","Checkbox grid","Save button"], tokens:"--cc-green, --gray-100", modules:["01"], stories:["US-1.2.2"] },
+  { name:"Scoring Criteria Row", desc:"Configurable scoring factor with weight slider/input for merchant risk assessment.", atoms:["Factor name","Weight percentage input","Description","Slider (optional)"], tokens:"--cc-navy", modules:["02"], stories:["US-2.8.4"] },
+  { name:"Referral Form", desc:"Simple form for submitting referrals: friend/business name, email/phone, submit.", atoms:["Name input","Email/phone input","Submit button","Confirmation message"], tokens:"--cc-green", modules:["11"], stories:["US-17.referral"] },
+  { name:"Audit Log Entry", desc:"Single immutable audit log row: timestamp, actor, action, target, IP address, metadata.", atoms:["UTC timestamp","Actor name + role","Action verb","Target resource","IP address","Expand details"], tokens:"--gray-100, --text-body", modules:["01","07","09","12"], stories:["US-1.audit","US-7.4.8","US-9.19.1"] },
+  { name:"Batch Upload Summary", desc:"Post-upload validation summary: total rows, accepted count, rejected count with error details.", atoms:["Total count","Accepted badge (green)","Rejected badge (red)","Error detail rows","Confirm button"], tokens:"--cc-green, --cc-red", modules:["07"], stories:["US-7.batch"] },
+  { name:"Payment Link Generator", desc:"Form to generate a single-use payment link: amount input (or pre-filled balance), delivery method (SMS/email), send button.", atoms:["Amount input (pre-filled)","Delivery method radio","Send button","Generated link display","Copy button"], tokens:"--cc-green, --cc-navy", modules:["08","09"], stories:["US-8.paylink","US-16.quickaction"] },
+];
+
+const ORGANISMS = [
+  { name:"App Sidebar (Dark Navy)", desc:"Fixed left navigation panel with icon-only nav links, hover labels, bottom-anchored Settings/Profile/Logout. Dark navy (#002147) background.", figma:"8183:39145", components:["Logo Icon","Nav Link (icon + hover label) × N","Divider","Settings link","Profile avatar","Logout link"], tokens:"--cc-navy-dark, --cc-green (active indicator)", modules:["All"], stories:["US-12.8.1"] },
+  { name:"Top Bar", desc:"Fixed top header bar: ComfortConnect logo left, global search center, notification bell + user dropdown right. Navy (#002F6C).", figma:"8183:39145", components:["Logo Horizontal","Search Bar","Notification Bell + Badge Count","User Avatar + Dropdown"], tokens:"--cc-navy", modules:["All"], stories:["US-12.8.1"] },
+  { name:"Multi-Step Form Wizard", desc:"Multi-page form with stepper, form sections with orange labels, save draft, and navigation (Back/Next/Submit). Used for merchant applications, homeowner applications.", components:["Stepper","Form Field Group × N","Orange Section Labels","Back Button","Next/Submit Button","Draft Save indicator","Validation summary"], figma:"198:43799", tokens:"--cc-orange, --cc-green, --cc-navy", modules:["02","03","08"], stories:["US-2.1.3","US-3.12.1","US-8.1.1"] },
+  { name:"Data Table (Sortable/Filterable)", desc:"Full-featured table with column sorting, filtering, pagination, row selection, bulk actions, and export. Used for accounts, applications, reports.", components:["Table header (sortable columns)","Filter bar","Table rows","Pagination","Row checkbox","Bulk action bar","Export button","Empty state"], tokens:"--cc-navy (header), --gray-100 (zebra), --state-hover-secondary", modules:["All"], stories:["US-9.19.2","US-11.2.2","US-21.1.1","US-21.4.2"] },
+  { name:"E-Signature Portal", desc:"Full document signing experience: document preview with scroll, signature capture box, confirmation screen, signed copy download.", components:["Document PDF viewer","Scroll progress indicator","Signature Capture Box","Confirmation banner","Download button","Multi-party tracking"], figma:"", tokens:"--cc-navy, --cc-green", modules:["03","06"], stories:["US-3.8.2","US-10.2.1","US-10.2.2"] },
+  { name:"Application Pipeline View", desc:"Kanban-style or table view of all applications by status. Shows pipeline stages, counts, drill-down to individual apps.", components:["Stage columns/tabs","Application cards","Status badges","Filter bar","Sort options","Count badges per stage"], tokens:"--cc-navy, --cc-green, --cc-amber, --cc-red", modules:["03","12"], stories:["US-21.1.1","US-21.4.2","US-12.8.pipeline"] },
+  { name:"Quote Calculator", desc:"Project amount input → financing option cards displayed side-by-side with monthly payment, term, total cost. Supports bundle selection and buy-down toggles.", components:["Amount input","Equipment bundle selector","Buy-down toggle","Offer Comparison Cards × N","Tax rate indicator","Total display"], tokens:"--cc-navy, --cc-green", modules:["03","05"], stories:["US-7.1.1","US-7.1.2","US-5.8.2","US-5.8.3"] },
+  { name:"Manual Review Queue", desc:"Sortable list/table of applications pending underwriter review with priority, key metrics, and quick-action buttons.", components:["Data Table","Priority indicator","Applicant name","FICO score","DTI ratio","Status badge","Review button"], tokens:"--cc-navy, --cc-amber (high priority)", modules:["04"], stories:["US-4.3.1","US-4.3.2","US-4.3.3"] },
+  { name:"Underwriting Decision Panel", desc:"Full underwriting review interface: credit report display, rule matches, decision radio buttons, rationale text area, submit.", components:["Credit Score Display","Credit report sections","Rule match list","Decision radio group (Approve/Approve Less/Decline)","Rationale textarea","Submit button","DTI Calculation Display"], tokens:"--cc-navy, --cc-green (approve), --cc-red (decline)", modules:["03","04"], stories:["US-3.11.4","US-4.3.3"] },
+  { name:"Installation Authorization Panel", desc:"Pre-installation checklist with status indicators, authorize button, and completion form.", components:["Checklist items (Docs signed ✓, Payment ✓, Verifications ✓)","Authorize button (green)","Completion date picker","Service details textarea","Photo upload","Submit button"], tokens:"--cc-green, --cc-red (incomplete)", modules:["07"], stories:["US-14.1.1","US-14.1.2"] },
+  { name:"Momnt Charge Request Panel", desc:"Charge initiation interface with amount review, Account Readiness card, Initiate/Schedule buttons, scheduling calendar, status tracking.", components:["Charge amount input","Account Readiness Card","Initiate Charge button","Schedule Charge button","Date Picker (schedule)","Recommended date display","Status tracking timeline","Error/rejection display"], tokens:"--cc-green, --cc-navy, --bg-warning", modules:["07","09"], stories:["US-7.4.1","US-7.4.6","US-7.4.7","US-9.18.2"] },
+  { name:"Billing Dashboard", desc:"Homeowner billing view: balance due card, current statement, payment method, autopay status, recent payments table, make payment button.", components:["Balance Due card","Current Statement view","Payment Method Card","Autopay toggle","Recent Payments table","Make Payment button","Payment Link (CSR)","Multi-lease itemized breakdown"], tokens:"--cc-navy, --cc-green", modules:["08"], stories:["US-8.1.1","US-11.2.1","US-11.2.2","US-11.2.4","US-11.3.1"] },
+  { name:"Payment Processing Form", desc:"One-time payment form: amount input, payment method selector, confirm button, receipt generation.", components:["Amount input","Payment method dropdown","Confirm button","Receipt display","Refund option (CSR)","Error handling display"], tokens:"--cc-green, --cc-red (failure)", modules:["08"], stories:["US-11.3.1","US-11.3.3","US-11.3.4","US-11.3.5"] },
+  { name:"Notification Center", desc:"Bell icon dropdown panel listing recent notifications with read/unread states, mark-all-read, and link to preferences.", components:["Bell icon + Badge Count","Notification Item list","Mark all read button","View all link","Preferences link","Empty state"], figma:"11:1717", tokens:"--cc-navy, --bg-primary", modules:["10"], stories:["US-15.3.1","US-15.3.2"] },
+  { name:"Notification Preferences Panel", desc:"User settings panel with channel toggles (Email/SMS/In-App) and per-type granular controls.", components:["Channel toggle rows","Notification type sub-toggles","Save button","Reset to defaults"], tokens:"--cc-green (on), --gray-300 (off)", modules:["10"], stories:["US-15.5.1"] },
+  { name:"Dealer Performance Dashboard", desc:"Admin dashboard: KPI metric cards (volume, approval rate, funded totals), period comparison, trend charts, drill-down to reps.", components:["Metric Cards × N","Period selector","Trend chart","Dealer table","Rep drill-down link","Export button"], tokens:"--cc-navy, --cc-green (positive), --cc-red (negative)", modules:["09","12"], stories:["US-9.5.1","US-21.4.1"] },
+  { name:"Report Builder", desc:"Admin reporting tool: filter panel (date, dealer, status, partner), generate button, save preset, schedule delivery.", components:["Filter sidebar (dropdowns, date range)","Generate button","Results table/chart","Save preset button","Schedule delivery form","Export button (CSV/Excel)"], tokens:"--cc-navy", modules:["12"], stories:["US-21.1.1","US-21.1.2","US-21.1.3","US-21.3.1","US-21.3.2"] },
+  { name:"Account Detail View", desc:"Full account detail page with tabs: Summary, Equipment, Billing, Documents, Notes, Timeline, Funding Attribution.", components:["Account header (name, #, status)","Tab bar","Summary panel","Equipment cards","Billing section","Document list","Notes editor","Timeline","Funding Attribution section","Quick Action Toolbar"], tokens:"--cc-navy, --gray-100", modules:["09"], stories:["US-16.1.2","US-9.18.1","US-9.18.2","US-9.19.1"] },
+  { name:"Gamification Dashboard", desc:"Dealer rewards view: leaderboard table, achievement badges grid, performance incentive tiers, personal stats.", components:["Leaderboard table","Achievement badges grid","Incentive tier cards","Personal metric cards","Tier progress indicators"], tokens:"--cc-green, --cc-amber, --cc-navy", modules:["09"], stories:["US-9.5.1","US-9.5.2","US-9.5.3"] },
+  { name:"Worry-Free Rewards Panel", desc:"Homeowner rewards: large balance display, quarterly earning history table, redemption options (Apply/Buyout/Donate).", components:["Balance display (large)","Quarterly table","Redemption modal","Tier progress card","Suspension notice"], tokens:"--cc-green, --cc-navy, --cc-amber", modules:["09"], stories:["US-9.4.1","US-9.4.2","US-9.4.3","US-12.4.1"] },
+  { name:"Merchant Risk Assessment Panel", desc:"AI-powered assessment display: risk score gauge, recommendation, confidence level, key factors, positive indicators, web validation results.", components:["Risk score gauge (1-10)","Recommendation badge","Confidence indicator","Risk factors list","Positive indicators list","Web validation results","History comparison","Override controls"], tokens:"--cc-green (low risk), --cc-amber (medium), --cc-red (high)", modules:["02"], stories:["US-2.8.1","US-2.8.2","US-2.8.3","US-2.8.5"] },
+  { name:"Partner Enrollment Panel", desc:"Multi-partner enrollment status view: cards per partner (Premier, Momnt, Microf, Breeze, Thrive) with status, IDs, and activation actions.", components:["Partner card × 5","Enrollment status badge per partner","Partner ID display","Activate/Refresh button","Micro-deposit verification (Momnt)","Training completion (Momnt)"], tokens:"--cc-green (active), --cc-amber (pending), --gray-300 (inactive)", modules:["02"], stories:["US-2.4.1–9"] },
+  { name:"Credit Tier Configuration Table", desc:"Admin table for configuring credit tiers: score ranges, risk levels, max approval, DTI limits.", components:["Tier configuration rows","Score range inputs","Risk level dropdown","Max approval currency input","DTI limit inputs","Save button","Override audit trail"], tokens:"--cc-navy, --gray-100", modules:["04"], stories:["US-4.6.1","US-4.6.2","US-4.6.3","US-4.6.4"] },
+  { name:"Rate Sheet Manager", desc:"Admin rate sheet CRUD: APR, term, dealer fee, credit tier, product type, eligibility rules, activate/deactivate, change history.", components:["Rate sheet table","Add/Edit form","Eligibility rule builder","Active/Inactive toggle","Change history timeline","Promotional rate section"], tokens:"--cc-navy", modules:["12"], stories:["US-12.8.1–6"] },
+  { name:"Buyout Process Panel", desc:"Account buyout flow: request button, quote generation, amount display, payment processing, completion confirmation.", components:["Request button","Buyout quote display (amount breakdown)","Payment form","Completion confirmation","Cancel option","Buyout letter generation"], tokens:"--cc-navy, --cc-green", modules:["09"], stories:["US-19.2.1–5"] },
+  { name:"Maintenance Request Form", desc:"Service request submission: issue description, date preference, contractor assignment, appointment scheduling, completion recording.", components:["Issue description textarea","Date preference picker","Contractor display","Appointment confirmation","Completion form","Invoice submission"], tokens:"--cc-navy", modules:["09"], stories:["US-12.1.1","US-12.1.2","US-12.1.3","US-12.3.1"] },
+  { name:"Batch Invoice Upload Panel", desc:"Admin batch upload: drag-drop CSV/Excel, validation summary (accepted/rejected), review table, approve and process funding.", components:["File drop zone","Validation summary card","Review data table","Approve button","Process funding button","Payment summary by dealer"], tokens:"--cc-green, --cc-red", modules:["07"], stories:["US-7.batch"] },
+  { name:"Funding Request Audit Table", desc:"Admin audit view: searchable/filterable table of all funding requests with user attribution, date, type, amount, status. Export capability.", components:["Filter bar (user, date, type, status, partner)","Data table","Sortable columns","Pagination","Export button (CSV/Excel)","Role-based visibility"], tokens:"--cc-navy", modules:["09"], stories:["US-9.19.1","US-9.19.2","US-9.19.3","US-9.19.4"] },
+  { name:"Integration Widget Panel", desc:"Account-level integration displays: HubSpot contact/deal widget, ClickUp task list, Aircall call button and context panel.", components:["HubSpot contact card","HubSpot deal card","ClickUp task list","Aircall call button","Call context panel","Sync status indicators"], tokens:"--cc-navy", modules:["13"], stories:["US-13.hubspot","US-13.clickup","US-13.aircall"] },
+  { name:"Promotion Manager", desc:"Admin promotion CRUD: creation form, eligibility rule builder, company assignment, active list, redemption reporting.", components:["Promotion creation form","Eligibility rule builder","Company assignment table","Active promotions list","Redemption report table"], tokens:"--cc-navy, --cc-green", modules:["11"], stories:["US-17.1.1–5","US-17.2.1"] },
+  { name:"Impersonation Banner", desc:"Full-width warning banner shown during user impersonation: impersonated user name, 'You are impersonating' message, end session button.", components:["Warning banner (amber bg)","User name display","End impersonation button","Audit trail indicator"], tokens:"--bg-warning, --cc-amber-text", modules:["01"], stories:["US-1.3.2"] },
+];
+
+const SCREENS = [
+  // HOMEOWNER PORTAL
+  { portal:"Homeowner", name:"Login / OTP Verification", module:"01", stories:["US-1.1.2","US-15.2.1"], desc:"Auth screen with email/phone + OTP input. Dealer-branded header." },
+  { portal:"Homeowner", name:"Homeowner Dashboard", module:"01,09", stories:["US-1.1.3","US-16.1.2"], desc:"Landing page after login: account summary card, next payment, recent activity, equipment status." },
+  { portal:"Homeowner", name:"Prequalification Form", module:"03", stories:["US-3.2.1","US-3.2.2","US-3.2.3"], desc:"Multi-step: consent → personal info → address → income → co-applicant (optional). Dealer branded." },
+  { portal:"Homeowner", name:"Prequalification Decision", module:"03", stories:["US-3.3.1","US-3.3.2"], desc:"Decision display: Approved/Declined + available products cards with max amounts." },
+  { portal:"Homeowner", name:"Offer Selection", module:"03", stories:["US-3.5.1","US-3.5.2"], desc:"Side-by-side financing option cards (Premier, Momnt, Thrive, Microf, Breeze)." },
+  { portal:"Homeowner", name:"Document Signing", module:"03,06", stories:["US-3.8.1","US-3.8.2","US-10.2.2"], desc:"E-signature portal: lease/agreement review + signature capture." },
+  { portal:"Homeowner", name:"First Payment", module:"03", stories:["US-3.9.1","US-3.9.2"], desc:"Payment gateway: amount display, method selection, confirmation receipt." },
+  { portal:"Homeowner", name:"Billing & Payments", module:"08", stories:["US-8.1.1","US-11.2.1","US-11.3.1"], desc:"Balance due, current statement, payment history, make payment, autopay management." },
+  { portal:"Homeowner", name:"Payment Scheduling", module:"08", stories:["US-11.5.1","US-11.5.2"], desc:"Schedule future payments, view/cancel scheduled payments." },
+  { portal:"Homeowner", name:"Account Documents", module:"06,09", stories:["US-10.3.2","US-16.4.1"], desc:"Document list with download buttons, signed agreements, statements." },
+  { portal:"Homeowner", name:"Equipment & Service History", module:"09", stories:["US-12.1.1","US-13.1.3"], desc:"Equipment cards with service timeline, maintenance request form." },
+  { portal:"Homeowner", name:"Worry-Free Rewards", module:"09", stories:["US-9.4.1","US-9.4.2","US-9.4.3"], desc:"Rewards balance, tier progress, quarterly earnings, redemption." },
+  { portal:"Homeowner", name:"Support Request", module:"09", stories:["US-16.5.1","US-16.5.2"], desc:"Submit support ticket, view request status with reference number." },
+  { portal:"Homeowner", name:"Notification Preferences", module:"10", stories:["US-15.5.1"], desc:"Channel toggles (Email/SMS/In-App) with per-type granularity." },
+  { portal:"Homeowner", name:"Profile Management", module:"01", stories:["US-1.3.1"], desc:"Edit name, phone, email preferences." },
+  { portal:"Homeowner", name:"Buyout Request", module:"09", stories:["US-19.2.1","US-19.2.2","US-19.2.3"], desc:"Request buyout, view quote, process payment." },
+  // DEALER PORTAL
+  { portal:"Dealer", name:"Dealer Dashboard", module:"01,12", stories:["US-12.8.5","US-21.4.1"], desc:"KPI cards (volume, approval rate, funded), recent applications, action items." },
+  { portal:"Dealer", name:"Application Pipeline", module:"03,12", stories:["US-21.1.1","US-21.4.2"], desc:"All applications by status. Filter by partner, date, status. Drill-down." },
+  { portal:"Dealer", name:"New Application / Prequal Invitation", module:"03", stories:["US-3.1.1","US-3.4.1"], desc:"Send prequal invitation (email/SMS) or create application directly." },
+  { portal:"Dealer", name:"Application Detail", module:"03", stories:["US-3.12.1","US-3.12.5"], desc:"Full application view with stepper, tracker pills, all sections." },
+  { portal:"Dealer", name:"Work Order & Quote", module:"03,05", stories:["US-3.6.1","US-7.1.1"], desc:"Equipment details, quote calculator, bundle selection, buy-down options." },
+  { portal:"Dealer", name:"Momnt Loan Flow", module:"03", stories:["US-3.13.1–7"], desc:"Momnt-specific: hard pull consent, decision, final app, acceptance, install date." },
+  { portal:"Dealer", name:"Microf LTO Flow", module:"03", stories:["US-3.14.1–6"], desc:"Microf-specific: application, lease offer, income proof, work order." },
+  { portal:"Dealer", name:"Breeze LTO Flow", module:"03", stories:["US-3.15.1–8"], desc:"Breeze-specific: checkout, terms calc, down payment, contract, funding." },
+  { portal:"Dealer", name:"Thrive Loan Flow", module:"03", stories:["US-3.16.1–3"], desc:"Thrive-specific: application, final submission, decision." },
+  { portal:"Dealer", name:"Installation Authorization", module:"07", stories:["US-14.1.1","US-14.1.2"], desc:"Prereq checklist, authorize button, completion form." },
+  { portal:"Dealer", name:"Charge Request (Momnt)", module:"07", stories:["US-7.4.1","US-7.4.6","US-7.4.7"], desc:"Charge initiation/scheduling, readiness card, status tracking." },
+  { portal:"Dealer", name:"Funding Status", module:"07", stories:["US-14.3.3","US-7.4.8"], desc:"Funding status per installation, expected payment dates, audit trail." },
+  { portal:"Dealer", name:"Training Center", module:"02", stories:["US-2.5.1","US-2.5.2","US-2.5.3"], desc:"Course catalog, lesson viewer, progress tracking." },
+  { portal:"Dealer", name:"Dealer Performance / Leaderboard", module:"09", stories:["US-9.5.1","US-9.5.2","US-9.5.3"], desc:"Leaderboard, achievements, incentive tiers." },
+  { portal:"Dealer", name:"Account Servicing View", module:"09", stories:["US-16.1.2","US-16.3.1"], desc:"Account detail for serviced customers, notes, documents." },
+  // ADMIN PORTAL
+  { portal:"Admin", name:"Admin Dashboard", module:"12", stories:["US-20.3.1"], desc:"System overview: active dealers, pending applications, funding queue, alerts." },
+  { portal:"Admin", name:"Dealer Onboarding Queue", module:"02", stories:["US-2.1.1","US-2.2.1","US-2.10.1"], desc:"Pending merchant applications, review/approve/decline." },
+  { portal:"Admin", name:"Merchant Application Review", module:"02", stories:["US-2.1.3","US-2.2.1","US-2.3.1"], desc:"Full merchant application detail, underwriting, agreement generation." },
+  { portal:"Admin", name:"Risk Assessment", module:"02", stories:["US-2.8.1–5"], desc:"AI merchant assessment, scoring config, history." },
+  { portal:"Admin", name:"Company Group Manager", module:"02", stories:["US-2.9.1–5"], desc:"Create/manage dealer groups, assign dealers, group settings/reporting." },
+  { portal:"Admin", name:"Partner Configuration", module:"12", stories:["US-20.1.1–3","US-12.3.6"], desc:"Enable/disable partners, global override, Momnt timing rules." },
+  { portal:"Admin", name:"Underwriting Configuration", module:"12", stories:["US-20.2.1–3"], desc:"Criteria groups, company assignment, config types." },
+  { portal:"Admin", name:"Credit Tier Configuration", module:"04", stories:["US-4.6.1–4"], desc:"Tier ranges, max approval, DTI limits, overrides." },
+  { portal:"Admin", name:"Rate Sheet Management", module:"12", stories:["US-12.8.1–6"], desc:"CRUD rate sheets, eligibility rules, promotional rates, change history." },
+  { portal:"Admin", name:"Pricing Configuration", module:"05", stories:["US-7.2.1","US-7.2.2"], desc:"Pricing models, metrics dashboard." },
+  { portal:"Admin", name:"Equipment Catalog", module:"05", stories:["US-13.2.1"], desc:"Manage equipment records, AI identification settings." },
+  { portal:"Admin", name:"System Configuration", module:"12", stories:["US-20.3.1","US-20.3.2"], desc:"System parameters, feature flags." },
+  { portal:"Admin", name:"Promotion Management", module:"11", stories:["US-17.1.1–5","US-17.2.1"], desc:"Create/edit promotions, eligibility, company assignment." },
+  { portal:"Admin", name:"Brand Profile Approval", module:"02,12", stories:["US-2.10.brand"], desc:"Pending brand submissions, side-by-side preview, approve/reject." },
+  { portal:"Admin", name:"Report Builder", module:"12", stories:["US-21.1.1–3","US-21.3.1–2"], desc:"Filter configuration, generate, save preset, schedule." },
+  { portal:"Admin", name:"Funding Request Audit", module:"09", stories:["US-9.19.1–4"], desc:"Cross-lender funding attribution search, filter, export." },
+  { portal:"Admin", name:"User & Role Management", module:"01", stories:["US-1.2.1","US-1.2.2","US-1.4.1"], desc:"User list, role assignment, permission grid, partner access." },
+  { portal:"Admin", name:"Training & Compliance", module:"02", stories:["US-2.6.1","US-2.6.2","US-2.7.1"], desc:"Training completion tracking, compliance enforcement, course management." },
+  // CSR PORTAL
+  { portal:"CSR", name:"Account Search", module:"09", stories:["US-16.1.1"], desc:"Global search by name/email/phone/account#, recently accessed list." },
+  { portal:"CSR", name:"Account Detail (CSR View)", module:"09", stories:["US-16.1.2","US-16.3.1–2","US-16.2.1–3"], desc:"Full account with quick actions, notes, tasks, payment assistance." },
+  { portal:"CSR", name:"Manual Review Queue", module:"04", stories:["US-4.3.1–3"], desc:"Pending applications for underwriter review with priority sorting." },
+  { portal:"CSR", name:"Income/Deed Verification", module:"04", stories:["US-4.4.1–4","US-4.5.1–4"], desc:"Document review, verification status updates." },
+  { portal:"CSR", name:"Billing Reconciliation", module:"08", stories:["US-11.6.1","US-11.6.2"], desc:"Exception identification, payment data export." },
+  { portal:"CSR", name:"Support Request Queue", module:"09", stories:["US-16.5.1","US-16.5.2"], desc:"Open support tickets, assignment, resolution." },
+  { portal:"CSR", name:"Webhook Monitor (Admin/CSR)", module:"13", stories:["US-13.6.1","US-13.6.2"], desc:"Recent Momnt webhook deliveries, status, retry monitoring." },
+  { portal:"CSR", name:"Impersonation Mode", module:"01", stories:["US-1.3.2"], desc:"Impersonate user with amber warning banner, full audit trail." },
+];
+
+const FLOWS = [
+  { name:"Dealer Onboarding", steps:["Invitation Email","Merchant Application Wizard","Document Upload","Underwriting Review","NDA / Agreement Signing","Partner Enrollment","Training Completion","Activation"], stories:["US-2.1.1→US-2.10.1"], modules:["02"], desc:"End-to-end dealer/contractor onboarding from invitation to portal activation across 8 steps." },
+  { name:"Homeowner Prequalification → Application", steps:["Prequal Invitation","Consent & Info Entry","Soft Credit Pull","Decision Display","Product Selection","Full Application","Underwriting","Offer Selection","Work Order","Document Signing","First Payment"], stories:["US-3.1.1→US-3.9.2"], modules:["03","04","05","06"], desc:"Complete homeowner journey from prequal invitation through first payment, spanning 11 steps." },
+  { name:"Momnt Loan Flow", steps:["Initiate Application","Hard Pull Consent","Decision","Final Application","Loan Acceptance","Install Date Entry","Charge Request/Schedule","Homeowner Approval (SMS)","Funding"], stories:["US-3.13.1→7","US-7.4.1→7"], modules:["03","07"], desc:"Momnt-specific lending flow from application through charge request and funding." },
+  { name:"Microf LTO Flow", steps:["Initiate Application","Lease Offer Acceptance","Income Proof Upload","Verification","Work Order Completion","Funding Initiation"], stories:["US-3.14.1→6"], modules:["03","07"], desc:"Microf lease-to-own origination from application through work order and funding." },
+  { name:"Breeze LTO Flow", steps:["Create Application","Checkout Initiation","Lease Terms Calculation","Down Payment Processing","Contract Signing","Funding Request"], stories:["US-3.15.1→8"], modules:["03","07"], desc:"Breeze lease-to-own flow from application through down payment and contract execution." },
+  { name:"Thrive Loan Flow", steps:["Initiate Application","Final Application","Decision"], stories:["US-3.16.1→3"], modules:["03"], desc:"Thrive lending flow from application initiation through final decision." },
+  { name:"Installation → Funding", steps:["Installation Authorization","Installation Completion","Funding Paperwork Submission","Documentation Verification","Contractor Payment","Partner Funding"], stories:["US-14.1.1→US-14.4.4"], modules:["07"], desc:"Post-approval flow from installation authorization through contractor payment and partner funding." },
+  { name:"Billing Lifecycle", steps:["Account Setup","Payment Method Setup","Autopay Config","Monthly Invoice Generation","Payment Processing","Receipt Generation","Delinquency Management","Statement Fee Assessment"], stories:["US-8.1.1→US-11.6.2"], modules:["08"], desc:"Complete billing lifecycle from account creation through invoicing, payments, and collections." },
+  { name:"Account Buyout", steps:["Buyout Request","Quote Generation","Buyout Letter","Payment Processing","Lease Termination","Ownership Confirmation"], stories:["US-19.2.1→5"], modules:["09"], desc:"Homeowner buyout from request through payment and ownership transfer." },
+  { name:"Maintenance Service", steps:["Maintenance Reminder","Service Request","Appointment Scheduling","Service Completion","Invoice Processing","Batch Funding (if applicable)"], stories:["US-12.1.1→US-12.3.2"], modules:["09","07"], desc:"Equipment maintenance from automated reminder through service completion and invoicing." },
+  { name:"Credit Assessment → Decision", steps:["Soft Credit Pull","Automated Rule Evaluation","DTI Calculation","Max Approval Calculation","Decision (Auto/Manual)","Manual Review (if needed)","Decision Recording","Notification"], stories:["US-4.1.1→US-4.3.3"], modules:["04"], desc:"Full credit assessment from soft pull through automated rules and manual review if needed." },
+  { name:"Document Signing (Multi-Lease)", steps:["Generate Lease 1","Send for Signing","Lease 1 Signed","Generate Lease 2","Send for Signing","Lease 2 Signed","All Executed","Status Update"], stories:["US-10.1.1","US-10.2.1→4","US-3.8.1→3"], modules:["06","03"], desc:"Sequential multi-lease document signing with progress tracking per component." },
+  { name:"Dealer Performance & Gamification", steps:["Application Submission","Approval/Funding Tracking","Leaderboard Update","Achievement Earned","Incentive Tier Qualification","Recognition"], stories:["US-9.5.1→3"], modules:["09"], desc:"Dealer performance tracking with gamification rewards and incentive tiers." },
+  { name:"Worry-Free Rewards Lifecycle", steps:["Enrollment","On-Time Payments","Quarterly Earning Calculation","Tier Advancement","Benefit Redemption","Suspension (if delinquent)","Forfeiture (if closed)"], stories:["US-9.4.1→3","US-12.4.1"], modules:["09"], desc:"Homeowner rewards from enrollment through earning, tier progression, and redemption." },
+];
+
+// ══════════════════════════════════════════
+// RENDER FUNCTIONS
+// ══════════════════════════════════════════
+
+function renderCard(item, level) {
+  const card = document.createElement('div');
+  card.className = 'comp-card';
+  card.setAttribute('data-search', (item.name + ' ' + item.desc + ' ' + (item.stories||[]).join(' ') + ' ' + (item.modules||[]).join(' ')).toLowerCase());
+
+  let bodyHTML = '<div class="detail-grid">';
+  bodyHTML += `<div class="detail-label">Description</div><div class="detail-value">${item.desc}</div>`;
+
+  if (item.states) bodyHTML += `<div class="detail-label">States</div><div class="detail-value">${item.states}</div>`;
+  if (item.variants) bodyHTML += `<div class="detail-label">Variants</div><div class="detail-value">${item.variants}</div>`;
+  if (item.atoms) bodyHTML += `<div class="detail-label">Atoms Used</div><div class="detail-value">${item.atoms.join(', ')}</div>`;
+  if (item.components) bodyHTML += `<div class="detail-label">Components</div><div class="detail-value">${item.components.join(', ')}</div>`;
+
+  if (item.tokens) bodyHTML += `<div class="detail-label">Design Tokens</div><div class="detail-value"><div class="tag-row">${item.tokens.split(', ').map(t=>`<span class="tag token">${t}</span>`).join('')}</div></div>`;
+  if (item.figma) bodyHTML += `<div class="detail-label">Figma Node</div><div class="detail-value"><div class="tag-row">${item.figma.split(', ').map(f=>`<span class="tag figma">${f}</span>`).join('')}</div></div>`;
+
+  bodyHTML += `<div class="detail-label">Modules</div><div class="detail-value"><div class="tag-row">${(item.modules||[]).map(m=>`<span class="tag module">${m}</span>`).join('')}</div></div>`;
+
+  if (item.stories && item.stories.length > 0) {
+    bodyHTML += `<div class="detail-label">User Stories</div><div class="detail-value"><div class="tag-row">${item.stories.map(s=>`<span class="tag story">${s}</span>`).join('')}</div></div>`;
+  }
+  bodyHTML += '</div>';
+
+  card.innerHTML = `
+    <div class="comp-card-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="level-badge ${level}">${level}</span>
+      <h3>${item.name}</h3>
+      <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="comp-card-body">${bodyHTML}</div>`;
+  return card;
+}
+
+function renderScreens() {
+  const container = document.getElementById('screenContent');
+  const portals = ['Homeowner','Dealer','Admin','CSR'];
+  portals.forEach(portal => {
+    const portalScreens = SCREENS.filter(s => s.portal === portal);
+    let html = `<h3 style="font-size:16px;color:var(--cc-navy);margin:24px 0 12px;border-bottom:2px solid var(--gray-200);padding-bottom:8px;">${portal} Portal (${portalScreens.length} screens)</h3>`;
+    html += '<table class="screen-list"><tr><th>Screen</th><th>Module(s)</th><th>Stories</th><th>Description</th></tr>';
+    portalScreens.forEach(s => {
+      html += `<tr data-search="${(s.name+' '+s.desc+' '+s.stories.join(' ')+' '+s.module).toLowerCase()}">
+        <td><strong>${s.name}</strong></td>
+        <td>${s.module}</td>
+        <td><div class="tag-row">${s.stories.map(st=>`<span class="tag story">${st}</span>`).join('')}</div></td>
+        <td>${s.desc}</td></tr>`;
+    });
+    html += '</table>';
+    container.innerHTML += html;
+  });
+}
+
+function renderFlows() {
+  const container = document.getElementById('flowCards');
+  FLOWS.forEach(flow => {
+    const card = document.createElement('div');
+    card.className = 'comp-card';
+    card.setAttribute('data-search', (flow.name + ' ' + flow.desc + ' ' + flow.stories.join(' ') + ' ' + flow.modules.join(' ')).toLowerCase());
+
+    let stepsHTML = '<div class="flow-steps">';
+    flow.steps.forEach((step, i) => {
+      stepsHTML += `<span class="flow-step">${step}</span>`;
+      if (i < flow.steps.length - 1) stepsHTML += '<span class="flow-arrow">→</span>';
+    });
+    stepsHTML += '</div>';
+
+    card.innerHTML = `
+      <div class="comp-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="level-badge flow">Flow</span>
+        <h3>${flow.name}</h3>
+        <span class="tag module" style="margin-left:auto;margin-right:8px;">${flow.steps.length} steps</span>
+        <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="comp-card-body">
+        ${stepsHTML}
+        <div class="detail-grid" style="margin-top:16px;">
+          <div class="detail-label">Description</div><div class="detail-value">${flow.desc}</div>
+          <div class="detail-label">Modules</div><div class="detail-value"><div class="tag-row">${flow.modules.map(m=>`<span class="tag module">${m}</span>`).join('')}</div></div>
+          <div class="detail-label">Stories</div><div class="detail-value"><div class="tag-row">${flow.stories.map(s=>`<span class="tag story">${s}</span>`).join('')}</div></div>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function renderModuleSection(modId, items) {
+  const container = document.getElementById(modId + 'Content');
+  if (!container) return;
+  const modNum = modId.replace('mod','');
+
+  const modAtoms = ATOMS.filter(a => a.modules.includes(modNum) || a.modules.includes('All'));
+  const modMols = MOLECULES.filter(m => m.modules.includes(modNum) || m.modules.includes('All'));
+  const modOrgs = ORGANISMS.filter(o => o.modules.includes(modNum) || o.modules.includes('All'));
+  const modScreens = SCREENS.filter(s => s.module.includes(modNum));
+  const modFlows = FLOWS.filter(f => f.modules.includes(modNum));
+
+  let html = `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;">
+    <div class="stat-card"><div class="number" style="font-size:24px;color:#0277BD;">${modAtoms.length}</div><div class="label">Atoms</div></div>
+    <div class="stat-card"><div class="number" style="font-size:24px;color:#7B1FA2;">${modMols.length}</div><div class="label">Molecules</div></div>
+    <div class="stat-card"><div class="number" style="font-size:24px;color:#E65100;">${modOrgs.length}</div><div class="label">Organisms</div></div>
+    <div class="stat-card"><div class="number" style="font-size:24px;color:#2E7D32;">${modScreens.length}</div><div class="label">Screens</div></div>
+    <div class="stat-card"><div class="number" style="font-size:24px;color:#C62828;">${modFlows.length}</div><div class="label">Flows</div></div>
+  </div>`;
+
+  if (modScreens.length > 0) {
+    html += '<h3 style="font-size:14px;color:var(--cc-navy);margin:16px 0 8px;">Screens</h3><table class="screen-list"><tr><th>Portal</th><th>Screen</th><th>Description</th></tr>';
+    modScreens.forEach(s => {
+      html += `<tr><td>${s.portal}</td><td><strong>${s.name}</strong></td><td>${s.desc}</td></tr>`;
+    });
+    html += '</table>';
+  }
+
+  if (modFlows.length > 0) {
+    html += '<h3 style="font-size:14px;color:var(--cc-navy);margin:16px 0 8px;">Flows</h3>';
+    modFlows.forEach(f => {
+      html += `<div style="margin-bottom:12px;"><strong>${f.name}</strong> (${f.steps.length} steps)<div class="flow-steps" style="margin-top:4px;">`;
+      f.steps.forEach((step, i) => {
+        html += `<span class="flow-step" style="font-size:11px;padding:4px 10px;">${step}</span>`;
+        if (i < f.steps.length - 1) html += '<span class="flow-arrow" style="font-size:14px;">→</span>';
+      });
+      html += '</div></div>';
+    });
+  }
+
+  if (modOrgs.length > 0) {
+    html += '<h3 style="font-size:14px;color:var(--cc-navy);margin:16px 0 8px;">Key Organisms</h3><ul style="font-size:13px;padding-left:20px;">';
+    modOrgs.filter(o => !o.modules.includes('All')).forEach(o => { html += `<li style="margin-bottom:4px;"><strong>${o.name}</strong> — ${o.desc.substring(0,100)}…</li>`; });
+    html += '</ul>';
+  }
+
+  container.innerHTML = html;
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+  const section = document.getElementById('sec-' + id);
+  if (section) section.classList.add('active');
+  const link = document.querySelector(`[data-section="${id}"]`);
+  if (link) link.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    showSection(link.getAttribute('data-section'));
+  });
+});
+
+// ══════════════════════════════════════════
+// SEARCH
+// ══════════════════════════════════════════
+
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  document.querySelectorAll('.comp-card, .screen-list tr:not(:first-child)').forEach(el => {
+    const searchText = el.getAttribute('data-search') || el.textContent.toLowerCase();
+    el.style.display = (!query || searchText.includes(query)) ? '' : 'none';
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement !== searchInput) { e.preventDefault(); searchInput.focus(); }
+  if (e.key === 'Escape') { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.blur(); }
+});
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+
+(function init() {
+  // Render Atoms
+  const atomContainer = document.getElementById('atomCards');
+  ATOMS.forEach(a => atomContainer.appendChild(renderCard(a, 'atom')));
+  document.getElementById('atomCount').textContent = ATOMS.length;
+
+  // Render Molecules
+  const molContainer = document.getElementById('moleculeCards');
+  MOLECULES.forEach(m => molContainer.appendChild(renderCard(m, 'molecule')));
+  document.getElementById('moleculeCount').textContent = MOLECULES.length;
+
+  // Render Organisms
+  const orgContainer = document.getElementById('organismCards');
+  ORGANISMS.forEach(o => orgContainer.appendChild(renderCard(o, 'organism')));
+  document.getElementById('organismCount').textContent = ORGANISMS.length;
+
+  // Render Screens
+  renderScreens();
+  document.getElementById('screenCount').textContent = SCREENS.length;
+
+  // Render Flows
+  renderFlows();
+  document.getElementById('flowCount').textContent = FLOWS.length;
+
+  // Render Module sections
+  for (let i = 1; i <= 13; i++) {
+    const modId = 'mod' + String(i).padStart(2,'0');
+    renderModuleSection(modId);
+  }
+})();
+</script>
+</body>
+</html>

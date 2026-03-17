@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ComfortConnect — Admin Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== DESIGN TOKENS — Portal 2.0 ===== */
+:root {
+  --cc-navy: #002F6C;
+  --cc-navy-dark: #002147;
+  --cc-green: #6CC24A;
+  --cc-green-hover: #5DB33E;
+  --cc-green-dark: #398F17;
+  --cc-orange: #EE8F1E;
+  --cc-blue-main: #009CDE;
+  --cc-blue-info: #1C51A4;
+  --cc-red: #DD331D;
+  --cc-red-text: #AB2816;
+  --cc-amber: #E8B93F;
+  --cc-amber-text: #82620F;
+
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+
+  --bg-general: #F9FAFB;
+  --bg-primary: #EDF4FF;
+  --bg-success: #D9F3D0;
+  --bg-warning: #FFF6E0;
+  --bg-error: #FDE7E5;
+
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+  --gray-600: #2A2E34;
+
+  --sidebar-width: 85px;
+  --font: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --state-hover: #1759C4;
+  --state-hover-secondary: #EDF4FF;
+}
+
+/* ===== BASE ===== */
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  color: var(--text-body);
+  background: var(--bg-general);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== APP SHELL ===== */
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== SIDEBAR — Figma Portal 2.0 ===== */
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--cc-navy-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  z-index: 100;
+  position: relative;
+}
+.sidebar-logo {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-logo svg { width: 28px; height: 28px; }
+.sidebar-nav {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  gap: 2px;
+  overflow-y: auto;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 4px 8px;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  color: rgba(255,255,255,0.5);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-item.active { color: #fff; background: rgba(255,255,255,0.1); }
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px;
+  background: var(--cc-green);
+  border-radius: 0 3px 3px 0;
+}
+.nav-item svg { width: 22px; height: 22px; flex-shrink: 0; }
+.nav-item span {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-align: center;
+  max-width: 72px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar-bottom {
+  width: 100%;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 8px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  background: var(--cc-navy);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  font-weight: 500;
+}
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.top-bar-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  cursor: pointer;
+}
+.top-bar-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+.top-bar-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+.top-bar-chevron {
+  width: 14px;
+  height: 14px;
+  color: rgba(255,255,255,0.5);
+}
+.top-bar-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: rgba(255,255,255,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+.top-bar-icon:hover { background: rgba(255,255,255,0.15); }
+.top-bar-icon svg { width: 16px; height: 16px; }
+.top-bar-badge {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 8px; height: 8px;
+  background: var(--cc-orange);
+  border-radius: 50%;
+  border: 1.5px solid var(--cc-navy);
+}
+
+/* ===== CONTENT SCROLL AREA ===== */
+.content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ===== APPLICATION HEADER ===== */
+.app-header {
+  background: #fff;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 20px 28px 0;
+}
+.app-header-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  color: var(--cc-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  margin-top: 2px;
+}
+.back-btn:hover {
+  background: var(--bg-primary);
+  border-color: var(--cc-blue-main);
+  box-shadow: 0 2px 8px rgba(0,47,108,0.1);
+}
+.back-btn svg { width: 20px; height: 20px; }
+
+.app-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 48px;
+  flex: 1;
+}
+.app-info-left,
+.app-info-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.applicant-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.applicant-name .copy-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--gray-300);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.applicant-name .copy-icon:hover { color: var(--cc-blue-main); }
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.info-label {
+  color: var(--text-placeholder);
+  font-weight: 600;
+  min-width: 130px;
+}
+.info-value {
+  color: var(--text-heading);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.info-value .copy-icon {
+  width: 13px;
+  height: 13px;
+  color: var(--gray-300);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.info-value .copy-icon:hover { color: var(--cc-blue-main); }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.status-pill.approved {
+  background: var(--bg-success);
+  color: var(--cc-green-dark);
+  border: 1px solid rgba(108,194,74,0.3);
+}
+
+/* Nav context bar */
+.nav-context {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: absolute;
+  right: 28px;
+  top: 20px;
+  font-size: 12px;
+  color: var(--text-placeholder);
+  font-weight: 500;
+}
+.nav-context-btn {
+  background: none;
+  border: 1px solid var(--gray-200);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-context-btn:hover {
+  background: var(--bg-primary);
+  border-color: var(--cc-blue-main);
+  color: var(--cc-navy);
+}
+.nav-context-count {
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+/* ===== TAB BAR ===== */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--gray-100);
+  margin-top: 4px;
+}
+.tab-item {
+  flex: 1;
+  padding: 14px 8px;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-placeholder);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: var(--font);
+}
+.tab-item:hover {
+  color: var(--cc-navy);
+  background: var(--bg-primary);
+}
+.tab-item.active {
+  color: var(--cc-navy);
+  font-weight: 700;
+  border-bottom-color: var(--cc-navy);
+  background: var(--bg-primary);
+}
+
+/* ===== SECTION CARDS ===== */
+.sections-container {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.section-header:hover {
+  background: var(--gray-100);
+}
+.section-header.navy-bar {
+  background: var(--cc-navy);
+  color: #fff;
+}
+.section-header.navy-bar:hover {
+  background: var(--cc-navy-dark);
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-header.navy-bar .section-title {
+  color: #fff;
+}
+.section-title .edit-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--gray-300);
+  cursor: pointer;
+}
+.section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-placeholder);
+}
+.section-header.navy-bar .section-toggle {
+  color: rgba(255,255,255,0.7);
+}
+.section-toggle svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s;
+}
+.section-card.collapsed .section-toggle svg {
+  transform: rotate(180deg);
+}
+.section-body {
+  border-top: 1px solid var(--gray-100);
+  padding: 0;
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+}
+.section-card.collapsed .section-body {
+  display: none;
+}
+
+/* ===== DATA TABLES ===== */
+.table-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-heading);
+  text-align: center;
+  padding: 16px 24px 8px;
+}
+
+.data-table-wrapper {
+  overflow-x: auto;
+  padding: 0 16px 16px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.data-table thead th {
+  background: var(--gray-100);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-heading);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid var(--gray-200);
+  white-space: nowrap;
+}
+.data-table thead th.center { text-align: center; }
+.data-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--text-body);
+  white-space: nowrap;
+}
+.data-table tbody td.center { text-align: center; }
+.data-table tbody td.mono {
+  font-family: 'SF Mono', 'Consolas', monospace;
+  font-size: 12px;
+}
+.data-table tbody tr:hover {
+  background: var(--bg-primary);
+}
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.badge-yes {
+  background: var(--bg-success);
+  color: var(--cc-green-dark);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.badge-no {
+  background: var(--gray-100);
+  color: var(--text-placeholder);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.badge-status {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.badge-status.not-accepted {
+  background: var(--bg-warning);
+  color: var(--cc-amber-text);
+}
+.badge-status.accepted {
+  background: var(--bg-success);
+  color: var(--cc-green-dark);
+}
+
+/* ===== PRIMARY APPLICANT SECTION ===== */
+.applicant-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.contact-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+.contact-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--cc-navy);
+}
+.contact-item .copy-icon {
+  width: 13px;
+  height: 13px;
+  color: var(--gray-300);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.contact-item .copy-icon:hover { color: var(--cc-blue-main); }
+.contact-item-value {
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+/* Credit / DTI / LTV Grid */
+.credit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  padding: 0;
+}
+.credit-col {
+  padding: 20px 24px;
+  border-right: 1px solid var(--gray-100);
+}
+.credit-col:last-child { border-right: none; }
+
+.credit-col-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin-bottom: 16px;
+}
+.credit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+.credit-row:last-child { border-bottom: none; }
+.credit-row-label {
+  font-size: 13px;
+  color: var(--text-body);
+  font-weight: 500;
+}
+.credit-row-value {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+.credit-row-value.highlight {
+  color: var(--cc-navy);
+  font-size: 15px;
+}
+.credit-row-value.money {
+  color: var(--cc-green-dark);
+}
+.credit-row-value.na {
+  color: var(--text-placeholder);
+  font-weight: 500;
+}
+
+.credit-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--gray-100);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cc-green);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.credit-link:hover { color: var(--cc-green-hover); }
+.credit-link svg { width: 16px; height: 16px; }
+
+/* ===== REVIEW MESSAGES EMPTY STATE ===== */
+.empty-state {
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--text-placeholder);
+  font-size: 14px;
+}
+.empty-state svg {
+  width: 40px;
+  height: 40px;
+  color: var(--gray-200);
+  margin-bottom: 12px;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  background: var(--cc-navy);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 24px rgba(0,47,108,0.4);
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .app-info-grid { grid-template-columns: 1fr; }
+  .applicant-contact-grid { grid-template-columns: 1fr; }
+  .credit-grid { grid-template-columns: 1fr; }
+  .credit-col { border-right: none; border-bottom: 1px solid var(--gray-100); }
+  .tab-bar { overflow-x: auto; }
+  .tab-item { white-space: nowrap; min-width: 100px; flex: none; }
+  .nav-context { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg width="28" height="28" viewBox="0 0 132 134" fill="none"><path d="M33.1098 55.052V100.544H59.8852V133.9H0V36.172L59.8852 0V38.864L33.1098 55.052Z" fill="white"/><path d="M131.347 36.172V133.9H71.4697V100.544H98.2451V55.06L71.4697 38.864V0L131.347 36.172Z" fill="white"/></svg>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a class="nav-item active" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Deals</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Customers</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span>Payments</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Messages</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Settings</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-wrapper">
+
+    <!-- ===== TOP BAR ===== -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <span>Displaying Applications From: Pipeline Dashboard</span>
+      </div>
+      <div class="top-bar-right">
+        <button class="top-bar-icon" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="top-bar-badge"></span>
+        </button>
+        <div class="nav-context" style="position:static;">
+          <button class="nav-context-btn" onclick="showToast('Previous application')" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">‹ Prev</button>
+          <span style="color:rgba(255,255,255,0.5);"><span class="nav-context-count" style="color:#fff;">1</span> of <span class="nav-context-count" style="color:#fff;">4,882</span></span>
+          <button class="nav-context-btn" onclick="showToast('Next application')" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">Next ›</button>
+        </div>
+        <div class="top-bar-user">
+          <div class="top-bar-avatar">JD</div>
+          <span class="top-bar-name">Jason Duval</span>
+          <svg class="top-bar-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="content-scroll">
+
+      <!-- ===== APPLICATION HEADER ===== -->
+      <div class="app-header" style="position:relative;">
+        <div class="app-header-top">
+          <button class="back-btn" onclick="showToast('Back to Pipeline')" title="Back to Pipeline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="app-info-grid">
+            <div class="app-info-left">
+              <div class="applicant-name">
+                Sarah Johnson
+                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyToClipboard('Sarah Johnson')"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Application #:</span>
+                <span class="info-value">
+                  2336747
+                  <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyToClipboard('2336747')"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Application Date:</span>
+                <span class="info-value">
+                  03/16/2026
+                  <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyToClipboard('03/16/2026')"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Installation Date:</span>
+                <span class="info-value" style="color:var(--text-placeholder);font-weight:500;">N/A</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="info-value"><span class="status-pill approved">Loan Approved</span></span>
+              </div>
+            </div>
+            <div class="app-info-right">
+              <div class="info-row" style="margin-top:30px;">
+                <span class="info-label">Dealer:</span>
+                <span class="info-value">
+                  USA Hometown Experts
+                  <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyToClipboard('USA Hometown Experts')"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Sales Rep Name:</span>
+                <span class="info-value">Jason Duval</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Installation Address:</span>
+                <span class="info-value">
+                  1248 Peachtree Ln, Atlanta, GA 30309
+                  <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyToClipboard('1248 Peachtree Ln, Atlanta, GA 30309')"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+          <button class="tab-item active" onclick="switchTab(this, 'application')">Application</button>
+          <button class="tab-item" onclick="switchTab(this, 'billing')">Billing</button>
+          <button class="tab-item" onclick="switchTab(this, 'install')">Install</button>
+          <button class="tab-item" onclick="switchTab(this, 'maintenance')">Maintenance</button>
+          <button class="tab-item" onclick="switchTab(this, 'activity')">Account Activity</button>
+          <button class="tab-item" onclick="switchTab(this, 'pricing')">Pricing Metrics</button>
+        </div>
+      </div>
+
+      <!-- ===== SECTIONS — APPLICATION TAB ===== -->
+      <div class="sections-container" id="tab-application">
+
+        <!-- ===== REVIEW MESSAGES ===== -->
+        <div class="section-card" id="section-messages">
+          <div class="section-header navy-bar" onclick="toggleSection('section-messages')">
+            <div class="section-title">Review Messages</div>
+            <div class="section-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+              Close
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <div>No review messages for this application.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== QUOTE DETAILS ===== -->
+        <div class="section-card" id="section-quotes">
+          <div class="section-header" onclick="toggleSection('section-quotes')">
+            <div class="section-title">Quote Details</div>
+            <div class="section-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+              Close
+            </div>
+          </div>
+          <div class="section-body">
+
+            <!-- Sales Rep Chosen Rate Plans -->
+            <div class="table-label">Sales Rep Chosen Rate Plans</div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Term</th>
+                    <th>APR</th>
+                    <th>Category</th>
+                    <th>Dealer Fee</th>
+                    <th>Short Description</th>
+                    <th class="center">Is Applicant Approved</th>
+                    <th class="center">Is Selected by Sales Rep</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono">180</td>
+                    <td>11.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>5.00%</td>
+                    <td>15-Year 11.99%</td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                    <td class="center"><span class="badge-yes">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">90</td>
+                    <td>17.99%</td>
+                    <td>6mo Deferred Interest w/o Payments</td>
+                    <td>4.25%</td>
+                    <td>6 Month No/No</td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">96</td>
+                    <td>17.99%</td>
+                    <td>12mo Deferred Interest w/o Payments</td>
+                    <td>5.25%</td>
+                    <td>12 Month No/No</td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">96</td>
+                    <td>17.99%</td>
+                    <td>12mo Deferred Interest w/ Payments</td>
+                    <td>5.00%</td>
+                    <td>12 Month No/Yes</td>
+                    <td class="center"><span class="badge-yes">Yes</span></td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">90</td>
+                    <td>17.99%</td>
+                    <td>6mo Deferred Interest w/ Payments</td>
+                    <td>4.00%</td>
+                    <td>6 Month No/Yes</td>
+                    <td class="center"><span class="badge-yes">Yes</span></td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">120</td>
+                    <td>8.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>6.00%</td>
+                    <td>10-Year 8.99%</td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                    <td class="center"><span class="badge-yes">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">120</td>
+                    <td>10.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>1.00%</td>
+                    <td>10-Year 10.99%</td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                    <td class="center"><span class="badge-yes">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">144</td>
+                    <td>11.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>1.00%</td>
+                    <td>12-Year 11.99%</td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                    <td class="center"><span class="badge-yes">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">60</td>
+                    <td>10.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>2.50%</td>
+                    <td>5-Year 10.99%</td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                    <td class="center"><span class="badge-no">No</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Momnt (loan) Offers -->
+            <div class="table-label" style="border-top: 1px solid var(--gray-100); padding-top: 20px;">Momnt (loan) Offers</div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Offer #</th>
+                    <th>Monthly Payment</th>
+                    <th>Loan Amount</th>
+                    <th>Requested Amount</th>
+                    <th>Term</th>
+                    <th>APR</th>
+                    <th>Category</th>
+                    <th>Interest Only APR</th>
+                    <th>Interest Only Amount</th>
+                    <th>Interest Only Term</th>
+                    <th>Total Cost To Own</th>
+                    <th>Dealer Fee</th>
+                    <th class="center">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono">1</td>
+                    <td>$136.27</td>
+                    <td>$12,500.00</td>
+                    <td>$12,500.00</td>
+                    <td class="mono">180</td>
+                    <td>9.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>9.99%</td>
+                    <td>$104.08</td>
+                    <td class="mono">5</td>
+                    <td>$25,049.00</td>
+                    <td>2.00%</td>
+                    <td class="center"><span class="badge-status not-accepted">Not Accepted</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">2</td>
+                    <td>$152.52</td>
+                    <td>$12,500.00</td>
+                    <td>$12,500.00</td>
+                    <td class="mono">144</td>
+                    <td>9.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>9.99%</td>
+                    <td>$104.08</td>
+                    <td class="mono">5</td>
+                    <td>$22,483.28</td>
+                    <td></td>
+                    <td class="center"><span class="badge-status not-accepted">Not Accepted</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">3</td>
+                    <td>$167.52</td>
+                    <td>$12,500.00</td>
+                    <td>$12,500.00</td>
+                    <td class="mono">144</td>
+                    <td>11.99%</td>
+                    <td>Fixed Rate</td>
+                    <td>11.99%</td>
+                    <td>$124.92</td>
+                    <td class="mono">5</td>
+                    <td>$24,747.48</td>
+                    <td>3.25%</td>
+                    <td class="center"><span class="badge-status not-accepted">Not Accepted</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">4</td>
+                    <td>$247.50</td>
+                    <td>$12,500.00</td>
+                    <td>$12,500.00</td>
+                    <td class="mono">65</td>
+                    <td>6.99%</td>
+                    <td>Fixed Payment</td>
+                    <td>6.99%</td>
+                    <td>$72.83</td>
+                    <td class="mono">5</td>
+                    <td>$16,451.65</td>
+                    <td></td>
+                    <td class="center"><span class="badge-status not-accepted">Not Accepted</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">5</td>
+                    <td>$263.77</td>
+                    <td>$12,500.00</td>
+                    <td>$12,500.00</td>
+                    <td class="mono">90</td>
+                    <td>17.99%</td>
+                    <td>6mo Deferred Interest w/ Payments</td>
+                    <td>17.99%</td>
+                    <td>$187.42</td>
+                    <td class="mono">6</td>
+                    <td>$24,863.82</td>
+                    <td>4.00%</td>
+                    <td class="center"><span class="badge-status not-accepted">Not Accepted</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">6</td>
+                    <td>$263.77</td>
+                    <td>$12,500.00</td>
+                    <td>$12,500.00</td>
+                    <td class="mono">96</td>
+                    <td>17.99%</td>
+                    <td>12mo Deferred Interest w/ Payments</td>
+                    <td>17.99%</td>
+                    <td>$187.42</td>
+                    <td class="mono">12</td>
+                    <td>$27,570.96</td>
+                    <td>5.00%</td>
+                    <td class="center"><span class="badge-status not-accepted">Not Accepted</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono">7</td>
+                    <td>$263.77</td>
+                    <td>$12,500.00</td>
+                    <td>$12,500.00</td>
+                    <td class="mono">102</td>
+                    <td>17.99%</td>
+                    <td>18mo Deferred Interest w/ Payments</td>
+                    <td>17.99%</td>
+                    <td>$187.42</td>
+                    <td class="mono">18</td>
+                    <td>$30,278.10</td>
+                    <td>7.25%</td>
+                    <td class="center"><span class="badge-status not-accepted">Not Accepted</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRIMARY APPLICANT DETAILS ===== -->
+        <div class="section-card" id="section-applicant">
+          <div class="section-header" onclick="toggleSection('section-applicant')">
+            <div class="section-title">
+              Primary Applicant Details
+              <svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="event.stopPropagation(); showToast('Edit applicant details')"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+            </div>
+            <div class="section-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+              Close
+            </div>
+          </div>
+          <div class="section-body">
+
+            <!-- Contact Row -->
+            <div class="applicant-contact-grid">
+              <div class="contact-col">
+                <div class="contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <span class="contact-item-value">Sarah Johnson</span>
+                </div>
+                <div class="contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span class="contact-item-value">1248 Peachtree Ln<br>Atlanta, GA 30309</span>
+                </div>
+                <div class="contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  <span class="contact-item-value">SINGLE FAMILY<br>RESIDENTIAL</span>
+                </div>
+              </div>
+              <div class="contact-col">
+                <div class="contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                  <span class="contact-item-value">404-555-0142</span>
+                  <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyToClipboard('404-555-0142')"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </div>
+                <div class="contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span class="contact-item-value">sjohnson@email.com</span>
+                  <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyToClipboard('sjohnson@email.com')"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </div>
+                <div class="contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span class="contact-item-value">05/09/1995</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Credit / DTI / LTV -->
+            <div class="credit-grid">
+              <div class="credit-col">
+                <div class="credit-col-title">Credit</div>
+                <div class="credit-row">
+                  <span class="credit-row-label">FICO Score</span>
+                  <span class="credit-row-value highlight">786</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Vantage Score</span>
+                  <span class="credit-row-value highlight">805</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label"># Delinquencies in last 90 Days</span>
+                  <span class="credit-row-value">0</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Any Bankruptcy?</span>
+                  <span class="credit-row-value">0</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label"># of Charge-offs / Total Charge-off amount</span>
+                  <span class="credit-row-value na">—</span>
+                </div>
+              </div>
+              <div class="credit-col">
+                <div class="credit-col-title">Debt-to-Income</div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Pre-App DTI %</span>
+                  <span class="credit-row-value highlight">22.71%</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Post-App DTI %</span>
+                  <span class="credit-row-value na">-%</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Annual Income N/A</span>
+                  <span class="credit-row-value money">$52,000.00</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Additional Annual Income</span>
+                  <span class="credit-row-value">$0.00</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Monthly Debt Payment</span>
+                  <span class="credit-row-value">$984.00</span>
+                </div>
+              </div>
+              <div class="credit-col">
+                <div class="credit-col-title">Loan to Value</div>
+                <div class="credit-row">
+                  <span class="credit-row-label">LTV %</span>
+                  <span class="credit-row-value na">-%</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Home Value</span>
+                  <span class="credit-row-value na">-</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Mortgage Amount</span>
+                  <span class="credit-row-value na">-</span>
+                </div>
+                <div class="credit-row">
+                  <span class="credit-row-label">Is on property deed?</span>
+                  <span class="credit-row-value">No</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Credit Bureau Link -->
+            <a class="credit-link" onclick="showToast('Opening Credit Bureau Report...')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              See Credit Bureau Report
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /sections-container -->
+
+      <!-- Placeholder tabs (hidden by default) -->
+      <div class="sections-container" id="tab-billing" style="display:none;">
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">Billing Overview</div>
+          </div>
+          <div class="section-body">
+            <div class="empty-state" style="padding:48px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              <div style="margin-top:8px;font-size:15px;font-weight:600;color:var(--text-heading);">Billing Tab</div>
+              <div>Enhanced homeowner billing view — coming next.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sections-container" id="tab-install" style="display:none;">
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">Installation Details</div></div>
+          <div class="section-body">
+            <div class="empty-state" style="padding:48px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+              <div style="margin-top:8px;font-size:15px;font-weight:600;color:var(--text-heading);">Install Tab</div>
+              <div>Installation authorization and contractor payment details.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sections-container" id="tab-maintenance" style="display:none;">
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">Maintenance Records</div></div>
+          <div class="section-body">
+            <div class="empty-state" style="padding:48px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09"/></svg>
+              <div style="margin-top:8px;font-size:15px;font-weight:600;color:var(--text-heading);">Maintenance Tab</div>
+              <div>Maintenance plans and service history.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sections-container" id="tab-activity" style="display:none;">
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">Account Activity Log</div></div>
+          <div class="section-body">
+            <div class="empty-state" style="padding:48px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <div style="margin-top:8px;font-size:15px;font-weight:600;color:var(--text-heading);">Account Activity Tab</div>
+              <div>Full audit trail and account status changes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sections-container" id="tab-pricing" style="display:none;">
+        <div class="section-card">
+          <div class="section-header"><div class="section-title">Pricing Metrics</div></div>
+          <div class="section-body">
+            <div class="empty-state" style="padding:48px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              <div style="margin-top:8px;font-size:15px;font-weight:600;color:var(--text-heading);">Pricing Metrics Tab</div>
+              <div>Buydown pricing and rate sheet analysis.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-scroll -->
+  </div><!-- /main-wrapper -->
+</div><!-- /app -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// Section toggle (collapse/expand)
+function toggleSection(sectionId) {
+  const card = document.getElementById(sectionId);
+  card.classList.toggle('collapsed');
+}
+
+// Tab switching
+function switchTab(btn, tabId) {
+  // Deactivate all tabs
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Hide all tab panels
+  const panels = ['application','billing','install','maintenance','activity','pricing'];
+  panels.forEach(p => {
+    const el = document.getElementById('tab-' + p);
+    if (el) el.style.display = 'none';
+  });
+
+  // Show target
+  const target = document.getElementById('tab-' + tabId);
+  if (target) target.style.display = 'flex';
+}
+
+// Copy to clipboard
+function copyToClipboard(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text);
+  }
+  showToast('Copied: ' + text);
+}
+
+// Toast
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+</script>
+</body>
+</html>

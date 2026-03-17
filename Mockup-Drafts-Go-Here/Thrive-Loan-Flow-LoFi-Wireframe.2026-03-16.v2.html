@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thrive Promo Loan Flow — Lo-Fi Wireframe v2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Patrick+Hand&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --sketch-border: 2px solid #333;
+    --sketch-radius: 4px;
+    --font-hand: 'Architects Daughter', 'Patrick Hand', cursive;
+    --font-label: 'Patrick Hand', cursive;
+    --bg-paper: #faf8f0;
+    --bg-card: #fff;
+    --ink: #2a2a2a;
+    --ink-light: #666;
+    --accent-blue: #4a7fb5;
+    --accent-green: #5a9e3f;
+    --accent-orange: #d4873f;
+    --accent-red: #c0453a;
+    --dealer-color: #4a7fb5;
+    --homeowner-color: #7b5ea7;
+    --ipad-w: 580px;
+    --ipad-h: 420px;
+    --iphone-w: 220px;
+    --iphone-h: 440px;
+  }
+
+  body {
+    font-family: var(--font-hand);
+    background: var(--bg-paper);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Sketchy filter ── */
+  svg.sketch-filters { position: absolute; width: 0; height: 0; }
+
+  /* ── Top Bar ── */
+  .top-bar {
+    background: #fff;
+    border-bottom: 3px solid #333;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+  }
+  .top-bar h1 {
+    font-family: var(--font-hand);
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  .top-bar h1 span { color: var(--accent-blue); }
+  .top-bar .subtitle {
+    font-family: var(--font-label);
+    font-size: 14px;
+    color: var(--ink-light);
+  }
+
+  /* ── Flow Legend ── */
+  .legend {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    font-family: var(--font-label);
+    font-size: 14px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #333;
+  }
+  .legend-dot.dealer { background: var(--dealer-color); }
+  .legend-dot.homeowner { background: var(--homeowner-color); }
+  .legend-dot.handoff { background: linear-gradient(135deg, var(--dealer-color) 50%, var(--homeowner-color) 50%); }
+
+  /* ── Phase Timeline ── */
+  .phase-nav {
+    display: flex;
+    gap: 0;
+    padding: 16px 24px;
+    background: #fff;
+    border-bottom: 2px dashed #ccc;
+    overflow-x: auto;
+    position: sticky;
+    top: 60px;
+    z-index: 99;
+  }
+  .phase-tab {
+    font-family: var(--font-label);
+    font-size: 13px;
+    padding: 6px 14px;
+    border: 2px solid #bbb;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    background: #fff;
+    transition: all 0.2s;
+    margin-right: -1px;
+    position: relative;
+    user-select: none;
+  }
+  .phase-tab:hover { border-color: #666; background: #f5f3ea; }
+  .phase-tab.active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+    z-index: 1;
+  }
+  .phase-tab .tab-num {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ddd;
+    text-align: center;
+    line-height: 18px;
+    font-size: 11px;
+    margin-right: 4px;
+    color: #333;
+  }
+  .phase-tab.active .tab-num { background: #fff; color: var(--ink); }
+  .phase-tab.completed { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
+  .phase-tab.completed .tab-num { background: #fff; color: var(--accent-green); }
+
+  /* ── Phase Container ── */
+  .phases-container {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .phase-section {
+    display: none;
+    animation: fadeSlide 0.3s ease;
+  }
+  .phase-section.visible { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .phase-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    background: #fff;
+  }
+  .phase-title { font-size: 24px; }
+  .phase-actor {
+    font-family: var(--font-label);
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: #fff;
+  }
+  .phase-actor.dealer { background: var(--dealer-color); }
+  .phase-actor.homeowner { background: var(--homeowner-color); }
+  .phase-actor.both { background: linear-gradient(135deg, var(--dealer-color), var(--homeowner-color)); }
+
+  .phase-desc {
+    font-family: var(--font-label);
+    font-size: 15px;
+    color: var(--ink-light);
+    margin-bottom: 20px;
+    max-width: 700px;
+    line-height: 1.5;
+  }
+
+  /* ── Device Frames ── */
+  .devices-row {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .device-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .device-label {
+    font-family: var(--font-label);
+    font-size: 14px;
+    color: var(--ink-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .device-label .icon { font-size: 18px; }
+
+  /* iPad frame */
+  .ipad-frame {
+    width: var(--ipad-w);
+    height: var(--ipad-h);
+    border: 4px solid #333;
+    border-radius: 20px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.08);
+  }
+  .ipad-frame::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 30px;
+    background: #999;
+    border-radius: 2px;
+  }
+  .ipad-frame .camera-dot {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 50%;
+    border: 1px solid #aaa;
+  }
+
+  /* iPhone frame */
+  .iphone-frame {
+    width: var(--iphone-w);
+    height: var(--iphone-h);
+    border: 4px solid #333;
+    border-radius: 28px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.08);
+  }
+  .iphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 16px;
+    background: #222;
+    border-radius: 10px;
+    z-index: 5;
+  }
+
+  .screen-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 16px 12px;
+    overflow-y: auto;
+    font-family: var(--font-hand);
+  }
+  .iphone-frame .screen-content { padding-top: 30px; }
+
+  /* ── Sketchy UI Elements ── */
+  .sketch-topbar {
+    background: #e8e4d8;
+    margin: -28px -16px 10px;
+    padding: 8px 12px;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+  .iphone-frame .sketch-topbar {
+    margin-top: -30px;
+    padding-top: 24px;
+  }
+  .sketch-topbar .brand { font-weight: bold; color: var(--ink); font-size: 13px; }
+
+  .sketch-card {
+    border: 2px solid #bbb;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fefefe;
+    position: relative;
+  }
+  .sketch-card:hover { border-color: #888; }
+
+  .sketch-input {
+    width: 100%;
+    border: 2px dashed #bbb;
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin: 4px 0;
+    font-family: var(--font-hand);
+    font-size: 12px;
+    background: #faf9f4;
+    color: var(--ink-light);
+  }
+
+  .sketch-btn {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 2px solid #333;
+    border-radius: 6px;
+    font-family: var(--font-hand);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+    user-select: none;
+  }
+  .sketch-btn:hover { transform: translateY(-1px); box-shadow: 3px 3px 0 rgba(0,0,0,0.1); }
+  .sketch-btn.primary {
+    background: var(--accent-green);
+    color: #fff;
+    border-color: #3d7a28;
+  }
+  .sketch-btn.secondary {
+    background: var(--accent-blue);
+    color: #fff;
+    border-color: #365f8a;
+  }
+  .sketch-btn.outline { background: transparent; }
+  .sketch-btn.small { padding: 3px 10px; font-size: 11px; }
+  .sketch-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .sketch-label {
+    font-size: 11px;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--font-label);
+    margin-bottom: 2px;
+  }
+
+  .sketch-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  .iphone-frame .sketch-title { font-size: 14px; }
+
+  .sketch-text {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.4;
+  }
+  .iphone-frame .sketch-text { font-size: 11px; }
+
+  .sketch-divider {
+    border: none;
+    border-top: 2px dashed #ddd;
+    margin: 8px 0;
+  }
+
+  .sketch-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-family: var(--font-label);
+    border: 1.5px solid;
+  }
+  .sketch-badge.green { background: #e8f5e0; border-color: #5a9e3f; color: #3a6e28; }
+  .sketch-badge.blue { background: #e0eef8; border-color: #4a7fb5; color: #2a5f8a; }
+  .sketch-badge.orange { background: #fef0dc; border-color: #d4873f; color: #a06020; }
+  .sketch-badge.gray { background: #eee; border-color: #aaa; color: #666; }
+  .sketch-badge.red { background: #fde5e3; border-color: #c0453a; color: #8a2a22; }
+
+  .sketch-progress {
+    height: 10px;
+    background: #eee;
+    border: 2px solid #bbb;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 6px 0;
+  }
+  .sketch-progress-fill {
+    height: 100%;
+    background: var(--accent-green);
+    border-radius: 4px;
+    transition: width 0.5s;
+  }
+
+  /* Tracker pills (mini) */
+  .tracker-pills {
+    display: flex;
+    gap: 2px;
+    margin: 6px 0;
+  }
+  .tracker-pill {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    border: 1.5px solid #bbb;
+    background: #eee;
+    font-size: 0;
+  }
+  .tracker-pill.active { background: var(--accent-green); border-color: #3d7a28; }
+  .tracker-pill.done { background: var(--accent-blue); border-color: #365f8a; }
+  .tracker-pill.current { background: var(--accent-orange); border-color: #b06820; }
+
+  /* Sketchy checkbox */
+  .sketch-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    margin: 4px 0;
+    cursor: pointer;
+  }
+  .sketch-check .box {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #999;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.15s;
+  }
+  .sketch-check.checked .box { background: var(--accent-green); border-color: #3d7a28; color: #fff; }
+
+  /* Handoff arrow */
+  .handoff-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 0;
+    color: var(--ink-light);
+    font-family: var(--font-label);
+    font-size: 13px;
+  }
+  .handoff-arrow .arrow-line {
+    width: 60px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #999 0, #999 6px, transparent 6px, transparent 10px);
+  }
+  .handoff-arrow .arrow-head { font-size: 18px; }
+
+  /* ── User Story Reference ── */
+  .us-ref {
+    font-family: var(--font-label);
+    font-size: 10px;
+    color: #999;
+    position: absolute;
+    bottom: 2px;
+    right: 6px;
+  }
+
+  /* ── Notes / Annotations ── */
+  .annotation {
+    position: relative;
+    background: #fffde7;
+    border: 2px solid #e8d44d;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-family: var(--font-label);
+    margin: 12px 0;
+    line-height: 1.4;
+    max-width: 500px;
+  }
+  .annotation::before {
+    content: '📝';
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    font-size: 14px;
+  }
+
+  /* ── Navigation Buttons ── */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 2px dashed #ddd;
+    margin-top: 20px;
+  }
+
+  /* ── Sidebar in iPad ── */
+  .ipad-sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    background: #3a3a4a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 12px;
+    gap: 14px;
+    z-index: 2;
+  }
+  .ipad-sidebar .nav-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #aaa;
+    cursor: pointer;
+  }
+  .ipad-sidebar .nav-icon.active { background: rgba(255,255,255,0.25); color: #fff; }
+  .ipad-sidebar .nav-icon:hover { background: rgba(255,255,255,0.2); }
+
+  .ipad-main {
+    position: absolute;
+    top: 0;
+    left: 48px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    padding: 12px 14px;
+  }
+
+  /* ── Wavy underline for section titles ── */
+  .wavy-underline {
+    text-decoration-style: wavy;
+    text-decoration-line: underline;
+    text-decoration-color: var(--accent-orange);
+    text-underline-offset: 4px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .devices-row { flex-direction: column; align-items: center; }
+    :root { --ipad-w: 480px; --ipad-h: 380px; }
+  }
+
+  /* ── Scribble background texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, #e0ddd0 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ── Wiggly border filter ── */
+  .wiggly { filter: url(#sketchy); }
+
+  /* Overview table */
+  .overview-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid #bbb;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .overview-table th {
+    background: #e8e4d8;
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 2px solid #bbb;
+    font-family: var(--font-label);
+  }
+  .overview-table td {
+    padding: 6px 12px;
+    border-bottom: 1px dashed #ddd;
+  }
+  .overview-table tr:last-child td { border-bottom: none; }
+  .overview-table tr:hover td { background: #faf8f0; }
+
+  /* ── v2: Upload zone ── */
+  .upload-zone {
+    border: 3px dashed #bbb;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    background: #faf9f4;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 6px 0;
+  }
+  .upload-zone:hover { border-color: var(--accent-blue); background: #eef4fa; }
+  .upload-zone.uploaded { border-color: var(--accent-green); background: #f0fae8; border-style: solid; }
+  .upload-zone .upload-icon { font-size: 24px; margin-bottom: 4px; }
+  .upload-zone .upload-text { font-size: 11px; color: var(--ink-light); }
+
+  /* v2 promo badge */
+  .promo-callout {
+    background: linear-gradient(135deg, #fffde7, #fff8e1);
+    border: 2px solid #e8d44d;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .promo-callout .promo-icon { font-size: 18px; }
+</style>
+</head>
+<body>
+
+<!-- SVG filter for sketchy edges -->
+<svg class="sketch-filters">
+  <filter id="sketchy">
+    <feTurbulence type="turbulence" baseFrequency="0.03" numOctaves="4" result="noise" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+  </filter>
+</svg>
+
+<!-- ═══ TOP BAR ═══ -->
+<div class="top-bar">
+  <div>
+    <h1>✏️ <span>Comfort</span>Connect — Thrive Promo Loan Flow</h1>
+    <div class="subtitle">Lo-Fi Interactive Wireframe · Promo 0% for 18mo · v2</div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot dealer"></div> Dealer (iPad)</div>
+    <div class="legend-item"><div class="legend-dot homeowner"></div> Homeowner (iPhone)</div>
+    <div class="legend-item"><div class="legend-dot handoff"></div> Handoff</div>
+  </div>
+</div>
+
+<!-- ═══ PHASE TABS ═══ -->
+<div class="phase-nav" id="phaseNav">
+  <div class="phase-tab active" data-phase="0"><span class="tab-num">0</span> Overview</div>
+  <div class="phase-tab" data-phase="1"><span class="tab-num">1</span> Rate Card & Invite</div>
+  <div class="phase-tab" data-phase="2"><span class="tab-num">2</span> ID Upload</div>
+  <div class="phase-tab" data-phase="3"><span class="tab-num">3</span> Prequal</div>
+  <div class="phase-tab" data-phase="4"><span class="tab-num">4</span> Thrive App</div>
+  <div class="phase-tab" data-phase="5"><span class="tab-num">5</span> Decision</div>
+  <div class="phase-tab" data-phase="6"><span class="tab-num">6</span> Offer & Quote</div>
+  <div class="phase-tab" data-phase="7"><span class="tab-num">7</span> Doc Signing</div>
+  <div class="phase-tab" data-phase="8"><span class="tab-num">8</span> First Payment</div>
+  <div class="phase-tab" data-phase="9"><span class="tab-num">9</span> Install Auth</div>
+  <div class="phase-tab" data-phase="10"><span class="tab-num">10</span> Funding</div>
+  <div class="phase-tab" data-phase="11"><span class="tab-num">11</span> Billing</div>
+</div>
+
+<!-- ═══ PHASES ═══ -->
+<div class="phases-container">
+
+  <!-- ── PHASE 0: Overview ── -->
+  <div class="phase-section visible" data-phase="0">
+    <div class="phase-header">
+      <div class="phase-number">✦</div>
+      <div class="phase-title">Flow Overview — Promo Variation</div>
+    </div>
+    <div class="phase-desc">
+      The Thrive <strong>Promo 0% for 18 months</strong> loan flow. This variation requires the homeowner to upload a driver's license (front + back) <strong>before prequalification</strong> — the ID pre-fills the prequal form. The homeowner must also provide employer details during the application. All other phases follow the standard installment loan path.
+    </div>
+
+    <div class="promo-callout">
+      <span class="promo-icon">🏷️</span>
+      <div><strong>Promo Offer:</strong> 0% APR for 18 months, then 9.99% · Up to $15,000 · Requires ID verification + employer info</div>
+    </div>
+
+    <table class="overview-table">
+      <thead>
+        <tr><th>#</th><th>Phase</th><th>Actor</th><th>Device</th><th>Key Action</th><th>BRD Ref</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Send Invite</td><td><span class="sketch-badge blue">Dealer</span></td><td>iPad</td><td>Select state, amount, toggle <strong>Deferred Interest</strong> plans on, send link</td><td>US-3.1.1, US-12.2</td></tr>
+        <tr style="background:#fffde7;"><td>2</td><td><strong>ID Upload</strong> ★</td><td><span class="sketch-badge" style="background:#f0e6f6;border-color:#7b5ea7;color:#5a3e87">Homeowner</span></td><td>iPhone</td><td>Upload driver's license front + back (pre-fills prequal)</td><td>US-4.3 (Verification)</td></tr>
+        <tr><td>3</td><td>Prequalification</td><td><span class="sketch-badge" style="background:#f0e6f6;border-color:#7b5ea7;color:#5a3e87">Homeowner</span></td><td>iPhone</td><td>Review pre-filled info, soft credit check</td><td>US-3.2.1–3.3.4</td></tr>
+        <tr style="background:#fffde7;"><td>4</td><td><strong>Thrive Application</strong> ★</td><td><span class="sketch-badge" style="background:#f0e6f6;border-color:#7b5ea7;color:#5a3e87">Homeowner</span></td><td>iPhone</td><td>Submit with <strong>employer info</strong></td><td>US-3.13.1–3.13.2</td></tr>
+        <tr><td>5</td><td>Loan Decision</td><td><span class="sketch-badge orange">Both</span></td><td>Both</td><td>Approval / decline notification</td><td>US-3.13.3</td></tr>
+        <tr><td>6</td><td>Offer & Work Order</td><td><span class="sketch-badge blue">Dealer</span></td><td>iPad</td><td>Select offer, enter work order / quote</td><td>US-3.5</td></tr>
+        <tr><td>7</td><td>Document Signing</td><td><span class="sketch-badge" style="background:#f0e6f6;border-color:#7b5ea7;color:#5a3e87">Homeowner</span></td><td>iPhone</td><td>Review & e-sign loan agreement</td><td>US-3.8.1–3.8.3</td></tr>
+        <tr><td>8</td><td>First Payment</td><td><span class="sketch-badge" style="background:#f0e6f6;border-color:#7b5ea7;color:#5a3e87">Homeowner</span></td><td>iPhone</td><td>Make first payment via portal</td><td>US-3.9.1–3.9.2</td></tr>
+        <tr><td>9</td><td>Installation Auth</td><td><span class="sketch-badge blue">Dealer</span></td><td>iPad</td><td>Authorize & record install</td><td>US-7.1.1–7.1.2</td></tr>
+        <tr><td>10</td><td>Funding Request</td><td><span class="sketch-badge blue">Dealer</span></td><td>iPad</td><td>Request Thrive funding</td><td>US-7.4.8</td></tr>
+        <tr><td>11</td><td>Billing & Payments</td><td><span class="sketch-badge" style="background:#f0e6f6;border-color:#7b5ea7;color:#5a3e87">Homeowner</span></td><td>iPhone</td><td>Monthly billing (0% intro period)</td><td>US-8.1–8.4</td></tr>
+      </tbody>
+    </table>
+
+    <div class="annotation">
+      ★ = Steps that differ from the standard Thrive flow (v1). The Promo rate card triggers additional ID verification and employer information requirements.
+    </div>
+
+    <div style="text-align:center; padding: 16px 0;">
+      <button class="sketch-btn primary" onclick="goPhase(1)">Start the Flow →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 1: Send Invite (PROMO — Deferred Interest Plans Toggled On) ── -->
+  <div class="phase-section" data-phase="1">
+    <div class="phase-header">
+      <div class="phase-number">1</div>
+      <div class="phase-title">Send Invite to Customer</div>
+      <div class="phase-actor dealer">Dealer · iPad</div>
+    </div>
+    <div class="phase-desc">Dealer selects installation state, enters financing amount, toggles on <strong>Deferred Interest (promo)</strong> plans, enters homeowner contact, and sends the secure prequal link. US-3.1.1</div>
+
+    <div class="devices-row">
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Dealer iPad — Send Invite to Customer</div>
+        <div class="ipad-frame" style="height:520px;">
+          <div class="camera-dot"></div>
+          <div class="ipad-sidebar">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-icon active">📋</div>
+            <div class="nav-icon">📊</div>
+            <div class="nav-icon">⚙️</div>
+          </div>
+          <div class="ipad-main">
+            <div class="sketch-topbar" style="margin:-12px -14px 10px; padding:8px 12px;">
+              <span class="brand">ComfortConnect</span>
+              <span>Mike's HVAC ▾</span>
+            </div>
+
+            <div class="sketch-title wavy-underline" style="text-align:center;">Send Invite to Customer</div>
+
+            <!-- Installation State & Amount -->
+            <div class="sketch-card">
+              <div class="sketch-label">What is the installation state?</div>
+              <div class="sketch-input" style="font-size:13px;">Georgia ▾</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">What is the total financing amount you require?</div>
+              <div class="sketch-input" style="font-size:14px;font-weight:bold;">$ 10,000</div>
+              <div class="sketch-text" style="font-size:10px;margin-top:4px;">Some loan plans have minimum amounts. Eligible plans will show below.</div>
+            </div>
+
+            <!-- Installment Loan Options Table — PROMO PLANS TOGGLED ON -->
+            <div class="sketch-card">
+              <div class="sketch-label">Installment Loan Options</div>
+              <div class="sketch-text" style="font-size:10px;margin-bottom:6px;">(If your customer is not approved for selected plans, alternative options may be shown.)</div>
+
+              <!-- Table header -->
+              <div style="display:flex;gap:4px;font-size:9px;text-transform:uppercase;color:#888;padding:4px 0;border-bottom:2px solid #ddd;letter-spacing:0.3px;font-family:var(--font-label);">
+                <div style="width:36px;text-align:center;">Select</div>
+                <div style="flex:1.5;">Offer</div>
+                <div style="flex:0.7;text-align:center;">Term</div>
+                <div style="flex:0.8;text-align:center;">Pmt Factor</div>
+                <div style="flex:0.7;text-align:center;">Dealer Fee</div>
+                <div style="flex:0.9;text-align:right;">Mo. Pmt</div>
+              </div>
+
+              <!-- PROMO: Deferred Interest plans toggled ON -->
+              <div style="display:flex;gap:4px;font-size:11px;padding:5px 0;border-bottom:1px dashed #eee;align-items:center;background:#fffde7;" class="plan-row">
+                <div style="width:36px;text-align:center;"><span class="toggle on" style="display:inline-block;width:28px;height:14px;border-radius:8px;background:#4a7fb5;position:relative;cursor:pointer;border:1.5px solid #365f8a;"><span style="position:absolute;top:1px;left:14px;width:10px;height:10px;background:#fff;border-radius:50%;"></span></span></div>
+                <div style="flex:1.5;"><strong>6 Month No/No</strong><br><span class="sketch-badge orange" style="font-size:8px;">Deferred Interest</span></div>
+                <div style="flex:0.7;text-align:center;">90 mo</div>
+                <div style="flex:0.8;text-align:center;">2.03%</div>
+                <div style="flex:0.7;text-align:center;">4.25%</div>
+                <div style="flex:0.9;text-align:right;font-weight:bold;">$203.00</div>
+              </div>
+
+              <div style="display:flex;gap:4px;font-size:11px;padding:5px 0;border-bottom:1px dashed #eee;align-items:center;background:#fffde7;" class="plan-row">
+                <div style="width:36px;text-align:center;"><span class="toggle on" style="display:inline-block;width:28px;height:14px;border-radius:8px;background:#4a7fb5;position:relative;cursor:pointer;border:1.5px solid #365f8a;"><span style="position:absolute;top:1px;left:14px;width:10px;height:10px;background:#fff;border-radius:50%;"></span></span></div>
+                <div style="flex:1.5;"><strong>12 Month No/No</strong><br><span class="sketch-badge orange" style="font-size:8px;">Deferred Interest</span></div>
+                <div style="flex:0.7;text-align:center;">96 mo</div>
+                <div style="flex:0.8;text-align:center;">1.97%</div>
+                <div style="flex:0.7;text-align:center;">5.25%</div>
+                <div style="flex:0.9;text-align:right;font-weight:bold;">$197.00</div>
+              </div>
+
+              <!-- Fixed Rate plans toggled OFF -->
+              <div style="display:flex;gap:4px;font-size:11px;padding:5px 0;border-bottom:1px dashed #eee;align-items:center;opacity:0.5;" class="plan-row">
+                <div style="width:36px;text-align:center;"><span class="toggle" style="display:inline-block;width:28px;height:14px;border-radius:8px;background:#ccc;position:relative;cursor:pointer;border:1.5px solid #aaa;"><span style="position:absolute;top:1px;left:2px;width:10px;height:10px;background:#fff;border-radius:50%;"></span></span></div>
+                <div style="flex:1.5;"><strong>5-Year 10.99%</strong><br><span class="sketch-badge blue" style="font-size:8px;">Fixed Rate</span></div>
+                <div style="flex:0.7;text-align:center;">60 mo</div>
+                <div style="flex:0.8;text-align:center;">2.17%</div>
+                <div style="flex:0.7;text-align:center;">2.50%</div>
+                <div style="flex:0.9;text-align:right;font-weight:bold;">$217.00</div>
+              </div>
+
+              <div style="display:flex;gap:4px;font-size:11px;padding:5px 0;border-bottom:1px dashed #eee;align-items:center;opacity:0.5;" class="plan-row">
+                <div style="width:36px;text-align:center;"><span class="toggle" style="display:inline-block;width:28px;height:14px;border-radius:8px;background:#ccc;position:relative;cursor:pointer;border:1.5px solid #aaa;"><span style="position:absolute;top:1px;left:2px;width:10px;height:10px;background:#fff;border-radius:50%;"></span></span></div>
+                <div style="flex:1.5;"><strong>15-Year 11.99%</strong><br><span class="sketch-badge blue" style="font-size:8px;">Fixed Rate</span></div>
+                <div style="flex:0.7;text-align:center;">180 mo</div>
+                <div style="flex:0.8;text-align:center;">1.20%</div>
+                <div style="flex:0.7;text-align:center;">5.00%</div>
+                <div style="flex:0.9;text-align:right;font-weight:bold;">$120.00</div>
+              </div>
+
+              <div class="sketch-text" style="font-size:9px;margin-top:6px;color:#999;font-style:italic;">
+                *Deferred Interest plans convert to an 84-month fixed-rate loan at an APR as low as 17.99% if not fully repaid during the promotional period.
+              </div>
+            </div>
+
+            <div class="promo-callout" style="margin-top:0;">
+              <span class="promo-icon">⚠️</span>
+              <div style="font-size:11px;"><strong>Deferred Interest selected</strong> — homeowner will be required to upload driver's license (front + back) and provide employer information.</div>
+            </div>
+
+            <!-- Send Invitation -->
+            <div class="sketch-card">
+              <div class="sketch-label">Send Invitation</div>
+              <div class="sketch-input">First Name: Jane</div>
+              <div class="sketch-input">Mobile Phone or Email: jane.smith@email.com or (555) 867-5309</div>
+            </div>
+
+            <div style="text-align:center;margin-top:8px;">
+              <button class="sketch-btn primary" onclick="goPhase(2)" style="padding:8px 24px;">Proceed to Confirmation ✈️</button>
+              <div class="sketch-text" style="font-size:10px;margin-top:4px;">We'll send them a secure link.</div>
+            </div>
+            <span class="us-ref">US-3.1.1, US-12.2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="handoff-arrow">
+      <span class="arrow-line"></span>
+      <span>📨 Email/SMS sent to homeowner</span>
+      <span class="arrow-line"></span>
+      <span class="arrow-head">→</span>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(0)">← Overview</button>
+      <button class="sketch-btn primary" onclick="goPhase(2)">Homeowner Opens Link →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2: ID Upload (Promo Variation — Before Prequal) ── -->
+  <div class="phase-section" data-phase="2">
+    <div class="phase-header">
+      <div class="phase-number">2</div>
+      <div class="phase-title">Driver's License Upload</div>
+      <div class="phase-actor homeowner">Homeowner · iPhone</div>
+      <span class="sketch-badge orange" style="font-size:11px;">★ Promo Only</span>
+    </div>
+    <div class="phase-desc">Because the dealer selected the Promo 0% rate card, the homeowner is required to upload a photo of the front and back of their driver's license. The ID will be used to <strong>pre-fill</strong> the prequalification fields in the next step. US-4.3</div>
+
+    <div class="devices-row">
+      <!-- iPhone: Upload Instructions -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Upload Instructions</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-progress"><div class="sketch-progress-fill" style="width:25%"></div></div>
+
+            <div class="sketch-title" style="text-align:center;">Verify Your Identity</div>
+            <div class="sketch-text" style="text-align:center;margin-bottom:10px;">Please upload clear photos of your driver's license</div>
+
+            <div class="promo-callout" style="font-size:10px;padding:6px 8px;">
+              <span class="promo-icon" style="font-size:14px;">🏷️</span>
+              <div>Required for the <strong>0% Promo</strong> offer. Your ID will <strong>pre-fill</strong> the next form.</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Front of License</div>
+              <div class="upload-zone" id="frontUpload" onclick="this.classList.add('uploaded');this.innerHTML='<div class=upload-icon>✅</div><div class=upload-text style=color:var(--accent-green)><strong>Front uploaded</strong><br>DL_front_jane_smith.jpg</div>';">
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">Tap to take photo or upload<br><strong>Front of driver's license</strong></div>
+              </div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Back of License</div>
+              <div class="upload-zone" id="backUpload" onclick="this.classList.add('uploaded');this.innerHTML='<div class=upload-icon>✅</div><div class=upload-text style=color:var(--accent-green)><strong>Back uploaded</strong><br>DL_back_jane_smith.jpg</div>';">
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">Tap to take photo or upload<br><strong>Back of driver's license</strong></div>
+              </div>
+            </div>
+
+            <div class="sketch-text" style="font-size:10px;text-align:center;margin:6px 0;color:#999;">
+              📋 Make sure the full card is visible, well-lit, and not blurry
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:4px;" onclick="goPhase(3)">Continue →</button>
+            <span class="us-ref">US-4.3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Upload Complete -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Both Uploaded ✓</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-progress"><div class="sketch-progress-fill" style="width:35%"></div></div>
+
+            <div style="text-align:center;padding:12px 0 6px;">
+              <div style="font-size:32px;margin-bottom:6px;">🪪</div>
+              <div class="sketch-title" style="color:var(--accent-green);">ID Uploaded!</div>
+            </div>
+
+            <div class="sketch-card" style="border-color:var(--accent-green);">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:3px 0;">
+                <span>📄 Front of License</span>
+                <span class="sketch-badge green">✓ Uploaded</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:3px 0;">
+                <span>📄 Back of License</span>
+                <span class="sketch-badge green">✓ Uploaded</span>
+              </div>
+            </div>
+
+            <div class="sketch-card" style="background:#f8f8f8;">
+              <div class="sketch-text" style="font-size:10px;text-align:center;">
+                🔒 Your images are encrypted and stored securely. They will only be used for identity verification purposes.
+              </div>
+            </div>
+
+            <div class="sketch-card" style="background:#fffde7;border-color:#e8d44d;">
+              <div class="sketch-text" style="font-size:11px;text-align:center;">
+                ⏭ Next: Your info has been <strong>pre-filled from your ID</strong>. Just review and confirm.
+              </div>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:6px;" onclick="goPhase(3)">Review Pre-Filled Info →</button>
+            <span class="us-ref">US-4.3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(1)">← Rate Card & Invite</button>
+      <button class="sketch-btn primary" onclick="goPhase(3)">Prequalification →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 3: Prequalification (Pre-Filled from ID Upload) ── -->
+  <div class="phase-section" data-phase="3">
+    <div class="phase-header">
+      <div class="phase-number">3</div>
+      <div class="phase-title">Prequalification</div>
+      <div class="phase-actor homeowner">Homeowner · iPhone</div>
+    </div>
+    <div class="phase-desc">Homeowner opens the prequal form — fields are <strong>pre-filled from the driver's license scan</strong> (name, DOB, address). The homeowner reviews, corrects if needed, consents to a soft credit check, and submits. US-3.2.1–3.3.4</div>
+
+    <div class="devices-row">
+      <!-- iPhone: Consent -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Step 1 — Consent</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-title" style="text-align:center;margin-top:8px;">Get Pre-Qualified</div>
+            <div class="sketch-text" style="text-align:center;margin-bottom:10px;">See your options with no impact to your credit score</div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Consent</div>
+              <div class="sketch-text" style="font-size:10px;line-height:1.3;">
+                By checking below, you authorize a soft credit inquiry to determine your prequalification status. This will NOT affect your credit score.
+              </div>
+              <label class="sketch-check" onclick="this.classList.toggle('checked')" style="margin-top:8px;">
+                <span class="box"></span> I agree to the terms
+              </label>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;text-align:center;margin-top:8px;" onclick="goPhase(3)">Continue →</button>
+            <span class="us-ref">US-3.2.1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Personal Info — PRE-FILLED FROM ID -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Step 2 — Your Info (Pre-Filled)</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-progress"><div class="sketch-progress-fill" style="width:45%"></div></div>
+
+            <div style="background:#d9f3d0;border:1.5px dashed #5a9e3f;border-radius:6px;padding:5px 8px;margin-bottom:8px;font-size:10px;text-align:center;color:#398f17;">
+              ✅ <strong>Pre-Filled from ID</strong> — Review and correct if needed
+            </div>
+
+            <div class="sketch-label">Personal Information</div>
+            <div class="sketch-input" style="background:#f0fff0;border-color:#5a9e3f;position:relative;">Jane A. Smith <span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:9px;color:#5a9e3f;">✓ ID</span></div>
+            <div class="sketch-input" style="background:#f0fff0;border-color:#5a9e3f;position:relative;">04/15/1988 <span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:9px;color:#5a9e3f;">✓ ID</span></div>
+            <div class="sketch-input">SSN (last 4: ••••)</div>
+
+            <div class="sketch-label" style="margin-top:8px;">Address</div>
+            <div class="sketch-input" style="background:#f0fff0;border-color:#5a9e3f;position:relative;">742 Evergreen Terrace <span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:9px;color:#5a9e3f;">✓ ID</span></div>
+            <div class="sketch-input" style="background:#f0fff0;border-color:#5a9e3f;position:relative;">Marietta, GA 30060 <span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:9px;color:#5a9e3f;">✓ ID</span></div>
+
+            <div class="sketch-label" style="margin-top:8px;">Income</div>
+            <div class="sketch-input">Annual Household Income</div>
+            <div class="sketch-input">Employment Status ▾</div>
+
+            <button class="sketch-btn primary" style="width:100%;text-align:center;margin-top:10px;">Submit for Prequal</button>
+            <span class="us-ref">US-3.2.2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Decision -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Step 3 — Decision</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div style="text-align:center;padding:16px 0 8px;">
+              <div style="width:50px;height:50px;border-radius:50%;border:3px solid var(--accent-green);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:24px;">✓</div>
+              <div class="sketch-title" style="color:var(--accent-green);">Pre-Qualified!</div>
+              <div class="sketch-text">You're approved for up to</div>
+              <div style="font-size:28px;font-weight:bold;margin:4px 0;">$12,500</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Available Products</div>
+              <div class="sketch-check checked" style="font-size:11px;"><span class="box">✓</span> Installment Loan (Thrive)</div>
+              <div class="sketch-check" style="font-size:11px;color:#999;"><span class="box">—</span> Lease-to-Own (N/A)</div>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;text-align:center;margin-top:10px;" onclick="goPhase(4)">Continue to Application →</button>
+            <span class="us-ref">US-3.3.1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(2)">← ID Upload</button>
+      <button class="sketch-btn primary" onclick="goPhase(4)">Thrive Application →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 4: Thrive Application (with Employer Info — Promo Variation) ── -->
+  <div class="phase-section" data-phase="4">
+    <div class="phase-header">
+      <div class="phase-number">4</div>
+      <div class="phase-title">Thrive Loan Application</div>
+      <div class="phase-actor homeowner">Homeowner · iPhone</div>
+      <span class="sketch-badge orange" style="font-size:11px;">★ Employer Info Required</span>
+    </div>
+    <div class="phase-desc">Prequal and ID data auto-populate the application. Because the Promo rate card was selected, the homeowner must also provide employer details (name, job title, years, salary). US-3.13.1–3.13.2</div>
+
+    <div class="devices-row">
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Application — Personal & Housing</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-progress"><div class="sketch-progress-fill" style="width:55%"></div></div>
+
+            <div class="sketch-title">Thrive Promo Application</div>
+
+            <div class="promo-callout" style="font-size:10px;padding:6px 8px;">
+              <span class="promo-icon" style="font-size:14px;">🏷️</span>
+              <div><strong>0% for 18 months</strong> · ID verified ✓</div>
+            </div>
+
+            <div class="sketch-card" style="border-color:var(--accent-green);">
+              <div class="sketch-label">Pre-Filled ✓</div>
+              <div class="sketch-text">Jane Smith · DOB · Address · Income</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Additional Details</div>
+              <div class="sketch-input">Full SSN: •••-••-••••</div>
+              <div class="sketch-input">Housing: Own / Rent ▾</div>
+              <div class="sketch-input">Monthly Housing Cost</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Loan Request</div>
+              <div class="sketch-input">Requested Amount: $10,000</div>
+              <div class="sketch-input">Purpose: HVAC System ▾</div>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:6px;">Next: Employer Info →</button>
+            <span class="us-ref">US-3.13.1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Employer Info (NEW for Promo) -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Employer Info ★ Promo</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-progress"><div class="sketch-progress-fill" style="width:65%"></div></div>
+
+            <div class="sketch-title">Employer Information</div>
+            <div class="sketch-text" style="margin-bottom:8px;">Required for the 0% Promo offer</div>
+
+            <div class="sketch-card" style="border-left:4px solid var(--accent-orange);">
+              <div class="sketch-label">Your Employer</div>
+              <div class="sketch-input">Employer Name: Acme Corp</div>
+              <div class="sketch-input">Job Title: Office Manager</div>
+              <div class="sketch-input">Years with Company: 5</div>
+              <div class="sketch-input">Annual Salary: $62,000</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Employer Contact (optional)</div>
+              <div class="sketch-input">Employer Phone</div>
+              <div class="sketch-input">Employer Address</div>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:8px;" onclick="goPhase(5)">Submit to Thrive →</button>
+            <span class="us-ref">US-3.13.2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Submission Confirmation -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Waiting for Decision</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div style="text-align:center;padding:24px 0 12px;">
+              <div style="font-size:36px;margin-bottom:12px;">⏳</div>
+              <div class="sketch-title">Application Submitted</div>
+              <div class="sketch-text" style="margin:8px 0;">
+                Your Thrive Promo loan application is being reviewed.
+              </div>
+              <div class="sketch-badge blue" style="margin-top:8px;">Status: Under Review</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label" style="font-size:10px;">Submitted Details</div>
+              <div style="font-size:10px;color:#888;">
+                <div>✓ ID verified (front + back)</div>
+                <div>✓ Personal info + housing</div>
+                <div>✓ Employer: Acme Corp, 5 years</div>
+                <div>✓ Requested: $10,000 @ 0% Promo</div>
+              </div>
+            </div>
+
+            <div class="sketch-card" style="margin-top:8px;">
+              <div class="sketch-text" style="text-align:center;font-size:11px;">
+                📧 We'll email you at jane.smith@email.com<br>
+                📱 and text (555) 867-5309
+              </div>
+            </div>
+
+            <span class="us-ref">US-3.13.2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      Thrive handles underwriting on their side. The employer info and ID upload are additional verification steps triggered by the Promo rate card selection. Decision typically arrives within seconds for auto-approval, or up to 24h for manual review.
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(3)">← Prequal</button>
+      <button class="sketch-btn primary" onclick="goPhase(5)">Decision Arrives →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 5: Decision ── -->
+  <div class="phase-section" data-phase="5">
+    <div class="phase-header">
+      <div class="phase-number">5</div>
+      <div class="phase-title">Loan Decision</div>
+      <div class="phase-actor both">Both · iPad + iPhone</div>
+    </div>
+    <div class="phase-desc">Thrive returns the loan decision. Both the dealer and homeowner see the result simultaneously. US-3.13.3</div>
+
+    <div class="devices-row">
+      <!-- iPad: Dealer sees approval -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Dealer iPad — Pipeline</div>
+        <div class="ipad-frame">
+          <div class="camera-dot"></div>
+          <div class="ipad-sidebar">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-icon active">📋</div>
+            <div class="nav-icon">📊</div>
+            <div class="nav-icon">⚙️</div>
+          </div>
+          <div class="ipad-main">
+            <div class="sketch-topbar" style="margin:-12px -14px 10px; padding:8px 12px;">
+              <span class="brand">ComfortConnect</span>
+              <span>Mike's HVAC ▾</span>
+            </div>
+
+            <div class="sketch-title">Application Pipeline</div>
+
+            <div class="sketch-card" style="border-left:4px solid var(--accent-green);">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:14px;font-weight:bold;">Jane Smith</div>
+                  <div class="sketch-text">Thrive Promo — 0% 18mo</div>
+                </div>
+                <div class="sketch-badge green">✓ Approved</div>
+              </div>
+              <hr class="sketch-divider">
+              <div style="display:flex;justify-content:space-between;font-size:12px;">
+                <span>Approved: <strong>$10,000</strong></span>
+                <span>APR: <strong>0% intro</strong></span>
+                <span>Term: <strong>18mo + 42mo</strong></span>
+              </div>
+              <div class="tracker-pills" style="margin-top:8px;">
+                <div class="tracker-pill done"></div>
+                <div class="tracker-pill done"></div>
+                <div class="tracker-pill current"></div>
+                <div class="tracker-pill"></div>
+                <div class="tracker-pill"></div>
+                <div class="tracker-pill"></div>
+                <div class="tracker-pill"></div>
+              </div>
+              <div style="display:flex;gap:6px;margin-top:8px;">
+                <button class="sketch-btn secondary small" onclick="goPhase(6)">Set Up Work Order →</button>
+                <button class="sketch-btn outline small">View Details</button>
+              </div>
+              <span class="us-ref">US-3.13.3</span>
+            </div>
+
+            <!-- Other pipeline items (background) -->
+            <div class="sketch-card" style="opacity:0.5;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:14px;">Bob Johnson</div>
+                  <div class="sketch-text">Prequal Sent</div>
+                </div>
+                <div class="sketch-badge gray">Pending</div>
+              </div>
+            </div>
+            <div class="sketch-card" style="opacity:0.5;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:14px;">Maria Garcia</div>
+                  <div class="sketch-text">Docs Signed</div>
+                </div>
+                <div class="sketch-badge orange">Install Pending</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Homeowner sees approval -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Homeowner iPhone</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div style="text-align:center;padding:12px 0 6px;">
+              <div style="width:56px;height:56px;border-radius:50%;border:3px solid var(--accent-green);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:28px;background:#e8f5e0;">✓</div>
+              <div class="sketch-title" style="color:var(--accent-green);font-size:18px;">Loan Approved!</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Your Thrive Loan</div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin:4px 0;">
+                <span>Amount</span><strong>$10,000</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin:4px 0;">
+                <span>APR</span><strong>0% for 18mo</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin:4px 0;">
+                <span>Term</span><strong>18mo intro + 42mo</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin:4px 0;">
+                <span>Est. Payment</span><strong>$556/mo (intro)</strong>
+              </div>
+            </div>
+
+            <div class="sketch-card" style="background:#fffde7;border-color:#e8d44d;">
+              <div class="sketch-text" style="font-size:11px;text-align:center;">
+                ⏭ Next: Your dealer will prepare the work order, then you'll sign your 0% promo loan documents.
+              </div>
+            </div>
+
+            <span class="us-ref">US-3.13.3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(4)">← Thrive App</button>
+      <button class="sketch-btn primary" onclick="goPhase(6)">Work Order →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 6: Offer & Work Order ── -->
+  <div class="phase-section" data-phase="6">
+    <div class="phase-header">
+      <div class="phase-number">6</div>
+      <div class="phase-title">Offer Selection & Work Order</div>
+      <div class="phase-actor dealer">Dealer · iPad</div>
+    </div>
+    <div class="phase-desc">Dealer selects the approved offer and enters the work order / quote. No equipment catalog entry is needed for loan-only flows. US-3.5</div>
+
+    <div class="devices-row">
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Dealer iPad — Offer & Work Order</div>
+        <div class="ipad-frame">
+          <div class="camera-dot"></div>
+          <div class="ipad-sidebar">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-icon active">📋</div>
+            <div class="nav-icon">📊</div>
+            <div class="nav-icon">⚙️</div>
+          </div>
+          <div class="ipad-main">
+            <div class="sketch-topbar" style="margin:-12px -14px 10px; padding:8px 12px;">
+              <span class="brand">ComfortConnect</span>
+              <span>Mike's HVAC ▾</span>
+            </div>
+
+            <div class="sketch-title">Jane Smith — Work Order</div>
+            <div class="tracker-pills">
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill current"></div>
+              <div class="tracker-pill"></div>
+              <div class="tracker-pill"></div>
+              <div class="tracker-pill"></div>
+              <div class="tracker-pill"></div>
+            </div>
+
+            <div class="sketch-card" style="border-left:4px solid var(--accent-green);">
+              <div class="sketch-label">Selected Offer</div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;">
+                <span>Thrive Promo — $10,000 @ 0% × 18mo, then 9.99%</span>
+                <span class="sketch-badge green">Selected</span>
+              </div>
+              <div class="sketch-text" style="margin-top:4px;font-size:11px;">Rate Card: Thrive Promo 0% 18mo · Est. payment $556/mo intro</div>
+            </div>
+
+            <div class="sketch-card" style="background:#fffde7;border-color:#e8d44d;">
+              <div style="display:flex;align-items:center;gap:6px;font-size:11px;">
+                <span>💡</span>
+                <span class="sketch-text">Loan-only flow — equipment catalog entry is not required. Enter work order line items below.</span>
+              </div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Work Order / Quote</div>
+              <div style="font-size:12px;">
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>HVAC System — 3-Ton AC Unit</span><span>$7,400</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>Labor — Installation</span><span>$1,800</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>Permit & Disposal</span><span>$400</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>Tax (7%)</span><span>$200</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;font-weight:bold;">
+                  <span>Total</span><span>$10,000</span>
+                </div>
+              </div>
+              <button class="sketch-btn outline small" style="margin-top:6px;">+ Add Line Item</button>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <button class="sketch-btn primary" onclick="goPhase(7)">Send for Signing ✍️</button>
+              <button class="sketch-btn outline">Save & Return</button>
+            </div>
+            <span class="us-ref">US-3.5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="handoff-arrow">
+      <span class="arrow-line"></span>
+      <span>📄 Work order confirmed, loan docs generated & sent to homeowner</span>
+      <span class="arrow-line"></span>
+      <span class="arrow-head">→</span>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(5)">← Decision</button>
+      <button class="sketch-btn primary" onclick="goPhase(7)">Document Signing →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 7: Document Signing ── -->
+  <div class="phase-section" data-phase="7">
+    <div class="phase-header">
+      <div class="phase-number">7</div>
+      <div class="phase-title">Document Signing</div>
+      <div class="phase-actor homeowner">Homeowner · iPhone</div>
+    </div>
+    <div class="phase-desc">Homeowner reviews and electronically signs the Thrive loan agreement and all required documents. US-3.8.1–3.8.3</div>
+
+    <div class="devices-row">
+      <!-- iPhone: Doc List -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Documents to Sign</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-title">Sign Your Documents</div>
+            <div class="sketch-text" style="margin-bottom:10px;">Please review and sign each document below</div>
+
+            <div class="sketch-card" onclick="this.querySelector('.box').textContent='✓';this.querySelector('.sketch-check').classList.add('checked');" style="cursor:pointer;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:12px;font-weight:bold;">📄 Loan Agreement</div>
+                  <div class="sketch-text">Thrive Installment Loan Terms</div>
+                </div>
+                <label class="sketch-check"><span class="box"></span></label>
+              </div>
+            </div>
+
+            <div class="sketch-card" onclick="this.querySelector('.box').textContent='✓';this.querySelector('.sketch-check').classList.add('checked');" style="cursor:pointer;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:12px;font-weight:bold;">📄 Truth in Lending</div>
+                  <div class="sketch-text">APR, Finance Charge, Payments</div>
+                </div>
+                <label class="sketch-check"><span class="box"></span></label>
+              </div>
+            </div>
+
+            <div class="sketch-card" onclick="this.querySelector('.box').textContent='✓';this.querySelector('.sketch-check').classList.add('checked');" style="cursor:pointer;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:12px;font-weight:bold;">📄 ACH Authorization</div>
+                  <div class="sketch-text">Payment method authorization</div>
+                </div>
+                <label class="sketch-check"><span class="box"></span></label>
+              </div>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:10px;">Review & Sign All ✍️</button>
+            <span class="us-ref">US-3.8.1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Signing -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> E-Signature</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-title" style="font-size:13px;">Loan Agreement — Sign Below</div>
+
+            <div class="sketch-card" style="height:100px;display:flex;align-items:center;justify-content:center;border-style:dashed;background:#faf9f4;">
+              <div style="text-align:center;color:#aaa;font-size:12px;">
+                ✍️ Draw your signature here<br>
+                <span style="font-size:10px;">(tap to simulate)</span>
+              </div>
+            </div>
+
+            <div class="sketch-card" style="margin-top:8px;">
+              <div class="sketch-label">Typed Signature</div>
+              <div class="sketch-input" style="font-size:16px;font-style:italic;">Jane Smith</div>
+              <div class="sketch-text" style="font-size:10px;margin-top:4px;">Date: March 16, 2026</div>
+            </div>
+
+            <label class="sketch-check" onclick="this.classList.toggle('checked')" style="margin:10px 0;font-size:11px;">
+              <span class="box"></span> I agree this is my legal signature
+            </label>
+
+            <button class="sketch-btn primary" style="width:100%;" onclick="goPhase(8)">Complete Signing ✓</button>
+            <span class="us-ref">US-3.8.2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Confirmation -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Signed ✓</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div style="text-align:center;padding:20px 0 10px;">
+              <div style="font-size:36px;margin-bottom:8px;">✅</div>
+              <div class="sketch-title" style="color:var(--accent-green);">Documents Signed!</div>
+              <div class="sketch-text" style="margin:6px 0;">All documents have been signed and verified.</div>
+            </div>
+
+            <div class="sketch-card">
+              <div style="font-size:11px;">
+                <div style="display:flex;justify-content:space-between;padding:2px 0;">📄 Loan Agreement <span class="sketch-badge green">Signed</span></div>
+                <div style="display:flex;justify-content:space-between;padding:2px 0;">📄 Truth in Lending <span class="sketch-badge green">Signed</span></div>
+                <div style="display:flex;justify-content:space-between;padding:2px 0;">📄 ACH Authorization <span class="sketch-badge green">Signed</span></div>
+              </div>
+            </div>
+
+            <div class="sketch-card" style="background:#fffde7;border-color:#e8d44d;">
+              <div class="sketch-text" style="font-size:11px;text-align:center;">
+                ⏭ Next step: Make your first payment to begin the installation process.
+              </div>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:6px;" onclick="goPhase(8)">Make First Payment →</button>
+            <span class="us-ref">US-3.8.3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(6)">← Work Order</button>
+      <button class="sketch-btn primary" onclick="goPhase(8)">First Payment →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 8: First Payment ── -->
+  <div class="phase-section" data-phase="8">
+    <div class="phase-header">
+      <div class="phase-number">8</div>
+      <div class="phase-title">First Payment</div>
+      <div class="phase-actor homeowner">Homeowner · iPhone</div>
+    </div>
+    <div class="phase-desc">Homeowner makes the first payment via the portal. Upon confirmation, the application becomes ready for installation. US-3.9.1–3.9.2</div>
+
+    <div class="devices-row">
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Make Payment</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-title">First Payment</div>
+            <div class="sketch-text" style="margin-bottom:8px;">Due to begin your installation</div>
+
+            <div class="sketch-card" style="text-align:center;">
+              <div class="sketch-label">Amount Due</div>
+              <div style="font-size:28px;font-weight:bold;">$556.00</div>
+              <div class="sketch-text">First monthly payment</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Payment Method</div>
+              <div class="sketch-input">🏦 Bank Account ••••4832</div>
+              <div class="sketch-text" style="font-size:10px;margin-top:4px;text-align:right;cursor:pointer;color:var(--accent-blue);">+ Add new method</div>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:8px;" onclick="goPhase(8)">Pay $556.00 →</button>
+            <span class="us-ref">US-3.9.1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Payment Confirmed</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div style="text-align:center;padding:16px 0 8px;">
+              <div style="font-size:36px;margin-bottom:8px;">💳</div>
+              <div class="sketch-title" style="color:var(--accent-green);">Payment Received!</div>
+              <div class="sketch-text">$556.00 — March 16, 2026</div>
+              <div class="sketch-text" style="font-size:10px;margin-top:4px;">Confirmation #TH-20260316-001</div>
+            </div>
+
+            <div class="sketch-card">
+              <div style="font-size:11px;">
+                <div style="display:flex;justify-content:space-between;padding:3px 0;">
+                  <span>Method</span><span>Bank ••••4832</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;">
+                  <span>Amount</span><span>$556.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;">
+                  <span>Status</span><span class="sketch-badge green">Completed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sketch-card" style="background:#fffde7;border-color:#e8d44d;">
+              <div class="sketch-text" style="font-size:11px;text-align:center;">
+                🔧 Your dealer has been notified and will schedule your installation!
+              </div>
+            </div>
+
+            <span class="us-ref">US-3.9.2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="handoff-arrow">
+      <span class="arrow-line"></span>
+      <span>🔔 Dealer notified: Ready for installation</span>
+      <span class="arrow-line"></span>
+      <span class="arrow-head">→</span>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(7)">← Doc Signing</button>
+      <button class="sketch-btn primary" onclick="goPhase(9)">Installation Auth →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 9: Installation Authorization ── -->
+  <div class="phase-section" data-phase="9">
+    <div class="phase-header">
+      <div class="phase-number">9</div>
+      <div class="phase-title">Installation Authorization & Completion</div>
+      <div class="phase-actor dealer">Dealer · iPad</div>
+    </div>
+    <div class="phase-desc">Dealer verifies all prerequisites are met, authorizes installation, then records completion after the physical install. US-7.1.1–7.1.2</div>
+
+    <div class="devices-row">
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Dealer iPad — Authorize Install</div>
+        <div class="ipad-frame">
+          <div class="camera-dot"></div>
+          <div class="ipad-sidebar">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-icon active">📋</div>
+            <div class="nav-icon">📊</div>
+            <div class="nav-icon">⚙️</div>
+          </div>
+          <div class="ipad-main">
+            <div class="sketch-topbar" style="margin:-12px -14px 10px; padding:8px 12px;">
+              <span class="brand">ComfortConnect</span>
+              <span>Mike's HVAC ▾</span>
+            </div>
+
+            <div class="sketch-title">Jane Smith — Installation</div>
+            <div class="tracker-pills">
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill current"></div>
+              <div class="tracker-pill"></div>
+              <div class="tracker-pill"></div>
+            </div>
+
+            <div class="sketch-card" style="border-left:4px solid var(--accent-green);">
+              <div class="sketch-label">Pre-Installation Checklist</div>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')"><span class="box">✓</span> Loan documents signed</label>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')"><span class="box">✓</span> First payment received</label>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')"><span class="box">✓</span> Work order approved</label>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')"><span class="box">✓</span> Property verification (deed)</label>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Installation Details</div>
+              <div style="display:flex;gap:8px;">
+                <div style="flex:1;">
+                  <div class="sketch-input">Scheduled: March 20, 2026</div>
+                  <div class="sketch-input">Crew: Team B (2 techs)</div>
+                </div>
+                <div style="flex:1;">
+                  <div class="sketch-input">Time: 9:00 AM – 2:00 PM</div>
+                  <div class="sketch-input">Notes: _______________</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <button class="sketch-btn primary" id="authBtn" onclick="document.getElementById('authBtn').textContent='✓ Authorized';document.getElementById('completeBtn').classList.remove('disabled');">Authorize Installation ✓</button>
+              <button class="sketch-btn secondary disabled" id="completeBtn" onclick="this.textContent='✓ Completed';goPhase(10);">Record Completion 🔧</button>
+            </div>
+            <span class="us-ref">US-7.1.1, US-7.1.2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      After physical installation is complete, the dealer records completion. This triggers the funding request phase.
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(8)">← First Payment</button>
+      <button class="sketch-btn primary" onclick="goPhase(10)">Request Funding →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 10: Funding Request ── -->
+  <div class="phase-section" data-phase="10">
+    <div class="phase-header">
+      <div class="phase-number">10</div>
+      <div class="phase-title">Funding Request</div>
+      <div class="phase-actor dealer">Dealer · iPad</div>
+    </div>
+    <div class="phase-desc">Dealer submits a funding request to Thrive. The system logs the requesting user, amount, and timestamp for audit. US-7.4.8</div>
+
+    <div class="devices-row">
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Dealer iPad — Request Funding</div>
+        <div class="ipad-frame">
+          <div class="camera-dot"></div>
+          <div class="ipad-sidebar">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-icon active">📋</div>
+            <div class="nav-icon">📊</div>
+            <div class="nav-icon">⚙️</div>
+          </div>
+          <div class="ipad-main">
+            <div class="sketch-topbar" style="margin:-12px -14px 10px; padding:8px 12px;">
+              <span class="brand">ComfortConnect</span>
+              <span>Mike's HVAC ▾</span>
+            </div>
+
+            <div class="sketch-title">Jane Smith — Funding</div>
+            <div class="tracker-pills">
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill done"></div>
+              <div class="tracker-pill current"></div>
+            </div>
+
+            <div class="sketch-card" style="border-left:4px solid var(--accent-blue);">
+              <div class="sketch-label">Funding Summary</div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;">
+                <span>Lender</span><strong>Thrive Financial</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;">
+                <span>Loan Amount</span><strong>$10,000.00</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;">
+                <span>Less: First Payment</span><strong>-$556.00</strong>
+              </div>
+              <hr class="sketch-divider">
+              <div style="display:flex;justify-content:space-between;font-size:14px;padding:3px 0;font-weight:bold;">
+                <span>Funding Request</span><span>$9,444.00</span>
+              </div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Attribution (Auto-Logged)</div>
+              <div style="font-size:11px;color:#888;">
+                <div>Requested by: <strong style="color:#333;">Mike Thompson</strong> (Dealer Admin)</div>
+                <div>Timestamp: March 20, 2026 3:42 PM</div>
+                <div>Type: Thrive Funding Request</div>
+              </div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Installation Verification</div>
+              <label class="sketch-check checked"><span class="box">✓</span> Install complete & recorded</label>
+              <label class="sketch-check checked"><span class="box">✓</span> Customer sign-off obtained</label>
+              <label class="sketch-check checked"><span class="box">✓</span> Photos uploaded (optional)</label>
+            </div>
+
+            <button class="sketch-btn primary" style="margin-top:8px;" onclick="this.textContent='✓ Funding Requested — Pending Thrive Approval';this.style.background='var(--accent-blue)';">Submit Funding Request 💰</button>
+            <span class="us-ref">US-7.4.8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status tracking -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Funding Status (after submission)</div>
+        <div class="ipad-frame" style="height:280px;">
+          <div class="camera-dot"></div>
+          <div class="ipad-sidebar">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-icon active">📋</div>
+            <div class="nav-icon">📊</div>
+            <div class="nav-icon">⚙️</div>
+          </div>
+          <div class="ipad-main">
+            <div class="sketch-topbar" style="margin:-12px -14px 10px; padding:8px 12px;">
+              <span class="brand">ComfortConnect</span>
+              <span>Mike's HVAC ▾</span>
+            </div>
+
+            <div class="sketch-title" style="font-size:14px;">Funding Timeline — Jane Smith</div>
+
+            <div style="padding-left:20px;border-left:3px solid var(--accent-green);margin:10px 0;">
+              <div style="font-size:12px;margin-bottom:10px;position:relative;">
+                <div style="position:absolute;left:-26px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent-green);border:2px solid #fff;"></div>
+                <strong>Submitted</strong> — March 20, 3:42 PM<br>
+                <span style="color:#888;">Mike Thompson · $9,444.00</span>
+              </div>
+              <div style="font-size:12px;margin-bottom:10px;position:relative;">
+                <div style="position:absolute;left:-26px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent-blue);border:2px solid #fff;"></div>
+                <strong>Under Review</strong> — March 20, 3:45 PM<br>
+                <span style="color:#888;">Thrive processing</span>
+              </div>
+              <div style="font-size:12px;margin-bottom:10px;position:relative;">
+                <div style="position:absolute;left:-26px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent-green);border:2px solid #fff;"></div>
+                <strong>Approved</strong> — March 20, 4:10 PM<br>
+                <span style="color:#888;">Funds disbursing</span>
+              </div>
+              <div style="font-size:12px;position:relative;">
+                <div style="position:absolute;left:-26px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent-green);border:2px solid #fff;"></div>
+                <strong>Funded</strong> — March 21, 10:00 AM<br>
+                <span style="color:#888;">$9,444.00 deposited to dealer account</span>
+              </div>
+            </div>
+
+            <div class="sketch-badge green" style="margin-top:8px;">✓ Funding Complete</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(9)">← Installation</button>
+      <button class="sketch-btn primary" onclick="goPhase(11)">Ongoing Billing →</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 11: Billing & Payments ── -->
+  <div class="phase-section" data-phase="11">
+    <div class="phase-header">
+      <div class="phase-number">11</div>
+      <div class="phase-title">Billing & Ongoing Payments</div>
+      <div class="phase-actor homeowner">Homeowner · iPhone</div>
+    </div>
+    <div class="phase-desc">The loan is now active. Homeowner manages their billing, sets up autopay, views statements, and makes payments through the portal. US-8.1–8.4</div>
+
+    <div class="devices-row">
+      <!-- iPhone: Account Dashboard -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Loan Dashboard</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>Jane ▾</span>
+            </div>
+
+            <div class="sketch-title" style="font-size:14px;">My Loan</div>
+
+            <div class="sketch-card" style="text-align:center;background:linear-gradient(135deg,#e0eef8,#f0f8ff);">
+              <div class="sketch-text" style="font-size:10px;">Current Balance</div>
+              <div style="font-size:22px;font-weight:bold;">$8,888.00</div>
+              <div class="sketch-progress" style="margin:6px 0;"><div class="sketch-progress-fill" style="width:4%;"></div></div>
+              <div class="sketch-text" style="font-size:10px;">2 of 18 payments (intro period)</div>
+            </div>
+
+            <div class="sketch-card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div class="sketch-label">Next Payment</div>
+                  <div style="font-size:18px;font-weight:bold;">$556.00</div>
+                  <div class="sketch-text">Due: April 15, 2026</div>
+                </div>
+                <button class="sketch-btn primary small">Pay Now</button>
+              </div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Autopay</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="sketch-text">Bank ••••4832 · Monthly</div>
+                <span class="sketch-badge green">Active</span>
+              </div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Recent Activity</div>
+              <div style="font-size:11px;">
+                <div style="display:flex;justify-content:space-between;padding:2px 0;"><span>Mar 16 — Payment</span><span>-$556.00</span></div>
+                <div style="display:flex;justify-content:space-between;padding:2px 0;"><span>Mar 15 — Invoice #2</span><span>$556.00</span></div>
+                <div style="display:flex;justify-content:space-between;padding:2px 0;color:#888;"><span>Feb 16 — Payment</span><span>-$556.00</span></div>
+              </div>
+            </div>
+
+            <span class="us-ref">US-8.1, US-8.2, US-8.3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Autopay Setup -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Autopay Setup</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-title" style="font-size:14px;">Set Up Autopay</div>
+            <div class="sketch-text" style="margin-bottom:10px;">Never miss a payment</div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Payment Method</div>
+              <div class="sketch-input">🏦 Bank Account ••••4832</div>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Payment Amount</div>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')"><span class="box">✓</span> Full balance due ($556)</label>
+              <label class="sketch-check" onclick="this.classList.toggle('checked')"><span class="box"></span> Custom amount</label>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Schedule</div>
+              <div class="sketch-input">Day of month: 15th ▾</div>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')" style="margin-top:6px;"><span class="box">✓</span> Retry on failure (next business day)</label>
+            </div>
+
+            <div class="sketch-card">
+              <div class="sketch-label">Notifications</div>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')"><span class="box">✓</span> 📧 Email before payment</label>
+              <label class="sketch-check checked" onclick="this.classList.toggle('checked')"><span class="box">✓</span> 📱 SMS confirmation</label>
+            </div>
+
+            <button class="sketch-btn primary" style="width:100%;margin-top:8px;">Enable Autopay ✓</button>
+            <span class="us-ref">US-8.1.3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone: Statement -->
+      <div class="device-wrapper">
+        <div class="device-label"><span class="icon">📱</span> Monthly Statement</div>
+        <div class="iphone-frame">
+          <div class="screen-content">
+            <div class="sketch-topbar">
+              <span class="brand">ComfortConnect</span>
+              <span>🔒</span>
+            </div>
+
+            <div class="sketch-title" style="font-size:13px;">Statement — March 2026</div>
+
+            <div class="sketch-card">
+              <div style="font-size:11px;">
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>Previous Balance</span><span>$9,444.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>Payment Received</span><span style="color:var(--accent-green);">-$556.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>Interest Charge</span><span>$0.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed #ddd;">
+                  <span>Principal Applied</span><span>$556.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;font-weight:bold;">
+                  <span>New Balance</span><span>$8,888.00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sketch-card">
+              <div style="display:flex;justify-content:space-between;font-size:12px;">
+                <div>
+                  <div class="sketch-label">Due Date</div>
+                  <strong>April 15, 2026</strong>
+                </div>
+                <div style="text-align:right;">
+                  <div class="sketch-label">Min Payment</div>
+                  <strong>$556.00</strong>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:6px;margin-top:8px;">
+              <button class="sketch-btn secondary small" style="flex:1;">📄 Download PDF</button>
+              <button class="sketch-btn primary small" style="flex:1;">Pay Now</button>
+            </div>
+            <span class="us-ref">US-8.2.1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      This is the steady state of the 0% Promo loan. During the 18-month intro period, all payments go to principal (0% interest). After month 18, the remaining balance converts to 9.99% APR for the remaining 42 months. Variations to add later: late payment / delinquency flow, payment link from CSR, balance payoff, account servicing.
+    </div>
+
+    <div class="nav-row">
+      <button class="sketch-btn outline" onclick="goPhase(10)">← Funding</button>
+      <button class="sketch-btn primary" onclick="goPhase(0)">↻ Back to Overview</button>
+    </div>
+  </div>
+
+</div><!-- /phases-container -->
+
+<script>
+  // ── Phase Navigation ──
+  function goPhase(n) {
+    // Mark completed
+    const tabs = document.querySelectorAll('.phase-tab');
+    const current = parseInt(document.querySelector('.phase-tab.active')?.dataset.phase || 0);
+
+    tabs.forEach(tab => {
+      const p = parseInt(tab.dataset.phase);
+      tab.classList.remove('active');
+      if (p < n && p > 0) tab.classList.add('completed');
+      if (p === n) {
+        tab.classList.add('active');
+        tab.classList.remove('completed');
+      }
+    });
+
+    // Show section
+    document.querySelectorAll('.phase-section').forEach(s => s.classList.remove('visible'));
+    const target = document.querySelector(`.phase-section[data-phase="${n}"]`);
+    if (target) {
+      target.classList.add('visible');
+      // Scroll to top of phase
+      window.scrollTo({ top: 160, behavior: 'smooth' });
+    }
+  }
+
+  // Tab clicks
+  document.querySelectorAll('.phase-tab').forEach(tab => {
+    tab.addEventListener('click', () => goPhase(parseInt(tab.dataset.phase)));
+  });
+
+  // Interactive checkboxes
+  document.querySelectorAll('.sketch-check').forEach(el => {
+    if (!el.getAttribute('onclick')) {
+      el.addEventListener('click', () => {
+        el.classList.toggle('checked');
+        const box = el.querySelector('.box');
+        if (box) box.textContent = el.classList.contains('checked') ? '✓' : '';
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

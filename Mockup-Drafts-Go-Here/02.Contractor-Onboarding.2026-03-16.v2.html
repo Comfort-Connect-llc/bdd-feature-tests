@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comfort Connect — New User Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   COMFORT CONNECT DESIGN SYSTEM TOKENS
+   Source: Portal 2.0 Figma (nO8BrnBe7Z0UhLd2s5FecK)
+   ================================================================ */
+:root {
+  --cc-navy: #002F6C;
+  --cc-green: #6CC24A;
+  --cc-navy-dark: #002147;
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+  --cc-blue-main: #009CDE;
+  --cc-blue-info: #1C51A4;
+  --cc-green-dark: #398F17;
+  --cc-amber-text: #82620F;
+  --cc-red-text: #AB2816;
+  --cc-orange: #EE8F1E;
+  --cc-red: #DD331D;
+  --cc-amber: #E8B93F;
+  --bg-primary: #EDF4FF;
+  --bg-disabled: #E0E2E5;
+  --bg-success: #D9F3D0;
+  --bg-warning: #FFF6E0;
+  --bg-error: #FDE7E5;
+  --bg-general: #F9FAFB;
+  --state-hover: #1759C4;
+  --state-hover-secondary: #EDF4FF;
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+  --gray-600: #2A2E34;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-elevated: 0 4px 16px rgba(0,47,108,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+  background: var(--bg-general);
+  color: var(--text-body);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================================================================
+   TOP BAR
+   ================================================================ */
+.topbar {
+  background: var(--cc-navy);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topbar-brand { display: flex; align-items: center; gap: 10px; }
+.topbar-logo {
+  width: 32px; height: 32px;
+  background: var(--cc-green);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.topbar-logo svg { width: 20px; height: 20px; }
+.topbar-title { color: white; font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+.topbar-subtitle { color: rgba(255,255,255,0.6); font-size: 13px; }
+.topbar-help {
+  background: rgba(255,255,255,0.12);
+  border: none; border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: background 0.2s;
+}
+.topbar-help:hover { background: rgba(255,255,255,0.2); }
+
+/* ================================================================
+   LAYOUT
+   ================================================================ */
+.main-container {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 32px 16px 48px;
+  max-width: 480px;
+  margin: 0 auto; width: 100%;
+}
+
+/* ================================================================
+   STEPPER
+   ================================================================ */
+.stepper { display: flex; align-items: center; gap: 0; margin-bottom: 8px; width: 100%; padding: 0 24px; }
+.stepper-step { display: flex; align-items: center; flex: 1; }
+.stepper-step:last-child { flex: 0; }
+.stepper-circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.stepper-circle.completed { background: var(--cc-green); color: white; }
+.stepper-circle.active { background: var(--cc-navy); color: white; box-shadow: 0 0 0 4px rgba(0,47,108,0.15); }
+.stepper-circle.pending { background: white; color: var(--gray-300); border: 2px solid var(--gray-200); }
+.stepper-line { flex: 1; height: 3px; border-radius: 3px; margin: 0 4px; transition: background 0.4s; }
+.stepper-line.completed { background: var(--cc-green); }
+.stepper-line.active { background: linear-gradient(90deg, var(--cc-green), var(--gray-200)); }
+.stepper-line.pending { background: var(--gray-200); }
+
+.stepper-labels {
+  display: flex; justify-content: space-between; width: 100%;
+  margin-bottom: 24px; padding: 0 12px;
+}
+.stepper-label {
+  font-size: 11px; font-weight: 600; text-align: center;
+  width: 80px; color: var(--gray-300); transition: color 0.3s; line-height: 1.3;
+}
+.stepper-label.active { color: var(--cc-navy); }
+.stepper-label.completed { color: var(--cc-green-dark); }
+
+/* ================================================================
+   CARD
+   ================================================================ */
+.onboarding-card {
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-xl);
+  padding: 28px 24px 24px;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+  display: flex; flex-direction: column;
+  gap: 18px;
+  min-height: 480px;
+  animation: cardEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card-heading {
+  font-size: 22px; font-weight: 700; color: var(--cc-navy);
+  line-height: 1.3; letter-spacing: -0.3px;
+}
+.card-subtext { font-size: 13.33px; color: var(--text-body); line-height: 1.5; }
+
+/* ================================================================
+   FORM
+   ================================================================ */
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 13.33px; font-weight: 600; color: var(--text-body); }
+.form-input {
+  background: var(--gray-100); border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-md); padding: 14px 16px;
+  font-size: 14px; font-family: inherit; color: var(--text-heading);
+  transition: all 0.2s; outline: none; width: 100%;
+}
+.form-input::placeholder { color: var(--text-placeholder); }
+.form-input:focus { border-color: var(--cc-navy); background: white; box-shadow: 0 0 0 3px rgba(0,47,108,0.08); }
+
+/* Activation code special styling */
+.code-input-wrapper { position: relative; }
+.code-input {
+  background: var(--bg-primary); border: 2px dashed var(--cc-blue-main);
+  border-radius: var(--radius-md); padding: 16px 16px 16px 48px;
+  font-size: 20px; font-family: 'Courier New', monospace; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--cc-navy); width: 100%; outline: none;
+  transition: all 0.3s;
+}
+.code-input::placeholder {
+  color: var(--text-placeholder); font-size: 14px; letter-spacing: 0; font-weight: 400;
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+.code-input:focus { border-color: var(--cc-navy); border-style: solid; background: white; box-shadow: 0 0 0 3px rgba(0,47,108,0.08); }
+.code-input.valid { border-color: var(--cc-green); border-style: solid; background: var(--bg-success); }
+.code-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 22px; height: 22px; color: var(--cc-blue-main);
+}
+.code-input.valid + .code-icon { color: var(--cc-green); }
+
+/* Contractor name display after valid code */
+.contractor-badge {
+  display: none;
+  background: var(--bg-success); border-radius: var(--radius-sm);
+  padding: 8px 14px; font-size: 13px; color: var(--cc-green-dark);
+  font-weight: 600; align-items: center; gap: 8px;
+}
+.contractor-badge.show { display: flex; }
+.contractor-badge svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* Phone input */
+.phone-input-group { display: flex; gap: 8px; }
+.phone-prefix {
+  background: var(--gray-100); border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-md); padding: 14px 12px;
+  font-size: 14px; color: var(--text-body); font-weight: 600;
+  width: 56px; text-align: center; flex-shrink: 0;
+}
+
+/* ================================================================
+   CHECKBOXES
+   ================================================================ */
+.checkbox-group { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.checkbox-box {
+  width: 20px; height: 20px; border: 2px solid var(--gray-300);
+  border-radius: 4px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; margin-top: 1px;
+}
+.checkbox-box.checked { background: var(--cc-green); border-color: var(--cc-green); }
+.checkbox-box svg {
+  width: 13px; height: 13px; fill: none; stroke: white;
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0; transition: opacity 0.2s;
+}
+.checkbox-box.checked svg { opacity: 1; }
+.checkbox-text { font-size: 12px; color: var(--text-body); line-height: 1.45; }
+.checkbox-text strong { font-weight: 700; }
+.checkbox-text a { color: var(--cc-blue-main); text-decoration: none; }
+
+/* ================================================================
+   DEPARTMENT CARDS
+   ================================================================ */
+.dept-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.dept-card {
+  background: var(--gray-100); border: 2px solid transparent;
+  border-radius: var(--radius-md); padding: 14px 12px;
+  cursor: pointer; transition: all 0.25s;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; text-align: center;
+}
+.dept-card:hover { background: var(--bg-primary); border-color: var(--cc-blue-main); }
+.dept-card.selected { background: var(--bg-primary); border-color: var(--cc-navy); }
+.dept-card-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: white; color: var(--cc-navy);
+  transition: all 0.25s;
+}
+.dept-card.selected .dept-card-icon { background: var(--cc-navy); color: white; }
+.dept-card-icon svg { width: 18px; height: 18px; }
+.dept-card-label { font-size: 12px; font-weight: 600; color: var(--text-heading); line-height: 1.2; }
+
+/* ================================================================
+   ACTIVITY TAGS
+   ================================================================ */
+.section-label { font-size: 13px; font-weight: 700; color: var(--cc-navy); text-transform: uppercase; letter-spacing: 0.5px; }
+.tags-container { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag-toggle {
+  background: var(--gray-100); border: none;
+  border-radius: var(--radius-sm); padding: 9px 14px;
+  font-size: 14px; font-family: inherit; color: var(--text-body);
+  cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: center; gap: 6px; user-select: none;
+}
+.tag-toggle:hover { background: var(--bg-primary); color: var(--cc-navy); }
+.tag-toggle.selected { background: var(--cc-green); color: white; }
+.tag-toggle .tag-check { width: 16px; height: 16px; display: none; }
+.tag-toggle.selected .tag-check { display: block; }
+
+/* ================================================================
+   ADMIN ACCESS TOGGLE
+   ================================================================ */
+.admin-request-box {
+  display: none;
+  background: var(--bg-warning);
+  border: 1px solid var(--cc-amber);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  gap: 10px;
+  align-items: flex-start;
+}
+.admin-request-box.show { display: flex; }
+.admin-request-box .admin-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: white; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.admin-request-box .admin-icon svg { width: 16px; height: 16px; color: var(--cc-amber-text); }
+.admin-request-info { flex: 1; }
+.admin-request-title { font-size: 13px; font-weight: 700; color: var(--cc-amber-text); }
+.admin-request-desc { font-size: 12px; color: var(--text-body); margin-top: 2px; line-height: 1.4; }
+.admin-toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid rgba(232,185,63,0.3);
+}
+.admin-toggle-label { font-size: 13px; font-weight: 600; color: var(--text-heading); }
+
+/* Toggle switch */
+.toggle-switch {
+  width: 44px; height: 24px; border-radius: 12px;
+  background: var(--gray-200); cursor: pointer;
+  position: relative; transition: background 0.3s; flex-shrink: 0;
+}
+.toggle-switch.on { background: var(--cc-green); }
+.toggle-knob {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: white; position: absolute; top: 2px; left: 2px;
+  transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.toggle-switch.on .toggle-knob { transform: translateX(20px); }
+
+/* Auto-flag banner */
+.auto-flag-banner {
+  display: none;
+  background: var(--bg-primary);
+  border: 1px solid var(--cc-blue-main);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 12px;
+  color: var(--cc-blue-info); line-height: 1.4;
+  align-items: center; gap: 8px;
+}
+.auto-flag-banner.show { display: flex; }
+.auto-flag-banner svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ================================================================
+   TRAINING SIGN-OFF
+   ================================================================ */
+.training-signoff-card {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: all 0.3s;
+}
+.training-signoff-card.signed {
+  background: var(--bg-success);
+  border: 1px solid rgba(57,143,23,0.2);
+}
+.training-header {
+  display: flex; align-items: center; gap: 12px;
+}
+.training-badge {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.3s;
+}
+.training-badge.pending { background: var(--bg-primary); color: var(--cc-navy); }
+.training-badge.done { background: var(--cc-green); color: white; }
+.training-badge svg { width: 20px; height: 20px; }
+.training-signoff-title { font-size: 15px; font-weight: 700; color: var(--text-heading); }
+.training-signoff-meta { font-size: 12px; color: var(--text-placeholder); margin-top: 1px; }
+
+.training-checkbox-row {
+  display: flex; gap: 10px; align-items: center;
+  padding: 10px 12px; background: white;
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: background 0.2s;
+}
+.training-checkbox-row:hover { background: var(--bg-primary); }
+.training-signoff-card.signed .training-checkbox-row { background: rgba(255,255,255,0.7); }
+.training-checkbox-text { font-size: 13px; font-weight: 600; color: var(--text-body); }
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+.btn {
+  border: none; border-radius: var(--radius-md); height: 52px;
+  font-size: 17px; font-family: inherit; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  width: 100%; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-primary { background: var(--cc-green); color: white; }
+.btn-primary:hover { background: #5fb03e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(108,194,74,0.3); }
+.btn-disabled { background: var(--bg-disabled); color: white; cursor: not-allowed; pointer-events: none; }
+.btn-back {
+  background: transparent; color: var(--text-body); font-size: 14px; height: 36px;
+}
+.btn-back:hover { color: var(--cc-navy); }
+.card-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+
+/* ================================================================
+   COMPLETION
+   ================================================================ */
+.completion-container {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 16px; padding: 12px 0;
+}
+.completion-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.completion-icon.success { background: var(--bg-success); }
+.completion-icon.pending { background: var(--bg-warning); }
+@keyframes pop { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.completion-icon svg { width: 40px; height: 40px; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.completion-title { font-size: 22px; font-weight: 700; color: var(--cc-navy); }
+.completion-message { font-size: 14px; color: var(--text-body); line-height: 1.6; max-width: 340px; }
+
+.completion-details {
+  width: 100%; background: var(--bg-primary); border-radius: var(--radius-md);
+  padding: 16px 20px; text-align: left;
+}
+.completion-detail-row {
+  display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;
+}
+.completion-detail-label { color: var(--text-placeholder); }
+.completion-detail-value { color: var(--text-heading); font-weight: 600; }
+
+/* Pending approval banner */
+.approval-banner {
+  display: none;
+  background: var(--bg-warning);
+  border: 1px solid var(--cc-amber);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  text-align: left; width: 100%;
+  gap: 12px; align-items: flex-start;
+}
+.approval-banner.show { display: flex; }
+.approval-banner-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.approval-banner-icon svg { width: 18px; height: 18px; color: var(--cc-amber-text); }
+.approval-banner-text h4 { font-size: 14px; font-weight: 700; color: var(--cc-amber-text); }
+.approval-banner-text p { font-size: 12px; color: var(--text-body); line-height: 1.4; margin-top: 2px; }
+
+/* ================================================================
+   INFO BANNER
+   ================================================================ */
+.info-banner {
+  background: var(--bg-primary); border-radius: var(--radius-sm);
+  padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start;
+  font-size: 13px; color: var(--cc-blue-info); line-height: 1.4;
+}
+.info-banner svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; stroke: var(--cc-blue-info); fill: none; stroke-width: 2; }
+
+/* ================================================================
+   STEP PANELS
+   ================================================================ */
+.step-panel { display: none; }
+.step-panel.active { display: flex; flex-direction: column; gap: 18px; width: 100%; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.step-panel.active > * { animation: fadeIn 0.3s ease forwards; }
+.step-panel.active > *:nth-child(1) { animation-delay: 0.03s; }
+.step-panel.active > *:nth-child(2) { animation-delay: 0.06s; }
+.step-panel.active > *:nth-child(3) { animation-delay: 0.09s; }
+.step-panel.active > *:nth-child(4) { animation-delay: 0.12s; }
+.step-panel.active > *:nth-child(5) { animation-delay: 0.15s; }
+.step-panel.active > *:nth-child(6) { animation-delay: 0.18s; }
+.step-panel.active > *:nth-child(7) { animation-delay: 0.21s; }
+.step-panel.active > *:nth-child(8) { animation-delay: 0.24s; }
+.step-panel.active > *:nth-child(9) { animation-delay: 0.27s; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--cc-navy); color: white;
+  padding: 12px 24px; border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 600;
+  box-shadow: var(--shadow-elevated); z-index: 200;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* Divider */
+.divider { height: 1px; background: var(--gray-100); margin: 2px 0; }
+
+@media (max-width: 420px) {
+  .main-container { padding: 20px 12px 40px; }
+  .onboarding-card { padding: 24px 20px 20px; }
+  .dept-grid { gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <div class="topbar-title">ComfortConnect</div>
+      <div class="topbar-subtitle">New User Setup</div>
+    </div>
+  </div>
+  <button class="topbar-help" title="Need help?">?</button>
+</header>
+
+<!-- MAIN -->
+<main class="main-container">
+
+  <!-- Stepper -->
+  <div class="stepper" id="stepper">
+    <div class="stepper-step">
+      <div class="stepper-circle active" data-step="0">1</div>
+      <div class="stepper-line active"></div>
+    </div>
+    <div class="stepper-step">
+      <div class="stepper-circle pending" data-step="1">2</div>
+      <div class="stepper-line pending"></div>
+    </div>
+    <div class="stepper-step">
+      <div class="stepper-circle pending" data-step="2">3</div>
+      <div class="stepper-line pending"></div>
+    </div>
+    <div class="stepper-step">
+      <div class="stepper-circle pending" data-step="3">4</div>
+    </div>
+  </div>
+  <div class="stepper-labels">
+    <div class="stepper-label active">Join Portal</div>
+    <div class="stepper-label">Your Role</div>
+    <div class="stepper-label">Training</div>
+    <div class="stepper-label">Done</div>
+  </div>
+
+  <!-- ========== ONBOARDING CARD ========== -->
+  <div class="onboarding-card" id="onboardingCard">
+
+    <!-- ===== STEP 1: ACTIVATION CODE + CONTACT INFO ===== -->
+    <div class="step-panel active" id="step0">
+      <h2 class="card-heading">Welcome to ComfortConnect</h2>
+      <p class="card-subtext">Enter the activation code shown on screen and fill in your contact details to get started.</p>
+
+      <div class="form-group">
+        <label class="form-label">Activation Code</label>
+        <div class="code-input-wrapper">
+          <input type="text" class="code-input" id="activationCode" placeholder="Enter code from screen" maxlength="10" autocomplete="off">
+          <svg class="code-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="contractor-badge" id="contractorBadge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12 10 16 18 8"/></svg>
+          <span id="contractorName">Premier Comfort Solutions</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-group">
+        <label class="form-label">Job Title</label>
+        <input type="text" class="form-input" id="jobTitle" placeholder="e.g. Comfort Consultant">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Cell Phone</label>
+        <div class="phone-input-group">
+          <div class="phone-prefix">+1</div>
+          <input type="tel" class="form-input" id="cellPhone" placeholder="(555) 555-5555">
+        </div>
+      </div>
+
+      <div class="checkbox-group" onclick="toggleCheckbox('smsConsent')">
+        <div class="checkbox-box" id="smsConsentBox">
+          <svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>
+        </div>
+        <div class="checkbox-text">
+          <strong>SMS Consent:</strong> I agree to receive automated texts from Comfort Connect about my portal activity. Reply STOP to opt out.
+        </div>
+      </div>
+
+      <div class="checkbox-group" onclick="toggleCheckbox('termsConsent')">
+        <div class="checkbox-box" id="termsConsentBox">
+          <svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>
+        </div>
+        <div class="checkbox-text">
+          I agree to the <a href="#" onclick="event.stopPropagation()">terms and conditions</a>.
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-disabled" id="step0Next" onclick="goToStep(1)">Next</button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2: DEPARTMENT + ACTIVITIES ===== -->
+    <div class="step-panel" id="step1">
+      <h2 class="card-heading">What's your role?</h2>
+      <p class="card-subtext">Select your department and the activities you handle. This determines your portal access level.</p>
+
+      <div class="section-label">Department</div>
+      <div class="dept-grid" id="deptGrid">
+        <div class="dept-card" onclick="selectDept(this, 'Sales')" data-dept="Sales" data-admin="false">
+          <div class="dept-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <span class="dept-card-label">Sales</span>
+        </div>
+        <div class="dept-card" onclick="selectDept(this, 'Service')" data-dept="Service" data-admin="false">
+          <div class="dept-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <span class="dept-card-label">Service</span>
+        </div>
+        <div class="dept-card" onclick="selectDept(this, 'Install')" data-dept="Install" data-admin="false">
+          <div class="dept-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <span class="dept-card-label">Install</span>
+        </div>
+        <div class="dept-card" onclick="selectDept(this, 'Office / Admin')" data-dept="Office / Admin" data-admin="true">
+          <div class="dept-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <span class="dept-card-label">Office / Admin</span>
+        </div>
+        <div class="dept-card" onclick="selectDept(this, 'Management')" data-dept="Management" data-admin="true">
+          <div class="dept-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <span class="dept-card-label">Management</span>
+        </div>
+        <div class="dept-card" onclick="selectDept(this, 'Finance')" data-dept="Finance" data-admin="true">
+          <div class="dept-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <span class="dept-card-label">Finance</span>
+        </div>
+      </div>
+
+      <!-- Auto-flag info banner (shown when admin dept selected) -->
+      <div class="auto-flag-banner" id="autoFlagBanner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>This department may include elevated access. Your contractor admin will review and approve your permissions after setup.</span>
+      </div>
+
+      <div class="section-label">Activities</div>
+      <p class="card-subtext" style="margin-top:-8px; font-size:12px;">Select all that apply to your day-to-day work.</p>
+      <div class="tags-container" id="activityTags">
+        <button class="tag-toggle" onclick="toggleTag(this)">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Selling Systems
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Generating Leads
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Installing Equipment
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Service &amp; Repairs
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Customer Support
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Billing &amp; Paperwork
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)" data-admin="true">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Reporting &amp; Analytics
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)" data-admin="true">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          User Management
+        </button>
+        <button class="tag-toggle" onclick="toggleTag(this)" data-admin="true">
+          <svg class="tag-check" viewBox="0 0 16 16" fill="none"><polyline points="3 8 6 11 13 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Pricing &amp; Rate Sheets
+        </button>
+      </div>
+
+      <!-- Explicit admin access request (shown when admin signals detected) -->
+      <div class="admin-request-box" id="adminRequestBox">
+        <div class="admin-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="admin-request-info">
+          <div class="admin-request-title">Elevated Access Detected</div>
+          <div class="admin-request-desc">Your selections include admin-level tools. Would you like to request elevated access? Your contractor's owner/admin will need to approve this.</div>
+          <div class="admin-toggle-row">
+            <span class="admin-toggle-label">Request admin access</span>
+            <div class="toggle-switch" id="adminToggle" onclick="toggleAdminRequest()">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-disabled" id="step1Next" onclick="goToStep(2)">Continue</button>
+        <button class="btn btn-back" onclick="goToStep(0)">&larr; Back</button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3: TRAINING SIGN-OFF ===== -->
+    <div class="step-panel" id="step2">
+      <h2 class="card-heading">Training Acknowledgment</h2>
+      <p class="card-subtext">Confirm that you've completed each training module presented during this session.</p>
+
+      <div class="info-banner">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>Both modules must be acknowledged before your portal access is activated.</span>
+      </div>
+
+      <!-- Portal Training -->
+      <div class="training-signoff-card" id="trainingCard1">
+        <div class="training-header">
+          <div class="training-badge pending" id="trainingBadge1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div>
+            <div class="training-signoff-title">Portal Training</div>
+            <div class="training-signoff-meta">Platform navigation, financing tools &amp; lender overview</div>
+          </div>
+        </div>
+        <div class="training-checkbox-row" onclick="toggleTraining(1)">
+          <div class="checkbox-box" id="training1Box">
+            <svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>
+          </div>
+          <span class="training-checkbox-text">I have completed the Portal Training module</span>
+        </div>
+      </div>
+
+      <!-- Compliance Training -->
+      <div class="training-signoff-card" id="trainingCard2">
+        <div class="training-header">
+          <div class="training-badge pending" id="trainingBadge2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <div class="training-signoff-title">Compliance Training</div>
+            <div class="training-signoff-meta">Documentation requirements, data handling &amp; regulatory obligations</div>
+          </div>
+        </div>
+        <div class="training-checkbox-row" onclick="toggleTraining(2)">
+          <div class="checkbox-box" id="training2Box">
+            <svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>
+          </div>
+          <span class="training-checkbox-text">I have completed the Compliance Training module</span>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-disabled" id="step2Next" onclick="goToStep(3)">Complete Setup</button>
+        <button class="btn btn-back" onclick="goToStep(1)">&larr; Back</button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 4: COMPLETION ===== -->
+    <div class="step-panel" id="step3">
+      <div class="completion-container">
+
+        <!-- Success icon (standard access) -->
+        <div class="completion-icon success" id="completionIconSuccess">
+          <svg viewBox="0 0 24 24" stroke="#6CC24A"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <!-- Pending icon (admin approval needed) -->
+        <div class="completion-icon pending" id="completionIconPending" style="display:none;">
+          <svg viewBox="0 0 24 24" stroke="#E8B93F"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+
+        <h2 class="completion-title" id="completionTitle">You're all set!</h2>
+        <p class="completion-message" id="completionMessage">Your account is activated and you can start using the Comfort Connect portal right away.</p>
+
+        <div class="completion-details">
+          <div class="completion-detail-row">
+            <span class="completion-detail-label">Contractor</span>
+            <span class="completion-detail-value" id="completionContractor">—</span>
+          </div>
+          <div class="completion-detail-row">
+            <span class="completion-detail-label">Department</span>
+            <span class="completion-detail-value" id="completionDept">—</span>
+          </div>
+          <div class="completion-detail-row">
+            <span class="completion-detail-label">Access Level</span>
+            <span class="completion-detail-value" id="completionAccess">Standard</span>
+          </div>
+          <div class="completion-detail-row">
+            <span class="completion-detail-label">Training</span>
+            <span class="completion-detail-value" style="color:var(--cc-green-dark);">2/2 Complete</span>
+          </div>
+        </div>
+
+        <!-- Admin approval pending banner -->
+        <div class="approval-banner" id="approvalBanner">
+          <div class="approval-banner-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="approval-banner-text">
+            <h4>Admin Access Pending Approval</h4>
+            <p>You'll have standard access for now. Your contractor's admin has been notified and will review your elevated access request. You'll receive a notification once approved.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-primary" onclick="showToast('Redirecting to portal...')">Go to Portal</button>
+      </div>
+    </div>
+
+  </div><!-- /onboarding-card -->
+</main>
+
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ---- State ----
+let currentStep = 0;
+const totalSteps = 4;
+let checkboxStates = { smsConsent: false, termsConsent: false };
+let codeValid = false;
+let selectedDept = null;
+let deptIsAdmin = false;
+let selectedActivities = [];
+let adminRequested = false;
+let adminToggleOn = false;
+let trainingSigned = { 1: false, 2: false };
+
+// Simulated contractor codes
+const validCodes = {
+  'PREMIER24': 'Premier Comfort Solutions',
+  'HVACPRO':   'HVAC Pro Services',
+  'COOLMAX1':  'CoolMax Mechanical',
+  'AIRFLOW':   'AirFlow Systems Inc.',
+  'COMF2026':  'National Comfort Group',
+  'DEMO':      'Demo Contractor Co.'
+};
+
+// ---- Navigation ----
+function goToStep(step) {
+  if (step < 0 || step >= totalSteps) return;
+  if (step > currentStep) {
+    if (currentStep === 0 && !validateStep0()) return;
+    if (currentStep === 1 && !validateStep1()) return;
+    if (currentStep === 2 && !validateStep2()) return;
+  }
+
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep = step;
+  document.getElementById('step' + currentStep).classList.add('active');
+
+  const card = document.getElementById('onboardingCard');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = 'cardEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+
+  updateStepper();
+  if (step === 3) buildCompletion();
+}
+
+function updateStepper() {
+  document.querySelectorAll('.stepper-circle').forEach((c, i) => {
+    c.classList.remove('completed', 'active', 'pending');
+    if (i < currentStep) {
+      c.classList.add('completed');
+      c.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12 10 16 18 8"/></svg>';
+    } else if (i === currentStep) {
+      c.classList.add('active');
+      c.textContent = i + 1;
+    } else {
+      c.classList.add('pending');
+      c.textContent = i + 1;
+    }
+  });
+  document.querySelectorAll('.stepper-line').forEach((l, i) => {
+    l.classList.remove('completed', 'active', 'pending');
+    l.classList.add(i < currentStep ? 'completed' : i === currentStep ? 'active' : 'pending');
+  });
+  document.querySelectorAll('.stepper-label').forEach((l, i) => {
+    l.classList.remove('completed', 'active');
+    if (i < currentStep) l.classList.add('completed');
+    else if (i === currentStep) l.classList.add('active');
+  });
+}
+
+// ---- Validation ----
+function validateStep0() {
+  if (!codeValid) { showToast('Please enter a valid activation code'); return false; }
+  if (!document.getElementById('jobTitle').value.trim()) { showToast('Please enter your job title'); return false; }
+  if (!document.getElementById('cellPhone').value.trim()) { showToast('Please enter your phone number'); return false; }
+  if (!checkboxStates.smsConsent || !checkboxStates.termsConsent) { showToast('Please accept the required agreements'); return false; }
+  return true;
+}
+function validateStep1() {
+  if (!selectedDept) { showToast('Please select a department'); return false; }
+  if (selectedActivities.length === 0) { showToast('Please select at least one activity'); return false; }
+  return true;
+}
+function validateStep2() {
+  if (!trainingSigned[1] || !trainingSigned[2]) { showToast('Please acknowledge both training modules'); return false; }
+  return true;
+}
+
+// ---- Step 0: Activation Code ----
+const codeInput = document.getElementById('activationCode');
+codeInput.addEventListener('input', function(e) {
+  const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  e.target.value = val;
+  const match = validCodes[val];
+  const badge = document.getElementById('contractorBadge');
+  if (match) {
+    codeValid = true;
+    e.target.classList.add('valid');
+    document.getElementById('contractorName').textContent = match;
+    badge.classList.add('show');
+  } else {
+    codeValid = false;
+    e.target.classList.remove('valid');
+    badge.classList.remove('show');
+  }
+  updateStep0Btn();
+});
+
+function updateStep0Btn() {
+  const ok = codeValid
+    && document.getElementById('jobTitle').value.trim()
+    && document.getElementById('cellPhone').value.trim()
+    && checkboxStates.smsConsent
+    && checkboxStates.termsConsent;
+  const btn = document.getElementById('step0Next');
+  btn.classList.toggle('btn-disabled', !ok);
+  btn.classList.toggle('btn-primary', ok);
+}
+
+document.getElementById('jobTitle').addEventListener('input', updateStep0Btn);
+document.getElementById('cellPhone').addEventListener('input', function(e) {
+  let val = e.target.value.replace(/\D/g, '');
+  if (val.length > 0) {
+    if (val.length <= 3) val = '(' + val;
+    else if (val.length <= 6) val = '(' + val.slice(0,3) + ') ' + val.slice(3);
+    else val = '(' + val.slice(0,3) + ') ' + val.slice(3,6) + '-' + val.slice(6,10);
+  }
+  e.target.value = val;
+  updateStep0Btn();
+});
+
+// ---- Checkboxes ----
+function toggleCheckbox(id) {
+  checkboxStates[id] = !checkboxStates[id];
+  const box = document.getElementById(id + 'Box');
+  box.classList.toggle('checked', checkboxStates[id]);
+  updateStep0Btn();
+}
+
+// ---- Step 1: Department ----
+function selectDept(el, name) {
+  document.querySelectorAll('.dept-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedDept = name;
+  deptIsAdmin = el.getAttribute('data-admin') === 'true';
+
+  // Show auto-flag banner for admin departments
+  document.getElementById('autoFlagBanner').classList.toggle('show', deptIsAdmin);
+  evaluateAdminFlag();
+  updateStep1Btn();
+}
+
+// ---- Step 1: Activity Tags ----
+function toggleTag(el) {
+  el.classList.toggle('selected');
+  selectedActivities = Array.from(document.querySelectorAll('.tag-toggle.selected')).map(t => t.textContent.trim());
+  evaluateAdminFlag();
+  updateStep1Btn();
+}
+
+function evaluateAdminFlag() {
+  // Check if any admin-flagged activity is selected
+  const adminActivitySelected = Array.from(document.querySelectorAll('.tag-toggle.selected[data-admin="true"]')).length > 0;
+  const shouldShow = deptIsAdmin || adminActivitySelected;
+  document.getElementById('adminRequestBox').classList.toggle('show', shouldShow);
+
+  if (!shouldShow) {
+    adminToggleOn = false;
+    adminRequested = false;
+    document.getElementById('adminToggle').classList.remove('on');
+  }
+}
+
+function toggleAdminRequest() {
+  adminToggleOn = !adminToggleOn;
+  adminRequested = adminToggleOn;
+  document.getElementById('adminToggle').classList.toggle('on', adminToggleOn);
+}
+
+function updateStep1Btn() {
+  const ok = selectedDept && selectedActivities.length > 0;
+  const btn = document.getElementById('step1Next');
+  btn.classList.toggle('btn-disabled', !ok);
+  btn.classList.toggle('btn-primary', ok);
+}
+
+// ---- Step 2: Training Sign-off ----
+function toggleTraining(num) {
+  trainingSigned[num] = !trainingSigned[num];
+  const box = document.getElementById('training' + num + 'Box');
+  const card = document.getElementById('trainingCard' + num);
+  const badge = document.getElementById('trainingBadge' + num);
+  box.classList.toggle('checked', trainingSigned[num]);
+  card.classList.toggle('signed', trainingSigned[num]);
+  badge.classList.toggle('pending', !trainingSigned[num]);
+  badge.classList.toggle('done', trainingSigned[num]);
+
+  if (trainingSigned[num]) {
+    badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12 10 16 18 8"/></svg>';
+  } else {
+    if (num === 1) badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
+    else badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+  }
+
+  const allDone = trainingSigned[1] && trainingSigned[2];
+  const btn = document.getElementById('step2Next');
+  btn.classList.toggle('btn-disabled', !allDone);
+  btn.classList.toggle('btn-primary', allDone);
+}
+
+// ---- Step 3: Build Completion ----
+function buildCompletion() {
+  const code = document.getElementById('activationCode').value;
+  const contractor = validCodes[code] || '—';
+  document.getElementById('completionContractor').textContent = contractor;
+  document.getElementById('completionDept').textContent = selectedDept || '—';
+
+  // Determine if admin approval is needed
+  const needsApproval = adminRequested || (deptIsAdmin && adminToggleOn);
+  // Also auto-flag if admin dept selected even without toggle (they chose an admin dept)
+  const autoFlagged = deptIsAdmin;
+  const showApproval = needsApproval || autoFlagged;
+
+  if (showApproval) {
+    document.getElementById('completionIconSuccess').style.display = 'none';
+    document.getElementById('completionIconPending').style.display = 'flex';
+    document.getElementById('completionTitle').textContent = 'Almost there!';
+    document.getElementById('completionMessage').textContent = 'Your account is created with standard access. Elevated permissions require approval from your contractor admin.';
+    document.getElementById('completionAccess').textContent = 'Standard (Admin Pending)';
+    document.getElementById('completionAccess').style.color = 'var(--cc-amber-text)';
+    document.getElementById('approvalBanner').classList.add('show');
+  } else {
+    document.getElementById('completionIconSuccess').style.display = 'flex';
+    document.getElementById('completionIconPending').style.display = 'none';
+    document.getElementById('completionTitle').textContent = "You're all set!";
+    document.getElementById('completionMessage').textContent = 'Your account is activated and you can start using the Comfort Connect portal right away.';
+    document.getElementById('completionAccess').textContent = 'Standard';
+    document.getElementById('completionAccess').style.color = 'var(--cc-green-dark)';
+    document.getElementById('approvalBanner').classList.remove('show');
+  }
+}
+
+// ---- Toast ----
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
