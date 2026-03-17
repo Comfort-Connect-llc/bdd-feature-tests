@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comfort Connect — Loan Approved (iPad Pro View)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<style>@import url('https://fonts.cdnfonts.com/css/metropolis-2');</style>
+<style>
+/* ========================================================
+   COMFORT CONNECT — LOAN APPROVED iPAD PRO VIEW v2
+   Portal 2.0 Design System · Figma nO8BrnBe7Z0UhLd2s5FecK
+   Cleaned: no blue topbar, more breathing room, correct phone ratio
+   ======================================================== */
+
+:root {
+  --cc-navy: #002F6C;
+  --cc-navy-dark: #002147;
+  --cc-green: #6CC24A;
+  --cc-green-dark: #398F17;
+  --cc-orange: #EE8F1E;
+  --cc-blue-main: #009CDE;
+  --cc-blue-info: #1C51A4;
+  --cc-red: #DD331D;
+  --cc-red-text: #AB2816;
+  --cc-amber: #E8B93F;
+  --cc-amber-text: #82620F;
+
+  --text-heading: #14181F;
+  --text-body: #414750;
+  --text-disabled: #565E69;
+  --text-placeholder: #8B939F;
+
+  --state-hover: #1759C4;
+  --state-hover-secondary: #EDF4FF;
+
+  --bg-primary: #EDF4FF;
+  --bg-disabled: #E0E2E5;
+  --bg-success: #D9F3D0;
+  --bg-warning: #FFF6E0;
+  --bg-error: #FDE7E5;
+  --bg-general: #F9FAFB;
+
+  --white: #FFFFFF;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F5;
+  --gray-200: #D0D4D9;
+  --gray-300: #AEB3BC;
+  --gray-400: #7B8493;
+  --gray-500: #4D545E;
+  --gray-600: #2A2E34;
+
+  --font-family: 'Metropolis', 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.08);
+  --shadow-xl: 0 24px 48px rgba(0,0,0,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: var(--font-family);
+  font-weight: 500;
+  color: var(--text-body);
+  background: var(--bg-general);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── App Shell ── */
+.app { display: flex; min-height: 100vh; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 72px;
+  background: var(--cc-navy-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 50;
+}
+.sidebar-logo {
+  width: 36px; height: 36px;
+  background: var(--cc-green);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 32px;
+}
+.sidebar-logo svg { width: 20px; height: 20px; color: white; }
+
+.sidebar-nav {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  flex: 1; width: 100%; padding: 0 10px;
+}
+.sidebar-item {
+  width: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 0 7px;
+  border-radius: var(--radius-md);
+  color: rgba(255,255,255,0.35);
+  cursor: pointer; transition: all 0.15s;
+  text-decoration: none; position: relative;
+}
+.sidebar-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.65); }
+.sidebar-item.active { background: rgba(255,255,255,0.1); color: white; }
+.sidebar-item.active::before {
+  content: '';
+  position: absolute; left: -10px; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 20px;
+  background: var(--cc-green); border-radius: 0 3px 3px 0;
+}
+.sidebar-item svg { width: 18px; height: 18px; }
+.sidebar-item span { font-size: 9px; font-weight: 700; letter-spacing: 0.03em; }
+.sidebar-spacer { flex: 1; }
+
+/* ── Page Header (replaces blue topbar) ── */
+.page-area {
+  margin-left: 72px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-100);
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-header-left {
+  display: flex; align-items: center; gap: 16px;
+}
+.back-btn {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray-400);
+  cursor: pointer; transition: all 0.15s;
+}
+.back-btn:hover { border-color: var(--cc-navy); color: var(--cc-navy); }
+.back-btn svg { width: 16px; height: 16px; }
+
+.page-title-group h1 {
+  font-size: 18px; font-weight: 800;
+  color: var(--text-heading); line-height: 1.2;
+}
+.page-subtitle {
+  font-size: 12px; color: var(--text-placeholder); font-weight: 500; margin-top: 2px;
+}
+
+.page-header-right { display: flex; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px;
+  font-family: var(--font-family);
+  font-size: 13px; font-weight: 700;
+  border-radius: var(--radius-md);
+  border: 1.5px solid transparent;
+  cursor: pointer; transition: all 0.15s;
+}
+.btn svg { width: 15px; height: 15px; }
+.btn-secondary {
+  background: var(--white); color: var(--text-body);
+  border-color: var(--gray-200);
+}
+.btn-secondary:hover { border-color: var(--cc-navy); color: var(--cc-navy); }
+.btn-primary {
+  background: var(--cc-green); color: white;
+  border-color: var(--cc-green);
+}
+.btn-primary:hover { background: var(--cc-green-dark); border-color: var(--cc-green-dark); }
+
+/* ── Main Content ── */
+.main-content {
+  flex: 1;
+  padding: 32px 40px 48px;
+  max-width: 1200px;
+}
+
+/* ── Stepper ── */
+.stepper-bar {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 28px 48px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+}
+.stepper {
+  display: flex; align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+.stepper::before {
+  content: '';
+  position: absolute; top: 18px; left: 56px; right: 56px;
+  height: 2px; background: var(--gray-200); border-radius: 2px;
+}
+.stepper-fill {
+  position: absolute; top: 18px; left: 56px;
+  height: 2px; background: var(--cc-green); border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.step {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+  z-index: 2; width: 110px;
+}
+.step-dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px;
+}
+.step-dot svg { width: 18px; height: 18px; }
+
+.step.done .step-dot {
+  background: var(--cc-green); color: white;
+  box-shadow: 0 2px 8px rgba(108,194,74,0.25);
+}
+.step.active .step-dot {
+  background: var(--cc-navy); color: white;
+  box-shadow: 0 0 0 4px rgba(0,47,108,0.12);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+.step.pending .step-dot {
+  background: var(--white); color: var(--gray-300);
+  border: 2px solid var(--gray-200);
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(0,47,108,0.12); }
+  50% { box-shadow: 0 0 0 8px rgba(0,47,108,0.06); }
+}
+
+.step-text {
+  font-size: 11px; font-weight: 700;
+  color: var(--text-placeholder); text-align: center;
+}
+.step.done .step-text { color: var(--cc-green-dark); }
+.step.active .step-text { color: var(--cc-navy); }
+
+/* ── Split Layout ── */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ═══ LEFT: Dealer Panel ═══ */
+.dealer-panel {
+  display: flex; flex-direction: column; gap: 28px;
+}
+
+/* Status Card */
+.status-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.status-accent {
+  height: 3px;
+  background: linear-gradient(90deg, var(--cc-green), var(--cc-green-dark));
+}
+.status-body {
+  padding: 32px 32px 28px;
+}
+.status-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  background: var(--bg-success);
+  color: var(--cc-green-dark);
+  font-size: 12px; font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+.status-badge .dot {
+  width: 7px; height: 7px;
+  background: var(--cc-green); border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.status-body h2 {
+  font-size: 24px; font-weight: 800;
+  color: var(--cc-navy); line-height: 1.25;
+  margin-bottom: 8px;
+}
+.status-body p {
+  font-size: 14px; color: var(--text-body);
+  line-height: 1.65; max-width: 480px;
+}
+
+/* Details Grid */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--gray-100);
+}
+.detail-cell {
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.detail-cell:nth-child(odd) { border-right: 1px solid var(--gray-100); }
+.detail-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--cc-orange);
+  margin-bottom: 3px;
+}
+.detail-value {
+  font-size: 16px; font-weight: 700;
+  color: var(--text-heading);
+}
+.detail-value.green { color: var(--cc-green-dark); font-size: 18px; font-weight: 800; }
+
+/* Actions */
+.actions {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.action-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 20px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  cursor: pointer; transition: all 0.2s;
+  text-decoration: none;
+}
+.action-row:hover {
+  border-color: var(--cc-navy);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.action-dot {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.action-dot svg { width: 18px; height: 18px; }
+.action-dot.blue { background: var(--bg-primary); color: var(--cc-blue-info); }
+.action-dot.green { background: var(--bg-success); color: var(--cc-green-dark); }
+.action-dot.amber { background: var(--bg-warning); color: var(--cc-amber-text); }
+.action-info { flex: 1; }
+.action-title { font-size: 14px; font-weight: 700; color: var(--text-heading); }
+.action-desc { font-size: 12px; color: var(--text-placeholder); margin-top: 1px; }
+.action-chevron { color: var(--gray-300); }
+.action-row:hover .action-chevron { color: var(--cc-navy); }
+.action-chevron svg { width: 16px; height: 16px; }
+
+/* ═══ RIGHT: Phone Preview ═══ */
+.preview-col {
+  position: sticky; top: 20px;
+}
+.preview-label {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.preview-title {
+  font-size: 13px; font-weight: 800; color: var(--text-heading);
+  display: flex; align-items: center; gap: 6px;
+}
+.preview-title svg { width: 14px; height: 14px; color: var(--gray-400); }
+.preview-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 700; color: var(--gray-400);
+  background: var(--gray-100); padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+.preview-tag svg { width: 11px; height: 11px; }
+
+/* ── Phone ──
+   iPhone 15 Pro: 393×852 pts → ~1:2.17 ratio.
+   We use 300 wide × 650 tall for the screen area. */
+.phone-shell {
+  width: 318px;       /* screen + 2×9px bezel */
+  margin: 0 auto;
+  background: #1C1C1E;
+  border-radius: 44px;
+  padding: 9px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    var(--shadow-xl),
+    0 40px 80px -20px rgba(0,0,0,0.18);
+  position: relative;
+}
+/* Dynamic Island */
+.phone-shell::before {
+  content: '';
+  position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 32px;
+  background: #1C1C1E;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+.phone-screen {
+  width: 300px;
+  height: 650px;
+  background: var(--white);
+  border-radius: 36px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.phone-screen::-webkit-scrollbar { display: none; }
+
+/* Phone internals */
+.ph-status {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px 6px;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-heading);
+}
+.ph-status-icons { display: flex; gap: 4px; align-items: center; }
+.ph-status-icons svg { width: 15px; height: 15px; }
+
+.ph-header {
+  background: var(--cc-navy);
+  margin: 0 16px;
+  border-radius: var(--radius-lg);
+  padding: 10px 16px;
+  text-align: center;
+}
+.ph-header-title {
+  font-size: 13px; font-weight: 800;
+  color: white; letter-spacing: 0.01em;
+}
+.ph-header-title em {
+  font-style: normal; color: var(--cc-green);
+}
+
+/* Phone Stepper */
+.ph-stepper {
+  display: flex; align-items: center;
+  justify-content: center;
+  padding: 20px 20px 4px;
+  gap: 0;
+}
+.ph-step {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  position: relative;
+}
+.ph-step:not(:last-child) { margin-right: 32px; }
+.ph-step:not(:last-child)::after {
+  content: '';
+  position: absolute; top: 12px;
+  left: calc(50% + 14px);
+  width: 32px; height: 2px;
+  background: var(--gray-200);
+}
+.ph-step.done:not(:last-child)::after { background: var(--cc-green); }
+
+.ph-step-circle {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+}
+.ph-step-circle svg { width: 12px; height: 12px; }
+.ph-step.done .ph-step-circle {
+  background: var(--cc-green); color: white;
+}
+.ph-step.on .ph-step-circle {
+  background: var(--cc-navy); color: white;
+  box-shadow: 0 0 0 3px rgba(0,47,108,0.12);
+}
+.ph-step.off .ph-step-circle {
+  background: var(--white); color: var(--gray-300);
+  border: 1.5px solid var(--gray-200);
+}
+.ph-step-name {
+  font-size: 9px; font-weight: 700; color: var(--gray-300);
+}
+.ph-step.done .ph-step-name { color: var(--cc-green-dark); }
+.ph-step.on .ph-step-name { color: var(--cc-navy); }
+
+/* Phone Content */
+.ph-body { padding: 14px 18px 28px; }
+
+.ph-hero {
+  text-align: center; padding: 4px 0 18px;
+}
+.ph-hero-icon {
+  width: 44px; height: 44px;
+  background: var(--bg-success); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px;
+  color: var(--cc-green);
+}
+.ph-hero-icon svg { width: 22px; height: 22px; }
+.ph-hero h2 {
+  font-size: 16px; font-weight: 800;
+  color: var(--cc-navy); margin-bottom: 3px;
+}
+.ph-hero p {
+  font-size: 12px; color: var(--text-body);
+}
+
+/* Phone Offer Cards */
+.ph-offer {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.ph-offer:hover { border-color: var(--cc-green); }
+
+.ph-offer-top {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.ph-offer-num {
+  font-size: 12px; font-weight: 800; color: var(--text-heading);
+}
+.ph-offer-tag {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: var(--radius-full);
+  background: var(--bg-primary); color: var(--cc-blue-info);
+}
+
+.ph-offer-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.ph-offer-cell {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.ph-offer-cell:nth-child(odd) { border-right: 1px solid var(--gray-100); }
+.ph-cell-label {
+  font-size: 8px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-placeholder); margin-bottom: 1px;
+}
+.ph-cell-val {
+  font-size: 14px; font-weight: 800; color: var(--text-heading);
+}
+.ph-cell-val.green { color: var(--cc-green-dark); }
+
+.ph-offer-desc {
+  padding: 10px 14px;
+  font-size: 10px; color: var(--text-body);
+  line-height: 1.55;
+}
+
+.ph-offer-cta {
+  display: block; margin: 0 14px 14px;
+  width: calc(100% - 28px);
+  padding: 10px; text-align: center;
+  font-family: var(--font-family);
+  font-size: 12px; font-weight: 800;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--cc-navy);
+  background: transparent; color: var(--cc-navy);
+  cursor: pointer; transition: all 0.15s;
+}
+.ph-offer-cta:hover { background: var(--state-hover-secondary); }
+.ph-offer-cta.fill {
+  background: var(--cc-green); border-color: var(--cc-green); color: white;
+}
+.ph-offer-cta.fill:hover { background: var(--cc-green-dark); border-color: var(--cc-green-dark); }
+
+/* ── Modal Overlay ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,20,50,0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 32px 64px -16px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.04);
+  width: 580px;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 64px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(16px) scale(0.97);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease;
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 28px 32px 20px;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid var(--gray-100);
+}
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--cc-navy);
+  margin-bottom: 6px;
+}
+.modal-header p {
+  font-size: 13px;
+  color: var(--text-placeholder);
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--gray-100);
+  color: var(--gray-400);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.modal-close:hover { background: var(--bg-error); color: var(--cc-red); }
+.modal-close svg { width: 16px; height: 16px; }
+
+/* Plan Table */
+.plan-table {
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.plan-table-head {
+  display: grid;
+  grid-template-columns: 48px 1fr 140px 110px 90px;
+  gap: 0;
+  padding: 10px 32px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-100);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.plan-table-head span {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-placeholder);
+}
+
+.plan-row {
+  display: grid;
+  grid-template-columns: 48px 1fr 140px 110px 90px;
+  gap: 0;
+  padding: 16px 32px;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-100);
+  transition: background 0.15s;
+}
+.plan-row:last-child { border-bottom: none; }
+.plan-row:hover { background: var(--gray-50); }
+.plan-row.locked { opacity: 0.55; }
+.plan-row.locked:hover { background: transparent; }
+
+/* Toggle Switch */
+.toggle {
+  width: 40px; height: 22px;
+  border-radius: 11px;
+  background: var(--gray-200);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+.toggle.on {
+  background: var(--cc-green);
+}
+.toggle.on::after {
+  transform: translateX(18px);
+}
+.toggle.locked {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.plan-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+.plan-name .plan-active-tag {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-success);
+  color: var(--cc-green-dark);
+  vertical-align: middle;
+}
+
+.plan-term {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-body);
+}
+.plan-fee {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-heading);
+  text-align: right;
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 16px 32px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid var(--gray-100);
+  background: var(--gray-50);
+}
+.modal-footer .btn { padding: 10px 24px; font-size: 14px; }
+
+/* ── Entrance Animation ── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim { animation: rise 0.35s ease-out both; }
+.anim-1 { animation-delay: 0.04s; }
+.anim-2 { animation-delay: 0.08s; }
+.anim-3 { animation-delay: 0.12s; }
+.anim-4 { animation-delay: 0.16s; }
+
+/* ── Responsive ── */
+@media (max-width: 1060px) {
+  .split { grid-template-columns: 1fr; }
+  .preview-col { position: static; max-width: 340px; margin: 0 auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══ Sidebar ═══ -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+
+    <div class="sidebar-nav">
+      <a class="sidebar-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="sidebar-item active" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+        <span>Pipeline</span>
+      </a>
+      <a class="sidebar-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        <span>Customers</span>
+      </a>
+      <a class="sidebar-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Messages</span>
+      </a>
+
+      <div class="sidebar-spacer"></div>
+
+      <a class="sidebar-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Settings</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ═══ Page Area ═══ -->
+  <div class="page-area">
+
+    <!-- Light Page Header -->
+    <header class="page-header">
+      <div class="page-header-left">
+        <button class="back-btn" title="Back to Pipeline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="page-title-group">
+          <h1>Application Progress</h1>
+          <div class="page-subtitle">Account #2336747 &middot; Maria Gonzalez &middot; Momnt Loan</div>
+        </div>
+      </div>
+      <div class="page-header-right">
+        <button class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export
+        </button>
+        <button class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Notify Customer
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Stepper -->
+      <div class="stepper-bar anim anim-1">
+        <div class="stepper">
+          <div class="stepper-fill" style="width: calc(50% + 16px);"></div>
+          <div class="step done">
+            <div class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="step-text">Info Received</span>
+          </div>
+          <div class="step done">
+            <div class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="step-text">Submitted</span>
+          </div>
+          <div class="step active">
+            <div class="step-dot">3</div>
+            <span class="step-text">Decision</span>
+          </div>
+          <div class="step pending">
+            <div class="step-dot">4</div>
+            <span class="step-text">Offer Selected</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split -->
+      <div class="split">
+
+        <!-- LEFT -->
+        <div class="dealer-panel">
+
+          <!-- Status Card -->
+          <div class="status-card anim anim-2">
+            <div class="status-accent"></div>
+            <div class="status-body">
+              <div class="status-badge">
+                <span class="dot"></span>
+                Loan Approved
+              </div>
+              <h2>Your customer has been approved!</h2>
+              <p>Maria Gonzalez is approved for financing. She can now review and select a loan offer to move forward with her HVAC installation.</p>
+            </div>
+            <div class="details-grid">
+              <div class="detail-cell">
+                <div class="detail-label">Approved Amount</div>
+                <div class="detail-value green">$12,500.00</div>
+              </div>
+              <div class="detail-cell">
+                <div class="detail-label">Lender</div>
+                <div class="detail-value">Momnt</div>
+              </div>
+              <div class="detail-cell">
+                <div class="detail-label">Product Type</div>
+                <div class="detail-value">Fixed Rate Loan</div>
+              </div>
+              <div class="detail-cell">
+                <div class="detail-label">Available Offers</div>
+                <div class="detail-value">2 Offers</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="actions anim anim-3">
+            <a class="action-row" href="#">
+              <div class="action-dot blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="action-info">
+                <div class="action-title">View Approved Plans</div>
+                <div class="action-desc">Enable more plans or adjust pricing</div>
+              </div>
+              <div class="action-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </a>
+            <a class="action-row" href="#">
+              <div class="action-dot green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+              </div>
+              <div class="action-info">
+                <div class="action-title">View Documents</div>
+                <div class="action-desc">Application docs and agreements</div>
+              </div>
+              <div class="action-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </a>
+            <a class="action-row" href="#">
+              <div class="action-dot amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="action-info">
+                <div class="action-title">Resend Offer Link</div>
+                <div class="action-desc">Email or SMS the customer their link</div>
+              </div>
+              <div class="action-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- RIGHT — Phone Preview -->
+        <div class="preview-col anim anim-4">
+          <div class="preview-label">
+            <div class="preview-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              What Your Customer Sees
+            </div>
+            <div class="preview-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              View-only
+            </div>
+          </div>
+
+          <div class="phone-shell">
+            <div class="phone-screen">
+
+              <!-- Status bar -->
+              <div class="ph-status">
+                <span>9:41</span>
+                <div class="ph-status-icons">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.24 4.24 0 00-6 0zm-4-4l2 2a7.07 7.07 0 0110 0l2-2C15.68 9.68 8.32 9.68 5 13z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="3" height="10" rx="1" opacity=".3"/><rect x="7" y="5" width="3" height="12" rx="1" opacity=".5"/><rect x="12" y="3" width="3" height="14" rx="1" opacity=".7"/><rect x="17" y="1" width="3" height="16" rx="1"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="6" width="18" height="12" rx="2"/><rect x="21" y="9" width="2" height="6" rx="1"/></svg>
+                </div>
+              </div>
+
+              <!-- App header -->
+              <div class="ph-header">
+                <div class="ph-header-title">Comfort<em>Connect</em> Application</div>
+              </div>
+
+              <!-- Stepper -->
+              <div class="ph-stepper">
+                <div class="ph-step done">
+                  <div class="ph-step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <span class="ph-step-name">Info</span>
+                </div>
+                <div class="ph-step done">
+                  <div class="ph-step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <span class="ph-step-name">Apply</span>
+                </div>
+                <div class="ph-step on">
+                  <div class="ph-step-circle">3</div>
+                  <span class="ph-step-name">Offer</span>
+                </div>
+                <div class="ph-step off">
+                  <div class="ph-step-circle">4</div>
+                  <span class="ph-step-name">Complete</span>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="ph-body">
+                <div class="ph-hero">
+                  <div class="ph-hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                  <h2>Congratulations! You're Approved.</h2>
+                  <p>Please select an offer below.</p>
+                </div>
+
+                <!-- Offer 1 -->
+                <div class="ph-offer">
+                  <div class="ph-offer-top">
+                    <span class="ph-offer-num">Offer #1</span>
+                    <span class="ph-offer-tag">Fixed Rate</span>
+                  </div>
+                  <div class="ph-offer-grid">
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">Approved</div>
+                      <div class="ph-cell-val green">$12,500.00</div>
+                    </div>
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">APR</div>
+                      <div class="ph-cell-val">9.99%</div>
+                    </div>
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">Total Term</div>
+                      <div class="ph-cell-val">180 Months</div>
+                    </div>
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">Monthly Payment</div>
+                      <div class="ph-cell-val">$136.27</div>
+                    </div>
+                  </div>
+                  <div class="ph-offer-desc">
+                    Fixed APR of 9.99% amortizing loan for 180 months. Up to 5 interest-only payments of $104.08 followed by 175 amortizing payments of $135.94
+                  </div>
+                  <button class="ph-offer-cta fill">Select Offer</button>
+                </div>
+
+                <!-- Offer 2 -->
+                <div class="ph-offer">
+                  <div class="ph-offer-top">
+                    <span class="ph-offer-num">Offer #2</span>
+                    <span class="ph-offer-tag">Fixed Rate</span>
+                  </div>
+                  <div class="ph-offer-grid">
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">Approved</div>
+                      <div class="ph-cell-val green">$12,500.00</div>
+                    </div>
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">APR</div>
+                      <div class="ph-cell-val">11.99%</div>
+                    </div>
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">Total Term</div>
+                      <div class="ph-cell-val">144 Months</div>
+                    </div>
+                    <div class="ph-offer-cell">
+                      <div class="ph-cell-label">Monthly Payment</div>
+                      <div class="ph-cell-val">$167.52</div>
+                    </div>
+                  </div>
+                  <div class="ph-offer-desc">
+                    Fixed APR of 11.99% amortizing loan for 144 months. Up to 5 interest-only payments of $124.92 followed by 139 amortizing payments of $166.48
+                  </div>
+                  <button class="ph-offer-cta">Select Offer</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /split -->
+    </main>
+  </div>
+</div>
+
+<!-- ═══ Approved Rate Plans Modal ═══ -->
+<div class="modal-overlay" id="plansModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Approved Rate Plans</h2>
+      <p>Enable more loan options for your customer. Already-selected plans can't be changed here.</p>
+      <button class="modal-close" onclick="closePlans()" title="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="plan-table">
+      <!-- Table Header -->
+      <div class="plan-table-head">
+        <span></span>
+        <span>Plan Name</span>
+        <span>Total Term / APR</span>
+        <span style="text-align:right">Est. Monthly</span>
+        <span style="text-align:right">Dealer Fee</span>
+      </div>
+
+      <!-- Row 1 — Active (locked) -->
+      <div class="plan-row locked">
+        <button class="toggle on locked" disabled></button>
+        <div class="plan-name">Fixed Rate <span class="plan-active-tag">Active</span></div>
+        <div class="plan-term">144 Mo / 11.99%</div>
+        <div class="plan-fee">$167.52</div>
+        <div class="plan-fee">3.25%</div>
+      </div>
+
+      <!-- Row 2 — Available -->
+      <div class="plan-row">
+        <button class="toggle" onclick="this.classList.toggle('on')"></button>
+        <div class="plan-name">12mo Deferred Interest w/ Payments</div>
+        <div class="plan-term">96 Mo / 17.99%</div>
+        <div class="plan-fee">$215.38</div>
+        <div class="plan-fee">5.00%</div>
+      </div>
+
+      <!-- Row 3 — Available -->
+      <div class="plan-row">
+        <button class="toggle" onclick="this.classList.toggle('on')"></button>
+        <div class="plan-name">6mo Deferred Interest w/ Payments</div>
+        <div class="plan-term">90 Mo / 17.99%</div>
+        <div class="plan-fee">$228.14</div>
+        <div class="plan-fee">4.00%</div>
+      </div>
+
+      <!-- Row 4 — Active (locked) -->
+      <div class="plan-row locked">
+        <button class="toggle on locked" disabled></button>
+        <div class="plan-name">Fixed Rate <span class="plan-active-tag">Active</span></div>
+        <div class="plan-term">180 Mo / 9.99%</div>
+        <div class="plan-fee">$136.27</div>
+        <div class="plan-fee">2.00%</div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closePlans()">Cancel</button>
+      <button class="btn btn-primary" onclick="closePlans()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Save Changes
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Wire up the "View Approved Plans" action card
+document.querySelector('.action-row').addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('plansModal').classList.add('open');
+});
+
+function closePlans() {
+  document.getElementById('plansModal').classList.remove('open');
+}
+
+// Close on overlay click
+document.getElementById('plansModal').addEventListener('click', function(e) {
+  if (e.target === this) closePlans();
+});
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePlans();
+});
+</script>
+
+</body>
+</html>
