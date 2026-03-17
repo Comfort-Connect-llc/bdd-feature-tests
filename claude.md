@@ -16,7 +16,7 @@
 
 ## BRD Structure
 
-The Business Requirements Document is organized into **13 modules** with **90 feature files** containing **325 scenarios** in Gherkin Given/When/Then format.
+The Business Requirements Document is organized into **13 modules** with **92 feature files** containing **343 scenarios** in Gherkin Given/When/Then format.
 
 ### Module Inventory
 
@@ -24,7 +24,7 @@ The Business Requirements Document is organized into **13 modules** with **90 fe
 |---|--------|--------------|-------------|
 | 01 | Identity & Access | 4 | User registration, auth, roles, partner access |
 | 02 | Dealer Management | 10 | Merchant onboarding, training, agreements, NDAs |
-| 03 | Prequalification & Origination | 16 | Applications, prequal, offers, lender-specific flows (Momnt/Microf/Breeze/Thrive), document signing, first payment |
+| 03 | Prequalification & Origination | 18 | Applications, prequal, offers, offer ordering, partial approval messaging, lender-specific flows (Momnt/Microf/Breeze/Thrive), document signing, first payment |
 | 04 | Underwriting & Verification | 6 | Credit bureau, automated/manual UW, income verification, property/deed |
 | 05 | Pricing & Equipment | 8 | Equipment catalog, buydown pricing, invoice verification |
 | 06 | Document Management | 3 | Document generation, storage, compliance |
@@ -146,6 +146,28 @@ export PATH="/sessions/determined-happy-clarke/.npm-global/bin:$PATH"
 ---
 
 ## Enhancement Changelog
+
+### 2026-03-17 — Offer Ordering & Partial Approval Messaging Bug-Fix Stories
+
+**What changed:** Created 18 new Gherkin scenarios across 2 new feature files in Module 03 to address bugs related to offer ordering (full vs partial approvals) and missing/unclear partial approval messaging for homeowners and contractors.
+
+**Gap identified:** Existing scenarios covered "Approval for Less" (US-4-2-2) as a single thin scenario and basic offer selection (US-4-3-1/2), but had no coverage for: offer list ordering logic, partial approval visibility preservation, mixed approval type scenarios, homeowner-facing partial approval messaging, down payment expectation clarity, or contractor-side approval indicators.
+
+**Stories added (18 new scenarios, 2 new feature files):**
+
+| Story | Feature File | Scenarios | Description |
+|-------|-------------|-----------|-------------|
+| US-3.14.1 | `offer-ordering.feature` *(new)* | 3 | Full approvals appear first; consistent ordering across views; partial-only fallback |
+| US-3.14.2 | `offer-ordering.feature` *(new)* | 3 | Partial approvals remain visible; cards differentiate approval types; partial selectable |
+| US-3.14.3 | `offer-ordering.feature` *(new)* | 3 | Mixed scenarios (one full + others partial, all partial); no collapsed/hidden differences |
+| US-3.15.1 | `partial-approval-messaging.feature` *(new)* | 3 | Homeowner sees clear partial approval message; visible before selection; shows shortfall |
+| US-3.15.2 | `partial-approval-messaging.feature` *(new)* | 3 | Estimated down payment when calculable; warning when unknown; consistent messaging |
+| US-3.15.3 | `partial-approval-messaging.feature` *(new)* | 3 | Contractor partial approval label; distinguish all states at a glance; all-partial summary |
+
+**Scenario count:** 325 → 343 (+18 new)
+**Feature file count:** 90 → 92 (+2 new files)
+
+---
 
 ### 2026-03-11 — Design Library v6: 10 Professional Enhancements
 
